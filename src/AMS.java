@@ -4,6 +4,7 @@
  */
 
 import java.util.Map;
+import IO.IOAccess;
 
 /**
  * Models an Airport management program.
@@ -58,15 +59,15 @@ public class AMS {
             int choice = IOAccess.getInstance().readChoice(choices);
 
             Command[] commands = new Command[9];
-            commands[0] = new SystemState();
-            commands[1] = new AddPassenger();
-            commands[2] = new AddEmployee();
-            commands[3] = new AssignEmployeeToPassenger();
-            commands[4] = new DisplayEmptyStalls();
-            commands[5] = new AssignStall();
-            commands[6] = new ReleasePassenger();
-            commands[7] = new DropAssociation();
-            commands[8] = new SystemState();
+            //commands[0] = new SystemState();
+            //commands[1] = new AddPassenger();
+            //commands[2] = new AddEmployee();
+            //commands[3] = new AssignEmployeeToPassenger();
+            //commands[4] = new DisplayEmptyStalls();
+            //commands[5] = new AssignStall();
+            //commands[6] = new ReleasePassenger();
+            //commands[7] = new DropAssociation();
+            //commands[8] = new SystemState();
 
             commands[choice].execute();
             if (choice == 0) {
