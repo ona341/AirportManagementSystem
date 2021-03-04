@@ -1,4 +1,5 @@
-package Singleton;/*
+package Singleton;
+/*
   CMPT 270 A5Q4
   @author Blake Stadnyk; 11195866 - BJS645
  */
@@ -8,7 +9,7 @@ import Entities.Passenger;
 import java.util.TreeMap;
 
 /**
- * A Entities.Passenger Map using the singleton pattern
+ * A Passenger Map using the singleton pattern
  */
 public class PassengerMapAccess {
 

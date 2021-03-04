@@ -1,6 +1,5 @@
 package Command;
 
-
 /*
   CMPT 270 A5Q5
   @author Blake Stadnyk; 11195866 - BJS645
@@ -25,7 +24,7 @@ public class AddPassenger implements Command{
         if (PassengerMapAccess.getInstance().get(number) == null) {
             Passenger passenger = new Passenger(name, number);
             PassengerMapAccess.getInstance().put(number, passenger);
-            IOAccess.getInstance().outputString("Entities.Passenger created.");
+            IOAccess.getInstance().outputString("Passenger created.");
         }
         else {
             IOAccess.getInstance().outputString("A passenger with this ID number already exists in the system");

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import Entities.Passenger;
 import IO.IOAccess;
+import Singleton.AirportAccess;
 import Singleton.PassengerMapAccess;
 import Command.*;
 
@@ -27,14 +28,14 @@ public class AMS {
         IOAccess.getInstance().outputString("Welcome to the Airport System");
         IOAccess.getInstance().outputString("Please complete the required info to begin.");
         do  {
-            parkingLotName = IOAccess.getInstance().readString("Enter the name to use for the parking lot:");
+            parkingLotName = IOAccess.getInstance().readString("Enter the name of the Airport:");
             firstLabel = IOAccess.getInstance().readInt("Enter the label for the first stall in the Entities.Flight");
             lastLabel = IOAccess.getInstance().readInt("Enter the label for the first stall in the Entities.Flight");
 
-            IOAccess.getInstance().outputString("Entered:\tEntities.PersonContainer name: " + parkingLotName + "\tFirst stall label: " + firstLabel + "\tLast stall label: " + lastLabel);
+            IOAccess.getInstance().outputString("Entered:\t name: " + parkingLotName + "\tFirst stall label: " + firstLabel + "\tLast stall label: " + lastLabel);
 
             try {
-                //ParkingAccess.initialize(parkingLotName, firstLabel, lastLabel);
+                AirportAccess.initialize(parkingLotName, firstLabel, lastLabel);
                 return;
             }
             catch (IllegalArgumentException | IllegalStateException e) {
@@ -55,27 +56,15 @@ public class AMS {
             String[] choices = {"\t0: quit",
                                 "\t1: add a new passenger to the system",
                                 "\t2: add a new employee to the system",
-                                "\t3: assign a employee to a passenger",
-                                "\t4: display the empty stalls in the Entities.Flight",
-                                "\t5: assign a passenger a stall",
-                                "\t6: release a passenger",
-                                "\t7: drop employee-passenger association",
-                                "\t8: display the current state of the system"};
+                                "\t3: display the current state of the system"};
 
             int choice = IOAccess.getInstance().readChoice(choices);
 
             Command[] commands = new Command[9];
-            //commands[0] = new SystemState();
+            commands[0] = new SystemState();
             commands[1] = new AddPassenger();
             commands[2] = new AddFlight();
-
-
-            //commands[3] = new AssignEmployeeToPassenger();
-            //commands[4] = new DisplayEmptyStalls();
-            //commands[5] = new AssignStall();
-            //commands[6] = new ReleasePassenger();
-            //commands[7] = new DropAssociation();
-            //commands[8] = new SystemState();
+            commands[3] = new SystemState();
 
             commands[choice].execute();
             if (choice == 0) {
@@ -103,6 +92,7 @@ public class AMS {
       outString += (temp.equals("")) ? "None\n" : temp;
        */
 
+
       outString += "\nThe airport system has the following passengers registered:\n";
       temp = "";
       for (Map.Entry<String, Passenger> entry : PassengerMapAccess.getInstance().entrySet()) {
@@ -111,7 +101,7 @@ public class AMS {
 
       outString += (temp.equals("")) ? "None\n" : temp;
 
-      //outString += ParkingAccess.getInstance();
+      outString += AirportAccess.getInstance();
 
       return outString;
     }

@@ -1,4 +1,6 @@
-package Entities;/*
+package Entities;
+
+/*
   CMPT 270 A5
   @author Blake Stadnyk; 11195866 - BJS645
  */
@@ -21,7 +23,7 @@ package Entities;/*
 import java.util.ArrayList;
 
 /**
- * A airport of a airport with a specified number of gates with consecutive labels.
+ * An airport with a specified number of gates with consecutive labels.
  */
 public class Airport {
     /**
@@ -313,7 +315,7 @@ public class Airport {
             numErrors++;
         }
 
-        Flight p = new Flight(new Airline("TestAir", 123), "123","Saskatoon",null, 5);
+        Flight p = new Flight("testAir", "123","Saskatoon",null, 5);
         w.assignFlightToGate(p, 205);
         if (!w.isOccupied(205)) {
             System.out.println("assignFlightToGate() or isOccupied() failed: isOccupied incorrectly returns that gate 205 is not occupied.");
@@ -465,7 +467,14 @@ public class Airport {
 
         System.out.println("The number of errors found is " + numErrors);
     }
-    
-    
-    
+
+
+    public boolean hasFlight(String number) {
+        for (Flight gate : gates) {
+            if (gate != null && gate.getFlightNumber().equalsIgnoreCase(number)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

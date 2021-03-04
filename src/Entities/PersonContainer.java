@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /**
  * A personContainer of a airport with a specified number of stalls with consecutive labels.
  */
-public class PersonContainer implements Serializable {
+public class PersonContainer {
     /**
      * The name of this personContainer.
      */

@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class Flight {
 
-    private Airline airline;
+    private String airline;
 
     private String flightNumber;
 
@@ -17,7 +17,7 @@ public class Flight {
     private PersonContainer seats;
 
 
-    public Flight(Airline airline, String number, String destination, Calendar time, int capacity) {
+    public Flight(String airline, String number, String destination, Calendar time, int capacity) {
         this.airline = airline;
         this.flightNumber = number;
         this.destination = destination;
@@ -32,6 +32,10 @@ public class Flight {
 
     public String getFlightNumber() {
         return flightNumber;
+    }
+
+    public String toString() {
+        return "Flight: " + this.getFlightNumber();
     }
 
 
