@@ -1,6 +1,7 @@
 package loginapp;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -32,7 +33,24 @@ public class LoginController implements Initializable {
         }
 
         this.selection.setItems(FXCollections.observableArrayList(option.values()));
+    }
+    @FXML
+    public void Login(ActionEvent event){
 
+    }
+
+    public void airportManagerLogin(){
+
+    }
+
+    public void airlineManagerLogin(){
+
+    }
+
+    public void airportEmployeeLogin(){
+
+    }
+    public void airlineEmployeeLogin(){
 
     }
 
