@@ -1,4 +1,4 @@
-/*
+package Entities;/*
   CMPT 270 A5
   @author Blake Stadnyk; 11195866 - BJS645
  */
@@ -35,7 +35,7 @@ public class Person {
     private final String iDNumber;
 
     /**
-     * Initialize an instance of a Person with the given name and id number.
+     * Initialize an instance of a Entities.Person with the given name and id number.
      *
      * @param pName the person's name
      * @param pNumber the person's id number
@@ -82,12 +82,12 @@ public class Person {
     }
 
     /**
-     * A method to test the Person class.
+     * A method to test the Entities.Person class.
      */
     public static void main(String[] args) {
         int numErrors = 0;
 
-        // testing all the methods with one instance of a Person
+        // testing all the methods with one instance of a Entities.Person
         Person p = new Person("Pete", "123456");
 
         if(! p.getName().equals("Pete")) {
@@ -109,7 +109,7 @@ public class Person {
             numErrors++;
         }
 
-        // testing all the methods with a second instance of a Person
+        // testing all the methods with a second instance of a Entities.Person
         p = new Person("Mary", "987654");
 
         if(! p.getName().equals("Mary"))

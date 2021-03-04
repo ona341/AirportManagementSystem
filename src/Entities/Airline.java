@@ -1,3 +1,5 @@
+package Entities;
+
 public class Airline {
     String name;
     int ID;

@@ -1,3 +1,5 @@
+package Entities;
+
 import java.util.Calendar;
 
 public class Flight {

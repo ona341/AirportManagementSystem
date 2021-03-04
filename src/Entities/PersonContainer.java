@@ -1,4 +1,4 @@
-/*
+package Entities;/*
   CMPT 270 A5
   @author Blake Stadnyk; 11195866 - BJS645
  */
@@ -37,7 +37,7 @@ public class PersonContainer implements Serializable {
 
     /**
      * An array to represent the stalls of the personContainer.  Each stall is empty (null)
-     * or else has a Passenger in it.
+     * or else has a Entities.Passenger in it.
      */
     private final Passenger[] stalls;
 
@@ -71,7 +71,7 @@ public class PersonContainer implements Serializable {
     public static void main(String[] args) {
         int numErrors = 0;
 
-        // testing all the methods with one instance of a PersonContainer
+        // testing all the methods with one instance of a Entities.PersonContainer
         PersonContainer w = new PersonContainer("surgery", 200, 210);
 
         if (!w.getName().equals("surgery")) {
@@ -143,7 +143,7 @@ public class PersonContainer implements Serializable {
             numErrors++;
         }
         if (w.getPassenger(205) != p) {
-            System.out.println("getPassenger() or isOccupied() failed: Passenger Pete should be in stall 205, but " + w.getPassenger(205) + " is.");
+            System.out.println("getPassenger() or isOccupied() failed: Entities.Passenger Pete should be in stall 205, but " + w.getPassenger(205) + " is.");
             numErrors++;
         }
         if (!w.getPassenger(205).getName().equals("Pete")) {
@@ -152,7 +152,7 @@ public class PersonContainer implements Serializable {
         }
 
 
-        String expected = "\nPersonContainer surgery with capacity 11 has the following passengers: \n" +
+        String expected = "\nEntities.PersonContainer surgery with capacity 11 has the following passengers: \n" +
                 "stall 200: \n" +
                 "stall 201: \n" +
                 "stall 202: \n" +
@@ -242,7 +242,7 @@ public class PersonContainer implements Serializable {
             numErrors++;
         }
         if (w.getPassenger(1) != p) {
-            System.out.println("getPassenger() or isOccupied() failed: Passenger Dan should be in stall 1, but " + w.getPassenger(1) + " is.");
+            System.out.println("getPassenger() or isOccupied() failed: Entities.Passenger Dan should be in stall 1, but " + w.getPassenger(1) + " is.");
             numErrors++;
         }
 
@@ -437,7 +437,7 @@ public class PersonContainer implements Serializable {
      * @return a String representation of the properties of the personContainer
      */
     public String toString() {
-        String result = "\nPersonContainer " + name + " with capacity " + stalls.length
+        String result = "\nEntities.PersonContainer " + name + " with capacity " + stalls.length
                 + " has the following passengers: ";
         for (int i = 0; i < stalls.length; i++) {
             result = result + "\nstall " + internalToExternalLabel(i) + ": ";

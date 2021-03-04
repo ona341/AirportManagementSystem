@@ -1,4 +1,4 @@
-/*
+package Entities;/*
    CMPT 270 A5
    @author Blake Stadnyk; 11195866 - BJS645
  */
@@ -6,7 +6,7 @@
 import java.util.ArrayList;
 
 /**
- * A Passenger who extends from person and has a list of Flights.
+ * A Entities.Passenger who extends from person and has a list of Flights.
  */
 public class Passenger extends Person {
 
@@ -21,7 +21,7 @@ public class Passenger extends Person {
   private final ArrayList<Flight> flights = new ArrayList<>();
 
   /**
-   * Instantiates a new Passenger with the given name and id number.
+   * Instantiates a new Entities.Passenger with the given name and id number.
    *
    * @param name   the name of the passenger
    * @param number the number of the passenger
@@ -56,7 +56,7 @@ public class Passenger extends Person {
   /**
    * Add flight.
    *
-   * @param f the Flight
+   * @param f the Entities.Flight
    * @precond (f != null) && (!hasFlight(f.getName()))
    */
   public void addFlight(Flight f) {
@@ -70,8 +70,8 @@ public class Passenger extends Person {
   /**
    * Remove flight.
    *
-   * @param number the number of the Flight
-   * @precond Flight association must exist
+   * @param number the number of the Entities.Flight
+   * @precond Entities.Flight association must exist
    */
   public void removeFlight(String number) {
     if (!flights.removeIf(flight -> flight.getFlightNumber().equals(number))) {
@@ -82,18 +82,18 @@ public class Passenger extends Person {
   /**
    * Has flight boolean.
    *
-   * @param number the number of the Flight
-   * @return True if the passenger has a Flight with this name
+   * @param number the number of the Entities.Flight
+   * @return True if the passenger has a Entities.Flight with this name
    */
   public boolean hasFlight(String number) {
     return flights.stream().anyMatch(flight -> flight.getFlightNumber().equals(number));
   }
 
   /**
-   * Get a string representation of the Passenger
+   * Get a string representation of the Entities.Passenger
    * Useful for printing
    *
-   * @return a string representation of the Passenger
+   * @return a string representation of the Entities.Passenger
    */
   public String toString() {
     String temp;
@@ -101,9 +101,9 @@ public class Passenger extends Person {
     temp += "Stall: " + stallLabel + "\n";
 
     if (flights.size() == 0) {
-      temp += "Flight(s): None\n";
+      temp += "Entities.Flight(s): None\n";
     } else {
-      temp += "Flight(s): ";
+      temp += "Entities.Flight(s): ";
       for (Flight flight : flights) {
         temp += flight.getFlightNumber() + "\t";
       }
@@ -157,7 +157,7 @@ public class Passenger extends Person {
     catch (IllegalStateException ignored) {}
 
     // Testing addFlight and hasFlight
-    Flight d = new Flight("Mike", "123");
+    Flight d = new Flight(null, "123", null, null, 0);
 
     if (p.hasFlight("Mike")) {
       System.out.println("Problem with hasFlight");
@@ -171,7 +171,7 @@ public class Passenger extends Person {
 
     // Testing toString
     String toStringExpected = "\nName: Joe\nid  number: 123\n" +
-            "Stall: 1\nFlight(s): Mike\t\n";
+            "Stall: 1\nEntities.Flight(s): Mike\t\n";
 
     if (! p.toString().equals(toStringExpected)) {
       System.out.println("Problem with toString");

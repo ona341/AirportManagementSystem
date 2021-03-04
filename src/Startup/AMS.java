@@ -1,10 +1,16 @@
+package Startup;
+
 /*
   CMPT 370 Airport Management System
   @author Blake Stadnyk; 11195866
  */
 
 import java.util.Map;
+
+import Entities.Passenger;
 import IO.IOAccess;
+import Singleton.PassengerMapAccess;
+import Command.*;
 
 /**
  * Models an Airport management program.
@@ -22,13 +28,13 @@ public class AMS {
         IOAccess.getInstance().outputString("Please complete the required info to begin.");
         do  {
             parkingLotName = IOAccess.getInstance().readString("Enter the name to use for the parking lot:");
-            firstLabel = IOAccess.getInstance().readInt("Enter the label for the first stall in the Flight");
-            lastLabel = IOAccess.getInstance().readInt("Enter the label for the first stall in the Flight");
+            firstLabel = IOAccess.getInstance().readInt("Enter the label for the first stall in the Entities.Flight");
+            lastLabel = IOAccess.getInstance().readInt("Enter the label for the first stall in the Entities.Flight");
 
-            IOAccess.getInstance().outputString("Entered:\tPersonContainer name: " + parkingLotName + "\tFirst stall label: " + firstLabel + "\tLast stall label: " + lastLabel);
+            IOAccess.getInstance().outputString("Entered:\tEntities.PersonContainer name: " + parkingLotName + "\tFirst stall label: " + firstLabel + "\tLast stall label: " + lastLabel);
 
             try {
-                ParkingAccess.initialize(parkingLotName, firstLabel, lastLabel);
+                //ParkingAccess.initialize(parkingLotName, firstLabel, lastLabel);
                 return;
             }
             catch (IllegalArgumentException | IllegalStateException e) {
@@ -50,7 +56,7 @@ public class AMS {
                                 "\t1: add a new passenger to the system",
                                 "\t2: add a new employee to the system",
                                 "\t3: assign a employee to a passenger",
-                                "\t4: display the empty stalls in the Flight",
+                                "\t4: display the empty stalls in the Entities.Flight",
                                 "\t5: assign a passenger a stall",
                                 "\t6: release a passenger",
                                 "\t7: drop employee-passenger association",
@@ -60,8 +66,10 @@ public class AMS {
 
             Command[] commands = new Command[9];
             //commands[0] = new SystemState();
-            //commands[1] = new AddPassenger();
-            //commands[2] = new AddEmployee();
+            commands[1] = new AddPassenger();
+            commands[2] = new AddFlight();
+
+
             //commands[3] = new AssignEmployeeToPassenger();
             //commands[4] = new DisplayEmptyStalls();
             //commands[5] = new AssignStall();
@@ -84,13 +92,16 @@ public class AMS {
      */
     public String toString() {
       String outString = "";
-
-      outString += "\nThe Airport system has the following employees registered:\n";
       String temp = "";
+
+      /*
+      outString += "\nThe Airport system has the following employees registered:\n";
+        temp = "";
       for (Map.Entry<String, Employee> entry : EmployeeMapAccess.getInstance().entrySet()) {
           temp += entry.getValue();
       }
       outString += (temp.equals("")) ? "None\n" : temp;
+       */
 
       outString += "\nThe airport system has the following passengers registered:\n";
       temp = "";
@@ -100,7 +111,7 @@ public class AMS {
 
       outString += (temp.equals("")) ? "None\n" : temp;
 
-      outString += ParkingAccess.getInstance();
+      //outString += ParkingAccess.getInstance();
 
       return outString;
     }
