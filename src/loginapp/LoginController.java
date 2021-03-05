@@ -1,11 +1,18 @@
 package loginapp;
 
+import AirlineManager.AirlineManagerController;
+import AirportManager.AirportManagerController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,6 +30,8 @@ public class LoginController implements Initializable {
     private ComboBox<option> selection;
     @FXML
      private Button loginButton;
+    @FXML
+    private Label loginStatus;
 
     public void initialize(URL url, ResourceBundle rb){
         if(this.loginModel.isDatabaseConnected()){
@@ -36,14 +45,72 @@ public class LoginController implements Initializable {
     }
     @FXML
     public void Login(ActionEvent event){
+        try{
+            if(this.loginModel.isLogin(this.idNumber.getText(), this.password.getText(), ((option)this.selection.getValue()).toString())){
+                Stage stage = (Stage) this.loginButton.getScene().getWindow();
+                stage.close();
+                switch(((option)this.selection.getValue()).toString()){
+                    case "Airport Manager":
+                        airportManagerLogin();
+                        break;
+                    case "Airline Manager":
+                        airlineManagerLogin();
+                        break;
+
+
+                }
+
+
+            }
+            else{
+                this.loginStatus.setText("INVALID Login Info");
+
+            }
+
+        }catch (Exception localException){
+
+        }
 
     }
 
     public void airportManagerLogin(){
+        try{
+            Stage userStage = new Stage();
+            FXMLLoader airportManLoader = new FXMLLoader();
+            Pane airportManRoot = (Pane)airportManLoader.load(getClass().getResource("/AirportManager/airportManagerFXML.fxml").openStream());
+
+            AirportManagerController airportManagerController = (AirportManagerController)airportManLoader.getController();
+
+            Scene scene = new Scene(airportManRoot);
+            userStage.setScene(scene);
+            userStage.setTitle("Airport Manager Dashboard");
+            userStage.setResizable(false);
+            userStage.show();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
 
     }
 
     public void airlineManagerLogin(){
+
+        try{
+            Stage userStage = new Stage();
+            FXMLLoader airlineManLoader = new FXMLLoader();
+            Pane airlineManRoot = (Pane)airlineManLoader.load(getClass().getResource("/AirlineManager/airlineManagerFXML.fxml").openStream());
+
+            AirlineManagerController airlineManagerController = (AirlineManagerController)airlineManLoader.getController();
+
+            Scene scene = new Scene(airlineManRoot);
+            userStage.setScene(scene);
+            userStage.setTitle("Airline Manager Dashboard");
+            userStage.setResizable(false);
+            userStage.show();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
 
     }
 

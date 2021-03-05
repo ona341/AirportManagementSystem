@@ -1,0 +1,4 @@
+package AirlineManager
+
+class AirlineManagerController {
+}

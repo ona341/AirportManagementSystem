@@ -2,8 +2,30 @@
   <library name="sqlite-jdbc-3.32.3.3">
     <CLASSES>
       <root url="jar://$USER_HOME$/Desktop/sqlite-jdbc-3.32.3.3.jar!/" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <NATIVE>
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src 2/javafx.base" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src 2/javafx.controls" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src 2/javafx.fxml" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src 2/javafx.graphics" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src 2/javafx.media" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src 2/javafx.swing" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src 2/javafx.web" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src/javafx.base" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src/javafx.controls" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src/javafx.fxml" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src/javafx.graphics" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src/javafx.media" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src/javafx.swing" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib/src/javafx.web" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
   </library>
 </component>

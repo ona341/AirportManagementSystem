@@ -17,5 +17,6 @@
       <Label layoutX="29.0" layoutY="131.0" text="Password" />
       <ComboBox fx:id="selection" layoutX="126.0" layoutY="175.0" prefHeight="27.0" prefWidth="201.0" promptText="Employee Status" />
       <Button fx:id="loginButton" layoutX="126.0" layoutY="227.0" mnemonicParsing="false" onAction="#Login" prefHeight="27.0" prefWidth="201.0" text="Login" />
+      <Label fx:id="loginStatus" layoutX="14.0" layoutY="232.0" prefHeight="17.0" prefWidth="104.0" />
    </children>
 </AnchorPane>
