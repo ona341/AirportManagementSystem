@@ -138,6 +138,36 @@ public class Airport {
     }
 
     /**
+     * Determine if a flight is in gates
+     *
+     * @param number        the number of the flight to search for
+     * return true if the flight is found; false otherwise
+     */
+    public boolean hasFlight(String number) {
+        for (Flight gate : gates) {
+            if (gate != null && gate.getFlightNumber().equalsIgnoreCase(number)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get the index of a flight in gates if it exists
+     *
+     * @param number        the number of the flight to search for
+     * return an integer represents the index of the flight found; -1 if not found.
+     */
+    public int getFlightInternalIndex(String number) {
+        for (int i = 0; i < gates.length; i++) {
+            if (gates[i] != null && gates[i].getFlightNumber().equalsIgnoreCase(number)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Return the flight in the specified gate.
      *
      * @param gateLabel the label of the gate that has the flight to be retrieved
@@ -178,6 +208,20 @@ public class Airport {
                     + " so cannot be assigned to another flight");
 
         gates[externalToInternalIndex(gateLabel)] = p;
+    }
+
+    /**
+     * Remove a flight at the given internal index from gate.
+     *
+     * @param gateInternalIndex  the internal index of the gate containing the flight to be removed
+     * @precond isValidLabel(internalToExternalLabel(gateInternalIndex))
+     */
+    public void removeFlightFromGate(int gateInternalIndex) {
+        if (!isValidLabel(internalToExternalLabel(gateInternalIndex))) {
+            throw new IllegalArgumentException("The value " + gateInternalIndex
+                    + " is not a valid internal index for a gate in the airport.");
+        }
+        gates[gateInternalIndex] = null;
     }
 
     /**
@@ -469,12 +513,6 @@ public class Airport {
     }
 
 
-    public boolean hasFlight(String number) {
-        for (Flight gate : gates) {
-            if (gate != null && gate.getFlightNumber().equalsIgnoreCase(number)) {
-                return true;
-            }
-        }
-        return false;
-    }
+
+
 }
