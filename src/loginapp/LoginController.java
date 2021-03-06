@@ -59,8 +59,6 @@ public class LoginController implements Initializable {
 
 
                 }
-
-
             }
             else{
                 this.loginStatus.setText("INVALID Login Info");
