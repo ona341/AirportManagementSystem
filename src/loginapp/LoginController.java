@@ -1,6 +1,8 @@
 package loginapp;
 
+import AirlineEmployee.AirlineEmployeeController;
 import AirlineManager.AirlineManagerController;
+import AirportEmployee.AirportEmployeeController;
 import AirportManager.AirportManagerController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -68,7 +70,6 @@ public class LoginController implements Initializable {
         }catch (Exception localException){
 
         }
-
     }
 
     public void airportManagerLogin(){
@@ -114,8 +115,43 @@ public class LoginController implements Initializable {
 
     public void airportEmployeeLogin(){
 
+        try{
+            Stage userStage = new Stage();
+            FXMLLoader airportEmpLoader = new FXMLLoader();
+            Pane airportEmpRoot = (Pane)airportEmpLoader.load(getClass().getResource("/AirportEmployee/airportEmployeeFXML.fxml").openStream());
+
+            AirportEmployeeController airportEmployeeController = (AirportEmployeeController)airportEmpLoader.getController();
+
+            Scene scene = new Scene(airportEmpRoot);
+            userStage.setScene(scene);
+            userStage.setTitle("Airport Employee Dashboard");
+            userStage.setResizable(false);
+            userStage.show();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+
     }
     public void airlineEmployeeLogin(){
+
+        try{
+            Stage userStage = new Stage();
+            FXMLLoader airlineEmpLoader = new FXMLLoader();
+            Pane airlineEmpRoot = (Pane)airlineEmpLoader.load(getClass().getResource("/AirlineEmployee/airlineEmployeeFXML.fxml").openStream());
+
+            AirlineEmployeeController airlineEmployeeController = (AirlineEmployeeController)airlineEmpLoader.getController();
+
+            Scene scene = new Scene(airlineEmpRoot);
+            userStage.setScene(scene);
+            userStage.setTitle("Airline Employee Dashboard");
+            userStage.setResizable(false);
+            userStage.show();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
 
     }
 
