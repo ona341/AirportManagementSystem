@@ -67,9 +67,9 @@ public class AMS {
 
             Command[] commands = new Command[9];
             //commands[0] = new SystemState();
-            commands[1] = new AddPassenger();
-            commands[2] = new AddFlight();
-            commands[3] = new viewFlights();
+           // commands[1] = new AddPassenger();
+           // commands[2] = new AddFlight();
+           // commands[3] = new viewFlights();
 
             //commands[3] = new AssignEmployeeToPassenger();
             //commands[4] = new DisplayEmptyStalls();

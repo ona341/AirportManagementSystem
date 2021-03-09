@@ -1,6 +1,7 @@
 package Entities;
 
-import java.util.Calendar;
+import java.sql.Date;
+import java.sql.Time;
 
 public class Flight {
 
@@ -10,19 +11,21 @@ public class Flight {
 
     private String destination;
 
-    private Calendar time;
+    private Date date;
+
+    private Time time;
 
     private int capacity;
 
     private PersonContainer seats;
 
 
-    public Flight(String airline, String number, String destination, Calendar time, int capacity) {
+    public Flight(String airline, String number, String destination, Date date, Time time) {
         this.airline = airline;
         this.flightNumber = number;
         this.destination = destination;
+        this.date = date;
         this.time = time;
-        this.capacity = capacity;
         this.seats = new PersonContainer(number, 0, capacity);
     }
 
@@ -39,5 +42,47 @@ public class Flight {
     }
 
 
+    public String getAirline() {
+        return airline;
+    }
 
+    public void setAirline(String airline) {
+        this.airline = airline;
+    }
+
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
 }
