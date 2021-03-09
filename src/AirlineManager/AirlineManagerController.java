@@ -1,9 +1,10 @@
 package AirlineManager;
 
 import Command.AddFlight;
+import Command.DeleteFlight;
 import Entities.Flight;
 import Singleton.flightsAccess;
-import dbUtil.dbConnection;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -108,5 +109,13 @@ public class AirlineManagerController implements Initializable {
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         tableview.setItems(flightsAccess.getInstance());
+    }
+
+    public void deleteRow(ActionEvent actionEvent) {
+        ObservableList<Flight> selectedFlights;
+        if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
+            DeleteFlight deleteflight = new DeleteFlight(selectedFlights);
+            deleteflight.execute();
+        }
     }
 }

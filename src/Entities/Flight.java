@@ -20,7 +20,7 @@ public class Flight {
     private PersonContainer seats;
 
 
-    public Flight(String airline, String number, String destination, Date date, Time time) {
+    public Flight(String number, String airline, String destination, Date date, Time time) {
         this.airline = airline;
         this.flightNumber = number;
         this.destination = destination;
