@@ -4,17 +4,16 @@ import AirlineEmployee.AirlineEmployeeController;
 import AirlineManager.AirlineManagerController;
 import AirportEmployee.AirportEmployeeController;
 import AirportManager.AirportManagerController;
+import Passenger.PassengerController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,6 +63,9 @@ public class LoginController implements Initializable {
                         break;
                     case "Airline Manager":
                         airlineManagerLogin();
+                        break;
+                    case "Passenger":
+                        passengerLogin();
                         break;
 
 
@@ -160,6 +162,29 @@ public class LoginController implements Initializable {
             ex.printStackTrace();
         }
 
+    }
+
+    public void passengerLogin(){
+        try{
+            Stage userStage = new Stage();
+            FXMLLoader passengerLoader = new FXMLLoader();
+            Pane passengerRoot = (Pane)passengerLoader.load(getClass().getResource("/Passenger/passengerFXML.fxml").openStream());
+
+            PassengerController passengerController = (PassengerController)passengerLoader.getController();
+
+            Scene scene = new Scene(passengerRoot);
+            userStage.setScene(scene);
+            userStage.setTitle("Passenger Dashboard");
+            userStage.setResizable(false);
+            userStage.show();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+    }
+    public String getIdNumber(){
+        return this.idNumber.getText();
     }
 
 }

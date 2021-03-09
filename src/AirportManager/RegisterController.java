@@ -79,8 +79,6 @@ public class RegisterController {
             statement.setString(3, this.selectionComboBox.getValue().toString());
 
 
-
-
             statement.execute();
             messageLabel.setText("User has been registered successfully!");
             errorMessageLabel.setText("");
