@@ -78,23 +78,6 @@ public class LoginController implements Initializable {
         }
     }
 
-    public void toRegistration(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
-            Stage registerStage = new Stage();
-            registerStage.initStyle(StageStyle.UNDECORATED);
-            registerStage.setScene(new Scene(root, 520, 491));
-            registerStage.setTitle("Registration");
-            registerStage.setResizable(false);
-            registerStage.show();
-
-        } catch (
-                Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
-    }
-
 
     public void airportManagerLogin(){
         try{

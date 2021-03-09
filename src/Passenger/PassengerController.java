@@ -1,4 +1,4 @@
-package AirlineEmployee;
+package Passenger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AirlineEmployeeController {
+public class PassengerController {
 
     public void logout(ActionEvent event) throws IOException
     {
@@ -22,5 +22,4 @@ public class AirlineEmployeeController {
         window.setScene(loginViewScene);
         window.show();
     }
-
 }

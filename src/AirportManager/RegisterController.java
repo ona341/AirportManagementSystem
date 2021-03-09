@@ -1,4 +1,4 @@
-package loginapp;
+package AirportManager;
 
 import dbUtil.dbConnection;
 import javafx.application.Platform;
@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.AccessibleAction;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import loginapp.option;
 
 import java.io.File;
 import java.net.URL;
@@ -45,9 +46,6 @@ public class RegisterController {
     public void closeButtonOnAction(ActionEvent event){
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
-
-        // Exits application
-        Platform.exit();
 
     }
 
