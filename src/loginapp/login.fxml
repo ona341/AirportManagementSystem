@@ -18,6 +18,5 @@
       <ComboBox fx:id="selection" layoutX="137.0" layoutY="174.0" prefHeight="27.0" prefWidth="201.0" promptText="Employee Status" />
       <Button fx:id="loginButton" layoutX="137.0" layoutY="257.0" mnemonicParsing="false" onAction="#Login" prefHeight="27.0" prefWidth="201.0" text="Login" />
       <Label fx:id="loginStatus" alignment="CENTER" layoutX="134.0" layoutY="230.0" prefHeight="17.0" prefWidth="201.0" textFill="#f81e1e" />
-      <Button fx:id="registrationButton" layoutX="137.0" layoutY="296.0" mnemonicParsing="false" onAction="#toRegistration" prefHeight="27.0" prefWidth="201.0" text="Register" />
    </children>
 </AnchorPane>
