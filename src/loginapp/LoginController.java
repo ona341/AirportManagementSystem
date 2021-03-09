@@ -4,6 +4,7 @@ import AirlineEmployee.AirlineEmployeeController;
 import AirlineManager.AirlineManagerController;
 import AirportEmployee.AirportEmployeeController;
 import AirportManager.AirportManagerController;
+import Singleton.flightsAccess;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ public class LoginController implements Initializable {
     @FXML
     private ComboBox<option> selection;
     @FXML
-     private Button loginButton;
+    private Button loginButton;
     @FXML
     private Label loginStatus;
 
@@ -47,6 +48,7 @@ public class LoginController implements Initializable {
     }
     @FXML
     public void Login(ActionEvent event){
+        airlineManagerLogin();
         try{
             if(this.loginModel.isLogin(this.idNumber.getText(), this.password.getText(), ((option)this.selection.getValue()).toString())){
                 Stage stage = (Stage) this.loginButton.getScene().getWindow();
@@ -85,6 +87,8 @@ public class LoginController implements Initializable {
             userStage.setTitle("Airport Manager Dashboard");
             userStage.setResizable(false);
             userStage.show();
+
+
 
         }catch (IOException ex){
             ex.printStackTrace();

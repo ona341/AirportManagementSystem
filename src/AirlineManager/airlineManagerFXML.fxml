@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -10,84 +9,39 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AirlineManager.AirlineManagerController">
     <children>
-        <TabPane layoutY="-1.0" prefHeight="716.0" prefWidth="1279.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane layoutY="-5.0" onMouseClicked="#checkTime" prefHeight="720.0" prefWidth="1279.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="Flights">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1280.0">
                             <children>
-                                <HBox layoutX="382.0" layoutY="-1.0" prefHeight="684.0" prefWidth="897.0">
-                                    <children>
-                                        <TableView prefHeight="684.0" prefWidth="897.0">
-                                            <columns>
-                                                <TableColumn prefWidth="146.26190185546875" text="Flight #" />
-                                                <TableColumn prefWidth="174.23809814453125" text="Airline" />
-                                                <TableColumn prefWidth="213.395263671875" text="Destination" />
-                                                <TableColumn prefWidth="175.65716552734375" text="Date" />
-                                                <TableColumn prefWidth="187.680908203125" text="Time" />
-                                            </columns>
-                                        </TableView>
-                                    </children>
-                                </HBox>
-                                <VBox layoutY="1.0" prefHeight="685.0" prefWidth="383.0">
-                                    <children>
-                                        <Label prefHeight="42.0" prefWidth="396.0" text="Add Flights">
-                                            <padding>
-                                                <Insets left="160.0" />
-                                            </padding>
-                                        </Label>
-                                        <TextField fx:id="flightnum" promptText="Flight Number">
-                                            <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                            </VBox.margin>
-                                        </TextField>
-                                        <TextField fx:id="airline" layoutX="10.0" layoutY="52.0" promptText="Airline">
-                                            <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                            </VBox.margin>
-                                        </TextField>
-                                        <TextField fx:id="destination" layoutX="10.0" layoutY="79.0" promptText="Destination">
-                                            <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                            </VBox.margin>
-                                        </TextField>
-                                        <DatePicker fx:id="date" prefHeight="27.0" prefWidth="368.0" promptText="Date">
-                                            <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                            </VBox.margin>
-                                        </DatePicker>
-                                        <TextField fx:id="time" layoutX="25.0" layoutY="106.0" promptText="Time">
-                                            <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                            </VBox.margin>
-                                        </TextField>
-                                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="370.0" text="Add Flight">
-                                            <VBox.margin>
-                                                <Insets left="15.0" right="15.0" top="15.0" />
-                                            </VBox.margin>
-                                        </Button>
-                                        <Button layoutX="25.0" layoutY="187.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="370.0" text="Clear Form">
-                                            <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                            </VBox.margin>
-                                        </Button>
-                                        <Button layoutX="25.0" layoutY="214.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="370.0" text="Load Data">
-                                            <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                            </VBox.margin>
-                                        </Button>
-                              <Button fx:id="logoutbutton" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="353.0" text="Logout">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="40.0" />
-                                 </VBox.margin>
-                              </Button>
-                                    </children>
-                                </VBox>
+                                  <Label layoutX="20.0" layoutY="36.0" prefHeight="27.0" prefWidth="344.0" text="Add Flights">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                                  </Label>
+                                  <TextField fx:id="flightnum" layoutX="17.0" layoutY="66.0" prefHeight="27.0" prefWidth="350.0" promptText="Flight Number" />
+                                  <TextField fx:id="airline" layoutX="17.0" layoutY="93.0" prefHeight="27.0" prefWidth="350.0" promptText="Airline" />
+                                  <TextField fx:id="destination" layoutX="17.0" layoutY="120.0" prefHeight="27.0" prefWidth="350.0" promptText="Destination" />
+                                  <DatePicker fx:id="date" layoutX="17.0" layoutY="147.0" prefHeight="27.0" prefWidth="350.0" promptText="Date" />
+                                  <TextField fx:id="time" layoutX="17.0" layoutY="174.0" prefHeight="27.0" prefWidth="350.0" promptText="Time HH:MM:SS" />
+                                  <Button fx:id="addflight" layoutX="7.0" layoutY="214.0" mnemonicParsing="false" onAction="#addFlight" prefHeight="27.0" prefWidth="370.0" text="Add Flight" />
+                                  <Button fx:id="clearform" layoutX="7.0" layoutY="247.0" mnemonicParsing="false" onAction="#clearForm" prefHeight="27.0" prefWidth="370.0" text="Clear Form" />
+                        <Button fx:id="logoutbutton" layoutX="15.0" layoutY="298.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="353.0" text="Logout" />
+                                  <TableView fx:id="tableview" layoutX="377.0" layoutY="66.0" prefHeight="620.0" prefWidth="898.0">
+                                      <columns>
+                                          <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
+                                          <TableColumn fx:id="airlineCol" prefWidth="174.23809814453125" text="Airline" />
+                                          <TableColumn fx:id="destinationCol" prefWidth="213.395263671875" text="Destination" />
+                                          <TableColumn fx:id="dateCol" prefWidth="175.65716552734375" text="Date" />
+                                          <TableColumn fx:id="timeCol" prefWidth="187.680908203125" text="Time" />
+                                      </columns>
+                                  </TableView>
+                        <TextField fx:id="searchBox" layoutX="1079.0" layoutY="22.0" onKeyTyped="#searchTable" promptText="Search" />
                             </children>
                         </AnchorPane>
                     </content>

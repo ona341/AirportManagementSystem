@@ -359,7 +359,7 @@ public class Airport {
             numErrors++;
         }
 
-        Flight p = new Flight("testAir", "123","Saskatoon",null, 5);
+        Flight p = new Flight("testAir", "123","Saskatoon",null, null);
         w.assignFlightToGate(p, 205);
         if (!w.isOccupied(205)) {
             System.out.println("assignFlightToGate() or isOccupied() failed: isOccupied incorrectly returns that gate 205 is not occupied.");
