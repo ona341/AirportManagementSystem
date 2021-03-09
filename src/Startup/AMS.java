@@ -6,15 +6,16 @@ package Startup;
  */
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import Entities.Passenger;
-import IO.IOAccess;
 import Singleton.AirportAccess;
 import Singleton.PassengerMapAccess;
-import Command.*;
+import dbUtil.dbConnection;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,7 +31,6 @@ import javafx.stage.Stage;
  * Methods to control the operation of the system
  */
 public class AMS extends Application implements Initializable{
-
     @FXML
     TextField airportname;
     @FXML
@@ -39,33 +39,6 @@ public class AMS extends Application implements Initializable{
     TextField username;
     @FXML
     TextField password;
-
-
-    /**
-     * Instantiates a new Airport System.
-     */
-    /*AMS() {
-        String AirportName;
-        int firstLabel, lastLabel;
-
-        IOAccess.getInstance().outputString("Welcome to the Airport System");
-        IOAccess.getInstance().outputString("Please complete the required info to begin.");
-        do  {
-            AirportName = IOAccess.getInstance().readString("Enter the name to use for the parking lot:");
-            firstLabel = IOAccess.getInstance().readInt("Enter the label for the first stall in the Entities.Flight");
-            lastLabel = IOAccess.getInstance().readInt("Enter the label for the first stall in the Entities.Flight");
-
-            IOAccess.getInstance().outputString("Entered:\tEntities.PersonContainer name: " + AirportName + "\tFirst stall label: " + firstLabel + "\tLast stall label: " + lastLabel);
-
-            try {
-                AirportAccess.initialize(AirportName, firstLabel, lastLabel);
-                return;
-            }
-            catch (IllegalArgumentException | IllegalStateException e) {
-                IOAccess.getInstance().outputString(e.getMessage());
-            }
-        } while (true);
-   }*/
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -79,6 +52,24 @@ public class AMS extends Application implements Initializable{
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         maxgates.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100));
+
+        try {
+            Connection conn = dbConnection.getConnection();
+            String sql = "CREATE TABLE IF NOT EXISTS flights (flightNum text, airline text, destination text, date date, time time)";
+            conn.createStatement().execute(sql);
+            sql = "CREATE TABLE IF NOT EXISTS login (id text, password text, representation text)";
+            conn.createStatement().execute(sql);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    public void initialize(ActionEvent event) {
+        AirportAccess.initialize(airportname.getText(),0,maxgates.getValue());
+
     }
 
     /**
@@ -123,37 +114,6 @@ public class AMS extends Application implements Initializable{
           //      return;
           //  }
        // }
-    }
-
-    /**
-     * Return a String representation of the properties of the airport system.
-     *
-     * @return a String representation of the properties of the airport system
-     */
-    public String toString() {
-      String outString = "";
-      String temp = "";
-
-      /*
-      outString += "\nThe Airport system has the following employees registered:\n";
-        temp = "";
-      for (Map.Entry<String, Employee> entry : EmployeeMapAccess.getInstance().entrySet()) {
-          temp += entry.getValue();
-      }
-      outString += (temp.equals("")) ? "None\n" : temp;
-       */
-
-      outString += "\nThe airport system has the following passengers registered:\n";
-      temp = "";
-      for (Map.Entry<String, Passenger> entry : PassengerMapAccess.getInstance().entrySet()) {
-          temp += entry.getValue();
-      }
-
-      outString += (temp.equals("")) ? "None\n" : temp;
-
-      //outString += ParkingAccess.getInstance();
-
-      return outString;
     }
 
 }

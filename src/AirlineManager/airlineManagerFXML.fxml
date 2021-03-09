@@ -31,7 +31,7 @@
                                   <TextField fx:id="time" layoutX="17.0" layoutY="174.0" prefHeight="27.0" prefWidth="350.0" promptText="Time HH:MM:SS" />
                                   <Button fx:id="addflight" layoutX="7.0" layoutY="214.0" mnemonicParsing="false" onAction="#addFlight" prefHeight="27.0" prefWidth="370.0" text="Add Flight" />
                                   <Button fx:id="clearform" layoutX="7.0" layoutY="247.0" mnemonicParsing="false" onAction="#clearForm" prefHeight="27.0" prefWidth="370.0" text="Clear Form" />
-                        <Button fx:id="logoutbutton" layoutX="15.0" layoutY="298.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="353.0" text="Logout" />
+                        <Button fx:id="logoutbutton" layoutX="16.0" layoutY="330.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="353.0" text="Logout" />
                                   <TableView fx:id="tableview" layoutX="377.0" layoutY="66.0" prefHeight="620.0" prefWidth="898.0">
                                       <columns>
                                           <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
@@ -42,6 +42,7 @@
                                       </columns>
                                   </TableView>
                         <TextField fx:id="searchBox" layoutX="1079.0" layoutY="22.0" onKeyTyped="#searchTable" promptText="Search" />
+                        <Button fx:id="delete" layoutX="7.0" layoutY="280.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="27.0" prefWidth="370.0" text="Delete Selected" />
                             </children>
                         </AnchorPane>
                     </content>

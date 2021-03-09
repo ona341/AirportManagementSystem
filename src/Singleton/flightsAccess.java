@@ -15,6 +15,8 @@ public class flightsAccess {
 
     private static ObservableList<Flight> flights;
 
+    private static ObservableList<Flight> searchResult;
+
     private flightsAccess() {}
 
     public static ObservableList<Flight> getInstance() {
@@ -52,6 +54,12 @@ public class flightsAccess {
         resultSet.addAll(filteredByDestination); resultSet.addAll(filteredByDate);
         resultSet.addAll(filteredByTime);
 
-        return FXCollections.observableArrayList(resultSet);
+        return searchResult = FXCollections.observableArrayList(resultSet);
+    }
+
+    public static ObservableList<Flight> getSearchInstance() {
+        if (searchResult == null)
+            searchResult =  FXCollections.observableArrayList();
+        return searchResult;
     }
 }
