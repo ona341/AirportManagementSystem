@@ -3,6 +3,7 @@ package Command;
 import Entities.Flight;
 import Singleton.flightsAccess;
 import dbUtil.dbConnection;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
@@ -22,8 +23,9 @@ public class DeleteFlight implements Command{
 
     @Override
     public void execute() {
-        flightsAccess.getInstance().removeAll(selectedFlights);
-        flightsAccess.getSearchInstance().removeAll(selectedFlights);
+        ObservableList<Flight> localCopy = FXCollections.observableArrayList(selectedFlights);
+        flightsAccess.getInstance().removeAll(localCopy);
+        flightsAccess.getSearchInstance().removeAll(localCopy);
 
         String sql = "DELETE FROM flights WHERE flightNum = ?";
 
@@ -31,7 +33,7 @@ public class DeleteFlight implements Command{
             Connection conn = dbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            for (Flight flight : selectedFlights) {
+            for (Flight flight : localCopy) {
                 pstmt.setString(1, flight.getFlightNumber());
                 pstmt.executeUpdate();
             }
