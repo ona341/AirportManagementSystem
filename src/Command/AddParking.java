@@ -5,9 +5,12 @@ import java.sql.*;
 import Passenger.ParkingController;
 import Entities.Passenger;
 import Singleton.AirportAccess;
+import Singleton.ParkingAccess;
 import Singleton.PassengerMapAccess;
 import dbUtil.dbConnection;
 import javafx.fxml.FXML;
+
+import javax.management.openmbean.InvalidKeyException;
 
 
 public class AddParking implements Command{
@@ -36,14 +39,18 @@ public class AddParking implements Command{
 
             pstmt.executeUpdate();
 
-            Passenger passenger = new Passenger(parkingController.nameField.getText(),
-                    parkingController.idField.getText(),
-                    parkingController.emailField.getText(),
-                    Date.valueOf(parkingController.CheckinDatePicker.getValue()),
-                    parkingStall);
-            PassengerMapAccess.getInstance().add(passenger);
-            AirportAccess.getInstance().assignPassengerToStall(passenger, parkingStall);
+            Passenger passenger = PassengerMapAccess.getInstance().get(parkingController.idField.getText());
+            if (passenger == null) {
+                passenger = new Passenger(parkingController.nameField.getText(),
+                        parkingController.idField.getText(),
+                        parkingController.emailField.getText(),
+                        Date.valueOf(parkingController.CheckinDatePicker.getValue()),
+                        parkingStall);
+                PassengerMapAccess.getInstance().put(passenger.getIDNumber(),passenger);
+            }
 
+            ParkingAccess.getInstance().assignPassengerToStall(passenger, parkingStall);
+            passenger.setStallLabel(parkingStall);
 
             parkingController.clearReserveForm(null);
 

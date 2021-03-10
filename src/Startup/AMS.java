@@ -164,7 +164,7 @@ public class AMS extends Application implements Initializable{
             //commands[3] = new AssignEmployeeToPassenger();
             //commands[4] = new DisplayEmptyStalls();
             //commands[5] = new AssignStall();
-            //commands[6] = new ReleasePassenger();
+            //commands[6] = new FreeStall();
             //commands[7] = new DropAssociation();
             //commands[8] = new SystemState();
 

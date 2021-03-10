@@ -11,29 +11,32 @@ import Singleton.PassengerMapAccess;
 import javax.management.openmbean.InvalidKeyException;
 
 /**
- * Allows the user to assign a stall to a passenger.
+ * Releases passenger from their stall.
  */
-public class AssignStall implements Command {
+public class FreeStall implements Command {
     @Override
     public void execute() {
         String passenger;
         int stall;
 
-        IOAccess.getInstance().outputString("Assigning passenger to a stall...");
+        IOAccess.getInstance().outputString("Releasing passenger from their stall...");
         passenger = IOAccess.getInstance().readString("Enter the id number of the passenger:");
-        stall = IOAccess.getInstance().readInt("Enter the stall label where you want to place the passenger:");
-        IOAccess.getInstance().outputString("Entered:\tPassenger number: " + passenger + "\tStall label: " + stall);
+        IOAccess.getInstance().outputString("Entered:\tPassenger number: " + passenger);
 
         try {
             Passenger p = PassengerMapAccess.getInstance().get(Integer.parseInt(passenger));
             if (p == null) {
                 throw new InvalidKeyException("A passenger with that id number was not found.");
             }
-            ParkingAccess.getInstance().assignPassengerToStall(p, stall);
-            p.setStallLabel(stall);
-            IOAccess.getInstance().outputString("Passenger assigned to stall successfully");
+            stall = p.getStallLabel();
+            if (stall == -1) {
+                throw new IllegalStateException("This passenger is not in a stall.");
+            }
+            p.setStallLabel(-1);
+            ParkingAccess.getInstance().freeStall(stall);
+            IOAccess.getInstance().outputString("Passenger removed from stall successfully");
 
-        } catch (IllegalStateException | IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IllegalStateException e) {
             IOAccess.getInstance().outputString("Error: " + e.getMessage());
         }
     }
