@@ -9,13 +9,12 @@ import IO.IOAccess;
 import Singleton.EmployeeMapAccess;
 
 /**
- * Allows the user to add a employee to the system.
+ * Allows the the manager to add a employee to the system.
  */
 public class AddEmployee implements Command{
     @Override
     public void execute() {
-        String Manager,name, number;
-        boolean isSurgeon;
+        String Manager, name, number;
 
         IOAccess.getInstance().outputString("Adding a new employee...");
 

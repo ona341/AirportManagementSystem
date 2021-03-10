@@ -3,12 +3,8 @@ package Passenger;
 
 import Command.AddParking;
 import Command.CancelParking;
-import Command.DeleteFlight;
-import Entities.Flight;
 import Singleton.AirportAccess;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -148,7 +144,6 @@ public class ParkingController {
     public void clearCancelForm(ActionEvent event) {
         idFieldCancel.clear();
         parkingFieldCancel.clear();
-
     }
 
 
