@@ -9,26 +9,27 @@ import IO.IOAccess;
 import Singleton.EmployeeMapAccess;
 
 /**
- * Allows the user to add a employee to the system.
+ * Allows the the manager to add an employee to the system.
  */
 public class AddEmployee implements Command{
     @Override
     public void execute() {
-        String Manager,name, number;
-        boolean isSurgeon;
+        String name, number, email, manager;
+        boolean isManager;
 
         IOAccess.getInstance().outputString("Adding a new employee...");
 
         name = IOAccess.getInstance().readString("Enter the name of the employee:");
         number = IOAccess.getInstance().readString("Enter the ID number of the employee:");
-        Manager = IOAccess.getInstance().readString("Is this employee a manager (yes/no):");
+        email = IOAccess.getInstance().readString("Enter the email of the employee:");
+        manager = IOAccess.getInstance().readString("Is this employee a manager? (y/n)");
 
-        IOAccess.getInstance().outputString("Entered:\tName: " + name + "\t" + "Is a Manager: " + Manager);
+        IOAccess.getInstance().outputString("Entered:\tName: " + name + "\t" + "Is a Manager: " + manager);
 
-        isSurgeon =  Manager.equalsIgnoreCase("yes") || Manager.equalsIgnoreCase("y") || Manager.equalsIgnoreCase("true");
+        isManager =  manager.equalsIgnoreCase("yes") || manager.equalsIgnoreCase("y") || manager.equalsIgnoreCase("true");
 
         if (EmployeeMapAccess.getInstance().get(name) == null) {
-            Employee employee = isSurgeon ? new Manager(name, number,null,null,0) : new Employee(name, number,null,null,0);
+            Employee employee = isManager ? new Manager(name, number,null) : new Employee(name, number,null);
             EmployeeMapAccess.getInstance().put(name, employee);
             IOAccess.getInstance().outputString("Employee created.");
         }

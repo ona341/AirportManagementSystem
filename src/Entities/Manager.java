@@ -3,8 +3,6 @@ package Entities;/*
   @author Blake Stadnyk; 11195866 - BJS645
  */
 
-import java.sql.Date;
-
 /**
  * A Manager who extends from a Employee.
  */
@@ -15,8 +13,8 @@ public class Manager extends Employee {
    *
    * @param name the name
    */
-  public Manager(String name, String number, String email, Date date, int stallNumber) {
-    super(name, number, email, date, stallNumber);
+  public Manager(String name, String number, String email) {
+    super(name, number, email);
   }
 
   /**
@@ -36,7 +34,7 @@ public class Manager extends Employee {
    */
   public static void main(String[] args) {
     // Create a new Manager
-    Employee d = new Manager("Bob", "123", null,null,0);
+    Employee d = new Manager("Bob", "123", null);
 
     // Testing constructor and getName() //
     if (! d.getName().equals("Bob")) {
