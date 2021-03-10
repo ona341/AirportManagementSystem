@@ -5,13 +5,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 public class ParkingController {
@@ -32,10 +34,12 @@ public class ParkingController {
     private Label emailError;
 
     @FXML
-    private DatePicker CheckInDatePicker;
+    private DatePicker CheckinDatePicker;
 
     @FXML
-    private DatePicker CheckOutDatePicker;
+    private DatePicker CheckoutDatePicker;
+
+
 
 
     public void closeButtonOnAction(ActionEvent event) {
@@ -62,8 +66,11 @@ public class ParkingController {
             emailError.setText("valid");
             emailError.setTextFill(Color.GREEN);
         } else {
-            emailError.setText("Must be in this form : user@domain.com");
+            emailError.setText("Must be at this form : user@domain.com");
             emailError.setTextFill(Color.RED);
         }
     }
+
+
+
 }

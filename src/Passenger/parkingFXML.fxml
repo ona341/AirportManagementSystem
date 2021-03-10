@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="527.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Passenger.ParkingController">
+<AnchorPane prefHeight="588.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Passenger.ParkingController">
    <children>
       <Label alignment="CENTER" layoutX="180.0" layoutY="41.0" prefHeight="26.0" prefWidth="192.0" text="Parking Reservation">
          <font>
@@ -32,13 +32,13 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="CheckInDatePickerCheckInDatePicker" layoutX="255.0" layoutY="250.0" promptText="mm/dd/yyyy" />
+      <DatePicker fx:id="CheckinDatePicker" layoutX="255.0" layoutY="250.0" promptText="mm/dd/yyyy" />
       <Label alignment="CENTER" layoutX="99.0" layoutY="312.0" text="Check out date">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="CheckOutDatePickerCheckInDatePicker" layoutX="258.0" layoutY="310.0" prefHeight="27.0" prefWidth="194.0" promptText="mm/dd/yyyy" />
+      <DatePicker fx:id="CheckoutDatePicker" layoutX="258.0" layoutY="310.0" prefHeight="27.0" prefWidth="194.0" promptText="mm/dd/yyyy" />
       <Label alignment="CENTER" layoutX="65.0" layoutY="393.0" prefHeight="23.0" prefWidth="185.0" text="Parking Reference # :">
          <font>
             <Font size="18.0" />
@@ -50,12 +50,22 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="closeButton" layoutX="164.0" layoutY="458.0" mnemonicParsing="false" onAction="#closeButtonOnAction" prefHeight="27.0" prefWidth="225.0" text="Close">
+      <Label fx:id="nameError" alignment="CENTER" layoutX="258.0" layoutY="109.0" prefHeight="17.0" prefWidth="194.0" />
+      <Label fx:id="emailError" alignment="CENTER" layoutX="227.0" layoutY="167.0" prefHeight="17.0" prefWidth="250.0" />
+      <Button layoutX="164.0" layoutY="472.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="250.0" text="Submit">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label fx:id="nameError" alignment="CENTER" layoutX="258.0" layoutY="109.0" prefHeight="17.0" prefWidth="194.0" />
-      <Label fx:id="emailError" alignment="CENTER" layoutX="227.0" layoutY="167.0" prefHeight="17.0" prefWidth="250.0" />
+      <Button fx:id="closeButton" layoutX="164.0" layoutY="521.0" mnemonicParsing="false" onAction="#closeButtonOnAction" prefHeight="35.0" prefWidth="250.0" text="Close">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="parkingIDLabel" alignment="CENTER" layoutX="257.0" layoutY="388.0" prefHeight="26.0" prefWidth="128.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

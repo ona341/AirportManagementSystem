@@ -29,7 +29,7 @@ public class PassengerController {
             Parent root = FXMLLoader.load(getClass().getResource("parkingFXML.fxml"));
             Stage reservationStage = new Stage();
             reservationStage.initStyle(StageStyle.UNDECORATED);
-            reservationStage.setScene(new Scene(root, 520, 510));
+            reservationStage.setScene(new Scene(root, 555, 588));
             reservationStage.setTitle("Parking Reservation");
             reservationStage.setResizable(false);
             reservationStage.show();
