@@ -90,7 +90,7 @@ public class AMS extends Application implements Initializable{
             PreparedStatement prpst = conn.prepareStatement(sql);
             ResultSet rs = prpst.executeQuery();
 
-            AirportAccess.initialize(rs.getString(1),0,rs.getInt(2));
+            AirportAccess.initialize(rs.getString(1),0,rs.getInt(2), 0,rs.getInt(3));
 
             conn.close();
             prpst.close();

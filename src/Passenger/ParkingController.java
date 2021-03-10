@@ -1,7 +1,7 @@
 package Passenger;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
+import Command.AddParking;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,36 +9,34 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
+
 
 
 public class ParkingController {
 
     @FXML
-    private Button closeButton;
+    public Button closeButton;
 
     @FXML
-    private TextField nameField;
+    public TextField nameField;
 
     @FXML
-    private Label nameError;
+    public TextField idField;
 
     @FXML
-    private TextField emailField;
+    public Label nameError;
 
     @FXML
-    private Label emailError;
+    public TextField emailField;
 
     @FXML
-    private DatePicker CheckinDatePicker;
+    public Label emailError;
 
     @FXML
-    private DatePicker CheckoutDatePicker;
+    public DatePicker CheckinDatePicker;
 
+    @FXML
+    public Label parkingLabel;
 
 
 
@@ -49,28 +47,50 @@ public class ParkingController {
     }
 
 
-    public void handleNameField(Event event) {
-        if ((nameField.getText()).matches("[A-Za-z\\s]{2,}")) {
-            nameError.setText("valid");
-            nameError.setTextFill(Color.GREEN);
-        } else {
-            nameError.setText("Name must contain only letters");
-            nameError.setTextFill(Color.RED);
-        }
-    }
+    @FXML
+    public void addParking(ActionEvent event) {
 
-    public void handleEmailField(Event event) {
+        if(nameField.getText().isEmpty() || idField.getText().isEmpty() || emailField.getText().isEmpty()
+        || CheckinDatePicker.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Fill all fields!");
+            alert.setHeaderText("Fill all fields!");
+            alert.setTitle("Error!");
+            alert.showAndWait();
+        }
 
         String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        if ((emailField.getText()).matches(EMAIL_REGEX)) {
-            emailError.setText("valid");
-            emailError.setTextFill(Color.GREEN);
-        } else {
+        if (!(nameField.getText().isEmpty()) && !(nameField.getText()).matches("[A-Za-z\\s]{2,}")){
+            nameError.setText("Name must contain only letters");
+            nameError.setTextFill(Color.RED);
+
+        }
+        else if (!(emailField.getText().isEmpty()) &&!(emailField.getText()).matches(EMAIL_REGEX)) {
             emailError.setText("Must be at this form : user@domain.com");
             emailError.setTextFill(Color.RED);
+            nameError.setText("");
+        }
+
+        else {
+            AddParking addparking = new AddParking(this);
+            addparking.execute();
+            nameError.setText("Successfully Booked Parking!");
+            nameError.setTextFill(Color.GREEN);
+            emailError.setText("");
+
         }
     }
 
+    @FXML
+    public void clearForm(ActionEvent event) {
+        nameField.clear();
+        emailField.clear();
+        CheckinDatePicker.setValue(null);
+        nameError.setText("");
+        emailError.setText("");
+        parkingLabel.setText("");
+        idField.setText("");
 
+    }
 
 }

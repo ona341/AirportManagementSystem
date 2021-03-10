@@ -66,7 +66,7 @@ public class PersonContainer {
      * A method to test the class.
      *
      * @param args not used
-     */
+
     public static void main(String[] args) {
         int numErrors = 0;
 
@@ -288,6 +288,7 @@ public class PersonContainer {
         System.out.println("The number of errors found is " + numErrors);
     }
 
+    **/
     /**
      * Return the name of this personContainer.
      *

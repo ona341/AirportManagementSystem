@@ -4,8 +4,17 @@ package Singleton;
   @author Blake Stadnyk; 11195866 - BJS645
  */
 
+import Entities.Flight;
 import Entities.Passenger;
+import Entities.Person;
+import dbUtil.dbConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.TreeMap;
 
 /**
@@ -13,22 +22,34 @@ import java.util.TreeMap;
  */
 public class PassengerMapAccess {
 
-    /**
-     * The singleton passenger map
-     */
-    private static final TreeMap<String, Passenger> passengers = new TreeMap<>();
+    private static final String sql = "SELECT name, id, email, checkin, parkingStall FROM parking";
 
-    /**
-     * Private do nothing constructor
-     */
-    private PassengerMapAccess() {}
+    private static ObservableList<Passenger> passengers;
 
-    /**
-     * Gets the instance of the map.
-     *
-     * @return the map instance
-     */
-    public static TreeMap<String, Passenger> getInstance() {
+
+
+    private PassengerMapAccess() {
+    }
+
+    public static ObservableList<Passenger> getInstance() {
+        if (passengers == null) initialize();
         return passengers;
+    }
+
+    private static void initialize() {
+        if (passengers == null) {
+            passengers = FXCollections.observableArrayList();
+            try {
+                Connection conn = dbConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    passengers.add(new Passenger(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5)));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

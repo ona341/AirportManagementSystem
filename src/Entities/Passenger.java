@@ -3,6 +3,7 @@ package Entities;/*
    @author Blake Stadnyk; 11195866 - BJS645
  */
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -20,14 +21,24 @@ public class Passenger extends Person {
    */
   private final ArrayList<Flight> flights = new ArrayList<>();
 
+  private String email;
+
+  private Date checkInDate;
+
+  private int parkingStallLabel;
+
   /**
    * Instantiates a new Entities.Passenger with the given name and id number.
    *
    * @param name   the name of the passenger
    * @param number the number of the passenger
    */
-  public Passenger(String name, String number) {
+  public Passenger(String name, String number, String email, Date date, int stallLabel) {
+
     super(name, number);
+    this.email = email;
+    this.checkInDate = date;
+    this.parkingStallLabel = stallLabel;
   }
 
   /**
@@ -117,10 +128,10 @@ public class Passenger extends Person {
    * A method to test the class.
    *
    * @param args not used
-   */
+
   public static void main(String[] args) {
     // Create a new passenger
-    Passenger p = new Passenger("Bob", "123");
+    Passenger p = new Passenger("Bob", "123", "djdjsk", Date, 8);
 
     // Testing constructor and getName() //
     if (! p.getName().equals("Bob")) {
@@ -194,4 +205,5 @@ public class Passenger extends Person {
     System.out.println("Testing Complete");
 
   }
+  **/
 }

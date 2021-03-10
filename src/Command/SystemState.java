@@ -26,7 +26,7 @@ public class SystemState implements Command{
         }
         outString += (temp.equals("")) ? "None\n" : temp;
          */
-
+/**
         outString += "\nThe airport system has the following passengers registered:\n";
         temp = "";
         for (Map.Entry<String, Passenger> entry : PassengerMapAccess.getInstance().entrySet()) {
@@ -39,4 +39,7 @@ public class SystemState implements Command{
 
         IOAccess.getInstance().outputString(outString);
     }
-}
+ **/
+
+}}
+

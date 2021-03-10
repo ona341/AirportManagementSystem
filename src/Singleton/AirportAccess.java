@@ -28,12 +28,13 @@ public class AirportAccess {
      * @param last  the last stall number
      * @throws IllegalStateException the illegal state exception
      */
-    public static void initialize(String name, int first, int last) throws IllegalStateException{
+    public static void initialize(String name, int first, int last, int firstParkingStall, int lastParkingStall)
+            throws IllegalStateException{
         if (airport != null) {
             throw new IllegalStateException("A airport has already been created");
         }
         else {
-            airport = new Airport(name, first, last);
+            airport = new Airport(name, first, last, firstParkingStall, lastParkingStall);
         }
     }
 

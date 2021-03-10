@@ -37,10 +37,22 @@ public class Airport {
     private final int minGateLabel;
 
     /**
+     * The (external) label of the first parking stall of the airport.
+     */
+    private final int minParkingLabel;
+
+    /**
      * An array to represent the gates of the airport.  Each gate is empty (null)
      * or else has a Flight in it.
      */
     private final Flight[] gates;
+
+
+    /**
+     * An array to represent the parking stalls of the airport.  Each stall is empty (null)
+     * or else has a Person in it.
+     */
+    private final Passenger[] parkingStalls;
     /**
      * Initialize the airport with the name given, and with gates those labels are
      * the consecutive integers from minGateLabel to maxGateLabel.
@@ -50,7 +62,7 @@ public class Airport {
      * @param wMaxGateLabel the label of the last gate in the airport
      * @precond wName != null && !wName.equals("") && wMinGateLabel >= 0 && wMaxGateLabel >= wMinGateLabel
      */
-    public Airport(String wName, int wMinGateLabel, int wMaxGateLabel) {
+    public Airport(String wName, int wMinGateLabel, int wMaxGateLabel, int minParkingStalls, int maxParkingStalls) {
         if (wName == null || wName.equals(""))
             throw new IllegalArgumentException("The name of a airport cannot be null or empty.  "
                     + "It is " + wName);
@@ -58,9 +70,15 @@ public class Airport {
             throw new IllegalArgumentException("The gate labels " + wMinGateLabel + " and " + wMaxGateLabel
                     + " are invalid as they cannot be negative, and must have at least one gate.");
 
+        if (minParkingStalls < 0 || maxParkingStalls < minParkingStalls)
+            throw new IllegalArgumentException("The parking stall labels " + minParkingStalls + " and " + maxParkingStalls
+                    + " are invalid as they cannot be negative, and must have at least one parking stall.");
+
         name = wName;
         minGateLabel = wMinGateLabel;
+        minParkingLabel= minParkingStalls;
         gates = new Flight[wMaxGateLabel - wMinGateLabel + 1];
+        parkingStalls = new Passenger[maxParkingStalls - minParkingStalls + 1];
     }
 
 
@@ -92,6 +110,25 @@ public class Airport {
         return minGateLabel + gates.length - 1;
     }
 
+
+    /**
+     * Return the smallest label for a parking stall in the airport.
+     *
+     * @return the smallest Label for a parking stall in the airport
+     */
+    public int getMinParkingLabel() {
+        return minParkingLabel;
+    }
+
+    /**
+     * Return the largest label for a parking stall in the airport.
+     *
+     * @return the largest label for a parking stall in the airport
+     */
+    public int getMaxParkingLabel() {
+        return minParkingLabel + parkingStalls.length - 1;
+    }
+
     /**
      * Return the internal/array index of the gate corresponding to the external label.
      *
@@ -121,6 +158,35 @@ public class Airport {
 
         return arrayIndex + minGateLabel;
     }
+    /**
+     * Return the internal/array index of the parking stall corresponding to the external label.
+     *
+     * @param parkingLabel the label of a parking stall from the external/user perspective
+     * @return the internal/array index of the parking stall corresponding to the external label
+     * @precond isValidLabel(parkingLabel)
+     */
+    private int externalToInternalParkingIndex(int parkingLabel) {
+        if (!isValidLabel(parkingLabel))
+            throw new IllegalArgumentException("The value " + parkingLabel
+                    + " is not a valid label for a parking stall in the airport.");
+
+        return parkingLabel - minParkingLabel;
+    }
+
+    /**
+     * Return the external/user label of the parking stall corresponding to the internal index.
+     *
+     * @param arrayIndex the index of a location in the parking stalls array
+     * @return the external/user label of the parking stall corresponding to the internal index
+     * @precond 0 <= arrayIndex < parkingStalls.length
+     */
+    private int internalToExternalParkingLabel(int arrayIndex) {
+        if (arrayIndex < 0 || arrayIndex >= parkingStalls.length)
+            throw new IllegalArgumentException("The value " + arrayIndex +
+                    " is not a valid index for an array of length " + parkingStalls.length + ".");
+
+        return arrayIndex + minParkingLabel;
+    }
 
     /**
      * Is the specified gate occupied?
@@ -135,6 +201,21 @@ public class Airport {
                     + " is not a valid label for a gate in the airport.");
 
         return gates[externalToInternalIndex(gateLabel)] != null;
+    }
+
+    /**
+     * Is the specified parking stall occupied?
+     *
+     * @param parkingLabel the label of the parking stall to be tested for being occupied
+     * @return is the specified parking stall occupied?
+     * @precond isValidLabel(parkingLabel)
+     */
+    public boolean isParkingStallOccupied(int parkingLabel) {
+        if (!isValidLabel(parkingLabel))
+            throw new IllegalArgumentException("The value " + parkingLabel
+                    + " is not a valid label for a parking stall in the airport.");
+
+        return parkingStalls[externalToInternalIndex(parkingLabel)] != null;
     }
 
     /**
@@ -153,6 +234,21 @@ public class Airport {
     }
 
     /**
+     * Determine if a passenger is in parking stalls
+     *
+     * @param number        the number of the flight to search for
+     * return true if the flight is found; false otherwise
+     */
+    public boolean hasPassenger(String number) {
+        for (Passenger stall : parkingStalls) {
+            if (stall != null && stall.getIDNumber().equalsIgnoreCase(number)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Get the index of a flight in gates if it exists
      *
      * @param number        the number of the flight to search for
@@ -161,6 +257,21 @@ public class Airport {
     public int getFlightInternalIndex(String number) {
         for (int i = 0; i < gates.length; i++) {
             if (gates[i] != null && gates[i].getFlightNumber().equalsIgnoreCase(number)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Get the index of a passenger in stalls if it exists
+     *
+     * @param number        the id number of passenger to search for
+     * return an integer represents the index of the passenger found; -1 if not found.
+     */
+    public int getPassengerInternalIndex(String number) {
+        for (int i = 0; i < parkingStalls.length; i++) {
+            if (parkingStalls[i] != null && parkingStalls[i].getIDNumber().equalsIgnoreCase(number)) {
                 return i;
             }
         }
@@ -185,8 +296,26 @@ public class Airport {
         return gates[externalToInternalIndex(gateLabel)];
     }
 
-    public Flight[] getFlight() {
-        return gates;
+    /**
+     * Return the flight in the specified gate.
+     *
+     * @param parkingLabel the label of the gate that has the flight to be retrieved
+     * @return the flight in the specified gate
+     * @precond isValidLabel(gateLabel) && isOccupied(gateLabel)
+     */
+    public Passenger getPassenger(int parkingLabel) {
+        if (!isValidLabel(parkingLabel))
+            throw new IllegalArgumentException("The value " + parkingLabel
+                    + " is not a valid label for a parking stall in the airport.");
+
+        if (!isOccupied(parkingLabel))
+            throw new IllegalStateException("Stall " + parkingLabel + " is not currently occupied"
+                    + " so cannot get its passenger");
+        return parkingStalls[externalToInternalIndex(parkingLabel)];
+    }
+
+    public Passenger[] getPassenger() {
+        return parkingStalls;
     }
 
 
@@ -211,6 +340,26 @@ public class Airport {
     }
 
     /**
+     * Assign the specified passenger to the specified Parking stall.
+     *
+     * @param p        the passenger to be assigned a parking stall
+     * @param parkingLabel the label of the stall that the passenger is to be assigned
+     * @precond isValidLabel(parkingLabel) && !isOccupied(parkingLabel)
+     */
+    public void assignPassengerToStall(Passenger p, int parkingLabel) {
+        if (!isValidLabel(parkingLabel))
+            throw new IllegalArgumentException("The value " + parkingLabel
+                    + " is not a valid label for a parking stall in the airport.");
+
+        if (isOccupied(parkingLabel))
+            throw new IllegalStateException("Gate " + parkingLabel + " is currently occupied by "
+                    + parkingStalls[externalToInternalIndex(parkingLabel)]
+                    + " so cannot be assigned to another passenger");
+
+        parkingStalls[externalToInternalIndex(parkingLabel)] = p;
+    }
+
+    /**
      * Remove a flight at the given internal index from gate.
      *
      * @param gateInternalIndex  the internal index of the gate containing the flight to be removed
@@ -222,6 +371,20 @@ public class Airport {
                     + " is not a valid internal index for a gate in the airport.");
         }
         gates[gateInternalIndex] = null;
+    }
+
+    /**
+     * Remove a passenger at the given internal index from parking stall.
+     *
+     * @param stallInternalIndex  the internal index of the parking stall containing the passenger to be removed
+     * @precond isValidLabel(internalToExternalLabel(gateInternalIndex))
+     */
+    public void removePassengerFromStall(int stallInternalIndex) {
+        if (!isValidLabel(internalToExternalLabel(stallInternalIndex))) {
+            throw new IllegalArgumentException("The value " + stallInternalIndex
+                    + " is not a valid internal index for a parking stall in the airport.");
+        }
+        parkingStalls[stallInternalIndex] = null;
     }
 
     /**
@@ -239,9 +402,34 @@ public class Airport {
         return temp;
     }
 
+    /**
+     * Finds available Parking stalls.
+     *
+     * @return a list of available stalls
+     */
+    public ArrayList<Integer> availableStalls() {
+        ArrayList<Integer> temp = new ArrayList<>();
+        for (int i = 0; i < parkingStalls.length ; i++) {
+            if (parkingStalls[i] == null) {
+                temp.add(internalToExternalLabel(i));
+            }
+        }
+        return temp;
+    }
+
+
     public int firstAvailableGate() {
         for (int i = 0; i < gates.length ; i++) {
             if (gates[i] == null) {
+                return internalToExternalLabel(i);
+            }
+        }
+        return -1;
+    }
+
+    public int firstAvailableStall() {
+        for (int i = 0; i < parkingStalls.length ; i++) {
+            if (parkingStalls[i] == null) {
                 return internalToExternalLabel(i);
             }
         }
@@ -269,6 +457,23 @@ public class Airport {
             throw new IllegalStateException("Gate " + gateLabel + " is not currently occupied"
                     + " so the gate cannot be freed");
         gates[externalToInternalIndex(gateLabel)] = null;
+    }
+
+    /**
+     * Frees a stall.
+     *
+     * @param parkingLabel the gate label
+     * @precond isValidLabel(parkingLabel) && isOccupied(parkingLabel)
+     */
+    public void freeStall(int parkingLabel) {
+        if (!isValidLabel(parkingLabel))
+            throw new IllegalArgumentException("The value " + parkingLabel
+                    + " is not a valid label for a parking stall in the airport.");
+
+        if (!isOccupied(parkingLabel))
+            throw new IllegalStateException("Stall " + parkingLabel + " is not currently occupied"
+                    + " so the stall cannot be freed");
+        gates[externalToInternalIndex(parkingLabel)] = null;
     }
 
     /**
@@ -310,7 +515,7 @@ public class Airport {
         int numErrors = 0;
 
         // testing all the methods with one instance of a Airport
-        Airport w = new Airport("surgery", 200, 210);
+        Airport w = new Airport("surgery", 200, 210, 200, 210);
 
         if (!w.getName().equals("surgery")) {
             System.out.println("The constructor or getName failed.");
@@ -409,7 +614,7 @@ public class Airport {
 
 
         // retest all the methods on a second instance of the class
-        w = new Airport("ER", 1, 3);
+        w = new Airport("ER", 1, 3, 1, 3);
 
         if (!w.getName().equals("ER")) {
             System.out.println("The constructor or getName failed.");
