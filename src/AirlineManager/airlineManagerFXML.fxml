@@ -37,8 +37,9 @@
                                           <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
                                           <TableColumn fx:id="airlineCol" prefWidth="174.23809814453125" text="Airline" />
                                           <TableColumn fx:id="destinationCol" prefWidth="213.395263671875" text="Destination" />
+                              <TableColumn fx:id="gateCol" prefWidth="112.0" text="Gate" />
                                           <TableColumn fx:id="dateCol" prefWidth="175.65716552734375" text="Date" />
-                                          <TableColumn fx:id="timeCol" prefWidth="187.680908203125" text="Time" />
+                                          <TableColumn fx:id="timeCol" prefWidth="73.0" text="Time" />
                                       </columns>
                                   </TableView>
                         <TextField fx:id="searchBox" layoutX="1079.0" layoutY="22.0" onKeyTyped="#searchTable" promptText="Search" />

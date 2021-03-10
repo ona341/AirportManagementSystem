@@ -49,6 +49,8 @@ public class AirlineManagerController implements Initializable {
     @FXML
     public TableColumn<Flight,Time> timeCol;
     @FXML
+    public TableColumn<Flight,Character> gateCol;
+    @FXML
     public TextField searchBox;
 
     @FXML
@@ -107,6 +109,7 @@ public class AirlineManagerController implements Initializable {
         destinationCol.setCellValueFactory(new PropertyValueFactory<>("destination"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
+        gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
 
         tableview.setItems(flightsAccess.getInstance());
     }
