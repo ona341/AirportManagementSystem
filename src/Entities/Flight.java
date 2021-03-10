@@ -17,7 +17,7 @@ public class Flight {
 
     private int capacity;
 
-    private final PersonContainer seats;
+    private final EntityContainer<Passenger> seats;
 
     private int gate;
 
@@ -28,11 +28,11 @@ public class Flight {
         this.destination = destination;
         this.date = date;
         this.time = time;
-        this.seats = new PersonContainer(number, 0, capacity);
+        this.seats = new EntityContainer<>(number, 0, capacity);
         this.gate = gate;
     }
 
-    public PersonContainer getSeats() {
+    public EntityContainer<Passenger> getSeats() {
         return this.seats;
     }
 

@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,15 +51,12 @@ public class LoginController implements Initializable {
 
     @FXML
     public void Login(ActionEvent event){
-        airlineManagerLogin();
         try {
-            if(this.idNumber.getText().isEmpty() || this.password.getText().isEmpty() || this.selection.getValue().toString().isEmpty()){
-                this.loginStatus.setText("Invalid login. Please try again.");
-            }
-            if (this.loginModel.isLogin(this.idNumber.getText(), this.password.getText(), ((option) this.selection.getValue()).toString())) {
+            Pair<Boolean,String> login;
+            if ((login = this.loginModel.Login(this.idNumber.getText(), this.password.getText())).getKey()) {
                 Stage stage = (Stage) this.loginButton.getScene().getWindow();
                 stage.close();
-                switch(this.selection.getValue().toString()){
+                switch(login.getValue()){
                     case "Airport Manager":
                         airportManagerLogin();
                         break;
@@ -68,7 +66,10 @@ public class LoginController implements Initializable {
                     case "Passenger":
                         passengerLogin();
                         break;
-
+                    case "Admin":
+                        airlineManagerLogin();
+                        passengerLogin();
+                        break;
 
                 }
             } else {

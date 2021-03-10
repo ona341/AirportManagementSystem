@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dbUtil.dbConnection;
+import javafx.util.Pair;
 
 public class LoginModel {
     Connection connection;
@@ -29,30 +30,25 @@ public class LoginModel {
         return this.connection != null;
     }
 
-    public boolean isLogin(String id, String pass, String opt) throws Exception{
+    public Pair<Boolean,String> Login(String id, String pass) throws Exception{
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM login where id = ? and password = ? and representation = ?";
+        String sql = "SELECT representation FROM login where id = ? and password = ?";
 
         try {
             pr = this.connection.prepareStatement(sql);
             pr.setString(1, id);
             pr.setString(2, pass);
-            pr.setString(3, opt);
 
             rs = pr.executeQuery();
 
-            boolean boll1;
-
-            return rs.next();
+            return new Pair<>(rs.next(),rs.getString(1));
         }
         catch (SQLException ex) {
-            return false;
+            return new Pair<>(false,null);
         }
         finally {
             pr.close();
-            rs.close();
-
         }
     }
     public String getID(){

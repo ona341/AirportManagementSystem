@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.TreeMap;
 
 
 /**
@@ -34,7 +35,7 @@ public class PassengerMapAccess {
 
     private static void initialize() {
         if (passengers == null) {
-            passengers = FXCollections.emptyObservableMap();
+            passengers = FXCollections.observableMap(new TreeMap<>());
             try {
                 Connection conn = dbConnection.getConnection();
                 Statement stmt = conn.createStatement();
