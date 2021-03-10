@@ -41,10 +41,7 @@ public class LoginModel {
 
             boolean boll1;
 
-            if(rs.next()) {
-                return true;
-            }
-            return false;
+            return rs.next();
         }
         catch (SQLException ex) {
             return false;

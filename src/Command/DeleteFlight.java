@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class DeleteFlight implements Command{
 
-    private ObservableList<Flight> selectedFlights;
+    private final ObservableList<Flight> selectedFlights;
 
     public DeleteFlight(ObservableList<Flight> selectedFlights) {
         this.selectedFlights = selectedFlights;

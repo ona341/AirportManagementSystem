@@ -6,15 +6,12 @@ package Command;
  */
 
 import java.sql.*;
-import java.util.Arrays;
 
 import AirlineManager.AirlineManagerController;
-import IO.IOAccess;
 import Singleton.AirportAccess;
 import Entities.Flight;
 import Singleton.flightsAccess;
 import dbUtil.dbConnection;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 /**
@@ -45,7 +42,7 @@ public class AddFlight implements Command{
         }
     }*/
 
-    private AirlineManagerController airlineManagerController;
+    private final AirlineManagerController airlineManagerController;
 
     public AddFlight(AirlineManagerController airlineManagerController) {
         this.airlineManagerController = airlineManagerController;

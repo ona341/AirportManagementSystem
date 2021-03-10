@@ -4,7 +4,6 @@ import AirlineEmployee.AirlineEmployeeController;
 import AirlineManager.AirlineManagerController;
 import AirportEmployee.AirportEmployeeController;
 import AirportManager.AirportManagerController;
-import Singleton.flightsAccess;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    LoginModel loginModel = new LoginModel();
+    final LoginModel loginModel = new LoginModel();
 
     @FXML
     private Label dbstatus;
@@ -50,10 +49,10 @@ public class LoginController implements Initializable {
     public void Login(ActionEvent event){
         airlineManagerLogin();
         try{
-            if(this.loginModel.isLogin(this.idNumber.getText(), this.password.getText(), ((option)this.selection.getValue()).toString())){
+            if(this.loginModel.isLogin(this.idNumber.getText(), this.password.getText(), this.selection.getValue().toString())){
                 Stage stage = (Stage) this.loginButton.getScene().getWindow();
                 stage.close();
-                switch(((option)this.selection.getValue()).toString()){
+                switch(this.selection.getValue().toString()){
                     case "Airport Manager":
                         airportManagerLogin();
                         break;
@@ -78,9 +77,9 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airportManLoader = new FXMLLoader();
-            Pane airportManRoot = (Pane)airportManLoader.load(getClass().getResource("/AirportManager/airportManagerFXML.fxml").openStream());
+            Pane airportManRoot = airportManLoader.load(getClass().getResource("/AirportManager/airportManagerFXML.fxml").openStream());
 
-            AirportManagerController airportManagerController = (AirportManagerController)airportManLoader.getController();
+            AirportManagerController airportManagerController = airportManLoader.getController();
 
             Scene scene = new Scene(airportManRoot);
             userStage.setScene(scene);
@@ -101,9 +100,9 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airlineManLoader = new FXMLLoader();
-            Pane airlineManRoot = (Pane)airlineManLoader.load(getClass().getResource("/AirlineManager/airlineManagerFXML.fxml").openStream());
+            Pane airlineManRoot = airlineManLoader.load(getClass().getResource("/AirlineManager/airlineManagerFXML.fxml").openStream());
 
-            AirlineManagerController airlineManagerController = (AirlineManagerController)airlineManLoader.getController();
+            AirlineManagerController airlineManagerController = airlineManLoader.getController();
 
             Scene scene = new Scene(airlineManRoot);
             userStage.setScene(scene);
@@ -122,9 +121,9 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airportEmpLoader = new FXMLLoader();
-            Pane airportEmpRoot = (Pane)airportEmpLoader.load(getClass().getResource("/AirportEmployee/airportEmployeeFXML.fxml").openStream());
+            Pane airportEmpRoot = airportEmpLoader.load(getClass().getResource("/AirportEmployee/airportEmployeeFXML.fxml").openStream());
 
-            AirportEmployeeController airportEmployeeController = (AirportEmployeeController)airportEmpLoader.getController();
+            AirportEmployeeController airportEmployeeController = airportEmpLoader.getController();
 
             Scene scene = new Scene(airportEmpRoot);
             userStage.setScene(scene);
@@ -143,9 +142,9 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airlineEmpLoader = new FXMLLoader();
-            Pane airlineEmpRoot = (Pane)airlineEmpLoader.load(getClass().getResource("/AirlineEmployee/airlineEmployeeFXML.fxml").openStream());
+            Pane airlineEmpRoot = airlineEmpLoader.load(getClass().getResource("/AirlineEmployee/airlineEmployeeFXML.fxml").openStream());
 
-            AirlineEmployeeController airlineEmployeeController = (AirlineEmployeeController)airlineEmpLoader.getController();
+            AirlineEmployeeController airlineEmployeeController = airlineEmpLoader.getController();
 
             Scene scene = new Scene(airlineEmpRoot);
             userStage.setScene(scene);

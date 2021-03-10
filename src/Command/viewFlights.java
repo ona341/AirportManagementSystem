@@ -1,7 +1,5 @@
 package Command;
 import IO.IOAccess;
-import Singleton.PassengerMapAccess;
-import Entities.Passenger;
 import Singleton.AirportAccess;
 /**
  * Allows the user to add a passenger to the system.

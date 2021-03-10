@@ -17,7 +17,7 @@ public class Flight {
 
     private int capacity;
 
-    private PersonContainer seats;
+    private final PersonContainer seats;
 
     private int gate;
 

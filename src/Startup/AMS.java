@@ -11,11 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.ResourceBundle;
-import Entities.Passenger;
+
 import Singleton.AirportAccess;
-import Singleton.PassengerMapAccess;
 import dbUtil.dbConnection;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

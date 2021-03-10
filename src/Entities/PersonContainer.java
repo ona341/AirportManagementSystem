@@ -18,7 +18,6 @@ package Entities;/*
      Starter File for Assignment 4
  */
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
