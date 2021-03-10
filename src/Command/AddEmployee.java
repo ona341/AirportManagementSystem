@@ -28,7 +28,7 @@ public class AddEmployee implements Command{
         isSurgeon =  Manager.equalsIgnoreCase("yes") || Manager.equalsIgnoreCase("y") || Manager.equalsIgnoreCase("true");
 
         if (EmployeeMapAccess.getInstance().get(name) == null) {
-            Employee employee = isSurgeon ? new Manager(name, number) : new Employee(name, number);
+            Employee employee = isSurgeon ? new Manager(name, number,null,null,0) : new Employee(name, number,null,null,0);
             EmployeeMapAccess.getInstance().put(name, employee);
             IOAccess.getInstance().outputString("Employee created.");
         }
