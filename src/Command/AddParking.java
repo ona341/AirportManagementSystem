@@ -3,11 +3,9 @@ package Command;
 import java.sql.*;
 
 import Passenger.ParkingController;
-import Entities.Flight;
 import Entities.Passenger;
 import Singleton.AirportAccess;
 import Singleton.PassengerMapAccess;
-import Singleton.flightsAccess;
 import dbUtil.dbConnection;
 import javafx.fxml.FXML;
 

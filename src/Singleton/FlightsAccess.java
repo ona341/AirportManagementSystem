@@ -9,7 +9,7 @@ import javafx.collections.transformation.FilteredList;
 
 import java.sql.*;
 
-public class flightsAccess {
+public class FlightsAccess {
 
     private static final String sql = "SELECT flightNum, airline, destination, date, time, gate FROM flights";
 
@@ -17,7 +17,7 @@ public class flightsAccess {
 
     private static ObservableList<Flight> searchResult;
 
-    private flightsAccess() {}
+    private FlightsAccess() {}
 
     public static ObservableList<Flight> getInstance() {
         if (flights == null) initialize();

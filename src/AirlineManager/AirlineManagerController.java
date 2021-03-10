@@ -4,7 +4,7 @@ import Command.AddFlight;
 import Command.DeleteFlight;
 import Command.UpdateFlight;
 import Entities.Flight;
-import Singleton.flightsAccess;
+import Singleton.FlightsAccess;
 import dbUtil.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -89,10 +89,10 @@ public class AirlineManagerController implements Initializable {
     @FXML
     private void searchTable(KeyEvent event) {
         if(searchBox.getText().isBlank()) {
-            tableview.setItems(flightsAccess.getInstance());
+            tableview.setItems(FlightsAccess.getInstance());
         }
         else {
-            tableview.setItems(flightsAccess.search(searchBox.getText()));
+            tableview.setItems(FlightsAccess.search(searchBox.getText()));
         }
     }
 
@@ -116,7 +116,7 @@ public class AirlineManagerController implements Initializable {
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
 
-        tableview.setItems(flightsAccess.getInstance());
+        tableview.setItems(FlightsAccess.getInstance());
     }
 
     public void deleteRow(ActionEvent actionEvent) {

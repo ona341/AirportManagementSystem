@@ -10,7 +10,7 @@ import java.sql.*;
 import AirlineManager.AirlineManagerController;
 import Singleton.AirportAccess;
 import Entities.Flight;
-import Singleton.flightsAccess;
+import Singleton.FlightsAccess;
 import dbUtil.dbConnection;
 import javafx.fxml.FXML;
 
@@ -73,7 +73,7 @@ public class AddFlight implements Command{
                             Date.valueOf(airlineManagerController.date.getValue()),
                             Time.valueOf(airlineManagerController.time.getText()),
                             gate);
-            flightsAccess.getInstance().add(flight);
+            FlightsAccess.getInstance().add(flight);
             AirportAccess.getInstance().assignFlightToGate(flight, gate);
 
             airlineManagerController.clearForm(null);

@@ -1,10 +1,7 @@
 package Command;
 
-import Entities.Flight;
 import Passenger.ParkingController;
-import Singleton.flightsAccess;
 import dbUtil.dbConnection;
-import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
