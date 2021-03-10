@@ -5,7 +5,6 @@ import java.sql.*;
 import Passenger.ParkingController;
 import Entities.Passenger;
 import Singleton.AirportAccess;
-import Singleton.ParkingAccess;
 import Singleton.PassengerMapAccess;
 import dbUtil.dbConnection;
 import javafx.fxml.FXML;
@@ -49,7 +48,7 @@ public class AddParking implements Command{
                 PassengerMapAccess.getInstance().put(passenger.getIDNumber(),passenger);
             }
 
-            ParkingAccess.getInstance().assignPassengerToStall(passenger, parkingStall);
+            AirportAccess.getInstance().getParkingStalls().assignEntityToStall(passenger, parkingStall);
             passenger.setStallLabel(parkingStall);
 
             parkingController.clearReserveForm(null);

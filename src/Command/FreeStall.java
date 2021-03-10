@@ -5,7 +5,7 @@ package Command;/*
 
 import Entities.Passenger;
 import IO.IOAccess;
-import Singleton.ParkingAccess;
+import Singleton.AirportAccess;
 import Singleton.PassengerMapAccess;
 
 import javax.management.openmbean.InvalidKeyException;
@@ -33,7 +33,7 @@ public class FreeStall implements Command {
                 throw new IllegalStateException("This passenger is not in a stall.");
             }
             p.setStallLabel(-1);
-            ParkingAccess.getInstance().freeStall(stall);
+            AirportAccess.getInstance().getParkingStalls().freeStall(stall);
             IOAccess.getInstance().outputString("Passenger removed from stall successfully");
 
         } catch (IllegalArgumentException | IllegalStateException e) {
