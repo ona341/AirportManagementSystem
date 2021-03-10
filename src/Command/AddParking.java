@@ -47,7 +47,8 @@ public class AddParking implements Command{
             AirportAccess.getInstance().assignPassengerToStall(passenger, parkingStall);
 
 
-            parkingController.clearForm(null);
+            parkingController.clearReserveForm(null);
+
 
             conn.close();
 

@@ -61,7 +61,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="419.0" layoutY="522.0" mnemonicParsing="false" onAction="#clearForm" prefHeight="35.0" prefWidth="93.0" text="Clear" />
+      <Button layoutX="419.0" layoutY="522.0" mnemonicParsing="false" onAction="#clearReserveForm" prefHeight="35.0" prefWidth="93.0" text="Clear" />
       <Label alignment="CENTER" layoutX="103.0" layoutY="191.0" prefHeight="23.0" prefWidth="130.0" text="ID Number">
          <font>
             <Font size="18.0" />

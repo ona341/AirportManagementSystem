@@ -40,4 +40,21 @@ public class PassengerController {
             e.getCause();
         }
     }
+
+    public void toCancelParking(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("cancelParkingFXML.fxml"));
+            Stage cancelResStage = new Stage();
+            cancelResStage.initStyle(StageStyle.UNDECORATED);
+            cancelResStage.setScene(new Scene(root, 600, 400));
+            cancelResStage.setTitle("Cancel Parking Reservation");
+            cancelResStage.setResizable(false);
+            cancelResStage.show();
+
+        } catch (
+                Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
 }
