@@ -7,16 +7,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginapp.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginapp.LoginController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="89.0" text="Login" />
       <Label fx:id="dbstatus" layoutX="88.0" layoutY="14.0" prefHeight="17.0" prefWidth="250.0" />
-      <TextField fx:id="idNumber" layoutX="126.0" layoutY="80.0" prefHeight="27.0" prefWidth="201.0" />
-      <PasswordField fx:id="password" layoutX="126.0" layoutY="126.0" prefWidth="201.0" />
-      <Label layoutX="29.0" layoutY="85.0" text="ID  number" />
-      <Label layoutX="29.0" layoutY="131.0" text="Password" />
-      <ComboBox fx:id="selection" layoutX="126.0" layoutY="175.0" prefHeight="27.0" prefWidth="201.0" promptText="Employee Status" />
-      <Button fx:id="loginButton" layoutX="126.0" layoutY="227.0" mnemonicParsing="false" onAction="#Login" prefHeight="27.0" prefWidth="201.0" text="Login" />
-      <Label fx:id="loginStatus" layoutX="14.0" layoutY="232.0" prefHeight="17.0" prefWidth="104.0" />
+      <TextField fx:id="idNumber" layoutX="137.0" layoutY="79.0" prefHeight="27.0" prefWidth="201.0" />
+      <PasswordField fx:id="password" layoutX="137.0" layoutY="125.0" prefWidth="201.0" />
+      <Label layoutX="40.0" layoutY="84.0" text="ID  number" />
+      <Label layoutX="40.0" layoutY="130.0" text="Password" />
+      <ComboBox fx:id="selection" layoutX="137.0" layoutY="174.0" prefHeight="27.0" prefWidth="201.0" promptText="Select User Type" />
+      <Button fx:id="loginButton" layoutX="137.0" layoutY="257.0" mnemonicParsing="false" onAction="#Login" prefHeight="27.0" prefWidth="201.0" text="Login" />
+      <Label fx:id="loginStatus" alignment="CENTER" layoutX="134.0" layoutY="230.0" prefHeight="17.0" prefWidth="201.0" textFill="#f81e1e" />
    </children>
 </AnchorPane>

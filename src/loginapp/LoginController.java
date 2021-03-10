@@ -4,6 +4,7 @@ import AirlineEmployee.AirlineEmployeeController;
 import AirlineManager.AirlineManagerController;
 import AirportEmployee.AirportEmployeeController;
 import AirportManager.AirportManagerController;
+import Passenger.PassengerController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,23 +34,28 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginButton;
     @FXML
+    private Button registrationButton;
+    @FXML
     private Label loginStatus;
 
-    public void initialize(URL url, ResourceBundle rb){
-        if(this.loginModel.isDatabaseConnected()){
+    public void initialize(URL url, ResourceBundle rb) {
+        if (this.loginModel.isDatabaseConnected()) {
             this.dbstatus.setText("Connected to Database");
-        }
-        else{
+        } else {
             this.dbstatus.setText("Not Connected to Database");
         }
 
         this.selection.setItems(FXCollections.observableArrayList(option.values()));
     }
+
     @FXML
     public void Login(ActionEvent event){
         airlineManagerLogin();
-        try{
-            if(this.loginModel.isLogin(this.idNumber.getText(), this.password.getText(), this.selection.getValue().toString())){
+        try {
+            if(this.idNumber.getText().isEmpty() || this.password.getText().isEmpty() || this.selection.getValue().toString().isEmpty()){
+                this.loginStatus.setText("Invalid login. Please try again.");
+            }
+            if (this.loginModel.isLogin(this.idNumber.getText(), this.password.getText(), ((option) this.selection.getValue()).toString())) {
                 Stage stage = (Stage) this.loginButton.getScene().getWindow();
                 stage.close();
                 switch(this.selection.getValue().toString()){
@@ -59,19 +65,22 @@ public class LoginController implements Initializable {
                     case "Airline Manager":
                         airlineManagerLogin();
                         break;
+                    case "Passenger":
+                        passengerLogin();
+                        break;
 
 
                 }
-            }
-            else{
-                this.loginStatus.setText("INVALID Login Info");
+            } else {
+                this.loginStatus.setText("Invalid login. Please try again.");
 
             }
 
-        }catch (Exception localException){
+        } catch (Exception localException) {
 
         }
     }
+
 
     public void airportManagerLogin(){
         try{
@@ -86,8 +95,6 @@ public class LoginController implements Initializable {
             userStage.setTitle("Airport Manager Dashboard");
             userStage.setResizable(false);
             userStage.show();
-
-
 
         }catch (IOException ex){
             ex.printStackTrace();
@@ -156,6 +163,29 @@ public class LoginController implements Initializable {
             ex.printStackTrace();
         }
 
+    }
+
+    public void passengerLogin(){
+        try{
+            Stage userStage = new Stage();
+            FXMLLoader passengerLoader = new FXMLLoader();
+            Pane passengerRoot = (Pane)passengerLoader.load(getClass().getResource("/Passenger/passengerFXML.fxml").openStream());
+
+            PassengerController passengerController = (PassengerController)passengerLoader.getController();
+
+            Scene scene = new Scene(passengerRoot);
+            userStage.setScene(scene);
+            userStage.setTitle("Passenger Dashboard");
+            userStage.setResizable(false);
+            userStage.show();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+    }
+    public String getIdNumber(){
+        return this.idNumber.getText();
     }
 
 }

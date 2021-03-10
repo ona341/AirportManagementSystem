@@ -1,4 +1,4 @@
-package AirportManager;
+package Passenger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class AirportManagerController {
+public class PassengerController {
 
     public void logout(ActionEvent event) throws IOException
     {
@@ -24,15 +24,15 @@ public class AirportManagerController {
         window.show();
     }
 
-    public void toRegistration(ActionEvent event) {
+    public void toParkingReg(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
-            Stage registerStage = new Stage();
-            registerStage.initStyle(StageStyle.UNDECORATED);
-            registerStage.setScene(new Scene(root, 520, 491));
-            registerStage.setTitle("Registration");
-            registerStage.setResizable(false);
-            registerStage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("parkingFXML.fxml"));
+            Stage reservationStage = new Stage();
+            reservationStage.initStyle(StageStyle.UNDECORATED);
+            reservationStage.setScene(new Scene(root, 555, 588));
+            reservationStage.setTitle("Parking Reservation");
+            reservationStage.setResizable(false);
+            reservationStage.show();
 
         } catch (
                 Exception e) {
@@ -40,5 +40,4 @@ public class AirportManagerController {
             e.getCause();
         }
     }
-
 }

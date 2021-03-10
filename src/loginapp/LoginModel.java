@@ -10,6 +10,8 @@ import dbUtil.dbConnection;
 public class LoginModel {
     Connection connection;
 
+    public static LoginModel user;
+
     public LoginModel(){
         try{
             this.connection = dbConnection.getConnection();
@@ -21,6 +23,7 @@ public class LoginModel {
             System.exit(1);
         }
     }
+
 
     public boolean isDatabaseConnected(){
         return this.connection != null;
@@ -51,6 +54,9 @@ public class LoginModel {
             rs.close();
 
         }
+    }
+    public String getID(){
+        return user.getID();
     }
 
 }
