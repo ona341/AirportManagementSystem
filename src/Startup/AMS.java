@@ -73,6 +73,8 @@ public class AMS extends Application implements Initializable{
             conn.createStatement().execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS login (id TEXT, password TEXT, representation TEXT)";
             conn.createStatement().execute(sql);
+            sql = "CREATE TABLE IF NOT EXISTS parking (name TEXT, id TEXT, email TEXT, checkin DATE, parkingStall INT)";
+            conn.createStatement().execute(sql);
 
 
         } catch (SQLException throwables) {
@@ -89,7 +91,7 @@ public class AMS extends Application implements Initializable{
             PreparedStatement prpst = conn.prepareStatement(sql);
             ResultSet rs = prpst.executeQuery();
 
-            AirportAccess.initialize(rs.getString(1),0,rs.getInt(2));
+            AirportAccess.initialize(rs.getString(1),0,rs.getInt(2), 0,rs.getInt(3));
 
             prpst.close();
 

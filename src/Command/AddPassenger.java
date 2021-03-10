@@ -12,8 +12,10 @@ import Entities.Passenger;
 /**
  * Allows the user to add a passenger to the system.
  */
+/**
 public class AddPassenger implements Command{
     @Override
+
     public void execute() {
         String name, number;
         IOAccess.getInstance().outputString("Adding a new passenger...");
@@ -30,4 +32,7 @@ public class AddPassenger implements Command{
             IOAccess.getInstance().outputString("A passenger with this ID number already exists in the system");
         }
     }
+
 }
+
+     **/
