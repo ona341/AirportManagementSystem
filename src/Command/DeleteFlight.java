@@ -37,7 +37,7 @@ public class DeleteFlight implements Command{
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             for (Flight flight : localCopy) {
-                AirportAccess.getInstance().removeFlightFromGate(flight.getGate());
+                AirportAccess.getInstance().getGates().freeStall(flight.getGate());
                 pstmt.setString(1, flight.getFlightNumber());
                 pstmt.executeUpdate();
             }

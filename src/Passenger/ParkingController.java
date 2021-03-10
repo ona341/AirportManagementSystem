@@ -107,8 +107,8 @@ public class ParkingController {
             alert.setTitle("Error!");
             alert.showAndWait();
         }
-        else if (AirportAccess.getInstance().isParkingStallOccupied(parkingStall) &&
-                AirportAccess.getInstance().hasPassenger(idFieldCancel.getText())) {
+        else if (AirportAccess.getInstance().getParkingStalls().isOccupied(parkingStall) &&
+                AirportAccess.getInstance().getParkingStalls().getEntity(parkingStall).getIDNumber().equalsIgnoreCase(idFieldCancel.getText())) {
 
             cancelMessage.setText("Successfully Cancelled Parking Reservation");
             cancelMessage.setTextFill(Color.GREEN);
@@ -150,7 +150,7 @@ public class ParkingController {
     @FXML
     public void search(ActionEvent event) {
 
-        parkingLabel.setText(String.valueOf(AirportAccess.getInstance().firstAvailableStall()));
+        parkingLabel.setText(String.valueOf(AirportAccess.getInstance().getParkingStalls().firstAvailableStall()));
 
     }
 

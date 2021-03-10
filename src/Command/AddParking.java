@@ -34,7 +34,7 @@ public class AddParking implements Command{
             pstmt.setString(3, parkingController.emailField.getText());
             pstmt.setDate(4, Date.valueOf(parkingController.CheckinDatePicker.getValue()));
 
-            int parkingStall = AirportAccess.getInstance().firstAvailableStall();
+            int parkingStall = AirportAccess.getInstance().getParkingStalls().firstAvailableStall();
             pstmt.setInt(5, parkingStall);
 
             pstmt.executeUpdate();

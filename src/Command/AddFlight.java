@@ -63,7 +63,7 @@ public class AddFlight implements Command{
             pstmt.setDate(4, Date.valueOf(airlineManagerController.date.getValue()));
             pstmt.setTime(5, Time.valueOf(airlineManagerController.time.getText()));
 
-            int gate = AirportAccess.getInstance().firstAvailableGate();
+            int gate = AirportAccess.getInstance().getGates().firstAvailableStall();
             pstmt.setInt(6,gate);
 
             pstmt.executeUpdate();
@@ -74,7 +74,7 @@ public class AddFlight implements Command{
                             Time.valueOf(airlineManagerController.time.getText()),
                             gate);
             FlightsAccess.getInstance().add(flight);
-            AirportAccess.getInstance().assignFlightToGate(flight, gate);
+            AirportAccess.getInstance().getGates().assignEntityToStall(flight, gate);
 
             airlineManagerController.clearForm(null);
 

@@ -84,6 +84,14 @@ public class Airport {
     }
 
 
+    public EntityContainer<Flight> getGates() {
+        return gates;
+    }
+
+    public EntityContainer<Passenger> getParkingStalls() {
+        return parkingStalls;
+    }
+
     public char gateIntToChar(int i) {
         return (char) (i + 'A' - 1);
     }
