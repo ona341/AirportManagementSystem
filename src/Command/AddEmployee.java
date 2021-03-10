@@ -9,7 +9,7 @@ import IO.IOAccess;
 import Singleton.EmployeeMapAccess;
 
 /**
- * Allows the the manager to add an employee to the system.
+ * Allows the manager to add an employee to the system.
  */
 public class AddEmployee implements Command{
     @Override
@@ -29,7 +29,7 @@ public class AddEmployee implements Command{
         isManager =  manager.equalsIgnoreCase("yes") || manager.equalsIgnoreCase("y") || manager.equalsIgnoreCase("true");
 
         if (EmployeeMapAccess.getInstance().get(name) == null) {
-            Employee employee = isManager ? new Manager(name, number,null) : new Employee(name, number,null);
+            Employee employee = isManager ? new Manager(name, number, email) : new Employee(name, number, email);
             EmployeeMapAccess.getInstance().put(name, employee);
             IOAccess.getInstance().outputString("Employee created.");
         }
