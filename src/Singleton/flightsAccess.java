@@ -11,7 +11,7 @@ import java.sql.*;
 
 public class flightsAccess {
 
-    private static final String sql = "SELECT flightNum, airline, destination, date, time FROM flights";
+    private static final String sql = "SELECT flightNum, airline, destination, date, time, gate FROM flights";
 
     private static ObservableList<Flight> flights;
 
@@ -33,7 +33,7 @@ public class flightsAccess {
                 ResultSet rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
-                    flights.add(new Flight(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getTime(5)));
+                    flights.add(new Flight(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getTime(5),rs.getInt(6)));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

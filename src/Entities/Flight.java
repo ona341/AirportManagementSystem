@@ -19,14 +19,17 @@ public class Flight {
 
     private PersonContainer seats;
 
+    private int gate;
 
-    public Flight(String number, String airline, String destination, Date date, Time time) {
+
+    public Flight(String number, String airline, String destination, Date date, Time time, int gate) {
         this.airline = airline;
         this.flightNumber = number;
         this.destination = destination;
         this.date = date;
         this.time = time;
         this.seats = new PersonContainer(number, 0, capacity);
+        this.gate = gate;
     }
 
     public PersonContainer getSeats() {
@@ -84,5 +87,13 @@ public class Flight {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public int getGate() {
+        return gate;
+    }
+
+    public void setGate(int gate) {
+        this.gate = gate;
     }
 }

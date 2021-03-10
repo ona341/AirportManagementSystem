@@ -239,6 +239,21 @@ public class Airport {
         return temp;
     }
 
+    public int firstAvailableGate() {
+        for (int i = 0; i < gates.length ; i++) {
+            if (gates[i] == null) {
+                return internalToExternalLabel(i);
+            }
+        }
+        return -1;
+    }
+
+    public char gateIntToChar(int i) {
+        return (char) (i + 'A' - 1);
+    }
+
+
+
     /**
      * Frees a gate.
      *
@@ -359,7 +374,7 @@ public class Airport {
             numErrors++;
         }
 
-        Flight p = new Flight("testAir", "123","Saskatoon",null, null);
+        Flight p = new Flight("testAir", "123","Saskatoon",null, null,0);
         w.assignFlightToGate(p, 205);
         if (!w.isOccupied(205)) {
             System.out.println("assignFlightToGate() or isOccupied() failed: isOccupied incorrectly returns that gate 205 is not occupied.");

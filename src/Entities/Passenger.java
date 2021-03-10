@@ -157,7 +157,7 @@ public class Passenger extends Person {
     catch (IllegalStateException ignored) {}
 
     // Testing addFlight and hasFlight
-    Flight d = new Flight(null, "123", null, null, null);
+    Flight d = new Flight(null, "123", null, null, null,0);
 
     if (p.hasFlight("Mike")) {
       System.out.println("Problem with hasFlight");

@@ -54,7 +54,7 @@ public class AddFlight implements Command{
 
     @FXML
     public void execute() {
-        String sql = "INSERT INTO flights(flightNum,airline,destination,date,time) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO flights(flightNum,airline,destination,date,time,gate) VALUES(?,?,?,?,?,?)";
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -66,12 +66,18 @@ public class AddFlight implements Command{
             pstmt.setDate(4, Date.valueOf(airlineManagerController.date.getValue()));
             pstmt.setTime(5, Time.valueOf(airlineManagerController.time.getText()));
 
+            int gate = AirportAccess.getInstance().firstAvailableGate();
+            pstmt.setInt(6,gate);
+
             pstmt.executeUpdate();
-            flightsAccess.getInstance().add(new Flight(airlineManagerController.flightnum.getText(),
-                    airlineManagerController.airline.getText(),
-                    airlineManagerController.destination.getText(),
-                    Date.valueOf(airlineManagerController.date.getValue()),
-                    Time.valueOf(airlineManagerController.time.getText())));
+            Flight flight = new Flight(airlineManagerController.flightnum.getText(),
+                            airlineManagerController.airline.getText(),
+                            airlineManagerController.destination.getText(),
+                            Date.valueOf(airlineManagerController.date.getValue()),
+                            Time.valueOf(airlineManagerController.time.getText()),
+                            gate);
+            flightsAccess.getInstance().add(flight);
+            AirportAccess.getInstance().assignFlightToGate(flight, gate);
 
             airlineManagerController.clearForm(null);
 
