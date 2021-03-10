@@ -2,6 +2,7 @@ package Passenger;
 
 
 import Command.AddParking;
+import Singleton.AirportAccess;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -90,6 +91,13 @@ public class ParkingController {
         emailError.setText("");
         parkingLabel.setText("");
         idField.setText("");
+
+    }
+
+    @FXML
+    public void search(ActionEvent event) {
+
+        parkingLabel.setText(String.valueOf(AirportAccess.getInstance().firstAvailableStall()));
 
     }
 
