@@ -114,10 +114,10 @@ public class ParkingController {
         else if (AirportAccess.getInstance().isParkingStallOccupied(parkingStall) &&
                 AirportAccess.getInstance().hasPassenger(idFieldCancel.getText())) {
 
-            CancelParking cancelParking = new CancelParking(this);
-            cancelParking.execute();
             cancelMessage.setText("Successfully Cancelled Parking Reservation");
             cancelMessage.setTextFill(Color.GREEN);
+            CancelParking cancelParking = new CancelParking(this);
+            cancelParking.execute();
 
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, null, ButtonType.OK);

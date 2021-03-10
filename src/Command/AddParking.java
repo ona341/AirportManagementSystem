@@ -49,8 +49,10 @@ public class AddParking implements Command{
 
             parkingController.clearReserveForm(null);
 
+            pstmt.close();
 
-            conn.close();
+
+
 
         } catch (SQLException e) {
             e.printStackTrace();

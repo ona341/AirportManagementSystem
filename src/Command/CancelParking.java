@@ -34,7 +34,6 @@ public class CancelParking implements Command{
 
             parkingController.clearCancelForm(null);
 
-            conn.close();
             pstmt.close();
 
         } catch (SQLException throwables) {
