@@ -3,6 +3,8 @@ package Entities;/*
   @author Blake Stadnyk; 11195866 - BJS645
  */
 
+import java.sql.Date;
+
 /**
  * A Manager who extends from a Employee.
  */
@@ -13,8 +15,8 @@ public class Manager extends Employee {
    *
    * @param name the name
    */
-  public Manager(String name, String number) {
-    super(name, number);
+  public Manager(String name, String number, String email, Date date, int stallNumber) {
+    super(name, number, email, date, stallNumber);
   }
 
   /**
@@ -34,7 +36,7 @@ public class Manager extends Employee {
    */
   public static void main(String[] args) {
     // Create a new Manager
-    Employee d = new Manager("Bob", "123");
+    Employee d = new Manager("Bob", "123", null,null,0);
 
     // Testing constructor and getName() //
     if (! d.getName().equals("Bob")) {
@@ -50,14 +52,7 @@ public class Manager extends Employee {
     // Testing addPassenger and hasPassenger
     Passenger p = new Passenger("Mike", "123", null, null, 0);
 
-    if (d.hasPassenger("123")) {
-      System.out.println("Problem with hasPassenger");
-    }
 
-    d.addPassenger(p);
-    if (! d.hasPassenger("123")) {
-      System.out.println("Problem with addPassenger or hasPassenger");
-    }
 
     // Testing toString
     String toStringExpected = "\nManager:\n" +
@@ -68,19 +63,7 @@ public class Manager extends Employee {
       System.out.println("Problem with toString");
     }
 
-    // Testing removePassenger
 
-    try {
-      d.removePassenger("Todd");
-      System.out.println("Problem with removePassenger; expected an exception");
-    }
-    catch (IllegalStateException ignored) {}
-
-    d.removePassenger("123");
-
-    if (d.hasPassenger("123")) {
-      System.out.println("Problem with removePassenger");
-    }
 
     System.out.println("Testing Complete");
 
