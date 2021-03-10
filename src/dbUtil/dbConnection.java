@@ -7,16 +7,18 @@ import java.sql.SQLException;
 public class dbConnection {
     private static final String SQCONN = "jdbc:sqlite:airport.sqlite";
 
-    public static Connection getConnection() throws SQLException{
+    private static Connection connection;
 
-        try{
-            Class.forName("org.sqlite.JDBC");
-            return DriverManager.getConnection(SQCONN);
+    public static Connection getConnection() throws SQLException{
+        if (connection == null) {
+            try {
+                Class.forName("org.sqlite.JDBC");
+                connection = DriverManager.getConnection(SQCONN);
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
         }
-        catch(ClassNotFoundException ex){
-            ex.printStackTrace();
-        }
-        return null;
+        return connection;
     }
 
 }
