@@ -35,7 +35,6 @@ public class DeleteFlight implements Command{
                 pstmt.setString(1, flight.getFlightNumber());
                 pstmt.executeUpdate();
             }
-            conn.close();
             pstmt.close();
 
         } catch (SQLException throwables) {

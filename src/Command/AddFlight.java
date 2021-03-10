@@ -78,7 +78,7 @@ public class AddFlight implements Command{
 
             airlineManagerController.clearForm(null);
 
-            conn.close();
+            pstmt.close();
 
         } catch (SQLException e) {
             e.printStackTrace();

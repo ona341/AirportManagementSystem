@@ -74,7 +74,6 @@ public class AMS extends Application implements Initializable{
             sql = "CREATE TABLE IF NOT EXISTS login (id TEXT, password TEXT, representation TEXT)";
             conn.createStatement().execute(sql);
 
-            conn.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -92,7 +91,6 @@ public class AMS extends Application implements Initializable{
 
             AirportAccess.initialize(rs.getString(1),0,rs.getInt(2));
 
-            conn.close();
             prpst.close();
 
 
@@ -120,8 +118,7 @@ public class AMS extends Application implements Initializable{
             prpst.setString(2,password.getText());
             prpst.setString(3,"Admin");
             prpst.executeUpdate();
-
-            conn.close();
+            prpst.close();
 
             ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
             Stage stage = new Stage();
