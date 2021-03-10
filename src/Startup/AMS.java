@@ -73,6 +73,8 @@ public class AMS extends Application implements Initializable{
             conn.createStatement().execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS login (id TEXT, password TEXT, representation TEXT)";
             conn.createStatement().execute(sql);
+            sql = "CREATE TABLE IF NOT EXISTS parking (name TEXT, id TEXT, email TEXT, checkin DATE, parkingStall INT)";
+            conn.createStatement().execute(sql);
 
             conn.close();
 
@@ -120,6 +122,7 @@ public class AMS extends Application implements Initializable{
             prpst.setString(2,password.getText());
             prpst.setString(3,"Admin");
             prpst.executeUpdate();
+
 
             conn.close();
 
