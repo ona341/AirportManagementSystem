@@ -3,22 +3,20 @@ package Entities;/*
   @author Blake Stadnyk; 11195866 - BJS645
  */
 
-import java.sql.Date;
-import java.util.ArrayList;
-
 /**
  * A Employee who extends from Person.
  */
-public class Employee extends Passenger {
-
+public class Employee extends Person {
+  private String email;
 
   /**
    * Instantiates a new Employee with the given name.
    *
    * @param name the name of the employee
    */
-  public Employee(String name, String number, String email, Date date, int stallNumber) {
-    super(name, number, email, date, stallNumber);
+  public Employee(String name, String number, String email) {
+      super(name, number);
+      this.email = email;
   }
 
 
@@ -40,7 +38,7 @@ public class Employee extends Passenger {
    */
   public static void main(String[] args) {
     // Create a new employee
-    Employee d = new Employee("Bob", "123",null,null,0);
+    Employee d = new Employee("Bob", "123",null);
 
 
     // Testing toString
