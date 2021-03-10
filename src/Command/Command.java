@@ -18,10 +18,12 @@ package Command;/*
      Starter file for Assignment 5
  */
 
+import java.sql.SQLException;
+
 public interface Command {
 
     /**
      * Carry out the command!
      */
-    void execute();
+    void execute() throws SQLException;
 }
