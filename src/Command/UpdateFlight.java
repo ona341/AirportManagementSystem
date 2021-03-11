@@ -20,7 +20,7 @@ public class UpdateFlight implements Command {
     }
 
     @Override
-    public void execute() throws SQLException {
+    public void execute() {
 
         String sql = "UPDATE flights SET airline = ?, destination = ?, date = ?, time = ? WHERE flightNum = ?";
 
@@ -28,9 +28,9 @@ public class UpdateFlight implements Command {
             Connection conn = dbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            for (Flight flight1 : selectedFlights) {
+            for (Flight flight : selectedFlights) {
 
-                pstmt.setString(5, flight1.getFlightNumber());
+                pstmt.setString(5, flight.getFlightNumber());
 
                 pstmt.setString(1, airlineManagerController.airline.getText());
                 pstmt.setString(2, airlineManagerController.destination.getText());
@@ -41,14 +41,14 @@ public class UpdateFlight implements Command {
 
             }
 
-            conn.close();
             pstmt.close();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         this.airlineManagerController.clearForm(null);
         this.airlineManagerController.loadFLightData();
+
     }
 }

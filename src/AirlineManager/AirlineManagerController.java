@@ -56,7 +56,7 @@ public class AirlineManagerController implements Initializable {
     @FXML
     public TextField searchBox;
 
-    private ObservableList<Flight> data;
+    private ObservableList<Flight> flightData;
 
     @FXML
     public void logout(ActionEvent event) throws IOException
@@ -128,7 +128,7 @@ public class AirlineManagerController implements Initializable {
     }
 
 
-    public void updateRow(ActionEvent actionEvent) throws SQLException {
+    public void updateRow(ActionEvent actionEvent) {
         ObservableList<Flight> selectedFlights;
         if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
             UpdateFlight updateFlight = new UpdateFlight(selectedFlights, this);
@@ -136,19 +136,20 @@ public class AirlineManagerController implements Initializable {
         }
     }
 
-    public void loadFLightData() throws SQLException {
+    public void loadFLightData() {
 
         try {
 
-            Connection connection = dbConnection.getConnection();
-            this.data = FXCollections.observableArrayList();
+            Connection conn = dbConnection.getConnection();
+            this.flightData = FXCollections.observableArrayList();
 
-            ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM flights");
+            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM flights");
 
             while(rs.next()) {
-                this.data.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6)));
+                this.flightData.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6)));
             }
 
+            conn.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -159,8 +160,9 @@ public class AirlineManagerController implements Initializable {
         this.destinationCol.setCellValueFactory(new PropertyValueFactory<>("destination"));
         this.dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         this.timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
+        this.gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
 
         this.tableview.setItems(null);
-        this.tableview.setItems(this.data);
+        this.tableview.setItems(this.flightData);
     }
 }
