@@ -68,6 +68,7 @@ public class LoginController implements Initializable {
                         break;
                     case "Admin":
                         airlineManagerLogin();
+                        airportManagerLogin();
                         passengerLogin();
                         break;
 
