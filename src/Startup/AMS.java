@@ -122,7 +122,7 @@ public class AMS extends Application implements Initializable{
             prpst.executeUpdate();
             prpst.close();
 
-            ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+            ((Button) event.getSource()).getScene().getWindow().hide();
             Stage stage = new Stage();
             start(stage);
 

@@ -42,6 +42,9 @@ public class EntityContainer<I> {
      */
     private final I[] stalls;
 
+
+    private int count = 0;
+
     /**
      * Initialize the Container with the name given, and with stalls those labels are
      * the consecutive integers from minStallLabel to maxStallLabel.
@@ -203,7 +206,7 @@ public class EntityContainer<I> {
             throw new IllegalStateException("Stall " + stallLabel + " is currently occupied by "
                     + stalls[externalToInternalIndex(stallLabel)]
                     + " so cannot be assigned to another Entity");
-
+        count++;
         stalls[externalToInternalIndex(stallLabel)] = e;
     }
 
@@ -248,6 +251,7 @@ public class EntityContainer<I> {
             throw new IllegalStateException("Stall " + stallLabel + " is not currently occupied"
                     + " so the stall cannot be freed");
         stalls[externalToInternalIndex(stallLabel)] = null;
+        count--;
     }
 
     /**
@@ -279,6 +283,9 @@ public class EntityContainer<I> {
         return stallLabel >= minStallLabel && stallLabel <= minStallLabel + stalls.length - 1;
     }
 
+    public int count() {
+        return count;
+    }
 
 
     /**

@@ -4,6 +4,7 @@ import Command.AddFlight;
 import Command.DeleteFlight;
 import Command.UpdateFlight;
 import Entities.Flight;
+import FlightView.FlightView;
 import Singleton.FlightsAccess;
 import dbUtil.dbConnection;
 import javafx.collections.FXCollections;
@@ -117,6 +118,8 @@ public class AirlineManagerController implements Initializable {
         gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
 
         tableview.setItems(FlightsAccess.getInstance());
+
+
     }
 
     public void deleteRow(ActionEvent actionEvent) {
@@ -163,4 +166,33 @@ public class AirlineManagerController implements Initializable {
         this.tableview.setItems(null);
         this.tableview.setItems(this.data);
     }
+    @FXML
+    public void doubleClick(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            ObservableList<Flight> selectedFlights;
+            if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
+                openFlightView(selectedFlights.get(0));
+            }
+        }
+    }
+
+
+    public void openFlightView(Flight flight) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FlightView/FlightView.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+
+
+            loader.<FlightView>getController().initialize(flight);
+
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

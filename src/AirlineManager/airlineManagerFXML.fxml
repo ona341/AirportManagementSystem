@@ -32,7 +32,7 @@
                                   <Button fx:id="addflight" layoutX="7.0" layoutY="214.0" mnemonicParsing="false" onAction="#addFlight" prefHeight="27.0" prefWidth="370.0" text="Add Flight" />
                                   <Button fx:id="clearform" layoutX="7.0" layoutY="282.0" mnemonicParsing="false" onAction="#clearForm" prefHeight="27.0" prefWidth="370.0" text="Clear Form" />
                         <Button fx:id="logoutbutton" layoutX="16.0" layoutY="365.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="353.0" text="Logout" />
-                                  <TableView fx:id="tableview" layoutX="377.0" layoutY="66.0" prefHeight="620.0" prefWidth="898.0">
+                                  <TableView fx:id="tableview" layoutX="377.0" layoutY="66.0" onMouseClicked="#doubleClick" prefHeight="620.0" prefWidth="898.0">
                                       <columns>
                                           <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
                                           <TableColumn fx:id="airlineCol" prefWidth="174.23809814453125" text="Airline" />

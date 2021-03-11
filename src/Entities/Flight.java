@@ -1,44 +1,46 @@
 package Entities;
 
+import javafx.beans.property.*;
+
 import java.sql.Date;
 import java.sql.Time;
 
 public class Flight {
 
-    private String airline;
+    private StringProperty airline;
 
-    private String flightNumber;
+    private StringProperty flightNumber;
 
-    private String destination;
+    private StringProperty destination;
 
-    private Date date;
+    private ObjectProperty<Date> date;
 
-    private Time time;
+    private ObjectProperty<Time> time;
+
+    private IntegerProperty gate;
+
 
     private int capacity;
 
     private final EntityContainer<Passenger> seats;
 
-    private int gate;
+
 
 
     public Flight(String number, String airline, String destination, Date date, Time time, int gate) {
-        this.airline = airline;
-        this.flightNumber = number;
-        this.destination = destination;
-        this.date = date;
-        this.time = time;
+        this.airline = new SimpleStringProperty(airline);
+        this.flightNumber = new SimpleStringProperty(number);
+        this.destination = new SimpleStringProperty(destination);
+        this.date = new SimpleObjectProperty<>(date);
+        this.time = new SimpleObjectProperty<>(time);
         this.seats = new EntityContainer<>(number, 0, capacity);
-        this.gate = gate;
+        this.gate = new SimpleIntegerProperty(gate);
     }
 
     public EntityContainer<Passenger> getSeats() {
         return this.seats;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
-    }
 
     public String toString() {
         return "Flight: " + this.getFlightNumber();
@@ -46,39 +48,63 @@ public class Flight {
 
 
     public String getAirline() {
+        return airline.get();
+    }
+
+    public StringProperty airlineProperty() {
         return airline;
     }
 
     public void setAirline(String airline) {
-        this.airline = airline;
+        this.airline.set(airline);
+    }
+
+    public String getFlightNumber() {
+        return flightNumber.get();
+    }
+
+    public StringProperty flightNumberProperty() {
+        return flightNumber;
     }
 
     public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
+        this.flightNumber.set(flightNumber);
     }
 
     public String getDestination() {
+        return destination.get();
+    }
+
+    public StringProperty destinationProperty() {
         return destination;
     }
 
     public void setDestination(String destination) {
-        this.destination = destination;
+        this.destination.set(destination);
     }
 
     public Date getDate() {
+        return date.get();
+    }
+
+    public ObjectProperty<Date> dateProperty() {
         return date;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date.set(date);
     }
 
     public Time getTime() {
+        return time.get();
+    }
+
+    public ObjectProperty<Time> timeProperty() {
         return time;
     }
 
     public void setTime(Time time) {
-        this.time = time;
+        this.time.set(time);
     }
 
     public int getCapacity() {
@@ -90,10 +116,14 @@ public class Flight {
     }
 
     public int getGate() {
+        return gate.get();
+    }
+
+    public IntegerProperty gateProperty() {
         return gate;
     }
 
     public void setGate(int gate) {
-        this.gate = gate;
+        this.gate.set(gate);
     }
 }
