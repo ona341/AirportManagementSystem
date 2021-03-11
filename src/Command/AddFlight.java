@@ -7,7 +7,7 @@ package Command;
 
 import java.sql.*;
 
-import AirlineManager.AirlineManagerController;
+import AirportManager.AirportManagerController;
 import Singleton.AirportAccess;
 import Entities.Flight;
 import Singleton.FlightsAccess;
@@ -42,10 +42,10 @@ public class AddFlight implements Command{
         }
     }*/
 
-    private final AirlineManagerController airlineManagerController;
+    private final AirportManagerController airportManagerController;
 
-    public AddFlight(AirlineManagerController airlineManagerController) {
-        this.airlineManagerController = airlineManagerController;
+    public AddFlight(AirportManagerController airportManagerController) {
+        this.airportManagerController = airportManagerController;
     }
 
 
@@ -57,26 +57,26 @@ public class AddFlight implements Command{
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
 
-            pstmt.setString(1,airlineManagerController.flightnum.getText());
-            pstmt.setString(2,airlineManagerController.airline.getText());
-            pstmt.setString(3,airlineManagerController.destination.getText());
-            pstmt.setDate(4, Date.valueOf(airlineManagerController.date.getValue()));
-            pstmt.setTime(5, Time.valueOf(airlineManagerController.time.getText()));
+            pstmt.setString(1, airportManagerController.flightnum.getText());
+            pstmt.setString(2, airportManagerController.airline.getText());
+            pstmt.setString(3, airportManagerController.destination.getText());
+            pstmt.setDate(4, Date.valueOf(airportManagerController.date.getValue()));
+            pstmt.setTime(5, Time.valueOf(airportManagerController.time.getText()));
 
             int gate = AirportAccess.getInstance().getGates().firstAvailableStall();
             pstmt.setInt(6,gate);
 
             pstmt.executeUpdate();
-            Flight flight = new Flight(airlineManagerController.flightnum.getText(),
-                            airlineManagerController.airline.getText(),
-                            airlineManagerController.destination.getText(),
-                            Date.valueOf(airlineManagerController.date.getValue()),
-                            Time.valueOf(airlineManagerController.time.getText()),
+            Flight flight = new Flight(airportManagerController.flightnum.getText(),
+                            airportManagerController.airline.getText(),
+                            airportManagerController.destination.getText(),
+                            Date.valueOf(airportManagerController.date.getValue()),
+                            Time.valueOf(airportManagerController.time.getText()),
                             gate);
             FlightsAccess.getInstance().add(flight);
             AirportAccess.getInstance().getGates().assignEntityToStall(flight, gate);
 
-            airlineManagerController.clearForm(null);
+            airportManagerController.clearForm(null);
 
             pstmt.close();
 

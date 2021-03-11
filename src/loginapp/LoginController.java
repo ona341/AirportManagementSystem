@@ -1,11 +1,9 @@
 package loginapp;
 
 import AirlineEmployee.AirlineEmployeeController;
-import AirlineManager.AirlineManagerController;
 import AirportEmployee.AirportEmployeeController;
 import AirportManager.AirportManagerController;
 import Passenger.PassengerController;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,11 +29,7 @@ public class LoginController implements Initializable {
     @FXML
     private PasswordField password;
     @FXML
-    private ComboBox<option> selection;
-    @FXML
     private Button loginButton;
-    @FXML
-    private Button registrationButton;
     @FXML
     private Label loginStatus;
 
@@ -45,8 +39,6 @@ public class LoginController implements Initializable {
         } else {
             this.dbstatus.setText("Not Connected to Database");
         }
-
-        this.selection.setItems(FXCollections.observableArrayList(option.values()));
     }
 
     @FXML
@@ -60,14 +52,10 @@ public class LoginController implements Initializable {
                     case "Airport Manager":
                         airportManagerLogin();
                         break;
-                    case "Airline Manager":
-                        airlineManagerLogin();
-                        break;
                     case "Passenger":
                         passengerLogin();
                         break;
                     case "Admin":
-                        airlineManagerLogin();
                         airportManagerLogin();
                         passengerLogin();
                         break;
@@ -104,26 +92,6 @@ public class LoginController implements Initializable {
 
     }
 
-    public void airlineManagerLogin(){
-
-        try{
-            Stage userStage = new Stage();
-            FXMLLoader airlineManLoader = new FXMLLoader();
-            Pane airlineManRoot = airlineManLoader.load(getClass().getResource("/AirlineManager/airlineManagerFXML.fxml").openStream());
-
-            AirlineManagerController airlineManagerController = airlineManLoader.getController();
-
-            Scene scene = new Scene(airlineManRoot);
-            userStage.setScene(scene);
-            userStage.setTitle("Airline Manager Dashboard");
-            userStage.setResizable(false);
-            userStage.show();
-
-        }catch (IOException ex){
-            ex.printStackTrace();
-        }
-
-    }
 
     public void airportEmployeeLogin(){
 

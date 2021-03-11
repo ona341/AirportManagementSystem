@@ -1,6 +1,6 @@
 package Command;
 
-import AirlineManager.AirlineManagerController;
+import AirportManager.AirportManagerController;
 import Entities.Flight;
 import dbUtil.dbConnection;
 import javafx.collections.ObservableList;
@@ -11,12 +11,12 @@ public class UpdateFlight implements Command {
 
     private static ObservableList<Flight> selectedFlights;
 
-    private AirlineManagerController airlineManagerController;
+    private AirportManagerController airportManagerController;
 
-    public UpdateFlight(ObservableList<Flight> selectedFlights, AirlineManagerController airlineManagerController) {
+    public UpdateFlight(ObservableList<Flight> selectedFlights, AirportManagerController airportManagerController) {
 
         this.selectedFlights = selectedFlights;
-        this.airlineManagerController = airlineManagerController;
+        this.airportManagerController = airportManagerController;
     }
 
     @Override
@@ -32,10 +32,10 @@ public class UpdateFlight implements Command {
 
                 pstmt.setString(5, flight1.getFlightNumber());
 
-                pstmt.setString(1, airlineManagerController.airline.getText());
-                pstmt.setString(2, airlineManagerController.destination.getText());
-                pstmt.setDate(3, Date.valueOf(airlineManagerController.date.getValue()));
-                pstmt.setTime(4, Time.valueOf(airlineManagerController.time.getText()));
+                pstmt.setString(1, airportManagerController.airline.getText());
+                pstmt.setString(2, airportManagerController.destination.getText());
+                pstmt.setDate(3, Date.valueOf(airportManagerController.date.getValue()));
+                pstmt.setTime(4, Time.valueOf(airportManagerController.time.getText()));
 
                 pstmt.executeUpdate();
 
@@ -48,7 +48,7 @@ public class UpdateFlight implements Command {
             throwables.printStackTrace();
         }
 
-        this.airlineManagerController.clearForm(null);
-        this.airlineManagerController.loadFLightData();
+        this.airportManagerController.clearForm(null);
+        this.airportManagerController.loadFLightData();
     }
 }

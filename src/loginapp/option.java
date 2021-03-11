@@ -1,9 +1,8 @@
 package loginapp;
 
 public enum option {
-    AIRPORTMANAGER("Airport Manager"), AIRLINEMANAGER("Airline Manager"),
-    AIRPORTEMPLOYEE("Airport Employee"), AIRLINEEMPLOYEE("Airline Employee"),
-    PASSENGER("Passenger");
+    AIRPORTMANAGER("Airport Manager"), AIRPORTEMPLOYEE("Airport Employee"), AIRLINEEMPLOYEE("Airline Employee"),
+    PASSENGER("Passenger"), ADMIN("Admin");
 
     private final String toString;
 
