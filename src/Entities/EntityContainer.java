@@ -20,6 +20,9 @@ package Entities;
      Starter File for Assignment 4
  */
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 /**
@@ -285,6 +288,11 @@ public class EntityContainer<I> {
 
     public int count() {
         return count;
+    }
+
+
+    public ObservableList<I> getObservableList () {
+        return FXCollections.observableArrayList(stalls);
     }
 
 

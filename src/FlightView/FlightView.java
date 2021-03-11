@@ -7,10 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,6 +39,12 @@ public class FlightView implements Initializable {
     public Text gate;
     @FXML
     public Text passengers;
+    @FXML
+    public TableView passengerTable;
+    @FXML
+    public AnchorPane tablePane;
+    @FXML
+    public HBox hBox;
 
     private Flight flight;
 
@@ -58,6 +63,11 @@ public class FlightView implements Initializable {
         time.setText(flight.getTime().toString());
         gate.setText(String.valueOf(flight.getGate()));
         passengers.setText(String.valueOf(flight.getSeats().count()));
+
+        tablePane.setVisible(!tablePane.isVisible());
+        tablePane.setManaged(!tablePane.isManaged());
+        done.getScene().getWindow().sizeToScene();
+
     }
     @FXML
     public void done(ActionEvent event) {
@@ -175,5 +185,22 @@ public class FlightView implements Initializable {
 
 
     public void viewPassengers(ActionEvent actionEvent) {
+        tablePane.setVisible(!tablePane.isVisible());
+        tablePane.setManaged(!tablePane.isManaged());
+        ((Button) actionEvent.getSource()).getScene().getWindow().sizeToScene();
+        //tablePane.managedProperty().bind(tablePane.visibleProperty());
+
+//        if (hBox.getChildren().contains(tablePane))
+//            hBox.getChildren().remove(tablePane);
+//        else
+//            hBox.getChildren().add(tablePane);
+//
+
+
+
+        //tablePane.getParent().autosize();
+
+
+        //passengerTable.setVisible(!passengerTable.isVisible());
     }
 }
