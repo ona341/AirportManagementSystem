@@ -1,6 +1,7 @@
 package Command;
 
 import Passenger.ParkingController;
+import Singleton.AirportAccess;
 import dbUtil.dbConnection;
 
 import java.sql.Connection;
@@ -27,7 +28,10 @@ public class CancelParking implements Command{
 
             pstmt.setString(1, parkingController.idFieldCancel.getText());
             pstmt.setString(2, parkingController.parkingFieldCancel.getText());
+
+            AirportAccess.getInstance().getParkingStalls().freeStall(Integer.parseInt(parkingController.parkingFieldCancel.getText()));
             pstmt.executeUpdate();
+
 
             parkingController.clearCancelForm(null);
 
