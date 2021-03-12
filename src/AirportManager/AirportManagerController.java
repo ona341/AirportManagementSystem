@@ -10,8 +10,15 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
+/**
+ * AirportManager Controller
+ */
 public class AirportManagerController {
-
+    /**
+     * logs the user out of Airport Manager page and takes them back to the login page
+     * @param event the logout button is clicked
+     * @throws IOException thrown when the I/O is thrown or fails
+     */
     public void logout(ActionEvent event) throws IOException
     {
         Parent loginViewParent = FXMLLoader.load(getClass().getResource("/loginapp/login.fxml"));
@@ -21,18 +28,22 @@ public class AirportManagerController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         window.setScene(loginViewScene);
-        window.show();
+        window.show();//displays window
     }
 
+    /**
+     * Adds a user to the system
+     * @param event an action event
+     */
     public void toRegistration(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
-            Stage registerStage = new Stage();
+            Stage registerStage = new Stage();      //creates a new stage for the registration
             registerStage.initStyle(StageStyle.UNDECORATED);
             registerStage.setScene(new Scene(root, 520, 491));
             registerStage.setTitle("Registration");
             registerStage.setResizable(false);
-            registerStage.show();
+            registerStage.show();//displays created stage
 
         } catch (
                 Exception e) {

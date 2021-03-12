@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Airport Employee Controller class currently only goes back to logout
+ * Airport Employee Controller currently only goes back to logout
  */
 public class AirportEmployeeController {
     /**
