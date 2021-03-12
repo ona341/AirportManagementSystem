@@ -16,7 +16,7 @@ public class AirportEmployeeController {
     /**
      * Takes the user back to the login page
      * @param event a button is clicked
-     * @throws IOException
+     * @throws IOException if I/O operations fail or are interrupted
      */
     public void logout(ActionEvent event) throws IOException
     {

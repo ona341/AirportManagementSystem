@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * Controller for the Airline manager package
  */
 public class AirlineManagerController implements Initializable {
-
+    //Instances for the GUI
     @FXML
     public TextField flightnum;
     @FXML
@@ -64,7 +64,7 @@ public class AirlineManagerController implements Initializable {
     /**
      * Logs out if the Airline Manager bag to the log in page
      * @param event the logout button is clicked
-     * @throws IOException
+     * @throws IOException throws this if the I/O is interrupted or fails
      */
     @FXML
     public void logout(ActionEvent event) throws IOException
@@ -78,8 +78,8 @@ public class AirlineManagerController implements Initializable {
     }
 
     /**
-     *
-     * @param event
+     *Checks the format of the inputted time for validity
+     * @param event a Mouse event
      */
     @FXML
     private void checkTime(MouseEvent event) {
@@ -118,7 +118,7 @@ public class AirlineManagerController implements Initializable {
 
     /**
      * Clears the filled spaces in the form
-     * @param event an action perfrmed by the user
+     * @param event an action performed by the user
      */
     @FXML
     public void clearForm(ActionEvent event) {
@@ -130,9 +130,9 @@ public class AirlineManagerController implements Initializable {
     }
 
     /**
-     *
-     * @param url
-     * @param resourceBundle
+     *Initializes the Controller
+     * @param url he location used to resolve the relative paths of the object or null if unknown
+     * @param resourceBundle the resources used to localize the root of the object
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -143,7 +143,7 @@ public class AirlineManagerController implements Initializable {
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
 
-        tableview.setItems(FlightsAccess.getInstance());
+        tableview.setItems(FlightsAccess.getInstance()); //sets tableviews items to the instance of FlightsAccess
     }
 
     /**
