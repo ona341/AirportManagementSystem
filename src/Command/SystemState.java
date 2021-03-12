@@ -1,8 +1,4 @@
-package Command;/*
-  CMPT 270 A5Q5
-  @author Blake Stadnyk; 11195866 - BJS645
- */
-
+package Command;
 import java.util.Map;
 import Entities.Passenger;
 import Singleton.AirportAccess;
