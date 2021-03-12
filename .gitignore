@@ -2,6 +2,7 @@
 /out/
 /.gradle/
 /gradle/
+/build/
 ./airport.sqlite
 ams.iml
 README.md
