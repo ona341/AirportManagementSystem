@@ -9,6 +9,10 @@ repositories {
 
 dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.32.3.3'
+
+    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:win"
+    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:mac"
 }
 
 javafx {
@@ -17,3 +21,12 @@ javafx {
 }
 
 mainClassName = 'Startup.AMS'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'Startup.Launcher'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
