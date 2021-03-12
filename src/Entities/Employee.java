@@ -1,7 +1,4 @@
-package Entities;/*
-  CMPT 270 A5
-  @author Blake Stadnyk; 11195866 - BJS645
- */
+package Entities;
 
 /**
  * A Employee who extends from Person.
@@ -48,8 +45,6 @@ public class Employee extends Person {
     if (! d.toString().equals(toStringExpected)) {
       System.out.println("Problem with toString");
     }
-
-
 
     System.out.println("Testing Complete");
 

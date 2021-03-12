@@ -1,24 +1,5 @@
 package Entities;
 
-/*
-  CMPT 270 A5
-  @author Blake Stadnyk; 11195866 - BJS645
- */
-
-/*
-  CMPT 270 Course material
-  Copyright (c) 2020
-  All rights reserved.
-
-  This document contains resources for homework assigned to students of
-  CMPT 270 and shall not be distributed without permission.  Posting this
-  file to a public or private website, or providing this file to a person
-  not registered in CMPT 270, constitutes Academic Misconduct, according
-  to the University of Saskatchewan Policy on Academic Misconduct.
-
-  Synopsis:
-     Starter File for Assignment 4
- */
 
 import java.util.ArrayList;
 
@@ -63,9 +44,6 @@ public class EntityContainer<I> {
         minStallLabel = wMinStallLabel;
         stalls = (I[]) new Object[wMaxStallLabel - wMinStallLabel + 1];
     }
-
-
-
 
     /**
      * Return the name of this Container.
@@ -222,6 +200,10 @@ public class EntityContainer<I> {
         return temp;
     }
 
+    /**
+     * Gets the first available stall in the list of stalls
+     * @return an integer that is the label of the first available stall
+     */
     public int firstAvailableStall() {
         for (int i = 0; i < stalls.length ; i++) {
             if (stalls[i] == null) {
@@ -230,8 +212,6 @@ public class EntityContainer<I> {
         }
         return -1;
     }
-
-
 
     /**
      * Frees a stall.
