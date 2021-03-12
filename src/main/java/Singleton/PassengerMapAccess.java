@@ -5,7 +5,6 @@ package Singleton;
  */
 
 import Entities.Passenger;
-import dbUtil.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import java.sql.Connection;

@@ -3,7 +3,7 @@ package Command;
 import Entities.Flight;
 import Singleton.AirportAccess;
 import Singleton.FlightsAccess;
-import dbUtil.dbConnection;
+import Singleton.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

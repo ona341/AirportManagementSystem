@@ -2,7 +2,7 @@ package Command;
 
 import Passenger.ParkingController;
 import Singleton.AirportAccess;
-import dbUtil.dbConnection;
+import Singleton.dbConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

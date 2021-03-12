@@ -6,10 +6,8 @@ import Passenger.ParkingController;
 import Entities.Passenger;
 import Singleton.AirportAccess;
 import Singleton.PassengerMapAccess;
-import dbUtil.dbConnection;
+import Singleton.dbConnection;
 import javafx.fxml.FXML;
-
-import javax.management.openmbean.InvalidKeyException;
 
 
 public class AddParking implements Command{

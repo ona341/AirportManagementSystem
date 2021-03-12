@@ -11,7 +11,7 @@ import AirportManager.AirportManagerController;
 import Singleton.AirportAccess;
 import Entities.Flight;
 import Singleton.FlightsAccess;
-import dbUtil.dbConnection;
+import Singleton.dbConnection;
 import javafx.fxml.FXML;
 
 /**

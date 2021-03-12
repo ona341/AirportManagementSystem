@@ -2,7 +2,7 @@ package FlightView;
 
 import Entities.Flight;
 import Singleton.AirportAccess;
-import dbUtil.dbConnection;
+import Singleton.dbConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

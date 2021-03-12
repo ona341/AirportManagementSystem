@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import Singleton.AirportAccess;
-import dbUtil.dbConnection;
+import Singleton.dbConnection;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

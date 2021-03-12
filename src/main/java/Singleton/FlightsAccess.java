@@ -1,7 +1,6 @@
 package Singleton;
 
 import Entities.Flight;
-import dbUtil.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;

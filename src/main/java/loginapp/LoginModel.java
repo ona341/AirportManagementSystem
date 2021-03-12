@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dbUtil.dbConnection;
+import Singleton.dbConnection;
 import javafx.util.Pair;
 
 public class LoginModel {

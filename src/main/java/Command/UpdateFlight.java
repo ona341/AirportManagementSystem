@@ -2,7 +2,7 @@ package Command;
 
 import AirportManager.AirportManagerController;
 import Entities.Flight;
-import dbUtil.dbConnection;
+import Singleton.dbConnection;
 import javafx.collections.ObservableList;
 
 import java.sql.*;

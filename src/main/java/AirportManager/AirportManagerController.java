@@ -6,7 +6,7 @@ import Command.UpdateFlight;
 import Entities.Flight;
 import FlightView.FlightView;
 import Singleton.FlightsAccess;
-import dbUtil.dbConnection;
+import Singleton.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
