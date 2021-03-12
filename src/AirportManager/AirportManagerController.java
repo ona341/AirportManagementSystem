@@ -32,7 +32,7 @@ public class AirportManagerController {
     }
 
     /**
-     * Adds a user to the system
+     * Opens the registration page to add a user
      * @param event an action event
      */
     public void toRegistration(ActionEvent event) {

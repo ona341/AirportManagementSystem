@@ -1,10 +1,5 @@
 package Command;
 
-/*
-  CMPT 270 A5Q5
-  @author Blake Stadnyk; 11195866 - BJS645
- */
-
 import java.sql.*;
 
 import AirlineManager.AirlineManagerController;
@@ -18,45 +13,31 @@ import javafx.fxml.FXML;
  * Allows the user to add a flight to the system.
  */
 public class AddFlight implements Command{
-    //@Override
-    /*public void execute() {
-        try {
-            Connection c =  dbConnection.getConnection();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        IOAccess.getInstance().outputString("Adding a new flight...");
-        String airline = IOAccess.getInstance().readString("Enter the airline:");
-        String number = IOAccess.getInstance().readString("Enter the flight number:");
-        String destination = IOAccess.getInstance().readString("Enter the destination:");
-        int capacity = IOAccess.getInstance().readInt("Enter the capacity:");
-
-        if (AirportAccess.getInstance().hasFlight(number)) {
-            IOAccess.getInstance().outputString("A flight with this number already exists in the system");
-        }
-        else {
-            Flight flight = new Flight(airline, number, destination, null, null);
-            AirportAccess.getInstance().assignFlightToGate(flight,AirportAccess.getInstance().availableGates().get(0));
-            IOAccess.getInstance().outputString("Flight created.");
-        }
-    }*/
-
+    /**
+     * Airline manager Controller instance
+     */
     private final AirlineManagerController airlineManagerController;
 
+    /**
+     * Constructor
+     * @param airlineManagerController an AirlineManagerController instance
+     */
     public AddFlight(AirlineManagerController airlineManagerController) {
         this.airlineManagerController = airlineManagerController;
     }
 
 
     @FXML
+    /**
+     * Executes the command
+     */
     public void execute() {
         String sql = "INSERT INTO flights(flightNum,airline,destination,date,time,gate) VALUES(?,?,?,?,?,?)";
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = dbConnection.getConnection(); //open a connection to the database
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-
+            //sets the string parameter indexes if the PreoaredStatement to their respective fields
             pstmt.setString(1,airlineManagerController.flightnum.getText());
             pstmt.setString(2,airlineManagerController.airline.getText());
             pstmt.setString(3,airlineManagerController.destination.getText());
@@ -65,17 +46,19 @@ public class AddFlight implements Command{
 
             int gate = AirportAccess.getInstance().getGates().firstAvailableStall();
             pstmt.setInt(6,gate);
-
+            //executes the statement in the PreparedStatement
             pstmt.executeUpdate();
+            //Creates a new flight from the valid fields in the airlineManagerController instance
             Flight flight = new Flight(airlineManagerController.flightnum.getText(),
                             airlineManagerController.airline.getText(),
                             airlineManagerController.destination.getText(),
                             Date.valueOf(airlineManagerController.date.getValue()),
                             Time.valueOf(airlineManagerController.time.getText()),
                             gate);
+            //Adds the created flight to the flights in the system and assigns it to a stall in the airport
             FlightsAccess.getInstance().add(flight);
             AirportAccess.getInstance().getGates().assignEntityToStall(flight, gate);
-
+            //Clears form filled after the flight was added
             airlineManagerController.clearForm(null);
 
             pstmt.close();
