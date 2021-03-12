@@ -9,8 +9,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ *
+ */
 public class AirlineEmployeeController {
-
+    /**
+     *logs out of the Airline Employee
+     * @param event
+     * @throws IOException
+     */
     public void logout(ActionEvent event) throws IOException
     {
         Parent loginViewParent = FXMLLoader.load(getClass().getResource("/loginapp/login.fxml"));

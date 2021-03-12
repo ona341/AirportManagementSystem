@@ -82,7 +82,7 @@ public class Person {
     }
 
     /**
-     * A method to test the Entities.Person class.
+     * A unit./regression testing of the Entities.Person class.
      */
     public static void main(String[] args) {
         int numErrors = 0;

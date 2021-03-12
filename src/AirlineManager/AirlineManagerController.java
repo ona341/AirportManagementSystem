@@ -25,6 +25,9 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the Airline manager package
+ */
 public class AirlineManagerController implements Initializable {
 
     @FXML
@@ -55,9 +58,14 @@ public class AirlineManagerController implements Initializable {
     public TableColumn<Flight,Character> gateCol;
     @FXML
     public TextField searchBox;
-
+        //list of flights in database
     private ObservableList<Flight> flightData;
 
+    /**
+     * Logs out if the Airline Manager bag to the log in page
+     * @param event the logout button is clicked
+     * @throws IOException
+     */
     @FXML
     public void logout(ActionEvent event) throws IOException
     {
@@ -69,6 +77,10 @@ public class AirlineManagerController implements Initializable {
         window.show();
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     private void checkTime(MouseEvent event) {
         if (time.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
@@ -80,12 +92,20 @@ public class AirlineManagerController implements Initializable {
         }
     }
 
+    /***
+     * Calls and executes the add flight command
+     * @param event when the addFlight bitton is clicked
+     */
     @FXML
     public void addFlight(ActionEvent event) {
         AddFlight addflight = new AddFlight(this);
         addflight.execute();
     }
 
+    /**
+     * Finds the flight with the given input
+     * @param event keys entered
+     */
     @FXML
     private void searchTable(KeyEvent event) {
         if(searchBox.getText().isBlank()) {
@@ -96,7 +116,10 @@ public class AirlineManagerController implements Initializable {
         }
     }
 
-
+    /**
+     * Clears the filled spaces in the form
+     * @param event an action perfrmed by the user
+     */
     @FXML
     public void clearForm(ActionEvent event) {
         flightnum.clear();
@@ -106,7 +129,11 @@ public class AirlineManagerController implements Initializable {
         date.setValue(null);
     }
 
-
+    /**
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         flightCol.setCellValueFactory(new PropertyValueFactory<>("flightNumber"));
@@ -119,6 +146,10 @@ public class AirlineManagerController implements Initializable {
         tableview.setItems(FlightsAccess.getInstance());
     }
 
+    /**
+     * Deletes the selected flight from the  system
+     * @param actionEvent the user selecting delete flight
+     */
     public void deleteRow(ActionEvent actionEvent) {
         ObservableList<Flight> selectedFlights;
         if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
@@ -127,7 +158,10 @@ public class AirlineManagerController implements Initializable {
         }
     }
 
-
+    /**
+     * Updates the flight row selected
+     * @param actionEvent an action performed by the user
+     */
     public void updateRow(ActionEvent actionEvent) {
         ObservableList<Flight> selectedFlights;
         if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
@@ -136,20 +170,23 @@ public class AirlineManagerController implements Initializable {
         }
     }
 
+    /**
+     * Loads the flights in the system into the panel to be viewed
+     */
     public void loadFLightData() {
 
         try {
 
             Connection conn = dbConnection.getConnection();
-            this.flightData = FXCollections.observableArrayList();
+            this.flightData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
 
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM flights");
 
-            while(rs.next()) {
+            while(rs.next()) { //creates and adds a flight object to the flight data while the query's result set has a next
                 this.flightData.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6)));
             }
 
-            conn.close();
+            conn.close(); //closes the database connection
 
         } catch (SQLException e) {
             e.printStackTrace();

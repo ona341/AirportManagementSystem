@@ -9,8 +9,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Airport Employee Controller class currently only goes back to logout
+ */
 public class AirportEmployeeController {
-
+    /**
+     * Takes the user back to the login page
+     * @param event a button is clicked
+     * @throws IOException
+     */
     public void logout(ActionEvent event) throws IOException
     {
         Parent loginViewParent = FXMLLoader.load(getClass().getResource("/loginapp/login.fxml"));
@@ -20,7 +27,7 @@ public class AirportEmployeeController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         window.setScene(loginViewScene);
-        window.show();
+        window.show(); //displays the window
     }
 
 }
