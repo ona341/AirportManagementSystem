@@ -1,7 +1,4 @@
-package Entities;/*
-   CMPT 270 A5
-   @author Blake Stadnyk; 11195866 - BJS645
- */
+package Entities;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -20,11 +17,17 @@ public class Passenger extends Person {
    * The list of Flights.
    */
   private final ArrayList<Flight> flights = new ArrayList<>();
-
+  /**
+   * A string that is the passenger's email
+   */
   private String email;
-
+  /**
+   * A Date type that is the date that the passenger checked in
+   */
   private Date checkInDate;
-
+  /**
+   * An integer that is the passengers parkingStall
+   */
   private int parkingStallLabel;
 
   /**

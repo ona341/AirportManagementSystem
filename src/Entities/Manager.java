@@ -1,7 +1,4 @@
-package Entities;/*
-  CMPT 270 A5
-  @author Blake Stadnyk; 11195866 - BJS645
- */
+package Entities;
 
 /**
  * A Manager who extends from a Employee.
@@ -60,8 +57,6 @@ public class Manager extends Employee {
     if (! d.toString().equals(toStringExpected)) {
       System.out.println("Problem with toString");
     }
-
-
 
     System.out.println("Testing Complete");
 
