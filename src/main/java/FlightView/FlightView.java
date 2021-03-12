@@ -45,6 +45,8 @@ public class FlightView implements Initializable {
     public AnchorPane tablePane;
     @FXML
     public HBox hBox;
+    @FXML
+    public Button showButton;
 
     private Flight flight;
 
@@ -140,7 +142,7 @@ public class FlightView implements Initializable {
             gate = Integer.parseInt(newDialog(this.gate.getText(), "Gate"));
             AirportAccess.getInstance().getGates().assignEntityToStall(flight,gate);
         }  catch (IllegalStateException | IllegalArgumentException e) {
-            new Alert(Alert.AlertType.ERROR).show();
+            new Alert(Alert.AlertType.ERROR,"The entered gate is either occupied, exceeds the maximum gate number, or is not an integer").showAndWait();
             return editGate(event);
         }
 
@@ -173,7 +175,7 @@ public class FlightView implements Initializable {
         try {
              time = Time.valueOf(newDialog(this.time.getText(), "Time")) ;
         } catch (IllegalArgumentException e) {
-             new Alert(Alert.AlertType.ERROR).show();
+             new Alert(Alert.AlertType.ERROR,"The entered time could not be interpreted correctly").showAndWait();
              return editTime(event);
         }
         flight.setTime(time);
@@ -185,22 +187,10 @@ public class FlightView implements Initializable {
 
 
     public void viewPassengers(ActionEvent actionEvent) {
+        showButton.setText(tablePane.isVisible() ? "Hide" : "Show");
+
         tablePane.setVisible(!tablePane.isVisible());
         tablePane.setManaged(!tablePane.isManaged());
         ((Button) actionEvent.getSource()).getScene().getWindow().sizeToScene();
-        //tablePane.managedProperty().bind(tablePane.visibleProperty());
-
-//        if (hBox.getChildren().contains(tablePane))
-//            hBox.getChildren().remove(tablePane);
-//        else
-//            hBox.getChildren().add(tablePane);
-//
-
-
-
-        //tablePane.getParent().autosize();
-
-
-        //passengerTable.setVisible(!passengerTable.isVisible());
     }
 }

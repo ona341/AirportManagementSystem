@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
             Pair<Boolean,String> login;
             if ((login = this.loginModel.Login(this.idNumber.getText(), this.password.getText())).getKey()) {
                 Stage stage = (Stage) this.loginButton.getScene().getWindow();
-               // stage.close();
+                stage.close();
                 switch(login.getValue()){
                     case "Airport Manager":
                         airportManagerLogin();
