@@ -20,23 +20,35 @@ import java.util.TreeMap;
  */
 public class PassengerMapAccess {
 
-    private static final String sql = "SELECT name, id, email, checkin, parkingStall FROM parking";
-
+    /**
+     * The singleton passenger map
+     */
     private static ObservableMap<String,Passenger> passengers;
 
-
+    /**
+     * Private do nothing constructor
+     */
     private PassengerMapAccess() {
     }
 
+    /**
+     * Gets the instance of the map
+     *
+     * @return  the map instance
+     */
     public static ObservableMap<String,Passenger> getInstance() {
         if (passengers == null) initialize();
         return passengers;
     }
 
+    /**
+     * Initialize the passenger map with the data in the database
+     */
     private static void initialize() {
         if (passengers == null) {
             passengers = FXCollections.observableMap(new TreeMap<>());
             try {
+                String sql = "SELECT name, id, email, checkin, parkingStall FROM parking";
                 Connection conn = dbConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);

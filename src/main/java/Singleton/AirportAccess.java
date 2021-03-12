@@ -1,4 +1,5 @@
-package Singleton;/*
+package Singleton;
+/*
   CMPT 270 A5Q4
   @author Blake Stadnyk; 11195866 - BJS645
  */
