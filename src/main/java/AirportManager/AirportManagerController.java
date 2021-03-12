@@ -100,7 +100,7 @@ public class AirportManagerController implements Initializable{
     @FXML
     public void logout(ActionEvent event) throws IOException
     {
-        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/loginapp/login.fxml"));
+        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/login.fxml"));
         Scene loginViewScene = new Scene(loginViewParent);
         //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -265,7 +265,7 @@ public class AirportManagerController implements Initializable{
 
     public void openFlightView(Flight flight) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FlightView/FlightView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FlightView.fxml"));
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));

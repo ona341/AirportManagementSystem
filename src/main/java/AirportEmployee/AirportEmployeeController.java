@@ -13,7 +13,7 @@ public class AirportEmployeeController {
 
     public void logout(ActionEvent event) throws IOException
     {
-        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/loginapp/login.fxml"));
+        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/login.fxml"));
         Scene loginViewScene = new Scene(loginViewParent);
 
         //This line gets the Stage information

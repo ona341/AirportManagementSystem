@@ -48,11 +48,11 @@ public class AMS extends Application implements Initializable{
     public void start(Stage stage) throws Exception {
         Parent root;
         if (new File("airport.sqlite").isFile()) {
-            root = FXMLLoader.load(getClass().getResource("/loginapp/login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/login.fxml"));
             initialize();
         }
         else
-            root = FXMLLoader.load(getClass().getResource("AMS.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/AMS.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
             Pair<Boolean,String> login;
             if ((login = this.loginModel.Login(this.idNumber.getText(), this.password.getText())).getKey()) {
                 Stage stage = (Stage) this.loginButton.getScene().getWindow();
-                stage.close();
+               // stage.close();
                 switch(login.getValue()){
                     case "Airport Manager":
                         airportManagerLogin();
@@ -76,7 +76,7 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airportManLoader = new FXMLLoader();
-            Pane airportManRoot = airportManLoader.load(getClass().getResource("/AirportManager/airportManagerFXML.fxml").openStream());
+            Pane airportManRoot = airportManLoader.load(getClass().getResource("/airportManagerFXML.fxml").openStream());
 
             AirportManagerController airportManagerController = airportManLoader.getController();
 
@@ -98,7 +98,7 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airportEmpLoader = new FXMLLoader();
-            Pane airportEmpRoot = airportEmpLoader.load(getClass().getResource("/AirportEmployee/airportEmployeeFXML.fxml").openStream());
+            Pane airportEmpRoot = airportEmpLoader.load(getClass().getResource("/airportEmployeeFXML.fxml").openStream());
 
             AirportEmployeeController airportEmployeeController = airportEmpLoader.getController();
 
@@ -119,7 +119,7 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airlineEmpLoader = new FXMLLoader();
-            Pane airlineEmpRoot = airlineEmpLoader.load(getClass().getResource("/AirlineEmployee/airlineEmployeeFXML.fxml").openStream());
+            Pane airlineEmpRoot = airlineEmpLoader.load(getClass().getResource("/airlineEmployeeFXML.fxml").openStream());
 
             AirlineEmployeeController airlineEmployeeController = airlineEmpLoader.getController();
 
@@ -139,7 +139,7 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader passengerLoader = new FXMLLoader();
-            Pane passengerRoot = (Pane)passengerLoader.load(getClass().getResource("/Passenger/passengerFXML.fxml").openStream());
+            Pane passengerRoot = (Pane)passengerLoader.load(getClass().getResource("/passengerFXML.fxml").openStream());
 
             PassengerController passengerController = (PassengerController)passengerLoader.getController();
 

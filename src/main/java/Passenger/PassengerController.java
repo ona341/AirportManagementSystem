@@ -14,7 +14,7 @@ public class PassengerController {
 
     public void logout(ActionEvent event) throws IOException
     {
-        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/loginapp/login.fxml"));
+        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/login.fxml"));
         Scene loginViewScene = new Scene(loginViewParent);
 
         //This line gets the Stage information
@@ -26,7 +26,7 @@ public class PassengerController {
 
     public void toParkingReg(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("parkingFXML.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/parkingFXML.fxml"));
             Stage reservationStage = new Stage();
             reservationStage.initStyle(StageStyle.UNDECORATED);
             reservationStage.setScene(new Scene(root, 555, 588));
@@ -43,7 +43,7 @@ public class PassengerController {
 
     public void toCancelParking(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("cancelParkingFXML.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/cancelParkingFXML.fxml"));
             Stage cancelResStage = new Stage();
             cancelResStage.initStyle(StageStyle.UNDECORATED);
             cancelResStage.setScene(new Scene(root, 600, 400));
