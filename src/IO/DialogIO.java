@@ -1,8 +1,4 @@
-package IO;/*
-  CMPT 270 A5Q3
-  @author Blake Stadnyk; 11195866 - BJS645
- */
-
+package IO;
 import javax.swing.*;
 
 /**

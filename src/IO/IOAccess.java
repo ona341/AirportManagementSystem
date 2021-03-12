@@ -1,7 +1,4 @@
-package IO;/*
-  CMPT 270 A5Q4
-  @author Blake Stadnyk; 11195866 - BJS645
- */
+package IO;
 
 /**
  * An IO interface using the singleton pattern.

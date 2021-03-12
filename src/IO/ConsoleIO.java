@@ -1,7 +1,4 @@
-package IO;/*
-  CMPT 270 A5Q2
-  @author Blake Stadnyk; 11195866
- */
+package IO;
 
 import java.security.InvalidKeyException;
 import java.util.InputMismatchException;
