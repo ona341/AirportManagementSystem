@@ -10,13 +10,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- *
+ * Controller for the Airline Employee, Currently only logs out
  */
 public class AirlineEmployeeController {
     /**
-     *logs out of the Airline Employee
-     * @param event
-     * @throws IOException
+     *Logs the user out of the Airline Employee and returns user to the login page
+     * @param event the logout button clicked
+     * @throws IOException throws this is the I/O is interrupted or fails
      */
     public void logout(ActionEvent event) throws IOException
     {
@@ -27,7 +27,7 @@ public class AirlineEmployeeController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         window.setScene(loginViewScene);
-        window.show();
+        window.show(); //Displays window
     }
 
 }
