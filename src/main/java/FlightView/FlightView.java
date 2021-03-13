@@ -201,9 +201,10 @@ public class FlightView implements Initializable {
 
 
     public void viewPassengers(ActionEvent actionEvent) {
+        tablePane.setVisible(!tablePane.isVisible());
         showButton.setText(tablePane.isVisible() ? "Hide" : "Show");
 
-        tablePane.setVisible(!tablePane.isVisible());
+
         tablePane.setManaged(!tablePane.isManaged());
         ((Button) actionEvent.getSource()).getScene().getWindow().sizeToScene();
     }
