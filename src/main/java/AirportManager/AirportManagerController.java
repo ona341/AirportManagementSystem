@@ -3,8 +3,11 @@ package AirportManager;
 import Command.AddFlight;
 import Command.DeleteFlight;
 import Command.UpdateFlight;
+import Command.ViewEmployeeSchedule;
+import Entities.Employee;
 import Entities.Flight;
 import FlightView.FlightView;
+import Singleton.EmployeeMapAccess;
 import Singleton.FlightsAccess;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
@@ -28,6 +31,9 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+/**
+ * The Airport manager controller.
+ */
 public class AirportManagerController implements Initializable{
 
     @FXML
@@ -81,24 +87,28 @@ public class AirportManagerController implements Initializable{
     private Label errorMessageLabel;
 
 
+    @FXML
+    public TextField employeeId;
+    @FXML
+    public TextField employeeName;
+    @FXML
+    public TextField employeeRole;
+    @FXML
+    public TableView<Employee> tableviewEmployees;
+    @FXML
+    public TableColumn<Employee,String> employeeIdCol;
+    @FXML
+    public TableColumn<Employee,String> employeeNameCol;
+    @FXML
+    public TableColumn<Employee,String> employeeRoleCol;
 
-    /*public void toRegistration(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
-            Stage registerStage = new Stage();
-            registerStage.initStyle(StageStyle.UNDECORATED);
-            registerStage.setScene(new Scene(root, 520, 491));
-            registerStage.setTitle("Registration");
-            registerStage.setResizable(false);
-            registerStage.show();
 
-        } catch (
-                Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
-    }*/
-
+    /**
+     * Logout as the Airport Manager.
+     *
+     * @param event the button event to log out
+     * @throws IOException
+     */
     @FXML
     public void logout(ActionEvent event) throws IOException
     {
@@ -111,7 +121,7 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     *Checks the format of the inputted time for validity
+     * Checks the format of the inputted time for validity
      * @param event a Mouse event
      */
     @FXML
@@ -125,9 +135,9 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-    /***
+    /**
      * Calls and executes the add flight command
-     * @param event when the addFlight bitton is clicked
+     * @param event when the addFlight button is clicked
      */
     @FXML
     public void addFlight(ActionEvent event) {
@@ -150,7 +160,8 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Clears the filled spaces in the form
+     * Clears the form
+     *
      * @param event an action performed by the user
      */
     @FXML
@@ -163,7 +174,7 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     *Initializes the Controller
+     * Initializes the Controller
      * @param url he location used to resolve the relative paths of the object or null if unknown
      * @param resourceBundle the resources used to localize the root of the object
      */
@@ -183,8 +194,21 @@ public class AirportManagerController implements Initializable{
         tableview.setItems(FlightsAccess.getInstance());
 
         capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
+
+
+
+        employeeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+        tableviewEmployees.setItems(EmployeeMapAccess.getInstance());
     }
 
+    /**
+     * Register button on action.
+     *
+     * @param event the event
+     */
     public void registerButtonOnAction(ActionEvent event){
         if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() ||
                 this.confirmPasswordField.getText().isEmpty()){
@@ -193,16 +217,21 @@ public class AirportManagerController implements Initializable{
             this.passMessageLabel.setText("");
         }
 
-        if(setPasswordField.getText().equals(confirmPasswordField.getText())){
+        if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
+                setPasswordField.getText().equals(confirmPasswordField.getText())){
             registerUser();
             passMessageLabel.setText("");
         }
         else {
-            passMessageLabel.setText("Passwords do not match");
+            passMessageLabel.setText("Please make sure your passwords match and that it contains at least one uppercase, " +
+                    "lowercase, and number");
             this.messageLabel.setText("");
         }
     }
 
+    /**
+     * Register user.
+     */
     public void registerUser(){
         String sqlInsert = "INSERT INTO login(id,password,representation) VALUES (?,?,?)";
 
@@ -228,9 +257,9 @@ public class AirportManagerController implements Initializable{
     }
 
 
-
     /**
      * Deletes the selected flight from the  system
+     *
      * @param actionEvent the user selecting delete flight
      */
     public void deleteRow(ActionEvent actionEvent) {
@@ -243,6 +272,7 @@ public class AirportManagerController implements Initializable{
 
     /**
      * Updates the flight row selected
+     *
      * @param actionEvent an action performed by the user
      */
     public void updateRow(ActionEvent actionEvent) {
@@ -285,6 +315,12 @@ public class AirportManagerController implements Initializable{
         this.tableview.setItems(null);
         this.tableview.setItems(this.flightData);
     }
+
+    /**
+     * Double click.
+     *
+     * @param event the event
+     */
     @FXML
     public void doubleClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -296,6 +332,11 @@ public class AirportManagerController implements Initializable{
     }
 
 
+    /**
+     * Open flight view.
+     *
+     * @param flight the flight
+     */
     public void openFlightView(Flight flight) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FlightView.fxml"));
@@ -305,6 +346,46 @@ public class AirportManagerController implements Initializable{
 
 
             loader.<FlightView>getController().initialize(flight);
+
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /**
+     * Double click.
+     *
+     * @param event the event
+     */
+    @FXML
+    public void doubleClickEmployee(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            ObservableList<Employee> selectedEmployee;
+            if (!(selectedEmployee = tableviewEmployees.getSelectionModel().getSelectedItems()).isEmpty()) {
+                viewEmployeeSchedule(selectedEmployee.get(0));
+            }
+        }
+    }
+
+
+    /**
+     * Open flight view.
+     *
+     * @param employee the flight
+     */
+    public void viewEmployeeSchedule(Employee employee) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewEmployeeSchedule.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+
+
+            loader.<ViewEmployeeSchedule>getController().initialize(employee);
 
 
             stage.show();

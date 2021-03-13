@@ -98,12 +98,7 @@ public class FlightView implements Initializable {
         dialog.setGraphic(null);
 
         Optional<String> answer = dialog.showAndWait();
-        if (answer.isPresent()) {
-            return answer.get();
-        }
-        else {
-            return defaultValue;
-        }
+        return answer.orElse(defaultValue);
 
     }
 

@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 /**
- * UpdateFlight class inplements the Command interface to modify the flights in the system
+ * UpdateFlight class implements the Command interface to modify the flights in the system
  */
 public class UpdateFlight implements Command {
     /**
@@ -16,7 +16,7 @@ public class UpdateFlight implements Command {
      */
     private static ObservableList<Flight> selectedFlights;
 
-    private AirportManagerController airportManagerController;
+    private final AirportManagerController airportManagerController;
 
     public UpdateFlight(ObservableList<Flight> selectedFlights, AirportManagerController airportManagerController) {
 

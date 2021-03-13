@@ -17,6 +17,7 @@ import Entities.Passenger;
 import Singleton.AirportAccess;
 import Singleton.EmployeeMapAccess;
 import Singleton.PassengerMapAccess;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 /**
@@ -27,8 +28,8 @@ public class SystemState implements Command{
     public void execute() {
         String outString = "\nThe Airport system has the following employees registered:\n";
         String temp = "";
-        for (Map.Entry<String, Employee> entry : EmployeeMapAccess.getInstance().entrySet()) {
-            temp += entry.getValue();
+        for (Employee employee : EmployeeMapAccess.getInstance()) {
+            temp += employee.toString();
         }
         outString += (temp.equals("")) ? "None\n" : temp;
 

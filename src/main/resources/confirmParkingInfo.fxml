@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="496.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Passenger.ParkingController">
+   <children>
+      <Label layoutX="147.0" layoutY="103.0" prefHeight="35.0" prefWidth="60.0" text="Name:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="147.0" layoutY="257.0" prefHeight="35.0" prefWidth="60.0" text="Email: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="147.0" layoutY="178.0" prefHeight="35.0" prefWidth="98.0" text="ID Number:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="148.0" layoutY="333.0" prefHeight="35.0" prefWidth="118.0" text="Parking Stall:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="nameConfirmation" alignment="CENTER" layoutX="284.0" layoutY="106.0" prefHeight="29.0" prefWidth="274.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="idConfirmation" alignment="CENTER" layoutX="300.0" layoutY="181.0" prefHeight="29.0" prefWidth="274.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailConfirmation" alignment="CENTER" layoutX="300.0" layoutY="260.0" prefHeight="29.0" prefWidth="274.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="parkingNumConfirmation" alignment="CENTER" layoutX="300.0" layoutY="336.0" prefHeight="29.0" prefWidth="274.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="194.0" layoutY="18.0" prefHeight="49.0" prefWidth="213.0" text="Parking Confirmation">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="okButton" layoutX="244.0" layoutY="418.0" mnemonicParsing="false" onAction="#closeButtonOnAction" prefHeight="42.0" prefWidth="112.0" text="Okay">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
