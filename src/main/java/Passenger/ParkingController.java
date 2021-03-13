@@ -3,9 +3,7 @@ package Passenger;
 
 import Command.AddParking;
 import Command.CancelParking;
-import Entities.Passenger;
 import Singleton.AirportAccess;
-import Singleton.PassengerMapAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.sql.Date;
 
 
 public class ParkingController {
@@ -72,9 +68,10 @@ public class ParkingController {
 
 
 
+    @FXML
     public void closeButtonOnAction(ActionEvent event) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        ((Button) event.getSource()).getScene().getWindow().hide();
+
     }
 
     public void toConfirmation(ActionEvent event) {
@@ -86,7 +83,7 @@ public class ParkingController {
             confirmationStage.setScene(new Scene(root, 600, 496));
             confirmationStage.setTitle("Parking Confirmation");
             confirmationStage.setResizable(false);
-            confirmationStage.show();
+            confirmationStage.showAndWait();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,6 +95,7 @@ public class ParkingController {
 
     @FXML
     public void addParking(ActionEvent event) {
+
 
         if (nameField.getText().isEmpty() || idField.getText().isEmpty() || emailField.getText().isEmpty()
                 || CheckinDatePicker.getValue() == null) {
@@ -126,7 +124,6 @@ public class ParkingController {
 
         // success
         else {
-
             AddParking addparking = new AddParking(this);
             addparking.execute();
 
