@@ -50,15 +50,27 @@ public class Airport {
         return name;
     }
 
-
+    /**
+     * Gets the gates in the Airport
+     * @return a container of flights that is the gates n the airport
+     */
     public EntityContainer<Flight> getGates() {
         return gates;
     }
 
+    /**
+     * Gets the parking stalls in the Airport
+     * @return a container of passengers that is the parking stalls
+     */
     public EntityContainer<Passenger> getParkingStalls() {
         return parkingStalls;
     }
 
+    /**
+     * Converts a gate integer onto a character
+     * @param i an integer i
+     * @return a chacheter
+     */
     public char gateIntToChar(int i) {
         return (char) (i + 'A' - 1);
     }

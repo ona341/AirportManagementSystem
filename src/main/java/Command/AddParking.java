@@ -13,8 +13,15 @@ import javafx.fxml.FXML;
  * Allows a passenger to request parking
  */
 public class AddParking implements Command{
+    /**
+     * ParkingController instance object
+     */
     private final ParkingController parkingController;
 
+    /**
+     * Constructor
+     * @param parkingController ParkingController instance object
+     */
     public AddParking(ParkingController parkingController) {
             this.parkingController = parkingController;
             }
@@ -24,10 +31,10 @@ public class AddParking implements Command{
     public void execute() {
         String sql = "INSERT INTO parking(name,id,email,checkin,parkingStall) VALUES(?,?,?,?,?)";
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = dbConnection.getConnection(); //opens the database connection
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-
+            //Sets the parameter indices of the PreparedStatement to their respective fields
             pstmt.setString(1, parkingController.nameField.getText());
             pstmt.setString(2, parkingController.idField.getText());
             pstmt.setString(3, parkingController.emailField.getText());
@@ -35,9 +42,10 @@ public class AddParking implements Command{
 
             int parkingStall = AirportAccess.getInstance().getParkingStalls().firstAvailableStall();
             pstmt.setInt(5, parkingStall);
-
+            //executes the sql statement
             pstmt.executeUpdate();
-
+            //gets the passenger with the idField from the Passenger map access
+            // and creates a new one if the passenger does not exist
             Passenger passenger = PassengerMapAccess.getInstance().get(parkingController.idField.getText());
             if (passenger == null) {
                 passenger = new Passenger(parkingController.nameField.getText(),
@@ -47,12 +55,12 @@ public class AddParking implements Command{
                         parkingStall);
                 PassengerMapAccess.getInstance().put(passenger.getNumber(),passenger);
             }
-
+            //assigns the passenger and their parking stall to a stall in the airport
             AirportAccess.getInstance().getParkingStalls().assignEntityToStall(passenger, parkingStall);
             passenger.setParkingStallLabel(parkingStall);
 
             parkingController.clearReserveForm(null);
-
+            //Closes the connection
             pstmt.close();
 
 

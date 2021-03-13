@@ -15,8 +15,15 @@ import java.sql.SQLException;
  * Allows a passenger to cancel their parking
  */
 public class CancelParking implements Command{
+    /**
+     * a ParkingController instance variable
+     */
     private final ParkingController parkingController;
 
+    /**
+     * Constructor method
+     * @param parkingController a ParkingController variable
+     */
     public CancelParking(ParkingController parkingController) {
         this.parkingController = parkingController;
     }
@@ -28,10 +35,11 @@ public class CancelParking implements Command{
         String sql = "DELETE FROM parking WHERE id = ? AND parkingStall = ?";
 
         try {
+            //opens the database connection
             Connection conn = dbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-
+            //sets the string parameter indexes if the PreoaredStatement to their respective fields
             pstmt.setString(1, parkingController.idFieldCancel.getText());
             pstmt.setString(2, parkingController.parkingFieldCancel.getText());
 
@@ -55,7 +63,7 @@ public class CancelParking implements Command{
 
 
             parkingController.clearCancelForm(null);
-
+            //Closes the connection
             pstmt.close();
 
         } catch (SQLException | InvalidKeyException throwables) {
