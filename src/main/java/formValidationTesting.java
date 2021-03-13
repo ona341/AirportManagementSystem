@@ -1,19 +1,39 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class formValidationTesting {
-    /**
-     * Comes from textField input Used in: - ClientSignUpController x 1 - InstructorSignUpController x
-     * 1 - ManagerSignUpController x 1 - OrganizationSignUpConrtoller x2
-     *
-     * @param name string
-     * @return false if input is wrong
-     */
+
     public boolean testName(String name) {
-        // regex looks for a string space string, meaning users must enter a first and last name
-        return (!(name.length() > 0) || name.matches("^\\s+$"));
+        // Also checks for empty input
+        // regex looks for anything that is not a letter in name and allows for spaces for first and last names
+        return !(name.isEmpty()) && name.matches("[A-Za-z\\s]{2,}");
     }
 
+    public boolean testEmail(String email) {
+
+        String EMAIL_REGEX = "^[0-9?A-z0-9?]+(\\.)?[0-9?A-z0-9?]+@[A-z]+\\.[A-z]{2}.?[A-z]{0,3}$";
+        return (!(email.isEmpty()) && email.matches(EMAIL_REGEX));
+    }
+
+
+    /**
+     * The tests will use a mixture of assertTrues and assertFalses when the test is true and passes
+     * the assertion, the tests will continue. Only when a test doesn't align with its assertion, will it
+     * throw an error.
+     */
+    @Test
+    void nameCheck(){
+        assertTrue(testName("Mohamed Bensaleh"));
+        assertTrue(testName("M Bensaleh"));
+        assertTrue(testName("M b"));
+        assertTrue(testName("John F Kennedy"));
+        assertTrue(testName("Blake Mohamed Kelly Onyinye Ben"));
+        assertTrue(testName("MBensaleh"));
+        assertTrue(testName("Kelly"));
+        assertFalse(testName(""));
+        assertFalse(testName("&^*(#"));
+        assertFalse(testName("Mo. Bensaleh"));
+    }
 }
