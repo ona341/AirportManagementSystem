@@ -23,8 +23,8 @@
                   <Text fx:id="tues" layoutX="129.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
                   <Text fx:id="thur" layoutX="129.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
                   <Text fx:id="fri" layoutX="129.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
-                  <Button layoutX="322.0" layoutY="88.0" mnemonicParsing="false" onAction="#editTuesday" text="Edit" />
-                  <Button layoutX="322.0" layoutY="53.0" mnemonicParsing="false" onAction="#editMonday" text="Edit" />
+                  <Button layoutX="322.0" layoutY="88.0" mnemonicParsing="false" onAction="#editMonday" text="Edit" />
+                  <Button layoutX="322.0" layoutY="53.0" mnemonicParsing="false" onAction="#editSunday" text="Edit" />
                   <Button layoutX="322.0" layoutY="123.0" mnemonicParsing="false" onAction="#editTuesday" text="Edit" />
                   <Button layoutX="322.0" layoutY="188.0" mnemonicParsing="false" onAction="#editThursday" text="Edit" />
                   <Button layoutX="323.0" layoutY="222.0" mnemonicParsing="false" onAction="#editFriday" text="Edit" />

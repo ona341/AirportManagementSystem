@@ -70,7 +70,8 @@ public class ViewEmployeeSchedule implements Initializable {
             this.employee.schedule().setFriday(rs.getString(7));
             this.employee.schedule().setSaturday(rs.getString(8));
 
-            conn.close();
+            pstmt.close();
+
 
         } catch (SQLException e) {
             e.printStackTrace();
