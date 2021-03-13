@@ -3,8 +3,11 @@ package AirportManager;
 import Command.AddFlight;
 import Command.DeleteFlight;
 import Command.UpdateFlight;
+import Command.ViewEmployeeSchedule;
+import Entities.Employee;
 import Entities.Flight;
 import FlightView.FlightView;
+import Singleton.EmployeeMapAccess;
 import Singleton.FlightsAccess;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
@@ -82,6 +85,22 @@ public class AirportManagerController implements Initializable{
     private ComboBox<option> selectionComboBox;
     @FXML
     private Label errorMessageLabel;
+
+
+    @FXML
+    public TextField employeeId;
+    @FXML
+    public TextField employeeName;
+    @FXML
+    public TextField employeeRole;
+    @FXML
+    public TableView<Employee> tableviewEmployees;
+    @FXML
+    public TableColumn<Employee,String> employeeIdCol;
+    @FXML
+    public TableColumn<Employee,String> employeeNameCol;
+    @FXML
+    public TableColumn<Employee,String> employeeRoleCol;
 
 
     /**
@@ -175,6 +194,14 @@ public class AirportManagerController implements Initializable{
         tableview.setItems(FlightsAccess.getInstance());
 
         capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
+
+
+
+        employeeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+        tableviewEmployees.setItems(EmployeeMapAccess.getInstance());
     }
 
     /**
@@ -190,12 +217,14 @@ public class AirportManagerController implements Initializable{
             this.passMessageLabel.setText("");
         }
 
-        if(setPasswordField.getText().equals(confirmPasswordField.getText())){
+        if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
+                setPasswordField.getText().equals(confirmPasswordField.getText())){
             registerUser();
             passMessageLabel.setText("");
         }
         else {
-            passMessageLabel.setText("Passwords do not match");
+            passMessageLabel.setText("Please make sure your passwords match and that it contains at least one uppercase, " +
+                    "lowercase, and number");
             this.messageLabel.setText("");
         }
     }
@@ -317,6 +346,46 @@ public class AirportManagerController implements Initializable{
 
 
             loader.<FlightView>getController().initialize(flight);
+
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /**
+     * Double click.
+     *
+     * @param event the event
+     */
+    @FXML
+    public void doubleClickEmployee(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            ObservableList<Employee> selectedEmployee;
+            if (!(selectedEmployee = tableviewEmployees.getSelectionModel().getSelectedItems()).isEmpty()) {
+                viewEmployeeSchedule(selectedEmployee.get(0));
+            }
+        }
+    }
+
+
+    /**
+     * Open flight view.
+     *
+     * @param employee the flight
+     */
+    public void viewEmployeeSchedule(Employee employee) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewEmployeeSchedule.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+
+
+            loader.<ViewEmployeeSchedule>getController().initialize(employee);
 
 
             stage.show();

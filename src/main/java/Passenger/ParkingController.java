@@ -16,8 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.sql.Date;
-
 
 public class ParkingController {
 
@@ -72,9 +70,10 @@ public class ParkingController {
 
 
 
+    @FXML
     public void closeButtonOnAction(ActionEvent event) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        ((Button) event.getSource()).getScene().getWindow().hide();
+
     }
 
     public void toConfirmation(ActionEvent event) {
@@ -86,7 +85,7 @@ public class ParkingController {
             confirmationStage.setScene(new Scene(root, 600, 496));
             confirmationStage.setTitle("Parking Confirmation");
             confirmationStage.setResizable(false);
-            confirmationStage.show();
+            confirmationStage.showAndWait();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,6 +98,7 @@ public class ParkingController {
     @FXML
     public void addParking(ActionEvent event) {
 
+
         if (nameField.getText().isEmpty() || idField.getText().isEmpty() || emailField.getText().isEmpty()
                 || CheckinDatePicker.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -108,7 +108,7 @@ public class ParkingController {
             alert.showAndWait();
         }
 
-        String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        String EMAIL_REGEX = "^[0-9?A-z0-9?]+(\\.)?[0-9?A-z0-9?]+@[A-z]+\\.[A-z]{2}.?[A-z]{0,3}$";
 
         // checks name for any number and allows for spaces
         if (!(nameField.getText().isEmpty()) && !(nameField.getText()).matches("[A-Za-z\\s]{2,}")) {
@@ -126,7 +126,6 @@ public class ParkingController {
 
         // success
         else {
-
             AddParking addparking = new AddParking(this);
             addparking.execute();
 
@@ -157,7 +156,7 @@ public class ParkingController {
             alert.showAndWait();
         }
         else if (AirportAccess.getInstance().getParkingStalls().isOccupied(parkingStall) &&
-                AirportAccess.getInstance().getParkingStalls().getEntity(parkingStall).getNumber().equalsIgnoreCase(idFieldCancel.getText())) {
+                AirportAccess.getInstance().getParkingStalls().getEntity(parkingStall).getId().equalsIgnoreCase(idFieldCancel.getText())) {
 
             cancelMessage.setText("Successfully Cancelled Parking Reservation");
             cancelMessage.setTextFill(Color.GREEN);
@@ -195,8 +194,17 @@ public class ParkingController {
 
     @FXML
     public void search(ActionEvent event) {
+        if (nameField.getText().isEmpty() || idField.getText().isEmpty() || emailField.getText().isEmpty()
+                || CheckinDatePicker.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Fill all fields!");
+            alert.setHeaderText("Fill all fields!");
+            alert.setTitle("Error!");
+            alert.showAndWait();
+        }
+        else{
+            parkingLabel.setText(String.valueOf(AirportAccess.getInstance().getParkingStalls().firstAvailableStall()));
 
-        parkingLabel.setText(String.valueOf(AirportAccess.getInstance().getParkingStalls().firstAvailableStall()));
-
+        }
     }
 }
