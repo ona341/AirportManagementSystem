@@ -218,5 +218,7 @@ public class FlightView implements Initializable {
         flight.getSeats().assignEntityToStall(testPass,2);
         thelist.add(testPass);
 
+        passengers.setText(String.valueOf(flight.getSeats().count()));
+
     }
 }

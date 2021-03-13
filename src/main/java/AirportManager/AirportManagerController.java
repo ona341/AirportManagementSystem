@@ -316,6 +316,31 @@ public class AirportManagerController implements Initializable{
         this.tableview.setItems(this.flightData);
     }
 
+
+    public void loadLoginData() {
+
+        try {
+
+            Connection conn = dbConnection.getConnection();
+
+            ObservableList<Employee> list = FXCollections.observableArrayList();
+
+            ResultSet rs = conn.createStatement().executeQuery("SELECT id,representation FROM login");
+
+            //while(rs.next()) {
+               // list.add(new Employee())
+            //}
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
     /**
      * Double click.
      *
