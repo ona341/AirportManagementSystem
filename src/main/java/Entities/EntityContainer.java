@@ -1,23 +1,13 @@
 package Entities;
 
 /*
-  CMPT 270 A5
-  @author Blake Stadnyk; 11195866 - BJS645
- */
+  Portions of this file are inspired by the Ward class from CMPT 270.
+  Permission to use that file as a starting point has been obtained from
+  the course instructor of CMPT 270 and 370.
 
-/*
   CMPT 270 Course material
   Copyright (c) 2020
   All rights reserved.
-
-  This document contains resources for homework assigned to students of
-  CMPT 270 and shall not be distributed without permission.  Posting this
-  file to a public or private website, or providing this file to a person
-  not registered in CMPT 270, constitutes Academic Misconduct, according
-  to the University of Saskatchewan Policy on Academic Misconduct.
-
-  Synopsis:
-     Starter File for Assignment 4
  */
 
 import javafx.collections.FXCollections;

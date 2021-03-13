@@ -25,8 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * Models an Airport management program.
- * Methods to control the operation of the system
+ * The main class for starting the Airport Management System
  */
 public class AMS extends Application implements Initializable{
     @FXML

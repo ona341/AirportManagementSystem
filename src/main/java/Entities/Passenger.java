@@ -1,6 +1,13 @@
-package Entities;/*
-   CMPT 270 A5
-   @author Blake Stadnyk; 11195866 - BJS645
+package Entities;
+
+/*
+  Portions of this file are inspired by the Patient class from CMPT 270.
+  Permission to use that file as a starting point has been obtained from
+  the course instructor of CMPT 270 and 370.
+
+  CMPT 270 Course material
+  Copyright (c) 2020
+  All rights reserved.
  */
 
 import javafx.beans.property.*;
