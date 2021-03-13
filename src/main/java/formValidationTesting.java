@@ -24,7 +24,7 @@ public class formValidationTesting {
      * throw an error.
      */
     @Test
-    void nameCheck(){
+    void nameTest(){
         assertTrue(testName("Mohamed Bensaleh"));
         assertTrue(testName("M Bensaleh"));
         assertTrue(testName("M b"));
@@ -35,5 +35,21 @@ public class formValidationTesting {
         assertFalse(testName(""));
         assertFalse(testName("&^*(#"));
         assertFalse(testName("Mo. Bensaleh"));
+    }
+
+    @Test
+    void emailTest(){
+        assertTrue(testEmail("mohamed@usask.ca"));
+        assertTrue(testEmail("mo123.bensaleh@hello.com"));
+        assertTrue(testEmail("mo123.bensaleh@hello.com"));
+        assertTrue(testEmail("hello123hello@hello.org"));
+        assertFalse(testEmail(""));
+        assertFalse(testEmail("   "));
+        assertFalse(testEmail("mohamed.com"));
+        assertFalse(testEmail("mohamed@.com"));
+        assertFalse(testEmail("mohamed@usask"));
+        assertFalse(testEmail("mo   hamed@usask"));
+
+
     }
 }
