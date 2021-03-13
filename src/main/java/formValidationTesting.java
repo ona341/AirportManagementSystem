@@ -5,23 +5,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class formValidationTesting {
 
+
+
     public boolean testName(String name) {
-        // Also checks for empty input
+        // checks for empty input
         // regex looks for anything that is not a letter in name and allows for spaces for first and last names
         return !(name.isEmpty()) && name.matches("[A-Za-z\\s]{2,}");
     }
 
     public boolean testEmail(String email) {
-        // Also checks for empty input
+        // checks for empty input
         // regex looks for correct email format. Essentially, it must be in the format user@domain.com
         String EMAIL_REGEX = "^[0-9?A-z0-9?]+(\\.)?[0-9?A-z0-9?]+@[A-z]+\\.[A-z]{2}.?[A-z]{0,3}$";
         return (!(email.isEmpty()) && email.matches(EMAIL_REGEX));
     }
 
     public boolean testTime(String time){
-        // Also checks for empty input
+        // checks for empty input
         // regex looks for valid time format. Must be in the form of hour::minutes:seconds
         return(!(time.isEmpty()) && time.matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$"));
+    }
+
+    public boolean testPassword(String password){
+        // checks for empty input
+        // regex looks for password of atleast length 6 that contains, one uppercase,
+        // one lowercase letter, and one number
+        return(!(password.isEmpty()) && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$"));
     }
 
 
@@ -30,8 +39,6 @@ public class formValidationTesting {
         // may potentially be used for id numbers to ensure only numbers are inputted
         return(!(id.isEmpty()) && id.matches("[\\d\\s]+"));
     }
-
-
 
 
     /**
@@ -96,6 +103,23 @@ public class formValidationTesting {
         assertFalse(testTime("12:-54:34"));
         assertFalse(testTime("13:54:63"));
 
+    }
+
+    @Test
+    void passwordTest(){
+        assertTrue(testPassword("mohamedB1"));
+        assertTrue(testPassword("hElLo123"));
+        assertTrue(testPassword("passworD70"));
+        assertTrue(testPassword("PASs12"));
+        assertTrue(testPassword("passwordpasswordpasswordS1"));
+
+        assertFalse(testPassword("HELLO123"));
+        assertFalse(testPassword("hello123"));
+        assertFalse(testPassword("passwordPassword"));
+        assertFalse(testPassword("123456"));
+        assertFalse(testPassword(""));
+        assertFalse(testPassword("m     B"));
+        assertFalse(testPassword("HeLo123!!!"));
 
     }
 }
