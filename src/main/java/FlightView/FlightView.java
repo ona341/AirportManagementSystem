@@ -64,7 +64,6 @@ public class FlightView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
     public void initialize(Flight flight) {
@@ -83,6 +82,7 @@ public class FlightView implements Initializable {
         done.getScene().getWindow().sizeToScene();
 
         loadPassengers();
+        //addPassengerTest();
 
     }
     @FXML
@@ -149,13 +149,19 @@ public class FlightView implements Initializable {
         int gate;
         try {
             gate = Integer.parseInt(newDialog(this.gate.getText(), "Gate"));
-            AirportAccess.getInstance().getGates().assignEntityToStall(flight,gate);
+
+            if (flight.getGate() != gate) {
+                AirportAccess.getInstance().getGates().assignEntityToStall(flight,gate);
+                AirportAccess.getInstance().getGates().freeStall(flight.getGate());
+                flight.setGate(gate);
+            }
+
         }  catch (IllegalStateException | IllegalArgumentException e) {
             new Alert(Alert.AlertType.ERROR,"The entered gate is either occupied, exceeds the maximum gate number, or is not an integer").showAndWait();
             return editGate(event);
         }
 
-        flight.setGate(gate);
+
         dbUpdate(flight);
         this.gate.setText(String.valueOf(flight.getGate()));
 
@@ -204,6 +210,28 @@ public class FlightView implements Initializable {
         ((Button) actionEvent.getSource()).getScene().getWindow().sizeToScene();
     }
 
+    public void addPassengerTest() {
+        // FOR TESTING ONLY, ADDS A FEW PASSENGERS TO THE FLIGHT TO TEST THE PASSENGER VIEW
+
+        ObservableList<Passenger> thelist;
+        passengerTable.setItems(thelist = flight.getSeats().getObservableList());
+
+
+        Passenger testPass = new Passenger("Bob","123","bob@gmail.com",null, 2);
+        flight.getSeats().assignEntityToStall(testPass,2);
+        thelist.add(testPass);
+
+        testPass = new Passenger("Joe","579","Joe@gmail.com",null, 4);
+        flight.getSeats().assignEntityToStall(testPass,4);
+        thelist.add(testPass);
+
+        testPass = new Passenger("Mike","490","Mike@gmail.com",null, 1);
+        flight.getSeats().assignEntityToStall(testPass,1);
+        thelist.add(testPass);
+
+
+    }
+
     public void loadPassengers() {
 
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -212,11 +240,7 @@ public class FlightView implements Initializable {
 
         seatNumberCol.setCellValueFactory(data -> data.getValue() != null ? new SimpleIntegerProperty(flight.getSeats().getEntityInternalIndex(data.getValue())).asObject() : null);
 
-        ObservableList<Passenger> thelist;
-        passengerTable.setItems(thelist = flight.getSeats().getObservableList());
-        Passenger testPass = new Passenger("Bob","123","bob@gmail.com",null, 2);
-        flight.getSeats().assignEntityToStall(testPass,2);
-        thelist.add(testPass);
+
 
         passengers.setText(String.valueOf(flight.getSeats().count()));
 
