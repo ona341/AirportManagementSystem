@@ -9,7 +9,9 @@ import Singleton.PassengerMapAccess;
 import Singleton.dbConnection;
 import javafx.fxml.FXML;
 
-
+/**
+ * Allows a passenger to request parking
+ */
 public class AddParking implements Command{
     private final ParkingController parkingController;
 

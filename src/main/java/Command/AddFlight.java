@@ -10,7 +10,7 @@ import Singleton.dbConnection;
 import javafx.fxml.FXML;
 
 /**
- * Allows the user to add a flight to the system.
+ * Allows the manager to add a flight to the system.
  */
 public class AddFlight implements Command{
     private final AirportManagerController airportManagerController;

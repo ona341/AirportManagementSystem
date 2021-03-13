@@ -7,9 +7,8 @@ import Entities.Passenger;
 import java.sql.Date;
 
 /**
- * Allows the user to add a passenger to the system.
+ * Allows the system to add a passenger
  */
-
 public class AddPassenger implements Command{
 
     Passenger passenger;

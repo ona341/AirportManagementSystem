@@ -1,5 +1,15 @@
 package Command;
 
+/*
+  Portions of this file are inspired by the SystemState class from CMPT 270.
+  Permission to use that file as a starting point has been obtained from
+  the course instructor of CMPT 270 and 370.
+
+  CMPT 270 Course material
+  Copyright (c) 2020
+  All rights reserved.
+ */
+
 import java.util.Map;
 
 import Entities.Employee;

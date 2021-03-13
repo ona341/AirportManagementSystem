@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Allows a passenger to cancel their parking
+ */
 public class CancelParking implements Command{
     private final ParkingController parkingController;
 

@@ -16,7 +16,6 @@ public class AirlineEmployeeController {
         Parent loginViewParent = FXMLLoader.load(getClass().getResource("/login.fxml"));
         Scene loginViewScene = new Scene(loginViewParent);
 
-        //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         window.setScene(loginViewScene);

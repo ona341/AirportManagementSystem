@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Removes a flight from the system
+ */
 public class DeleteFlight implements Command{
 
     private final ObservableList<Flight> selectedFlights;
