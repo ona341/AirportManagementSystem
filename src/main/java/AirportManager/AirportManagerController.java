@@ -190,12 +190,14 @@ public class AirportManagerController implements Initializable{
             this.passMessageLabel.setText("");
         }
 
-        if(setPasswordField.getText().equals(confirmPasswordField.getText())){
+        if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
+                setPasswordField.getText().equals(confirmPasswordField.getText())){
             registerUser();
             passMessageLabel.setText("");
         }
         else {
-            passMessageLabel.setText("Passwords do not match");
+            passMessageLabel.setText("Please make sure your passwords match and that it contains at least one uppercase, " +
+                    "lowercase, and number");
             this.messageLabel.setText("");
         }
     }
