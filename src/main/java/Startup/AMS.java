@@ -1,9 +1,5 @@
 package Startup;
 
-/*
-  CMPT 370 Airport Management System
-  @author Blake Stadnyk; 11195866
- */
 
 import java.io.File;
 import java.net.URL;
@@ -139,41 +135,6 @@ public class AMS extends Application implements Initializable{
      */
     public static void main(String[] args) {
         launch(args);
-
-        //new AMS();
-        //while(true) {
-         //   IOAccess.getInstance().outputString("MAIN MENU: Make a selection from the following options:");
-        //    String[] choices = {"\t0: quit",
-         //                       "\t1: add a new passenger to the system",
-         //                       "\t2: add a new flight to the system",
-        //                        "\t3: view the flights in the system",
-          //                      "\t4: display the empty stalls in the Entities.Flight",
-         //                       "\t5: assign a passenger a stall",
-          //                      "\t6: release a passenger",
-          //                      "\t7: drop employee-passenger association",
-         //                       "\t8: display the current state of the system"};
-
-         //   int choice = IOAccess.getInstance().readChoice(choices);
-
-         //   Command[] commands = new Command[9];
-            //commands[0] = new SystemState();
-           // commands[1] = new AddPassenger();
-           // commands[2] = new AddFlight();
-           // commands[3] = new viewFlights();
-
-            //commands[3] = new AssignEmployeeToPassenger();
-            //commands[4] = new DisplayEmptyStalls();
-            //commands[5] = new AssignStall();
-            //commands[6] = new FreeStall();
-            //commands[7] = new DropAssociation();
-            //commands[8] = new SystemState();
-
-         //   commands[choice].execute();
-         //   if (choice == 0) {
-         //       IOAccess.getInstance().outputString("Goodbye");
-          //      return;
-          //  }
-       // }
     }
 
 }
