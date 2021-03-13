@@ -19,13 +19,12 @@ public class Person {
 
     private StringProperty name;
 
-
-    private final StringProperty number;
+    private final StringProperty id;
 
 
     public Person(String pName, String pNumber) {
         name = new SimpleStringProperty(pName);
-        number = new SimpleStringProperty(pNumber);
+        id = new SimpleStringProperty(pNumber);
     }
 
     public String getName() {
@@ -40,16 +39,14 @@ public class Person {
         this.name.set(name);
     }
 
-    public String getNumber() {
-        return number.get();
+    public String getId() {
+        return id.get();
     }
 
-    public StringProperty numberProperty() {
-        return number;
-    }
+    public StringProperty numberProperty() { return id; }
 
-    public void setNumber(String number) {
-        this.number.set(number);
+    public void setId(String number) {
+        this.id.set(number);
     }
 
     /**
@@ -58,7 +55,7 @@ public class Person {
      * @return a string representation of the person
      */
     public String toString() {
-        return "\nName: " + name + "\nid  number: " + number + "\n";
+        return "\nName: " + name + "\nid  number: " + id + "\n";
     }
 
 }

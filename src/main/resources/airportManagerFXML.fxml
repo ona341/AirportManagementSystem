@@ -23,10 +23,11 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="1280.0">
                             <children>
-                                <TableView layoutX="360.0" layoutY="105.0" prefHeight="585.0" prefWidth="535.0">
+                                <TableView fx:id="tableviewEmployees" layoutX="360.0" layoutY="105.0" onMouseClicked="#doubleClickEmployee" prefHeight="585.0" prefWidth="535.0">
                                     <columns>
-                                        <TableColumn prefWidth="283.0" text="User ID" />
-                                        <TableColumn prefWidth="367.0" text="Roll" />
+                                        <TableColumn fx:id="employeeIdCol" prefWidth="135.0" text="User ID" />
+                                        <TableColumn fx:id="employeeNameCol" prefWidth="268.0" text="Name" />
+                              <TableColumn fx:id="employeeRoleCol" prefWidth="135.0" text="Role" />
                                     </columns>
                                 </TableView>
                                 <Label layoutX="17.0" layoutY="58.0" prefHeight="27.0" prefWidth="331.0" text="Add Users">
