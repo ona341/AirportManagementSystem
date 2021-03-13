@@ -78,12 +78,12 @@ public class ViewEmployeeSchedule implements Initializable {
         }
 
         sun.setText(employee.schedule().getSunday());
-        mon.setText(employee.schedule().getTuesday());
-        tues.setText(employee.schedule().getWednesday());
-        wed.setText(employee.schedule().getThursday());
-        thur.setText(employee.schedule().getFriday());
-        fri.setText(employee.schedule().getSaturday());
-        sat.setText(employee.schedule().getSunday());
+        mon.setText(employee.schedule().getMonday());
+        tues.setText(employee.schedule().getTuesday());
+        wed.setText(employee.schedule().getWednesday());
+        thur.setText(employee.schedule().getThursday());
+        fri.setText(employee.schedule().getFriday());
+        sat.setText(employee.schedule().getSaturday());
 
         done.getScene().getWindow().sizeToScene();
     }
