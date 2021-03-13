@@ -19,6 +19,10 @@ public class Employee extends Person {
       this.email = email;
   }
 
+  public String getEmail() {
+    return email;
+  }
+
 
 
   /**

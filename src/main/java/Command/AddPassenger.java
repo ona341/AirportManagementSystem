@@ -1,38 +1,43 @@
 package Command;
 
-/*
-  CMPT 270 A5Q5
-  @author Blake Stadnyk; 11195866 - BJS645
- */
 
-//import IO.IOAccess;
 import Singleton.PassengerMapAccess;
 import Entities.Passenger;
+
+import java.sql.Date;
 
 /**
  * Allows the user to add a passenger to the system.
  */
-/**
+
 public class AddPassenger implements Command{
+
+    Passenger passenger;
+
+    public AddPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
+
     @Override
-
     public void execute() {
-        String name, number;
-        IOAccess.getInstance().outputString("Adding a new passenger...");
-        name = IOAccess.getInstance().readString("Enter the name of the passenger:");
-        number = IOAccess.getInstance().readString("Enter the ID number of the passenger:");
+        String name, number, email;
+        int parkingStall;
+        Date date;
 
-        IOAccess.getInstance().outputString("Entered:\tName: " + name + "\t" + "IDNo: " + number);
+
+        name = passenger.getName();
+        number = passenger.getNumber();
+        email = passenger.getEmail();
+        date = passenger.getCheckInDate();
+        parkingStall = passenger.getParkingStallLabel();
+
+
         if (PassengerMapAccess.getInstance().get(number) == null) {
-            Passenger passenger = new Passenger(name, number);
+            Passenger passenger = new Passenger(name, number, email, date, parkingStall);
             PassengerMapAccess.getInstance().put(number, passenger);
-            IOAccess.getInstance().outputString("Passenger created.");
+
         }
-        else {
-            IOAccess.getInstance().outputString("A passenger with this ID number already exists in the system");
-        }
+
     }
 
 }
-
-     **/
