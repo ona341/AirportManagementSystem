@@ -28,11 +28,11 @@ public class FreeStall implements Command {
             if (p == null) {
                 throw new InvalidKeyException("A passenger with that id number was not found.");
             }
-            stall = p.getStallLabel();
+            stall = p.getParkingStallLabel();
             if (stall == -1) {
                 throw new IllegalStateException("This passenger is not in a stall.");
             }
-            p.setStallLabel(-1);
+            p.setParkingStallLabel(-1);
             AirportAccess.getInstance().getParkingStalls().freeStall(stall);
             IOAccess.getInstance().outputString("Passenger removed from stall successfully");
 

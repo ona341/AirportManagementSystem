@@ -1,13 +1,17 @@
 package FlightView;
 
 import Entities.Flight;
+import Entities.Passenger;
 import Singleton.AirportAccess;
 import Singleton.dbConnection;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -40,13 +44,21 @@ public class FlightView implements Initializable {
     @FXML
     public Text passengers;
     @FXML
-    public TableView passengerTable;
+    public TableView<Passenger> passengerTable;
     @FXML
     public AnchorPane tablePane;
     @FXML
     public HBox hBox;
     @FXML
     public Button showButton;
+    @FXML
+    public TableColumn<Passenger, String> nameCol;
+    @FXML
+    public TableColumn<Passenger, String> iDCol;
+    @FXML
+    public TableColumn<Passenger, String> emailCol;
+    @FXML
+    public TableColumn<Passenger, Integer> seatNumberCol;
 
     private Flight flight;
 
@@ -69,6 +81,8 @@ public class FlightView implements Initializable {
         tablePane.setVisible(!tablePane.isVisible());
         tablePane.setManaged(!tablePane.isManaged());
         done.getScene().getWindow().sizeToScene();
+
+        loadPassengers();
 
     }
     @FXML
@@ -192,5 +206,21 @@ public class FlightView implements Initializable {
         tablePane.setVisible(!tablePane.isVisible());
         tablePane.setManaged(!tablePane.isManaged());
         ((Button) actionEvent.getSource()).getScene().getWindow().sizeToScene();
+    }
+
+    public void loadPassengers() {
+
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        iDCol.setCellValueFactory(new PropertyValueFactory<>("number"));
+
+        seatNumberCol.setCellValueFactory(data -> new SimpleIntegerProperty(flight.getSeats().getEntityInternalIndex(data.getValue())).asObject());
+
+        ObservableList<Passenger> thelist;
+        passengerTable.setItems(thelist = flight.getSeats().getObservableList());
+        Passenger testPass = new Passenger("Bob","123","bob@gmail.com",null, 2);
+        flight.getSeats().assignEntityToStall(testPass,2);
+        thelist.add(testPass);
+
     }
 }

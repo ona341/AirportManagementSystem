@@ -12,29 +12,29 @@
    <children>
       <AnchorPane minHeight="650.0" minWidth="400.0" prefHeight="650.0" prefWidth="400.0">
          <children>
-            <Button fx:id="done" layoutX="232.0" layoutY="539.0" mnemonicParsing="false" onAction="#done" text="Done" />
+            <Button fx:id="done" layoutX="167.0" layoutY="571.0" mnemonicParsing="false" onAction="#done" text="Done" />
             <Text fx:id="flightTitle" layoutX="225.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-            <Text layoutX="41.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight Number:" />
-            <Text layoutX="41.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Airline:" />
-            <Text layoutX="41.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination:" />
-            <Text layoutX="53.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
-            <Text layoutX="52.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" />
-            <Text fx:id="flightNumber" layoutX="179.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
-            <Text fx:id="airline" layoutX="183.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
-            <Text fx:id="destination" layoutX="183.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
-            <Text fx:id="date" layoutX="165.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+            <Text layoutX="36.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight Number:" />
+            <Text layoutX="32.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Airline:" />
+            <Text layoutX="33.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destination:" />
+            <Text layoutX="37.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
+            <Text layoutX="36.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" />
+            <Text fx:id="flightNumber" layoutX="160.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+            <Text fx:id="airline" layoutX="160.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+            <Text fx:id="destination" layoutX="160.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+            <Text fx:id="date" layoutX="160.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
             <Text fx:id="time" layoutX="160.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
             <Button layoutX="322.0" layoutY="156.0" mnemonicParsing="false" onAction="#editAirline" text="Edit" />
             <Button layoutX="322.0" layoutY="96.0" mnemonicParsing="false" onAction="#editNumber" text="Edit" />
-            <Button layoutX="314.0" layoutY="231.0" mnemonicParsing="false" onAction="#editDestination" text="Edit" />
+            <Button layoutX="322.0" layoutY="222.0" mnemonicParsing="false" onAction="#editDestination" text="Edit" />
             <Button layoutX="324.0" layoutY="373.0" mnemonicParsing="false" onAction="#editDate" text="Edit" />
             <Button layoutX="324.0" layoutY="422.0" mnemonicParsing="false" onAction="#editTime" text="Edit" />
-            <Text layoutX="53.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gate:" />
-            <Text fx:id="gate" layoutX="165.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+            <Text layoutX="37.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gate:" />
+            <Text fx:id="gate" layoutX="160.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
             <Button layoutX="324.0" layoutY="302.0" mnemonicParsing="false" onAction="#editGate" text="Edit" />
-            <Text layoutX="32.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passengers:" />
+            <Text layoutX="36.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passengers:" />
             <Text fx:id="passengers" layoutX="160.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
-            <Button fx:id="showButton" layoutX="326.0" layoutY="479.0" mnemonicParsing="false" onAction="#viewPassengers" text="Show" />
+            <Button fx:id="showButton" layoutX="319.0" layoutY="479.0" mnemonicParsing="false" onAction="#viewPassengers" text="Show" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="tablePane" minHeight="650.0" minWidth="650.0" prefHeight="650.0" prefWidth="650.0">
@@ -44,8 +44,10 @@
          <children>
             <TableView fx:id="passengerTable" minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="650.0">
                <columns>
-                  <TableColumn prefWidth="75.0" text="C1" />
-                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn fx:id="nameCol" prefWidth="157.0" text="Name" />
+                  <TableColumn fx:id="iDCol" prefWidth="157.0" text="ID Number" />
+                  <TableColumn fx:id="emailCol" prefWidth="236.0" text="email" />
+                  <TableColumn fx:id="seatNumberCol" prefWidth="99.0" text="Seat Number" />
                </columns>
             </TableView>
          </children>

@@ -108,7 +108,7 @@ public class ParkingController {
             alert.showAndWait();
         }
         else if (AirportAccess.getInstance().getParkingStalls().isOccupied(parkingStall) &&
-                AirportAccess.getInstance().getParkingStalls().getEntity(parkingStall).getIDNumber().equalsIgnoreCase(idFieldCancel.getText())) {
+                AirportAccess.getInstance().getParkingStalls().getEntity(parkingStall).getNumber().equalsIgnoreCase(idFieldCancel.getText())) {
 
             cancelMessage.setText("Successfully Cancelled Parking Reservation");
             cancelMessage.setTextFill(Color.GREEN);
