@@ -149,9 +149,18 @@ public class ParkingController {
 
     @FXML
     public void search(ActionEvent event) {
+        if (nameField.getText().isEmpty() || idField.getText().isEmpty() || emailField.getText().isEmpty()
+                || CheckinDatePicker.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Fill all fields!");
+            alert.setHeaderText("Fill all fields!");
+            alert.setTitle("Error!");
+            alert.showAndWait();
+        }
+        else{
+            parkingLabel.setText(String.valueOf(AirportAccess.getInstance().getParkingStalls().firstAvailableStall()));
 
-        parkingLabel.setText(String.valueOf(AirportAccess.getInstance().getParkingStalls().firstAvailableStall()));
-
+        }
     }
 
 }
