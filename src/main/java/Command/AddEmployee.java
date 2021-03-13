@@ -10,7 +10,7 @@ import Singleton.EmployeeMapAccess;
  */
 public class AddEmployee implements Command{
 
-    private Employee employee;
+    private final Employee employee;
 
     public AddEmployee(Employee employee) {
         this.employee = employee;

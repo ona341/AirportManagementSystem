@@ -16,7 +16,7 @@ public class UpdateFlight implements Command {
      */
     private static ObservableList<Flight> selectedFlights;
 
-    private AirportManagerController airportManagerController;
+    private final AirportManagerController airportManagerController;
 
     public UpdateFlight(ObservableList<Flight> selectedFlights, AirportManagerController airportManagerController) {
 

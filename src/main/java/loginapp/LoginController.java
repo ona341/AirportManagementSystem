@@ -139,9 +139,9 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader passengerLoader = new FXMLLoader();
-            Pane passengerRoot = (Pane)passengerLoader.load(getClass().getResource("/passengerFXML.fxml").openStream());
+            Pane passengerRoot = passengerLoader.load(getClass().getResource("/passengerFXML.fxml").openStream());
 
-            PassengerController passengerController = (PassengerController)passengerLoader.getController();
+            PassengerController passengerController = passengerLoader.getController();
 
             Scene scene = new Scene(passengerRoot);
             userStage.setScene(scene);
