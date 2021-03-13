@@ -15,12 +15,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Employee extends Person {
+
   private StringProperty role;
+
+  private WorkSchedule schedule;
 
 
   public Employee(String id, String name, String role) {
       super(name, id);
       this.role = new SimpleStringProperty(role);
+      this.schedule = new WorkSchedule("", "", "", "", "", "", "");
   }
 
   public String getRole() { return role.get(); }
@@ -30,6 +34,10 @@ public class Employee extends Person {
   }
 
   public void setRole(String role) { this.role.set(role); }
+
+
+  public WorkSchedule schedule() { return this.schedule; }
+
 
   public String toString() {
     return super.toString();
