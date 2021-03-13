@@ -6,3 +6,6 @@
 ./airport.sqlite
 ams.iml
 README.md
+gradlew
+gradlew.bat
+settings.gradle

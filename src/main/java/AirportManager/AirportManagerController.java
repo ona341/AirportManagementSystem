@@ -81,24 +81,6 @@ public class AirportManagerController implements Initializable{
     private Label errorMessageLabel;
 
 
-
-    /*public void toRegistration(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
-            Stage registerStage = new Stage();
-            registerStage.initStyle(StageStyle.UNDECORATED);
-            registerStage.setScene(new Scene(root, 520, 491));
-            registerStage.setTitle("Registration");
-            registerStage.setResizable(false);
-            registerStage.show();
-
-        } catch (
-                Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
-    }*/
-
     @FXML
     public void logout(ActionEvent event) throws IOException
     {

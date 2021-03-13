@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class AirlineEmployeeController {
     /**
-     *Logs the user out of the Airline Employee and returns user to the login page
+     * Logs the user out of the Airline Employee and returns user to the login page
      * @param event the logout button clicked
      * @throws IOException throws this is the I/O is interrupted or fails
      */
