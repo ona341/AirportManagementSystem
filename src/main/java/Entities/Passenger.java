@@ -3,6 +3,8 @@ package Entities;/*
    @author Blake Stadnyk; 11195866 - BJS645
  */
 
+import javafx.beans.property.*;
+
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -11,21 +13,19 @@ import java.util.ArrayList;
  */
 public class Passenger extends Person {
 
-  /**
-   * The Stall label.
-   */
-  private int stallLabel = -1;
 
   /**
    * The list of Flights.
    */
   private final ArrayList<Flight> flights = new ArrayList<>();
 
-  private String email;
+  private StringProperty email;
 
-  private Date checkInDate;
+  private ObjectProperty<Date> checkInDate;
 
-  private int parkingStallLabel;
+  private IntegerProperty parkingStallLabel;
+
+  private IntegerProperty seatNumber;
 
   /**
    * Instantiates a new Entities.Passenger with the given name and id number.
@@ -36,33 +36,68 @@ public class Passenger extends Person {
   public Passenger(String name, String number, String email, Date date, int stallLabel) {
 
     super(name, number);
-    this.email = email;
-    this.checkInDate = date;
-    this.parkingStallLabel = stallLabel;
+    this.email = new SimpleStringProperty(email);
+    this.checkInDate = new SimpleObjectProperty<>(date);
+    this.parkingStallLabel = new SimpleIntegerProperty(stallLabel);
+    this.seatNumber = new SimpleIntegerProperty(-1);
   }
 
-  /**
-   * Gets stall label.
-   *
-   * @return the stall label
-   */
-  public int getStallLabel() {
-    return stallLabel;
+  public Date getCheckInDate() {
+    return checkInDate.get();
   }
 
-  /**
-   * Sets stall label.
-   *
-   * @param stallLabel the stall label
-   * @precond (stallLabel == -1)
-   */
-  public void setStallLabel(int stallLabel) {
-    if (this.stallLabel != -1 && stallLabel != -1) {
-      throw new IllegalStateException("Error: This passenger is already assigned to a stall");
+  public ObjectProperty<Date> checkInDateProperty() {
+    return checkInDate;
+  }
+
+  public void setCheckInDate(Date checkInDate) {
+    this.checkInDate.set(checkInDate);
+  }
+
+  public int getParkingStallLabel() {
+    return parkingStallLabel.get();
+  }
+
+  public IntegerProperty parkingStallLabelProperty() {
+    return parkingStallLabel;
+  }
+
+  public void setParkingStallLabel(int parkingStallLabel) {
+    if (this.getParkingStallLabel() != -1 && parkingStallLabel != -1) {
+      throw new IllegalStateException("Error: This passenger is already assigned to a parking stall");
     } else {
-      this.stallLabel = stallLabel;
+      this.parkingStallLabel.set(parkingStallLabel);
     }
   }
+
+  public String getEmail() {
+    return email.get();
+  }
+
+  public StringProperty emailProperty() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email.set(email);
+  }
+
+  public int getSeatNumber() {
+    return seatNumber.get();
+  }
+
+  public IntegerProperty seatNumberProperty() {
+    return seatNumber;
+  }
+
+  public void setSeatNumber(int seatNumber) {
+    if (this.getSeatNumber() != -1 && seatNumber != -1) {
+      throw new IllegalStateException("Error: This passenger is already assigned to a seat");
+    } else {
+      this.seatNumber.set(seatNumber);
+    }
+  }
+
 
   /**
    * Add flight.
@@ -109,7 +144,7 @@ public class Passenger extends Person {
   public String toString() {
     String temp;
     temp = super.toString();
-    temp += "Stall: " + stallLabel + "\n";
+    temp += "Stall: " + getSeatNumber() + "\n";
 
     if (flights.size() == 0) {
       temp += "Entities.Flight(s): None\n";
