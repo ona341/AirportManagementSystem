@@ -12,10 +12,26 @@ public class formValidationTesting {
     }
 
     public boolean testEmail(String email) {
-
+        // Also checks for empty input
+        // regex looks for correct email format. Essentially, it must be in the format user@domain.com
         String EMAIL_REGEX = "^[0-9?A-z0-9?]+(\\.)?[0-9?A-z0-9?]+@[A-z]+\\.[A-z]{2}.?[A-z]{0,3}$";
         return (!(email.isEmpty()) && email.matches(EMAIL_REGEX));
     }
+
+    public boolean testTime(String time){
+        // Also checks for empty input
+        // regex looks for valid time format. Must be in the form of hour::minutes:seconds
+        return(!(time.isEmpty()) && time.matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$"));
+    }
+
+
+    public boolean testID(String id){
+        // Also checks for empty input
+        // may potentially be used for id numbers to ensure only numbers are inputted
+        return(!(id.isEmpty()) && id.matches("[\\d\\s]+"));
+    }
+
+
 
 
     /**
@@ -49,6 +65,36 @@ public class formValidationTesting {
         assertFalse(testEmail("mohamed@.com"));
         assertFalse(testEmail("mohamed@usask"));
         assertFalse(testEmail("mo   hamed@usask"));
+    }
+
+    @Test
+    void idTest(){
+        assertTrue(testID("123456789"));
+        assertTrue(testID("306 914 0210"));
+        assertTrue(testID("233223441"));
+        assertTrue(testID("00000000"));
+
+        assertFalse(testID("123HELLO456"));
+        assertFalse(testID("123##456"));
+        assertFalse(testID(""));
+        assertFalse(testID(".   "));
+        assertFalse(testID("3B"));
+    }
+
+    @Test
+    void timeTest(){
+        assertTrue(testTime("00:00:00"));
+        assertTrue(testTime("23:00:00"));
+        assertTrue(testTime("23:59:00"));
+        assertTrue(testTime("23:59:59"));
+        assertTrue(testTime("01:00:00"));
+
+        assertFalse(testTime("24:00:00"));
+        assertFalse(testTime("1:00:00"));
+        assertFalse(testTime("-1:1000:00"));
+        assertFalse(testTime("12:-54:34"));
+        assertFalse(testTime("12:-54:34"));
+        assertFalse(testTime("13:54:63"));
 
 
     }
