@@ -7,8 +7,13 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
+/**
+ * UpdateFlight class inplements the Command interface to modify the flights in the system
+ */
 public class UpdateFlight implements Command {
-
+    /**
+     * A list of the flights in the system
+     */
     private static ObservableList<Flight> selectedFlights;
 
     private AirportManagerController airportManagerController;
@@ -25,9 +30,12 @@ public class UpdateFlight implements Command {
         String sql = "UPDATE flights SET airline = ?, destination = ?, date = ?, time = ? WHERE flightNum = ?";
 
         try {
+            //opens database connection
             Connection conn = dbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-
+            //for each flight in selectedFlights set the fifth parameter index of the preparedStatement
+            // to the flight number of the flight set the other parameter indices to their respective field values
+            //update the prepared statement
             for (Flight flight : selectedFlights) {
 
                 pstmt.setString(5, flight.getFlightNumber());
@@ -40,7 +48,7 @@ public class UpdateFlight implements Command {
                 pstmt.executeUpdate();
 
             }
-
+            //Close the prepared statement
             pstmt.close();
 
         } catch (SQLException e) {

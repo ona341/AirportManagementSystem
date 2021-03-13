@@ -1,8 +1,4 @@
 package Singleton;
-/*
-  CMPT 270 A5Q4
-  @author Blake Stadnyk; 11195866 - BJS645
- */
 
 import Entities.Passenger;
 import javafx.collections.FXCollections;

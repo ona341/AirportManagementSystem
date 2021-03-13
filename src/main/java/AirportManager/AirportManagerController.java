@@ -58,6 +58,8 @@ public class AirportManagerController implements Initializable{
     public TableColumn<Flight,Character> gateCol;
     @FXML
     public TextField searchBox;
+    @FXML
+    public Spinner<Integer> capacity;
 
     private ObservableList<Flight> flightData;
 
@@ -102,12 +104,16 @@ public class AirportManagerController implements Initializable{
     {
         Parent loginViewParent = FXMLLoader.load(getClass().getResource("/login.fxml"));
         Scene loginViewScene = new Scene(loginViewParent);
-        //This line gets the Stage information
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(loginViewScene);
         window.show();
     }
 
+    /**
+     *Checks the format of the inputted time for validity
+     * @param event a Mouse event
+     */
     @FXML
     private void checkTime(MouseEvent event) {
         if (time.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
@@ -119,12 +125,20 @@ public class AirportManagerController implements Initializable{
         }
     }
 
+    /***
+     * Calls and executes the add flight command
+     * @param event when the addFlight bitton is clicked
+     */
     @FXML
     public void addFlight(ActionEvent event) {
         AddFlight addflight = new AddFlight(this);
         addflight.execute();
     }
 
+    /**
+     * Finds the flight with the given input
+     * @param event keys entered
+     */
     @FXML
     private void searchTable(KeyEvent event) {
         if(searchBox.getText().isBlank()) {
@@ -135,7 +149,10 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-
+    /**
+     * Clears the filled spaces in the form
+     * @param event an action performed by the user
+     */
     @FXML
     public void clearForm(ActionEvent event) {
         flightnum.clear();
@@ -145,7 +162,11 @@ public class AirportManagerController implements Initializable{
         date.setValue(null);
     }
 
-
+    /**
+     *Initializes the Controller
+     * @param url he location used to resolve the relative paths of the object or null if unknown
+     * @param resourceBundle the resources used to localize the root of the object
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -161,7 +182,7 @@ public class AirportManagerController implements Initializable{
 
         tableview.setItems(FlightsAccess.getInstance());
 
-
+        capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
     }
 
     public void registerButtonOnAction(ActionEvent event){
@@ -208,6 +229,10 @@ public class AirportManagerController implements Initializable{
 
 
 
+    /**
+     * Deletes the selected flight from the  system
+     * @param actionEvent the user selecting delete flight
+     */
     public void deleteRow(ActionEvent actionEvent) {
         ObservableList<Flight> selectedFlights;
         if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
@@ -216,7 +241,10 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-
+    /**
+     * Updates the flight row selected
+     * @param actionEvent an action performed by the user
+     */
     public void updateRow(ActionEvent actionEvent) {
         ObservableList<Flight> selectedFlights;
         if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
@@ -225,20 +253,23 @@ public class AirportManagerController implements Initializable{
         }
     }
 
+    /**
+     * Loads the flights in the system into the panel to be viewed
+     */
     public void loadFLightData() {
 
         try {
 
             Connection conn = dbConnection.getConnection();
-            this.flightData = FXCollections.observableArrayList();
+            this.flightData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
 
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM flights");
 
             while(rs.next()) {
-                this.flightData.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6)));
+                this.flightData.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6), rs.getInt(7)));
             }
 
-            conn.close();
+            conn.close(); //closes the database connection
 
         } catch (SQLException e) {
             e.printStackTrace();

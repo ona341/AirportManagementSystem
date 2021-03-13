@@ -1,10 +1,5 @@
 package Command;
 
-/*
-  CMPT 270 A5Q5
-  @author Blake Stadnyk; 11195866 - BJS645
- */
-
 import java.sql.*;
 
 import AirportManager.AirportManagerController;
@@ -15,33 +10,9 @@ import Singleton.dbConnection;
 import javafx.fxml.FXML;
 
 /**
- * Allows the user to add a flight to the system.
+ * Allows the manager to add a flight to the system.
  */
 public class AddFlight implements Command{
-    //@Override
-    /*public void execute() {
-        try {
-            Connection c =  dbConnection.getConnection();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        IOAccess.getInstance().outputString("Adding a new flight...");
-        String airline = IOAccess.getInstance().readString("Enter the airline:");
-        String number = IOAccess.getInstance().readString("Enter the flight number:");
-        String destination = IOAccess.getInstance().readString("Enter the destination:");
-        int capacity = IOAccess.getInstance().readInt("Enter the capacity:");
-
-        if (AirportAccess.getInstance().hasFlight(number)) {
-            IOAccess.getInstance().outputString("A flight with this number already exists in the system");
-        }
-        else {
-            Flight flight = new Flight(airline, number, destination, null, null);
-            AirportAccess.getInstance().assignFlightToGate(flight,AirportAccess.getInstance().availableGates().get(0));
-            IOAccess.getInstance().outputString("Flight created.");
-        }
-    }*/
-
     private final AirportManagerController airportManagerController;
 
     public AddFlight(AirportManagerController airportManagerController) {
@@ -51,7 +22,7 @@ public class AddFlight implements Command{
 
     @FXML
     public void execute() {
-        String sql = "INSERT INTO flights(flightNum,airline,destination,date,time,gate) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO flights(flightNum,airline,destination,date,time,gate,capacity) VALUES(?,?,?,?,?,?,?)";
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -65,6 +36,7 @@ public class AddFlight implements Command{
 
             int gate = AirportAccess.getInstance().getGates().firstAvailableStall();
             pstmt.setInt(6,gate);
+            pstmt.setInt(7,airportManagerController.capacity.getValue());
 
             pstmt.executeUpdate();
             Flight flight = new Flight(airportManagerController.flightnum.getText(),
@@ -72,7 +44,14 @@ public class AddFlight implements Command{
                             airportManagerController.destination.getText(),
                             Date.valueOf(airportManagerController.date.getValue()),
                             Time.valueOf(airportManagerController.time.getText()),
-                            gate);
+                            gate,
+                            airportManagerController.capacity.getValue());
+
+            if (AirportAccess.getInstance().getGates().hasEntity(flight)) {
+                //TODO handle error
+            }
+
+
             FlightsAccess.getInstance().add(flight);
             AirportAccess.getInstance().getGates().assignEntityToStall(flight, gate);
 
