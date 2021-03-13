@@ -69,7 +69,7 @@ public class Airport {
     /**
      * Converts a gate integer onto a character
      * @param i an integer i
-     * @return a chacheter
+     * @return a character
      */
     public char gateIntToChar(int i) {
         return (char) (i + 'A' - 1);
