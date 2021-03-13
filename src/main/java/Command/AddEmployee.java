@@ -2,7 +2,7 @@ package Command;/*
   CMPT 270 A5Q5
   @author Blake Stadnyk; 11195866 - BJS645
  */
-
+/*
 import Entities.Employee;
 import Entities.Manager;
 import IO.IOAccess;
@@ -11,6 +11,7 @@ import Singleton.EmployeeMapAccess;
 /**
  * Allows the manager to add an employee to the system.
  */
+/*
 public class AddEmployee implements Command{
     @Override
     public void execute() {
@@ -38,3 +39,4 @@ public class AddEmployee implements Command{
         }
     }
 }
+*/

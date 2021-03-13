@@ -1,9 +1,12 @@
 package Command;
 
+import Entities.Passenger;
 import Passenger.ParkingController;
 import Singleton.AirportAccess;
+import Singleton.PassengerMapAccess;
 import Singleton.dbConnection;
 
+import java.security.InvalidKeyException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -29,15 +32,30 @@ public class CancelParking implements Command{
             pstmt.setString(1, parkingController.idFieldCancel.getText());
             pstmt.setString(2, parkingController.parkingFieldCancel.getText());
 
-            AirportAccess.getInstance().getParkingStalls().freeStall(Integer.parseInt(parkingController.parkingFieldCancel.getText()));
+
             pstmt.executeUpdate();
+
+            Passenger p = PassengerMapAccess.getInstance().get(parkingController.idField.getText());
+
+            if (p == null) {
+                throw new InvalidKeyException("A passenger with that id number was not found.");
+            }
+
+            int stall = p.getParkingStallLabel();
+
+            if (stall == -1) {
+                throw new IllegalStateException("This passenger is not in a stall.");
+            }
+
+            p.setParkingStallLabel(-1);
+            AirportAccess.getInstance().getParkingStalls().freeStall(stall);
 
 
             parkingController.clearCancelForm(null);
 
             pstmt.close();
 
-        } catch (SQLException throwables) {
+        } catch (SQLException | InvalidKeyException throwables) {
             throwables.printStackTrace();
         }
 
