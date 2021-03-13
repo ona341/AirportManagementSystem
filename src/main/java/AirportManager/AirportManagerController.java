@@ -28,6 +28,9 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+/**
+ * The Airport manager controller.
+ */
 public class AirportManagerController implements Initializable{
 
     @FXML
@@ -81,6 +84,12 @@ public class AirportManagerController implements Initializable{
     private Label errorMessageLabel;
 
 
+    /**
+     * Logout as the Airport Manager.
+     *
+     * @param event the button event to log out
+     * @throws IOException
+     */
     @FXML
     public void logout(ActionEvent event) throws IOException
     {
@@ -93,7 +102,7 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     *Checks the format of the inputted time for validity
+     * Checks the format of the inputted time for validity
      * @param event a Mouse event
      */
     @FXML
@@ -107,9 +116,9 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-    /***
+    /**
      * Calls and executes the add flight command
-     * @param event when the addFlight bitton is clicked
+     * @param event when the addFlight button is clicked
      */
     @FXML
     public void addFlight(ActionEvent event) {
@@ -132,7 +141,8 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Clears the filled spaces in the form
+     * Clears the form
+     *
      * @param event an action performed by the user
      */
     @FXML
@@ -145,7 +155,7 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     *Initializes the Controller
+     * Initializes the Controller
      * @param url he location used to resolve the relative paths of the object or null if unknown
      * @param resourceBundle the resources used to localize the root of the object
      */
@@ -167,6 +177,11 @@ public class AirportManagerController implements Initializable{
         capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
     }
 
+    /**
+     * Register button on action.
+     *
+     * @param event the event
+     */
     public void registerButtonOnAction(ActionEvent event){
         if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() ||
                 this.confirmPasswordField.getText().isEmpty()){
@@ -185,6 +200,9 @@ public class AirportManagerController implements Initializable{
         }
     }
 
+    /**
+     * Register user.
+     */
     public void registerUser(){
         String sqlInsert = "INSERT INTO login(id,password,representation) VALUES (?,?,?)";
 
@@ -210,9 +228,9 @@ public class AirportManagerController implements Initializable{
     }
 
 
-
     /**
      * Deletes the selected flight from the  system
+     *
      * @param actionEvent the user selecting delete flight
      */
     public void deleteRow(ActionEvent actionEvent) {
@@ -225,6 +243,7 @@ public class AirportManagerController implements Initializable{
 
     /**
      * Updates the flight row selected
+     *
      * @param actionEvent an action performed by the user
      */
     public void updateRow(ActionEvent actionEvent) {
@@ -267,6 +286,12 @@ public class AirportManagerController implements Initializable{
         this.tableview.setItems(null);
         this.tableview.setItems(this.flightData);
     }
+
+    /**
+     * Double click.
+     *
+     * @param event the event
+     */
     @FXML
     public void doubleClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -278,6 +303,11 @@ public class AirportManagerController implements Initializable{
     }
 
 
+    /**
+     * Open flight view.
+     *
+     * @param flight the flight
+     */
     public void openFlightView(Flight flight) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FlightView.fxml"));
