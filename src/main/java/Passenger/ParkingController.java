@@ -3,14 +3,20 @@ package Passenger;
 
 import Command.AddParking;
 import Command.CancelParking;
+import Entities.Passenger;
 import Singleton.AirportAccess;
+import Singleton.PassengerMapAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-
+import java.sql.Date;
 
 
 public class ParkingController {
@@ -48,10 +54,44 @@ public class ParkingController {
     @FXML
     public Label cancelMessage;
 
+    @FXML
+    public Label nameConfirmation;
+
+    @FXML
+    public Label emailConfirmation;
+
+    @FXML
+    public Label idConfirmation;
+
+    @FXML
+    public Label parkingNumConfirmation;
+
+    @FXML
+    public Button okButton;
+
+
+
 
     public void closeButtonOnAction(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
+    }
+
+    public void toConfirmation(ActionEvent event) {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/confirmParkingInfo.fxml"));
+            Stage confirmationStage = new Stage();
+            confirmationStage.initStyle(StageStyle.UNDECORATED);
+            confirmationStage.setScene(new Scene(root, 600, 496));
+            confirmationStage.setTitle("Parking Confirmation");
+            confirmationStage.setResizable(false);
+            confirmationStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
 
     }
 
@@ -69,24 +109,33 @@ public class ParkingController {
         }
 
         String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        // checks name for any number and allows for spaces
         if (!(nameField.getText().isEmpty()) && !(nameField.getText()).matches("[A-Za-z\\s]{2,}")) {
             nameError.setText("Name must contain only letters");
             nameError.setTextFill(Color.RED);
 
-        } else if (!(emailField.getText().isEmpty()) && !(emailField.getText()).matches(EMAIL_REGEX)) {
+        }
+
+        // checks for correct email format
+        else if (!(emailField.getText().isEmpty()) && !(emailField.getText()).matches(EMAIL_REGEX)) {
             emailError.setText("Must be at this form : user@domain.com");
             emailError.setTextFill(Color.RED);
             nameError.setText("");
-        } else {
+        }
+
+        // success
+        else {
+
             AddParking addparking = new AddParking(this);
             addparking.execute();
-            nameError.setText("Successfully Reserved Parking!");
-            nameError.setTextFill(Color.GREEN);
-            emailError.setText("");
+
+            toConfirmation(event);
 
         }
     }
 
+    @FXML
     public void deleteParkingReservation(ActionEvent actionEvent) {
         int parkingStall;
         try {
@@ -122,10 +171,7 @@ public class ParkingController {
             alert.show();
 
         }
-
     }
-
-
 
 
     @FXML
@@ -153,5 +199,4 @@ public class ParkingController {
         parkingLabel.setText(String.valueOf(AirportAccess.getInstance().getParkingStalls().firstAvailableStall()));
 
     }
-
 }
