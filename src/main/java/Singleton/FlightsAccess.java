@@ -10,8 +10,6 @@ import java.sql.*;
 
 public class FlightsAccess {
 
-    private static final String sql = "SELECT flightNum, airline, destination, date, time, gate FROM flights";
-
     private static ObservableList<Flight> flights;
 
     private static ObservableList<Flight> searchResult;
@@ -27,12 +25,13 @@ public class FlightsAccess {
         if (flights == null) {
             flights = FXCollections.observableArrayList();
             try {
+                String sql = "SELECT flightNum, airline, destination, date, time, gate, capacity FROM flights";
                 Connection conn = dbConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
-                    flights.add(new Flight(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getTime(5),rs.getInt(6)));
+                    flights.add(new Flight(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getTime(5),rs.getInt(6),rs.getInt(7)));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

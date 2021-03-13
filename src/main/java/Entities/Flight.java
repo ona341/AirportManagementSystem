@@ -19,15 +19,14 @@ public class Flight {
 
     private IntegerProperty gate;
 
-
-    private int capacity;
+    private IntegerProperty capacity;
 
     private final EntityContainer<Passenger> seats;
 
 
 
 
-    public Flight(String number, String airline, String destination, Date date, Time time, int gate) {
+    public Flight(String number, String airline, String destination, Date date, Time time, int gate, int capacity) {
         this.airline = new SimpleStringProperty(airline);
         this.flightNumber = new SimpleStringProperty(number);
         this.destination = new SimpleStringProperty(destination);
@@ -35,6 +34,7 @@ public class Flight {
         this.time = new SimpleObjectProperty<>(time);
         this.seats = new EntityContainer<>(number, 0, capacity);
         this.gate = new SimpleIntegerProperty(gate);
+        this.capacity = new SimpleIntegerProperty(capacity);
     }
 
     public EntityContainer<Passenger> getSeats() {
@@ -108,11 +108,15 @@ public class Flight {
     }
 
     public int getCapacity() {
+        return capacity.get();
+    }
+
+    public IntegerProperty capacityProperty() {
         return capacity;
     }
 
     public void setCapacity(int capacity) {
-        this.capacity = capacity;
+        this.capacity.set(capacity);
     }
 
     public int getGate() {

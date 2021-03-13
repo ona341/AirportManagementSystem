@@ -58,6 +58,8 @@ public class AirportManagerController implements Initializable{
     public TableColumn<Flight,Character> gateCol;
     @FXML
     public TextField searchBox;
+    @FXML
+    public Spinner<Integer> capacity;
 
     private ObservableList<Flight> flightData;
 
@@ -161,7 +163,7 @@ public class AirportManagerController implements Initializable{
 
         tableview.setItems(FlightsAccess.getInstance());
 
-
+        capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
     }
 
     public void registerButtonOnAction(ActionEvent event){
@@ -235,7 +237,7 @@ public class AirportManagerController implements Initializable{
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM flights");
 
             while(rs.next()) {
-                this.flightData.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6)));
+                this.flightData.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6), rs.getInt(7)));
             }
 
             conn.close();

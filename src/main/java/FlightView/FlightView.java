@@ -214,7 +214,7 @@ public class FlightView implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         iDCol.setCellValueFactory(new PropertyValueFactory<>("number"));
 
-        seatNumberCol.setCellValueFactory(data -> new SimpleIntegerProperty(flight.getSeats().getEntityInternalIndex(data.getValue())).asObject());
+        seatNumberCol.setCellValueFactory(data -> data.getValue() != null ? new SimpleIntegerProperty(flight.getSeats().getEntityInternalIndex(data.getValue())).asObject() : null);
 
         ObservableList<Passenger> thelist;
         passengerTable.setItems(thelist = flight.getSeats().getObservableList());
