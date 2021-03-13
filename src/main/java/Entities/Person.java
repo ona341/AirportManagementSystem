@@ -17,7 +17,10 @@ package Entities;/*
   Synopsis:
      Starter File for Assignment 4
  */
- 
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * The model of a person who has a name and an ID number
  * that cannot be changed.
@@ -27,49 +30,46 @@ public class Person {
     /**
      * The name of the person.
      */
-    private String name;
+    private StringProperty name;
 
     /**
      * The person's id  number.
      */
-    private final String iDNumber;
+    private final StringProperty number;
 
     /**
-     * Initialize an instance of a Entities.Person with the given name and id number.
+     * Initialize an instance of a Person with the given name and id number.
      *
      * @param pName the person's name
      * @param pNumber the person's id number
      */
     public Person(String pName, String pNumber) {
-        name = pName;
-        iDNumber = pNumber;
+        name = new SimpleStringProperty(pName);
+        number = new SimpleStringProperty(pNumber);
     }
 
-    /**
-     * Return the name of the person.
-     *
-     * @return the name of the person
-     */
     public String getName() {
+        return name.get();
+    }
+
+    public StringProperty nameProperty() {
         return name;
     }
 
-    /**
-     * Return the id number of the person.
-     *
-     * @return the id number of the person
-     */
-    public String getIDNumber() {
-        return iDNumber;
+    public void setName(String name) {
+        this.name.set(name);
     }
 
-    /**
-     * Change the name of the person.
-     *
-     * @param newName the name of the person
-     */
-    public void setName(String newName) {
-        name = newName;
+    public String getNumber() {
+        return number.get();
+    }
+
+    public StringProperty numberProperty() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number.set(number);
     }
 
     /**
@@ -78,7 +78,7 @@ public class Person {
      * @return a string representation of the person
      */
     public String toString() {
-        return "\nName: " + name + "\nid  number: " + iDNumber + "\n";
+        return "\nName: " + name + "\nid  number: " + number + "\n";
     }
 
     /**
@@ -94,7 +94,7 @@ public class Person {
             System.out.println("The constructor or getName failed");
             numErrors++;
         }
-        if(!p.getIDNumber().equals("123456")) {
+        if(!p.getNumber().equals("123456")) {
             System.out.println("The constructor or getidNumber failed");
             numErrors++;
         }
@@ -117,7 +117,7 @@ public class Person {
             System.out.println("The constructor or getName failed");
             numErrors++;
         }
-        if(!p.getIDNumber().equals("987654"))
+        if(!p.getNumber().equals("987654"))
         {
             System.out.println("The constructor or getidNumber failed");
             numErrors++;
