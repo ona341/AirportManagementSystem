@@ -25,7 +25,7 @@ public class AddPassenger implements Command{
 
 
         name = passenger.getName();
-        number = passenger.getNumber();
+        number = passenger.getId();
         email = passenger.getEmail();
         date = passenger.getCheckInDate();
         parkingStall = passenger.getParkingStallLabel();

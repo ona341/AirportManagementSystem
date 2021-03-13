@@ -53,7 +53,7 @@ public class AddParking implements Command{
                         parkingController.emailField.getText(),
                         Date.valueOf(parkingController.CheckinDatePicker.getValue()),
                         parkingStall);
-                PassengerMapAccess.getInstance().put(passenger.getNumber(),passenger);
+                PassengerMapAccess.getInstance().put(passenger.getId(),passenger);
             }
             //assigns the passenger and their parking stall to a stall in the airport
             AirportAccess.getInstance().getParkingStalls().assignEntityToStall(passenger, parkingStall);

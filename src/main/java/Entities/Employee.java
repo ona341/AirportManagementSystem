@@ -11,20 +11,25 @@ package Entities;
  */
 
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Employee extends Person {
-  private String email;
+  private StringProperty role;
 
 
-  public Employee(String name, String number, String email) {
-      super(name, number);
-      this.email = email;
+  public Employee(String id, String name, String role) {
+      super(name, id);
+      this.role = new SimpleStringProperty(role);
   }
 
-  public String getEmail() {
-    return email;
+  public String getRole() { return role.get(); }
+
+  public StringProperty roleProperty() {
+    return role;
   }
 
-
+  public void setRole(String role) { this.role.set(role); }
 
   public String toString() {
     return super.toString();

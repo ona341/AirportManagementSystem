@@ -3,8 +3,10 @@ package AirportManager;
 import Command.AddFlight;
 import Command.DeleteFlight;
 import Command.UpdateFlight;
+import Entities.Employee;
 import Entities.Flight;
 import FlightView.FlightView;
+import Singleton.EmployeeMapAccess;
 import Singleton.FlightsAccess;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
@@ -82,6 +84,22 @@ public class AirportManagerController implements Initializable{
     private ComboBox<option> selectionComboBox;
     @FXML
     private Label errorMessageLabel;
+
+
+    @FXML
+    public TextField employeeId;
+    @FXML
+    public TextField employeeName;
+    @FXML
+    public TextField employeeRole;
+    @FXML
+    public TableView<Employee> tableviewEmployees;
+    @FXML
+    public TableColumn<Employee,String> employeeIdCol;
+    @FXML
+    public TableColumn<Employee,String> employeeNameCol;
+    @FXML
+    public TableColumn<Employee,String> employeeRoleCol;
 
 
     /**
@@ -175,6 +193,14 @@ public class AirportManagerController implements Initializable{
         tableview.setItems(FlightsAccess.getInstance());
 
         capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
+
+
+
+        employeeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+        tableviewEmployees.setItems(EmployeeMapAccess.getInstance());
     }
 
     /**
