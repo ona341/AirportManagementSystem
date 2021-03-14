@@ -130,11 +130,11 @@ public class AirportManagerController implements Initializable{
         if (flightnum.getText().isEmpty() || airline.getText().isEmpty() || destination.getText().isEmpty() ||
                 date.getValue() == null || time.getText().isEmpty()) {
             isValid = false;
-            notifyError("empty field(s)");
+            notifyError("the empty field(s)");
         }
         if (!flightnum.getText().matches("[0-9]+")) {
             isValid = false;
-            notifyError("correct flight number");
+            notifyError("a valid flight number");
             flightnum.clear();
         }
         if (time.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
@@ -142,7 +142,7 @@ public class AirportManagerController implements Initializable{
         }
         if (!time.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
             isValid = false;
-            notifyError("correct time");
+            notifyError("a valid time");
             time.clear();
         }
         return isValid;
@@ -154,7 +154,7 @@ public class AirportManagerController implements Initializable{
     private void notifyError(String errorInfo) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Invalid " + errorInfo);
-        alert.setContentText("Please fill the " + errorInfo);
+        alert.setContentText("Please fill " + errorInfo);
         alert.showAndWait();
     }
 
