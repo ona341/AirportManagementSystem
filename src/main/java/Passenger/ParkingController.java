@@ -119,13 +119,17 @@ public class ParkingController {
 
         // checks for correct email format
         else if (!(emailField.getText().isEmpty()) && !(emailField.getText()).matches(EMAIL_REGEX)) {
-            emailError.setText("Must be at this form : user@domain.com");
+            emailError.setText("Must be in this form : user@domain.com");
             emailError.setTextFill(Color.RED);
             nameError.setText("");
         }
 
         // success
         else {
+            nameError.setText("Parking Reservation has been completed!");
+            nameError.setTextFill(Color.GREEN);
+            emailError.setText("");
+            nameError.setTextFill(Color.RED);
             AddParking addparking = new AddParking(this);
             addparking.execute();
 

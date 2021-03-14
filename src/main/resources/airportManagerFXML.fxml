@@ -23,14 +23,14 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="1280.0">
                             <children>
-                                <TableView fx:id="tableviewEmployees" layoutX="360.0" layoutY="105.0" onMouseClicked="#doubleClickEmployee" prefHeight="585.0" prefWidth="535.0">
+                                <TableView fx:id="tableviewEmployees" layoutX="426.0" layoutY="81.0" onMouseClicked="#doubleClickEmployee" prefHeight="585.0" prefWidth="535.0">
                                     <columns>
                                         <TableColumn fx:id="employeeIdCol" prefWidth="135.0" text="User ID" />
                                         <TableColumn fx:id="employeeNameCol" prefWidth="268.0" text="Name" />
                               <TableColumn fx:id="employeeRoleCol" prefWidth="135.0" text="Role" />
                                     </columns>
                                 </TableView>
-                                <Label layoutX="17.0" layoutY="58.0" prefHeight="27.0" prefWidth="331.0" text="Add Users">
+                                <Label layoutX="17.0" layoutY="32.0" prefHeight="27.0" prefWidth="331.0" text="Add Users">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
@@ -44,7 +44,7 @@
                                 <Label layoutX="14.0" layoutY="327.0" text="Select User Type" />
                                 <ComboBox fx:id="selectionComboBox" layoutX="15.0" layoutY="360.0" prefHeight="27.0" prefWidth="336.0" promptText="Type of User" />
                                 <Button fx:id="registerButton" layoutX="14.0" layoutY="424.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="27.0" prefWidth="336.0" text="Register" />
-                                <TextField fx:id="searchUsers" layoutX="728.0" layoutY="58.0" onKeyTyped="#searchTable" promptText="Search" />
+                                <TextField fx:id="searchUsers" layoutX="794.0" layoutY="45.0" onKeyTyped="#searchTable" promptText="Search" />
                                 <Label fx:id="messageLabel" alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="18.0" prefWidth="559.0" textFill="#37e119">
                                     <font>
                                         <Font size="14.0" />
