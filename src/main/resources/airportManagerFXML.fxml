@@ -72,7 +72,7 @@
                                 <TextField fx:id="flightnum" layoutX="17.0" layoutY="66.0" prefHeight="27.0" prefWidth="350.0" promptText="Flight Number" />
                                 <TextField fx:id="airline" layoutX="17.0" layoutY="93.0" prefHeight="27.0" prefWidth="350.0" promptText="Airline" />
                                 <TextField fx:id="destination" layoutX="17.0" layoutY="120.0" prefHeight="27.0" prefWidth="350.0" promptText="Destination" />
-                                <DatePicker fx:id="date" layoutX="17.0" layoutY="147.0" prefHeight="27.0" prefWidth="350.0" promptText="Date" />
+                                <DatePicker fx:id="date" layoutX="17.0" layoutY="147.0" prefHeight="27.0" prefWidth="350.0" promptText="Date" editable="false"/>
                                 <TextField fx:id="time" layoutX="17.0" layoutY="174.0" prefHeight="27.0" prefWidth="350.0" promptText="Time HH:MM:SS" />
                                 <Button fx:id="addflight" layoutX="7.0" layoutY="255.0" mnemonicParsing="false" onAction="#addFlight" prefHeight="27.0" prefWidth="370.0" text="Add Flight" />
                                 <Button fx:id="clearform" layoutX="7.0" layoutY="323.0" mnemonicParsing="false" onAction="#clearForm" prefHeight="27.0" prefWidth="370.0" text="Clear Form" />
