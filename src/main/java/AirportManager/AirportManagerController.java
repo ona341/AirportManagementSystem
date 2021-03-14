@@ -122,17 +122,36 @@ public class AirportManagerController implements Initializable{
 
     /**
      * Checks the format of the inputted time for validity
-     * @param event a Mouse event
+     * @param event an action event
      */
     @FXML
-    private void checkTime(MouseEvent event) {
-        if (time.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
+    private void checkInvalidFields(ActionEvent event) {
+        if (flightnum.getText().isEmpty() || airline.getText().isEmpty() || destination.getText().isEmpty() ||
+                date.getValue() == null || time.getText().isEmpty()) {
+            notifyError("empty field(s)");
+        }
+        else if (!flightnum.getText().matches("[0-9]+")) {
+            notifyError("correct flight number");
+            flightnum.clear();
+        }
+        else if (time.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
         }
         else if (time.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"))
             time.appendText(":00");
         else{
+            notifyError("correct time");
             time.clear();
         }
+    }
+
+    /**
+     * Checks the format of the inputted time for validity
+     */
+    private void notifyError(String errorInfo) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Invalid " + errorInfo);
+        alert.setContentText("Please fill the " + errorInfo);
+        alert.showAndWait();
     }
 
     /**
@@ -142,6 +161,7 @@ public class AirportManagerController implements Initializable{
     @FXML
     public void addFlight(ActionEvent event) {
         AddFlight addflight = new AddFlight(this);
+        checkInvalidFields(event);
         addflight.execute();
     }
 

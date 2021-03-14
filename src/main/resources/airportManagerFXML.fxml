@@ -17,7 +17,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AirportManager.AirportManagerController">
     <children>
-        <TabPane layoutX="1.0" onMouseClicked="#checkTime" prefHeight="720.0" prefWidth="1279.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane layoutX="1.0" onMouseClicked="#checkInvalidFields" prefHeight="720.0" prefWidth="1279.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="User Management">
                     <content>
