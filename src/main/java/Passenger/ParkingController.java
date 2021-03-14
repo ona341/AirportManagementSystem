@@ -3,7 +3,9 @@ package Passenger;
 
 import Command.AddParking;
 import Command.CancelParking;
+import Entities.Passenger;
 import Singleton.AirportAccess;
+import Singleton.PassengerMapAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

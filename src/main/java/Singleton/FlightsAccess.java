@@ -31,7 +31,9 @@ public class FlightsAccess {
                 ResultSet rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
-                    flights.add(new Flight(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getTime(5),rs.getInt(6),rs.getInt(7)));
+                    Flight theFlight;
+                    flights.add(theFlight = new Flight(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getTime(5),rs.getInt(6),rs.getInt(7)));
+                    AirportAccess.getInstance().getGates().assignEntityToStall(theFlight,theFlight.getGate());
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
