@@ -125,23 +125,27 @@ public class AirportManagerController implements Initializable{
      * @param event an action event
      */
     @FXML
-    private void checkInvalidFields(ActionEvent event) {
+    private boolean checkInvalidFields(MouseEvent event) {
+        boolean isValid = true;
         if (flightnum.getText().isEmpty() || airline.getText().isEmpty() || destination.getText().isEmpty() ||
                 date.getValue() == null || time.getText().isEmpty()) {
+            isValid = false;
             notifyError("empty field(s)");
         }
-        else if (!flightnum.getText().matches("[0-9]+")) {
+        if (!flightnum.getText().matches("[0-9]+")) {
+            isValid = false;
             notifyError("correct flight number");
             flightnum.clear();
         }
-        else if (time.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
-        }
-        else if (time.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"))
+        if (time.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
             time.appendText(":00");
-        else{
+        }
+        if (!time.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
+            isValid = false;
             notifyError("correct time");
             time.clear();
         }
+        return isValid;
     }
 
     /**
@@ -161,8 +165,9 @@ public class AirportManagerController implements Initializable{
     @FXML
     public void addFlight(ActionEvent event) {
         AddFlight addflight = new AddFlight(this);
-        checkInvalidFields(event);
-        addflight.execute();
+        if (checkInvalidFields(null)) {
+            addflight.execute();
+        }
     }
 
     /**
