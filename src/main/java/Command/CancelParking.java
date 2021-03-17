@@ -39,7 +39,7 @@ public class CancelParking implements Command{
             Connection conn = dbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            //sets the string parameter indexes if the PreoaredStatement to their respective fields
+            //sets the string parameter indexes if the PreparedStatement to their respective fields
             pstmt.setString(1, parkingController.idFieldCancel.getText());
             pstmt.setString(2, parkingController.parkingFieldCancel.getText());
 
