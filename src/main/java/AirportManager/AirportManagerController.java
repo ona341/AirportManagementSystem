@@ -68,6 +68,7 @@ public class AirportManagerController implements Initializable{
     public Spinner<Integer> capacity;
 
     private ObservableList<Flight> flightData;
+    private ObservableList<Employee> employeeData;
 
     // Add User Tab
 
@@ -82,9 +83,12 @@ public class AirportManagerController implements Initializable{
     @FXML
     private TextField idNumberTextField;
     @FXML
-    private ComboBox<option> selectionComboBox;
+    public TextField nameTextField;
+    @FXML
+    public ComboBox<option> selectionComboBox;
     @FXML
     private Label errorMessageLabel;
+
 
 
     @FXML
@@ -240,6 +244,7 @@ public class AirportManagerController implements Initializable{
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
                 setPasswordField.getText().equals(confirmPasswordField.getText())){
             registerUser();
+            loadLoginData();
             passMessageLabel.setText("");
         }
         else {
@@ -253,7 +258,7 @@ public class AirportManagerController implements Initializable{
      * Register user.
      */
     public void registerUser(){
-        String sqlInsert = "INSERT INTO login(id,password,representation) VALUES (?,?,?)";
+        String sqlInsert = "INSERT INTO login(id,password,representation,name) VALUES (?,?,?,?)";
 
         try{
             Connection connectDB = dbConnection.getConnection();
@@ -262,6 +267,7 @@ public class AirportManagerController implements Initializable{
             statement.setString(1, this.idNumberTextField.getText());
             statement.setString(2, this.setPasswordField.getText());
             statement.setString(3, this.selectionComboBox.getValue().toString());
+            statement.setString(4, this.nameTextField.getText());
 
 
             statement.execute();
@@ -303,6 +309,7 @@ public class AirportManagerController implements Initializable{
         }
     }
 
+
     /**
      * Loads the flights in the system into the panel to be viewed
      */
@@ -342,21 +349,27 @@ public class AirportManagerController implements Initializable{
         try {
 
             Connection conn = dbConnection.getConnection();
+            this.employeeData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
 
-            ObservableList<Employee> list = FXCollections.observableArrayList();
+            ResultSet rs = conn.createStatement().executeQuery("SELECT id,name,representation FROM login");
 
-            ResultSet rs = conn.createStatement().executeQuery("SELECT id,representation FROM login");
+            while(rs.next()) {
+                this.employeeData.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3)));
+            }
 
-            //while(rs.next()) {
-               // list.add(new Employee())
-            //}
-
+            conn.close(); //closes the database connection
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        this.employeeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        this.employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+        this.employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+
+        this.tableviewEmployees.setItems(null);
+        this.tableviewEmployees.setItems(this.employeeData);
     }
 
 

@@ -126,8 +126,8 @@ public class ParkingController {
 
         // success
         else {
-            nameError.setText("Parking Reservation has been completed!");
             nameError.setTextFill(Color.GREEN);
+            nameError.setText("Parking Reservation has been completed!");
             emailError.setText("");
             nameError.setTextFill(Color.RED);
             AddParking addparking = new AddParking(this);

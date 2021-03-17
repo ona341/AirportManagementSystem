@@ -35,27 +35,29 @@
                                         <Font size="16.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="18.0" layoutY="97.0" text="ID Number" />
-                                <TextField fx:id="idNumberTextField" layoutX="14.0" layoutY="126.0" prefHeight="25.0" prefWidth="336.0" promptText="Please enter your ID number" />
-                                <Label layoutX="18.0" layoutY="166.0" prefHeight="17.0" prefWidth="66.0" text="Password" />
-                                <PasswordField fx:id="setPasswordField" layoutX="14.0" layoutY="195.0" prefHeight="27.0" prefWidth="336.0" promptText="Please enter your password" />
-                                <Label layoutX="17.0" layoutY="249.0" prefHeight="17.0" prefWidth="120.0" text="Confirm Password" />
-                                <PasswordField fx:id="confirmPasswordField" layoutX="14.0" layoutY="280.0" prefHeight="27.0" prefWidth="336.0" promptText="Retype password" />
-                                <Label layoutX="14.0" layoutY="327.0" text="Select User Type" />
-                                <ComboBox fx:id="selectionComboBox" layoutX="15.0" layoutY="360.0" prefHeight="27.0" prefWidth="336.0" promptText="Type of User" />
-                                <Button fx:id="registerButton" layoutX="14.0" layoutY="424.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="27.0" prefWidth="336.0" text="Register" />
+                                <Label layoutX="18.0" layoutY="148.0" text="ID Number" />
+                                <TextField fx:id="idNumberTextField" layoutX="14.0" layoutY="175.0" prefHeight="25.0" prefWidth="336.0" promptText="Please enter user's ID number" />
+                                <Label layoutX="18.0" layoutY="217.0" prefHeight="17.0" prefWidth="66.0" text="Password" />
+                                <PasswordField fx:id="setPasswordField" layoutX="14.0" layoutY="242.0" prefHeight="27.0" prefWidth="336.0" promptText="Please enter user's password" />
+                                <Label layoutX="17.0" layoutY="285.0" prefHeight="17.0" prefWidth="120.0" text="Confirm Password" />
+                                <PasswordField fx:id="confirmPasswordField" layoutX="14.0" layoutY="310.0" prefHeight="27.0" prefWidth="336.0" promptText="Retype password" />
+                                <Label layoutX="14.0" layoutY="357.0" text="Select User Type" />
+                                <ComboBox fx:id="selectionComboBox" layoutX="14.0" layoutY="388.0" prefHeight="27.0" prefWidth="336.0" promptText="Type of User" />
+                                <Button fx:id="registerButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="27.0" prefWidth="336.0" text="Register" />
                                 <TextField fx:id="searchUsers" layoutX="794.0" layoutY="45.0" onKeyTyped="#searchTable" promptText="Search" />
-                                <Label fx:id="messageLabel" alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="18.0" prefWidth="559.0" textFill="#37e119">
+                                <Label fx:id="messageLabel" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="559.0" textFill="#37e119">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="passMessageLabel" alignment="TOP_LEFT" layoutX="23.0" layoutY="461.0" prefHeight="84.0" prefWidth="319.0" textFill="RED" wrapText="true">
+                                <Label fx:id="passMessageLabel" alignment="TOP_LEFT" layoutX="23.0" layoutY="499.0" prefHeight="84.0" prefWidth="319.0" textFill="RED" wrapText="true">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="errorMessageLabel" alignment="CENTER" layoutX="28.0" layoutY="398.0" prefHeight="17.0" prefWidth="310.0" textFill="#e81414" />
+                                <Label fx:id="errorMessageLabel" alignment="CENTER" layoutX="28.0" layoutY="422.0" prefHeight="17.0" prefWidth="310.0" textFill="#e81414" />
+                        <Label layoutX="18.0" layoutY="73.0" text="Name" />
+                        <TextField fx:id="nameTextField" layoutX="14.0" layoutY="98.0" prefHeight="25.0" prefWidth="336.0" promptText="Please enter user's name" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -72,7 +74,7 @@
                                 <TextField fx:id="flightnum" layoutX="17.0" layoutY="66.0" prefHeight="27.0" prefWidth="350.0" promptText="Flight Number" />
                                 <TextField fx:id="airline" layoutX="17.0" layoutY="93.0" prefHeight="27.0" prefWidth="350.0" promptText="Airline" />
                                 <TextField fx:id="destination" layoutX="17.0" layoutY="120.0" prefHeight="27.0" prefWidth="350.0" promptText="Destination" />
-                                <DatePicker fx:id="date" layoutX="17.0" layoutY="147.0" prefHeight="27.0" prefWidth="350.0" promptText="Date" editable="false"/>
+                                <DatePicker fx:id="date" editable="false" layoutX="17.0" layoutY="147.0" prefHeight="27.0" prefWidth="350.0" promptText="Date" />
                                 <TextField fx:id="time" layoutX="17.0" layoutY="174.0" prefHeight="27.0" prefWidth="350.0" promptText="Time HH:MM:SS" />
                                 <Button fx:id="addflight" layoutX="7.0" layoutY="255.0" mnemonicParsing="false" onAction="#addFlight" prefHeight="27.0" prefWidth="370.0" text="Add Flight" />
                                 <Button fx:id="clearform" layoutX="7.0" layoutY="323.0" mnemonicParsing="false" onAction="#clearForm" prefHeight="27.0" prefWidth="370.0" text="Clear Form" />

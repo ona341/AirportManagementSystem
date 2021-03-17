@@ -49,7 +49,7 @@ public class EmployeeMapAccess {
         if (employees == null) {
             employees = FXCollections.observableArrayList();
             try {
-                String sql = "SELECT * FROM employees";
+                String sql = "SELECT id, name, representation FROM login";
                 Connection conn = dbConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
