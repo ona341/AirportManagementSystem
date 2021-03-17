@@ -66,7 +66,7 @@ public class AMS extends Application implements Initializable{
             conn.createStatement().execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS flights (flightNum TEXT, airline TEXT, destination TEXT, date DATE, time TIME, gate INT, capacity INT)";
             conn.createStatement().execute(sql);
-            sql = "CREATE TABLE IF NOT EXISTS login (id TEXT, password TEXT, representation TEXT)";
+            sql = "CREATE TABLE IF NOT EXISTS login (id TEXT, password TEXT, representation TEXT, name TEXT)";
             conn.createStatement().execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS parking (name TEXT, id TEXT, email TEXT, checkin DATE, parkingStall INT)";
             conn.createStatement().execute(sql);
