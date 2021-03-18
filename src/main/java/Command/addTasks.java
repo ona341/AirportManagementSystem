@@ -4,6 +4,8 @@ import Entities.Employee;
 import Entities.dailyTasks;
 import Singleton.dailyTasksAccess;
 import Singleton.dbConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,14 +33,21 @@ public class addTasks implements Initializable {
 
 
     private Employee employee;
+    public ObservableList<dailyTasks> dta2;
 
     public void initialize(Employee employee) {
         this.employee = employee;
+        dta2 = FXCollections.observableArrayList();
+        for (dailyTasks dts : dailyTasksAccess.getInstance()) {
+            if (dts.getEmployeeId().compareTo(this.employee.getId()) == 0) {
+                dta2.add(dts);
+            }
+        }
         fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
         toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
         taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
 
-        table.setItems(dailyTasksAccess.getInstance());
+        table.setItems(dta2);
     }
 
     /**
@@ -114,6 +123,12 @@ public class addTasks implements Initializable {
             dailyTasks dt = new dailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), taskToDo.getText());
             clearForm(null);
             dailyTasksAccess.getInstance().add(dt);
+            dta2.add(dt);
         }
+        fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
+        toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
+        taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
+
+        table.setItems(dta2);
     }
 }

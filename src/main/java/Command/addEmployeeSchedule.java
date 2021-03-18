@@ -139,18 +139,6 @@ public class addEmployeeSchedule implements Initializable {
     }
 
     public void editSunday(ActionEvent event) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addTasks.fxml"));
-//            Stage stage = new Stage();
-//            Parent root = loader.load();
-//            stage.setScene(new Scene(root));
-//
-//            loader.<addTasks>getController().initialize(employee);
-//
-//            stage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         employee.schedule().setSunday(newDialog(sun.getText(), "Sunday"));
         dbUpdate(employee);
         sun.setText(employee.schedule().getSunday());

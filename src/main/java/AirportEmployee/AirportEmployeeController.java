@@ -31,7 +31,7 @@ public class AirportEmployeeController {
 
     public void toViewDailyTasks(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewEmployeeSchedule.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewTasks.fxml"));
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));
@@ -42,8 +42,22 @@ public class AirportEmployeeController {
         }
     }
 
+    /**
+     * View employee's schedule
+     * @param event the event that will trigger the method
+     */
     public void toViewSchedule(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewEmployeeSchedule.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
 
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void toRequestTimeOff(ActionEvent event) {
