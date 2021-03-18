@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -67,6 +68,7 @@ public class LoginController implements Initializable {
                         airportManagerLogin();
                         passengerLogin();
                         airportEmployeeLogin();
+                        airlineEmployeeLogin();
                         break;
 
                 }
@@ -76,7 +78,7 @@ public class LoginController implements Initializable {
             }
 
         } catch (Exception localException) {
-
+            localException.printStackTrace();
         }
     }
 
@@ -128,7 +130,7 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airlineEmpLoader = new FXMLLoader();
-            Pane airlineEmpRoot = airlineEmpLoader.load(getClass().getResource("/airlineEmployeeFXML.fxml").openStream());
+            Parent airlineEmpRoot = airlineEmpLoader.load(getClass().getResource("/airlineEmployeeFXML.fxml").openStream());
 
             AirlineEmployeeController airlineEmployeeController = airlineEmpLoader.getController();
 
