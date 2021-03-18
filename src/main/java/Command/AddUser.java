@@ -21,7 +21,7 @@ public class AddUser implements Command{
 
     @FXML
     public void execute() {
-        String sql = "INSERT INTO login(id,password,role,name,email) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO login(id,password,role,name,email,checkIn,parkingStall) VALUES(?,?,?,?,?,?,?)";
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -38,6 +38,8 @@ public class AddUser implements Command{
             }
             else {
                 pstmt.setString(3, "Passenger");
+                pstmt.setDate(6,user.getCheckInDate());
+                pstmt.setInt(7,user.getParkingStallLabel());
                 PassengerAccess.getInstance().add(user);
             }
             pstmt.executeUpdate();

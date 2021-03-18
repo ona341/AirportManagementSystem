@@ -134,6 +134,7 @@ public class LoginController implements Initializable {
             userStage.setTitle("Airline Employee Dashboard");
             userStage.setResizable(false);
             userStage.show();
+            userStage.sizeToScene();
 
         }catch (IOException ex){
             ex.printStackTrace();
