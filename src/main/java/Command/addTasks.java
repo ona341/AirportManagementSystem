@@ -7,11 +7,9 @@ import Singleton.dbConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -60,24 +58,62 @@ public class addTasks implements Initializable {
 
     }
 
-    public void buttonEvent(ActionEvent actionEvent) {
-        String sql = "INSERT INTO dailyTasks(employeeId,fromTime,toTime,task) VALUES(?,?,?,?)";
-
-        try {
-            Connection conn = dbConnection.getConnection();
-            PreparedStatement rs = conn.prepareStatement(sql);
-            rs.setString(1, employee.getId());
-            rs.setString(2, fromTime.getText());
-            rs.setString(3, toTime.getText());
-            rs.setString(4, taskToDo.getText());
-            rs.execute();
-            rs.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+    /**
+     * Checks the format of the inputted time for validity
+     * @param event an action event
+     */
+    @FXML
+    private boolean checkInvalidFields(MouseEvent event) {
+        boolean isValid = true;
+        if (fromTime.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
+            fromTime.appendText(":00");
         }
-        dailyTasks dt = new dailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), taskToDo.getText());
-        clearForm(null);
-        dailyTasksAccess.getInstance().add(dt);
+        if (toTime.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
+            toTime.appendText(":00");
+        }
+        if (!fromTime.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
+            isValid = false;
+            notifyError();
+            fromTime.clear();
+        }
+        if (!toTime.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
+            isValid = false;
+            notifyError();
+            toTime.clear();
+        }
+        return isValid;
+    }
+
+    /**
+     * Checks the format of the inputted time for validity
+     */
+    private void notifyError() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Invalid time");
+        alert.setContentText("Please fill in a valid time");
+        alert.showAndWait();
+    }
+
+    public void buttonEvent(ActionEvent actionEvent) {
+        if (checkInvalidFields(null)) {
+            String sql = "INSERT INTO dailyTasks(employeeId,fromTime,toTime,task) VALUES(?,?,?,?)";
+
+            try {
+                Connection conn = dbConnection.getConnection();
+                PreparedStatement rs = conn.prepareStatement(sql);
+                rs.setString(1, employee.getId());
+                rs.setString(2, fromTime.getText());
+                rs.setString(3, toTime.getText());
+                rs.setString(4, taskToDo.getText());
+                rs.execute();
+                rs.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dailyTasks dt = new dailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), taskToDo.getText());
+            clearForm(null);
+            dailyTasksAccess.getInstance().add(dt);
+        }
     }
 }
