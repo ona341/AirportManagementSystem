@@ -30,7 +30,16 @@ public class AirportEmployeeController {
     }
 
     public void toViewDailyTasks(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewEmployeeSchedule.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
 
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void toViewSchedule(ActionEvent event) {
