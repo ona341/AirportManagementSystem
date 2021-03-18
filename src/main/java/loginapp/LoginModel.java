@@ -33,7 +33,7 @@ public class LoginModel {
     public Pair<Boolean,String> Login(String id, String pass) throws Exception{
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String sql = "SELECT representation FROM login where id = ? and password = ?";
+        String sql = "SELECT role FROM login where id = ? and password = ?";
 
         try {
             pr = this.connection.prepareStatement(sql);

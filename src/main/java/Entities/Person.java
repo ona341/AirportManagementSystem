@@ -14,7 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 
-public class Person {
+public abstract class Person {
 
 
     private StringProperty name;

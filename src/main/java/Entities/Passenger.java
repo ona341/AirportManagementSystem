@@ -30,9 +30,23 @@ public class Passenger extends Person {
 
   private IntegerProperty seatNumber;
 
+  public Passenger(String name, String number) {
+    super(name,number);
+    this.email = new SimpleStringProperty(null);
+    this.checkInDate = new SimpleObjectProperty<>(null);
+    this.parkingStallLabel = new SimpleIntegerProperty(-1);
+    this.seatNumber = new SimpleIntegerProperty(-1);
+  }
+
+  public Passenger(String name, String number, String email) {
+    super(name,number);
+    this.email = new SimpleStringProperty(email);
+    this.checkInDate = new SimpleObjectProperty<>(null);
+    this.parkingStallLabel = new SimpleIntegerProperty(-1);
+    this.seatNumber = new SimpleIntegerProperty(-1);
+  }
 
   public Passenger(String name, String number, String email, Date date, int stallLabel) {
-
     super(name, number);
     this.email = new SimpleStringProperty(email);
     this.checkInDate = new SimpleObjectProperty<>(date);

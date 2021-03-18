@@ -3,7 +3,7 @@ package Command;
 import Entities.Passenger;
 import Passenger.ParkingController;
 import Singleton.AirportAccess;
-import Singleton.PassengerMapAccess;
+import Singleton.PassengerAccess;
 import Singleton.dbConnection;
 
 import java.security.InvalidKeyException;
@@ -32,7 +32,7 @@ public class CancelParking implements Command{
     @Override
     public void execute() {
 
-        String sql = "DELETE FROM parking WHERE id = ? AND parkingStall = ?";
+        String sql = "UPDATE login SET parkingStall = ? WHERE id = ?";
 
         try {
             //opens the database connection
@@ -40,25 +40,25 @@ public class CancelParking implements Command{
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             //sets the string parameter indexes if the PreparedStatement to their respective fields
-            pstmt.setString(1, parkingController.idFieldCancel.getText());
-            pstmt.setString(2, parkingController.parkingFieldCancel.getText());
+            pstmt.setString(2, parkingController.idFieldCancel.getText());
+            pstmt.setString(1, null);
 
 
             pstmt.executeUpdate();
 
-            Passenger p = PassengerMapAccess.getInstance().get(parkingController.idField.getText());
+            Passenger passenger = PassengerAccess.getInstance().stream().filter(p -> p.getId().equals(parkingController.idField.getText())).findAny().orElse(null);
 
-            if (p == null) {
+            if (passenger == null) {
                 throw new InvalidKeyException("A passenger with that id number was not found.");
             }
 
-            int stall = p.getParkingStallLabel();
+            int stall = passenger.getParkingStallLabel();
 
             if (stall == -1) {
                 throw new IllegalStateException("This passenger is not in a stall.");
             }
 
-            p.setParkingStallLabel(-1);
+            passenger.setParkingStallLabel(-1);
             AirportAccess.getInstance().getParkingStalls().freeStall(stall);
 
 

@@ -1,13 +1,11 @@
 package AirportManager;
 
-import Command.AddFlight;
-import Command.DeleteFlight;
-import Command.UpdateFlight;
-import Command.ViewEmployeeSchedule;
+import Command.*;
 import Entities.Employee;
 import Entities.Flight;
+import Entities.Passenger;
 import FlightView.FlightView;
-import Singleton.EmployeeMapAccess;
+import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
@@ -94,9 +92,9 @@ public class AirportManagerController implements Initializable{
     @FXML
     public TextField employeeId;
     @FXML
-    public TextField employeeName;
-    @FXML
-    public TextField employeeRole;
+    private TextField usersName;
+
+
     @FXML
     public TableView<Employee> tableviewEmployees;
     @FXML
@@ -230,7 +228,7 @@ public class AirportManagerController implements Initializable{
         employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 
-        tableviewEmployees.setItems(EmployeeMapAccess.getInstance());
+        tableviewEmployees.setItems(EmployeeAccess.getInstance());
     }
 
     /**
@@ -249,7 +247,7 @@ public class AirportManagerController implements Initializable{
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
                 setPasswordField.getText().equals(confirmPasswordField.getText())){
             registerUser();
-            loadLoginData();
+            //loadLoginData();
             passMessageLabel.setText("");
         }
         else {
@@ -263,37 +261,26 @@ public class AirportManagerController implements Initializable{
      * Register user.
      */
     public void registerUser(){
-        String sqlInsert = "INSERT INTO login(id,password,representation,name) VALUES (?,?,?,?)";
-        String sqlInsertEmp = "INSERT INTO employees(id,name,role) VALUES (?,?,?)";
-        String sqlInsertEmpSchedule = "INSERT INTO workSchedule(employeeId,sunday,monday,tuesday,wednesday,thursday,friday,saturday) VALUES (?,null,null,null,null,null,null,null)";
+        //String sqlInsert = "INSERT INTO login(id,password,representation,name) VALUES (?,?,?,?)";
 
         try{
-            Connection conn = dbConnection.getConnection();
-            PreparedStatement statementLog = conn.prepareStatement(sqlInsert);
-            PreparedStatement statementEmp = conn.prepareStatement(sqlInsertEmp);
-            PreparedStatement statementEmpSchedule = conn.prepareStatement(sqlInsertEmpSchedule);
+            //Connection connectDB = dbConnection.getConnection();
+            //PreparedStatement statement = connectDB.prepareStatement(sqlInsert);
 
+            //statement.setString(1, this.idNumberTextField.getText());
+            //statement.setString(2, this.setPasswordField.getText());
+            //statement.setString(3, this.selectionComboBox.getValue().toString());
+            //statement.setString(4, this.nameTextField.getText());
 
-            statementLog.setString(1, this.idNumberTextField.getText());
-            statementLog.setString(2, this.setPasswordField.getText());
-            statementLog.setString(3, this.selectionComboBox.getValue().toString());
-            statementLog.setString(4, this.nameTextField.getText());
+            Employee e = new Employee(usersName.getText(), idNumberTextField.getText(), selectionComboBox.getValue().toString());
+            new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
-            statementEmp.setString(1, this.idNumberTextField.getText());
-            statementEmp.setString(2, this.nameTextField.getText());
-            statementEmp.setString(3, this.selectionComboBox.getValue().toString());
-
-            statementEmpSchedule.setString(1, this.idNumberTextField.getText());
-
-            statementLog.execute();
-            statementEmp.execute();
-            statementEmpSchedule.execute();
+            //statement.execute();
             messageLabel.setText("User has been registered successfully!");
             errorMessageLabel.setText("");
             passMessageLabel.setText("");
-            statementLog.close();
-            statementEmp.close();
-            statementEmpSchedule.close();
+            //statement.close();
+
 
         } catch (Exception e){
             e.printStackTrace();
@@ -344,7 +331,7 @@ public class AirportManagerController implements Initializable{
                 this.flightData.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6), rs.getInt(7)));
             }
 
-            conn.close(); //closes the database connection
+            rs.close(); //closes the database connection
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -375,6 +362,7 @@ public class AirportManagerController implements Initializable{
                 this.employeeData.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3)));
             }
 
+            rs.close(); //closes the database connection
 
         } catch (SQLException e) {
             e.printStackTrace();
