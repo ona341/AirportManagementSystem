@@ -5,7 +5,7 @@ import java.sql.*;
 import Passenger.ParkingController;
 import Entities.Passenger;
 import Singleton.AirportAccess;
-import Singleton.PassengerMapAccess;
+import Singleton.PassengerAccess;
 import Singleton.dbConnection;
 import javafx.fxml.FXML;
 
@@ -29,41 +29,40 @@ public class AddParking implements Command{
 
     @FXML
     public void execute() {
-        String sql = "INSERT INTO parking(name,id,email,checkin,parkingStall) VALUES(?,?,?,?,?)";
         try {
-            Connection conn = dbConnection.getConnection(); //opens the database connection
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-
-            //Sets the parameter indices of the PreparedStatement to their respective fields
-            pstmt.setString(1, parkingController.nameField.getText());
-            pstmt.setString(2, parkingController.idField.getText());
-            pstmt.setString(3, parkingController.emailField.getText());
-            pstmt.setDate(4, Date.valueOf(parkingController.CheckinDatePicker.getValue()));
-
-            int parkingStall = AirportAccess.getInstance().getParkingStalls().firstAvailableStall();
-            pstmt.setInt(5, parkingStall);
-            //executes the sql statement
-            pstmt.executeUpdate();
-            //gets the passenger with the idField from the Passenger map access
+            //gets the passenger with the idField from the Passenger access
             // and creates a new one if the passenger does not exist
-            Passenger passenger = PassengerMapAccess.getInstance().get(parkingController.idField.getText());
+            Passenger passenger = PassengerAccess.getInstance().stream().filter(p -> p.getId().equals(parkingController.idField.getText())).findAny().orElse(null);
+            int parkingStall = AirportAccess.getInstance().getParkingStalls().firstAvailableStall();
             if (passenger == null) {
                 passenger = new Passenger(parkingController.nameField.getText(),
                         parkingController.idField.getText(),
                         parkingController.emailField.getText(),
                         Date.valueOf(parkingController.CheckinDatePicker.getValue()),
                         parkingStall);
-                PassengerMapAccess.getInstance().put(passenger.getId(),passenger);
+                PassengerAccess.getInstance().add(passenger);
+               new AddUser(passenger, new char[]{'1', '2', '3'}).execute();
+            }
+            else {
+                if (passenger.getCheckInDate() == null) {
+                    passenger.setCheckInDate(Date.valueOf(parkingController.CheckinDatePicker.getValue()));
+
+                    String sql = "UPDATE login SET checkin = ?, parkingStall = ? WHERE id = ?";
+                    Connection conn = dbConnection.getConnection();
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+
+                    pstmt.setDate(1,Date.valueOf(parkingController.CheckinDatePicker.getValue()));
+                    pstmt.setInt(2,parkingStall);
+                    pstmt.setString(3,parkingController.idField.getText());
+                    pstmt.executeUpdate();
+                    pstmt.close();
+                }
             }
             //assigns the passenger and their parking stall to a stall in the airport
             AirportAccess.getInstance().getParkingStalls().assignEntityToStall(passenger, parkingStall);
             passenger.setParkingStallLabel(parkingStall);
 
             parkingController.clearReserveForm(null);
-            //Closes the connection
-            pstmt.close();
-
-
 
 
         } catch (SQLException e) {
