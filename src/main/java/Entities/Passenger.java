@@ -111,6 +111,9 @@ public class Passenger extends Person {
   }
 
 
+  public int numFlights() {
+    return flights.size();
+  }
 
   public void addFlight(Flight f) {
     if (hasFlight(f.getFlightNumber())) {

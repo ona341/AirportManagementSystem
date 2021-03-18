@@ -40,14 +40,14 @@ public class AddParking implements Command{
                         parkingController.emailField.getText(),
                         Date.valueOf(parkingController.CheckinDatePicker.getValue()),
                         parkingStall);
-                PassengerAccess.getInstance().add(passenger);
                new AddUser(passenger, new char[]{'1', '2', '3'}).execute();
             }
             else {
                 if (passenger.getCheckInDate() == null) {
                     passenger.setCheckInDate(Date.valueOf(parkingController.CheckinDatePicker.getValue()));
+                    passenger.setParkingStallLabel(parkingStall);
 
-                    String sql = "UPDATE login SET checkin = ?, parkingStall = ? WHERE id = ?";
+                    String sql = "UPDATE login SET checkIn = ?, parkingStall = ? WHERE id = ?";
                     Connection conn = dbConnection.getConnection();
                     PreparedStatement pstmt = conn.prepareStatement(sql);
 
@@ -60,7 +60,7 @@ public class AddParking implements Command{
             }
             //assigns the passenger and their parking stall to a stall in the airport
             AirportAccess.getInstance().getParkingStalls().assignEntityToStall(passenger, parkingStall);
-            passenger.setParkingStallLabel(parkingStall);
+
 
             parkingController.clearReserveForm(null);
 
