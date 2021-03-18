@@ -3,7 +3,7 @@ package AirportManager;
 import Command.*;
 import Entities.Employee;
 import Entities.Flight;
-import Entities.Passenger;
+import Entities.dailyTasks;
 import FlightView.FlightView;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
@@ -64,9 +64,14 @@ public class AirportManagerController implements Initializable{
     public TextField searchBox;
     @FXML
     public Spinner<Integer> capacity;
+    @FXML
+    public TextField fromTime;
+    public TextArea taskToDo;
+    public TextField toTime;
 
     private ObservableList<Flight> flightData;
     private ObservableList<Employee> employeeData;
+    private ObservableList<dailyTasks> dailyTasksData;
 
     // Add User Tab
 
@@ -104,6 +109,14 @@ public class AirportManagerController implements Initializable{
     @FXML
     public TableColumn<Employee,String> employeeRoleCol;
 
+    @FXML
+    public TableView<dailyTasks> tableviewTasks;
+    @FXML
+    public TableColumn<dailyTasks,String> fromCol;
+    @FXML
+    public TableColumn<dailyTasks,String> toCol;
+    @FXML
+    public TableColumn<dailyTasks,String> taskCol;
 
     /**
      * Logout as the Airport Manager.
@@ -348,6 +361,35 @@ public class AirportManagerController implements Initializable{
         this.tableview.setItems(this.flightData);
     }
 
+    /**
+     * Loads the flights in the system into the panel to be viewed
+     */
+    public void loadDailyTasksData() {
+
+        try {
+
+            Connection conn = dbConnection.getConnection();
+            this.dailyTasksData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
+
+            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM dailyTasks");
+
+            while(rs.next()) {
+                this.dailyTasksData.add(new dailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+            }
+
+            rs.close(); //closes the database connection
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        this.fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
+        this.toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
+        this.taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
+
+        this.tableviewTasks.setItems(null);
+        this.tableviewTasks.setItems(this.dailyTasksData);
+    }
 
     public void loadLoginData() {
 
@@ -376,7 +418,6 @@ public class AirportManagerController implements Initializable{
         this.tableviewEmployees.setItems(null);
         this.tableviewEmployees.setItems(this.employeeData);
     }
-
 
 
     /**
@@ -430,6 +471,7 @@ public class AirportManagerController implements Initializable{
             ObservableList<Employee> selectedEmployee;
             if (!(selectedEmployee = tableviewEmployees.getSelectionModel().getSelectedItems()).isEmpty()) {
                 viewEmployeeSchedule(selectedEmployee.get(0));
+                addTask(selectedEmployee.get(0));
             }
         }
     }
@@ -457,7 +499,34 @@ public class AirportManagerController implements Initializable{
         }
 
     }
+    
+    public void buttonEvent(ActionEvent event) {
+        
+    }
 
+
+    /**
+     * Open daily task window.
+     *
+     * @param employee the employee to look at the daily task
+     */
+    public void addTask(Employee employee) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addTasks.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+
+
+            loader.<addTasks>getController().initialize(employee);
+
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 }
