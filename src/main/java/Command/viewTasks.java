@@ -1,8 +1,9 @@
 package Command;
 
 import Entities.dailyTasks;
-import Singleton.dailyTasksAccess;
 import Singleton.dbConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,10 +45,6 @@ public class viewTasks implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
-        toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
-        taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
-        table.setItems(dailyTasksAccess.getInstance());
     }
 
     /**
@@ -61,6 +58,7 @@ public class viewTasks implements Initializable {
     }
 
     public void viewDailyTasks(ActionEvent actionEvent) {
+        ObservableList<dailyTasks> dta2 = FXCollections.observableArrayList();
         try {
             Connection conn = dbConnection.getConnection();
             String sql = "SELECT fromTime,toTime,task FROM dailyTasks WHERE employeeId ='" + employeeId.getText() + "'";
@@ -69,12 +67,16 @@ public class viewTasks implements Initializable {
 
             while(rs.next()) {
                 dailyTasks dt = new dailyTasks(employeeId.getText(), rs.getString(1), rs.getString(2), rs.getString(3));
-                dailyTasksAccess.getInstance().add(dt);
+                dta2.add(dt);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
+        toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
+        taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
+        table.setItems(dta2);
         clearForm(null);
     }
 }
