@@ -264,23 +264,36 @@ public class AirportManagerController implements Initializable{
      */
     public void registerUser(){
         String sqlInsert = "INSERT INTO login(id,password,representation,name) VALUES (?,?,?,?)";
+        String sqlInsertEmp = "INSERT INTO employees(id,name,role) VALUES (?,?,?)";
+        String sqlInsertEmpSchedule = "INSERT INTO workSchedule(employeeId,sunday,monday,tuesday,wednesday,thursday,friday,saturday) VALUES (?,null,null,null,null,null,null,null)";
 
         try{
-            Connection connectDB = dbConnection.getConnection();
-            PreparedStatement statement = connectDB.prepareStatement(sqlInsert);
-
-            statement.setString(1, this.idNumberTextField.getText());
-            statement.setString(2, this.setPasswordField.getText());
-            statement.setString(3, this.selectionComboBox.getValue().toString());
-            statement.setString(4, this.nameTextField.getText());
+            Connection conn = dbConnection.getConnection();
+            PreparedStatement statementLog = conn.prepareStatement(sqlInsert);
+            PreparedStatement statementEmp = conn.prepareStatement(sqlInsertEmp);
+            PreparedStatement statementEmpSchedule = conn.prepareStatement(sqlInsertEmpSchedule);
 
 
-            statement.execute();
+            statementLog.setString(1, this.idNumberTextField.getText());
+            statementLog.setString(2, this.setPasswordField.getText());
+            statementLog.setString(3, this.selectionComboBox.getValue().toString());
+            statementLog.setString(4, this.nameTextField.getText());
+
+            statementEmp.setString(1, this.idNumberTextField.getText());
+            statementEmp.setString(2, this.nameTextField.getText());
+            statementEmp.setString(3, this.selectionComboBox.getValue().toString());
+
+            statementEmpSchedule.setString(1, this.idNumberTextField.getText());
+
+            statementLog.execute();
+            statementEmp.execute();
+            statementEmpSchedule.execute();
             messageLabel.setText("User has been registered successfully!");
             errorMessageLabel.setText("");
             passMessageLabel.setText("");
-            statement.close();
-
+            statementLog.close();
+            statementEmp.close();
+            statementEmpSchedule.close();
 
         } catch (Exception e){
             e.printStackTrace();
@@ -362,7 +375,6 @@ public class AirportManagerController implements Initializable{
                 this.employeeData.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3)));
             }
 
-            conn.close(); //closes the database connection
 
         } catch (SQLException e) {
             e.printStackTrace();
