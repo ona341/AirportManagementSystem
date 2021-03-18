@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ViewEmployeeSchedule implements Initializable {
+public class addEmployeeSchedule implements Initializable {
 
     @FXML
     public Button done;
@@ -47,7 +47,7 @@ public class ViewEmployeeSchedule implements Initializable {
 
     Connection conn = dbConnection.getConnection();
 
-    public ViewEmployeeSchedule() throws SQLException {
+    public addEmployeeSchedule() throws SQLException {
     }
 
     @Override
@@ -139,18 +139,6 @@ public class ViewEmployeeSchedule implements Initializable {
     }
 
     public void editSunday(ActionEvent event) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addTasks.fxml"));
-//            Stage stage = new Stage();
-//            Parent root = loader.load();
-//            stage.setScene(new Scene(root));
-//
-//            loader.<addTasks>getController().initialize(employee);
-//
-//            stage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         employee.schedule().setSunday(newDialog(sun.getText(), "Sunday"));
         dbUpdate(employee);
         sun.setText(employee.schedule().getSunday());
