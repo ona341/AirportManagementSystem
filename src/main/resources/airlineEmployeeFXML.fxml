@@ -12,7 +12,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="passengerTable" layoutX="-7.0" prefHeight="458.0" prefWidth="949.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="passengerTable" layoutX="-7.0" prefHeight="458.0" prefWidth="949.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="IDCol" prefWidth="104.0" text="ID #" />
                       <TableColumn fx:id="passNameCol" prefWidth="114.0" text="Name" />
