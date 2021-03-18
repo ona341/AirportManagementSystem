@@ -3,9 +3,7 @@ package Passenger;
 
 import Command.AddParking;
 import Command.CancelParking;
-import Entities.Passenger;
 import Singleton.AirportAccess;
-import Singleton.PassengerMapAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -126,8 +124,8 @@ public class ParkingController {
 
         // success
         else {
-            nameError.setText("Parking Reservation has been completed!");
             nameError.setTextFill(Color.GREEN);
+            nameError.setText("Parking Reservation has been completed!");
             emailError.setText("");
             nameError.setTextFill(Color.RED);
             AddParking addparking = new AddParking(this);

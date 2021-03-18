@@ -15,9 +15,8 @@ import java.util.Map;
 import Entities.Employee;
 import Entities.Passenger;
 import Singleton.AirportAccess;
-import Singleton.EmployeeMapAccess;
-import Singleton.PassengerMapAccess;
-import javafx.collections.ObservableList;
+import Singleton.EmployeeAccess;
+import Singleton.PassengerAccess;
 import javafx.scene.control.Alert;
 
 /**
@@ -28,7 +27,7 @@ public class SystemState implements Command{
     public void execute() {
         String outString = "\nThe Airport system has the following employees registered:\n";
         String temp = "";
-        for (Employee employee : EmployeeMapAccess.getInstance()) {
+        for (Employee employee : EmployeeAccess.getInstance()) {
             temp += employee.toString();
         }
         outString += (temp.equals("")) ? "None\n" : temp;
@@ -36,8 +35,8 @@ public class SystemState implements Command{
 
         outString += "\nThe airport system has the following passengers registered:\n";
         temp = "";
-        for (Map.Entry<String, Passenger> entry : PassengerMapAccess.getInstance().entrySet()) {
-            temp += entry.getValue();
+        for (Passenger passenger : PassengerAccess.getInstance()) {
+            temp += passenger.toString();
         }
         outString += (temp.equals("")) ? "None\n" : temp;
 

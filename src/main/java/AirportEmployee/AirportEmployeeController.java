@@ -29,4 +29,16 @@ public class AirportEmployeeController {
         window.show(); //displays the window
     }
 
+    public void toViewDailyTasks(ActionEvent event) {
+
+    }
+
+    public void toViewSchedule(ActionEvent event) {
+
+    }
+
+    public void toRequestTimeOff(ActionEvent event) {
+
+    }
+
 }

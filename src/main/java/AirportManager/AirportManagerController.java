@@ -1,13 +1,11 @@
 package AirportManager;
 
-import Command.AddFlight;
-import Command.DeleteFlight;
-import Command.UpdateFlight;
-import Command.ViewEmployeeSchedule;
+import Command.*;
 import Entities.Employee;
 import Entities.Flight;
+import Entities.Passenger;
 import FlightView.FlightView;
-import Singleton.EmployeeMapAccess;
+import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
@@ -68,6 +66,7 @@ public class AirportManagerController implements Initializable{
     public Spinner<Integer> capacity;
 
     private ObservableList<Flight> flightData;
+    private ObservableList<Employee> employeeData;
 
     // Add User Tab
 
@@ -82,17 +81,20 @@ public class AirportManagerController implements Initializable{
     @FXML
     private TextField idNumberTextField;
     @FXML
-    private ComboBox<option> selectionComboBox;
+    public TextField nameTextField;
+    @FXML
+    public ComboBox<option> selectionComboBox;
     @FXML
     private Label errorMessageLabel;
+
 
 
     @FXML
     public TextField employeeId;
     @FXML
-    public TextField employeeName;
-    @FXML
-    public TextField employeeRole;
+    private TextField usersName;
+
+
     @FXML
     public TableView<Employee> tableviewEmployees;
     @FXML
@@ -125,23 +127,27 @@ public class AirportManagerController implements Initializable{
      * @param event an action event
      */
     @FXML
-    private void checkInvalidFields(ActionEvent event) {
+    private boolean checkInvalidFields(MouseEvent event) {
+        boolean isValid = true;
         if (flightnum.getText().isEmpty() || airline.getText().isEmpty() || destination.getText().isEmpty() ||
                 date.getValue() == null || time.getText().isEmpty()) {
-            notifyError("empty field(s)");
+            isValid = false;
+            notifyError("the empty field(s)");
         }
-        else if (!flightnum.getText().matches("[0-9]+")) {
-            notifyError("correct flight number");
+        if (!flightnum.getText().matches("[0-9]+")) {
+            isValid = false;
+            notifyError("a valid flight number");
             flightnum.clear();
         }
-        else if (time.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
-        }
-        else if (time.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"))
+        if (time.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
             time.appendText(":00");
-        else{
-            notifyError("correct time");
+        }
+        if (!time.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
+            isValid = false;
+            notifyError("a valid time");
             time.clear();
         }
+        return isValid;
     }
 
     /**
@@ -150,7 +156,7 @@ public class AirportManagerController implements Initializable{
     private void notifyError(String errorInfo) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Invalid " + errorInfo);
-        alert.setContentText("Please fill the " + errorInfo);
+        alert.setContentText("Please fill " + errorInfo);
         alert.showAndWait();
     }
 
@@ -161,8 +167,9 @@ public class AirportManagerController implements Initializable{
     @FXML
     public void addFlight(ActionEvent event) {
         AddFlight addflight = new AddFlight(this);
-        checkInvalidFields(event);
-        addflight.execute();
+        if (checkInvalidFields(null)) {
+            addflight.execute();
+        }
     }
 
     /**
@@ -221,7 +228,7 @@ public class AirportManagerController implements Initializable{
         employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 
-        tableviewEmployees.setItems(EmployeeMapAccess.getInstance());
+        tableviewEmployees.setItems(EmployeeAccess.getInstance());
     }
 
     /**
@@ -240,6 +247,7 @@ public class AirportManagerController implements Initializable{
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
                 setPasswordField.getText().equals(confirmPasswordField.getText())){
             registerUser();
+            //loadLoginData();
             passMessageLabel.setText("");
         }
         else {
@@ -253,22 +261,25 @@ public class AirportManagerController implements Initializable{
      * Register user.
      */
     public void registerUser(){
-        String sqlInsert = "INSERT INTO login(id,password,representation) VALUES (?,?,?)";
+        //String sqlInsert = "INSERT INTO login(id,password,representation,name) VALUES (?,?,?,?)";
 
         try{
-            Connection connectDB = dbConnection.getConnection();
-            PreparedStatement statement = connectDB.prepareStatement(sqlInsert);
+            //Connection connectDB = dbConnection.getConnection();
+            //PreparedStatement statement = connectDB.prepareStatement(sqlInsert);
 
-            statement.setString(1, this.idNumberTextField.getText());
-            statement.setString(2, this.setPasswordField.getText());
-            statement.setString(3, this.selectionComboBox.getValue().toString());
+            //statement.setString(1, this.idNumberTextField.getText());
+            //statement.setString(2, this.setPasswordField.getText());
+            //statement.setString(3, this.selectionComboBox.getValue().toString());
+            //statement.setString(4, this.nameTextField.getText());
 
+            Employee e = new Employee(usersName.getText(), idNumberTextField.getText(), selectionComboBox.getValue().toString());
+            new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
-            statement.execute();
+            //statement.execute();
             messageLabel.setText("User has been registered successfully!");
             errorMessageLabel.setText("");
             passMessageLabel.setText("");
-            statement.close();
+            //statement.close();
 
 
         } catch (Exception e){
@@ -303,6 +314,7 @@ public class AirportManagerController implements Initializable{
         }
     }
 
+
     /**
      * Loads the flights in the system into the panel to be viewed
      */
@@ -319,7 +331,7 @@ public class AirportManagerController implements Initializable{
                 this.flightData.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6), rs.getInt(7)));
             }
 
-            conn.close(); //closes the database connection
+            rs.close(); //closes the database connection
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -342,21 +354,27 @@ public class AirportManagerController implements Initializable{
         try {
 
             Connection conn = dbConnection.getConnection();
+            this.employeeData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
 
-            ObservableList<Employee> list = FXCollections.observableArrayList();
+            ResultSet rs = conn.createStatement().executeQuery("SELECT id,name,representation FROM login");
 
-            ResultSet rs = conn.createStatement().executeQuery("SELECT id,representation FROM login");
+            while(rs.next()) {
+                this.employeeData.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3)));
+            }
 
-            //while(rs.next()) {
-               // list.add(new Employee())
-            //}
-
+            conn.close(); //closes the database connection
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        this.employeeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        this.employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+        this.employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+
+        this.tableviewEmployees.setItems(null);
+        this.tableviewEmployees.setItems(this.employeeData);
     }
 
 

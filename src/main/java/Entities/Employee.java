@@ -14,7 +14,9 @@ package Entities;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Employee extends Person {
+import java.sql.Date;
+
+public class Employee extends Passenger {
 
   private StringProperty role;
 
@@ -25,6 +27,12 @@ public class Employee extends Person {
       super(name, id);
       this.role = new SimpleStringProperty(role);
       this.schedule = new WorkSchedule("", "", "", "", "", "", "");
+  }
+
+  public Employee(String name, String number, String email, Date date, int stallLabel, String role) {
+    super(name, number, email, date, stallLabel);
+    this.role = new SimpleStringProperty(role);
+    this.schedule = new WorkSchedule("", "", "", "", "", "", "");
   }
 
   public String getRole() { return role.get(); }
