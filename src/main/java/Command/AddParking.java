@@ -47,7 +47,7 @@ public class AddParking implements Command{
                     passenger.setCheckInDate(Date.valueOf(parkingController.CheckinDatePicker.getValue()));
                     passenger.setParkingStallLabel(parkingStall);
 
-                    String sql = "UPDATE login SET checkin = ?, parkingStall = ? WHERE id = ?";
+                    String sql = "UPDATE login SET checkIn = ?, parkingStall = ? WHERE id = ?";
                     Connection conn = dbConnection.getConnection();
                     PreparedStatement pstmt = conn.prepareStatement(sql);
 

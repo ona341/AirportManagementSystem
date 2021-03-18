@@ -109,7 +109,7 @@ public class AMS extends Application implements Initializable{
             prpst.executeUpdate();
             prpst.close();
 
-            sql = "INSERT INTO login(id,password,representation) VALUES(?,?,?)";
+            sql = "INSERT INTO login(id,password,role) VALUES(?,?,?)";
             prpst = conn.prepareStatement(sql);
             prpst.setString(1,username.getText());
             prpst.setString(2,password.getText());
