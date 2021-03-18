@@ -50,7 +50,11 @@ public class PassengerAccess {
                 ResultSet rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
-                    passengers.add(new Passenger(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5)));
+                    Passenger thePassenger;
+                    passengers.add(thePassenger = new Passenger(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5)));
+                    if (thePassenger.getParkingStallLabel() != 0 && thePassenger.getParkingStallLabel() != -1) {
+                        AirportAccess.getInstance().getParkingStalls().assignEntityToStall(thePassenger,thePassenger.getParkingStallLabel());
+                    }
                 }
 
                 stmt.close();

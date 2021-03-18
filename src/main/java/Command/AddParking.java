@@ -43,7 +43,7 @@ public class AddParking implements Command{
                new AddUser(passenger, new char[]{'1', '2', '3'}).execute();
             }
             else {
-                if (passenger.getCheckInDate() == null) {
+                if (passenger.getParkingStallLabel() == 0 || passenger.getParkingStallLabel() == -1) {
                     passenger.setCheckInDate(Date.valueOf(parkingController.CheckinDatePicker.getValue()));
                     passenger.setParkingStallLabel(parkingStall);
 

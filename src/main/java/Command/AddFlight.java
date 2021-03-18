@@ -1,13 +1,13 @@
 package Command;
 
-import java.sql.*;
-
 import AirportManager.AirportManagerController;
-import Singleton.AirportAccess;
 import Entities.Flight;
+import Singleton.AirportAccess;
 import Singleton.FlightsAccess;
 import Singleton.dbConnection;
 import javafx.fxml.FXML;
+
+import java.sql.*;
 
 /**
  * Allows the manager to add a flight to the system.

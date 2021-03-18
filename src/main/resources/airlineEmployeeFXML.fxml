@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="949.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AirlineEmployee.AirlineEmployeeController">
-  <tabs>
-    <Tab text="Passengers">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="passengerTable" layoutX="-7.0" prefHeight="458.0" prefWidth="949.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn fx:id="IDCol" prefWidth="104.0" text="ID #" />
-                      <TableColumn fx:id="passNameCol" prefWidth="114.0" text="Name" />
-                        <TableColumn fx:id="passContactCol" prefWidth="113.0" text="Contact" />
-                        <TableColumn fx:id="passFlightCol" prefWidth="180.0" text="Flights" />
-                    </columns>
-                  </TableView>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab text="Flights">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="flightTable" prefHeight="458.0" prefWidth="949.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <columns>
-                        <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
-                        <TableColumn fx:id="airlineCol" prefWidth="88.0" text="Airline" />
-                        <TableColumn fx:id="destinationCol" prefWidth="211.0" text="Destination" />
-                        <TableColumn fx:id="gateCol" prefWidth="124.0" text="Gate" />
-                        <TableColumn fx:id="dateCol" prefWidth="96.0" text="Date" />
-                        <TableColumn fx:id="timeCol" prefWidth="106.0" text="Time" />
-                        <TableColumn fx:id="passengerCol" prefWidth="176.0" text="Passengers" />
-                     </columns>
-                  </TableView>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-  </tabs>
-</TabPane>
+<HBox fx:id="topBox" prefHeight="0.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AirlineEmployee.AirlineEmployeeController">
+   <children>
+      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="108.0" spacing="30.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#makeAssociation" prefHeight="77.0" prefWidth="88.0" text="Assign Passenger to Flight" wrapText="true" />
+            <Button mnemonicParsing="false" onAction="#openNewPassenger" prefHeight="73.0" prefWidth="88.0" text="New Passenger" wrapText="true" />
+         </children>
+      </VBox>
+      <Pane fx:id="passPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="256.0">
+         <children>
+            <TextField fx:id="NameField" layoutX="45.0" layoutY="170.0" promptText="Name" />
+            <TextField fx:id="IDField" layoutX="45.0" layoutY="102.0" promptText="ID" />
+            <TextField fx:id="EmailField" layoutX="45.0" layoutY="245.0" promptText="Email" />
+            <Button fx:id="ConfirmButton" layoutX="95.0" layoutY="321.0" mnemonicParsing="false" onAction="#addPassenger" text="Confirm" />
+         </children></Pane>
+      <TableView fx:id="passengerTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="515.0">
+         <columns>
+            <TableColumn fx:id="IDCol" prefWidth="104.0" text="ID #" />
+            <TableColumn fx:id="passNameCol" prefWidth="114.0" text="Name" />
+            <TableColumn fx:id="passContactCol" prefWidth="113.0" text="Contact" />
+            <TableColumn fx:id="passFlightCol" prefWidth="180.0" text="Flights" />
+         </columns>
+      </TableView>
+      <TableView fx:id="flightTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="751.0">
+         <columns>
+            <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
+            <TableColumn fx:id="airlineCol" prefWidth="88.0" text="Airline" />
+            <TableColumn fx:id="destinationCol" prefWidth="188.0" text="Destination" />
+            <TableColumn fx:id="gateCol" prefWidth="127.0" text="Gate" />
+            <TableColumn fx:id="dateCol" prefWidth="103.0" text="Date" />
+            <TableColumn fx:id="timeCol" prefWidth="98.0" text="Time" />
+            <TableColumn fx:id="passengerCol" prefWidth="197.0" text="Passengers" />
+         </columns>
+      </TableView>
+   </children>
+</HBox>

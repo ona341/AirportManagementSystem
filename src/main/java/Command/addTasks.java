@@ -1,194 +1,134 @@
 package Command;
 
 import Entities.Employee;
-import Entities.WorkSchedule;
+import Entities.dailyTasks;
+import Singleton.dailyTasksAccess;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class addTasks implements Initializable {
 
+    public TextField fromTime;
     @FXML
-    public Button done;
+    public TextField toTime;
     @FXML
-    public Text employeeNameLabel;
-    @FXML
-    public Text sun;
-    @FXML
-    public Text mon;
-    @FXML
-    public Text tues;
-    @FXML
-    public Text wed;
-    @FXML
-    public Text thur;
-    @FXML
-    public Text fri;
-    @FXML
-    public Text sat;
+    public TextArea taskToDo;
+    public TableColumn<dailyTasks,String> fromCol;
+    public TableColumn<dailyTasks,String> toCol;
+    public TableColumn<dailyTasks,String> taskCol;
+    public TableView<dailyTasks> table;
+
 
     private Employee employee;
-
-    private ObservableList<WorkSchedule> schedule;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
+    public ObservableList<dailyTasks> dta2;
 
     public void initialize(Employee employee) {
         this.employee = employee;
-        employeeNameLabel.setText(employee.getName());
-
-        String sql = "SELECT * FROM workSchedule WHERE employeeId = ?";
-
-        try {
-
-            Connection conn = dbConnection.getConnection();
-            this.schedule = FXCollections.observableArrayList();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, this.employee.getId());
-            ResultSet rs = pstmt.executeQuery();
-
-
-            this.employee.schedule().setSunday(rs.getString(2));
-            this.employee.schedule().setMonday(rs.getString(3));
-            this.employee.schedule().setTuesday(rs.getString(4));
-            this.employee.schedule().setWednesday(rs.getString(5));
-            this.employee.schedule().setThursday(rs.getString(6));
-            this.employee.schedule().setFriday(rs.getString(7));
-            this.employee.schedule().setSaturday(rs.getString(8));
-
-            pstmt.close();
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        dta2 = FXCollections.observableArrayList();
+        for (dailyTasks dts : dailyTasksAccess.getInstance()) {
+            if (dts.getEmployeeId().compareTo(this.employee.getId()) == 0) {
+                dta2.add(dts);
+            }
         }
+        fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
+        toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
+        taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
 
-        sun.setText(employee.schedule().getSunday());
-        mon.setText(employee.schedule().getMonday());
-        tues.setText(employee.schedule().getTuesday());
-        wed.setText(employee.schedule().getWednesday());
-        thur.setText(employee.schedule().getThursday());
-        fri.setText(employee.schedule().getFriday());
-        sat.setText(employee.schedule().getSaturday());
-
-        done.getScene().getWindow().sizeToScene();
+        table.setItems(dta2);
     }
 
+    /**
+     * Clears the form
+     *
+     * @param event an action performed by the user
+     */
     @FXML
-    public void done(ActionEvent event) {
-        ((Button) event.getSource()).getScene().getWindow().hide();
+    public void clearForm(ActionEvent event) {
+        fromTime.clear();
+        toTime.clear();
+        taskToDo.clear();
     }
 
-    public String newDialog(String defaultValue, String fieldName) {
-        TextInputDialog dialog = new TextInputDialog(defaultValue);
-        dialog.setTitle("");
-        dialog.setHeaderText("Editing " + fieldName);
-        dialog.setContentText("");
-        dialog.setGraphic(null);
-
-        Optional<String> answer = dialog.showAndWait();
-        return answer.orElse(defaultValue);
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 
-    public void dbUpdate(Employee employee) {
-
-        String sql = "UPDATE workSchedule SET sunday = ?, monday = ?, tuesday = ?, wednesday = ?, thursday = ?, friday = ? WHERE employeeId = ?";
-
-        try {
-            Connection conn = dbConnection.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-
-            pstmt.setString(1, employee.schedule().getSunday());
-            pstmt.setString(2, employee.schedule().getMonday());
-            pstmt.setString(3, employee.schedule().getTuesday());
-            pstmt.setString(4, employee.schedule().getWednesday());
-            pstmt.setString(5, employee.schedule().getThursday());
-            pstmt.setString(6, employee.schedule().getFriday());
-            pstmt.setString(7, employee.schedule().getSaturday());
-
-            pstmt.setString(7, employee.getId());
-
-            pstmt.executeUpdate();
-            pstmt.close();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    /**
+     * Checks the format of the inputted time for validity
+     * @param event an action event
+     */
+    @FXML
+    private boolean checkInvalidFields(MouseEvent event) {
+        boolean isValid = true;
+        if (fromTime.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
+            fromTime.appendText(":00");
         }
-
-    }
-
-    public void editSunday(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addTasks.fxml"));
-            Stage stage = new Stage();
-            Parent root = loader.load();
-            stage.setScene(new Scene(root));
-
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (toTime.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
+            toTime.appendText(":00");
         }
-        employee.schedule().setSunday(newDialog(sun.getText(), "Sunday"));
-        dbUpdate(employee);
-        sun.setText(employee.schedule().getSunday());
+        if (!fromTime.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
+            isValid = false;
+            notifyError();
+            fromTime.clear();
+        }
+        if (!toTime.getText().matches("^(?:[01]\\d|2[0-3]):(?:[0-5]\\d):(?:[0-5]\\d)$")) {
+            isValid = false;
+            notifyError();
+            toTime.clear();
+        }
+        return isValid;
     }
 
-    public void editMonday(ActionEvent event) {
-        employee.schedule().setMonday(newDialog(mon.getText(), "Monday"));
-        dbUpdate(employee);
-        mon.setText(employee.schedule().getMonday());
+    /**
+     * Checks the format of the inputted time for validity
+     */
+    private void notifyError() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Invalid time");
+        alert.setContentText("Please fill in a valid time");
+        alert.showAndWait();
     }
 
-    public void editTuesday(ActionEvent event) {
-        employee.schedule().setTuesday(newDialog(tues.getText(), "Tuesday"));
-        dbUpdate(employee);
-        tues.setText(employee.schedule().getTuesday());
-    }
+    public void buttonEvent(ActionEvent actionEvent) {
+        if (checkInvalidFields(null)) {
+            String sql = "INSERT INTO dailyTasks(employeeId,fromTime,toTime,task) VALUES(?,?,?,?)";
 
-    public void editWednesday(ActionEvent event) {
-        employee.schedule().setWednesday(newDialog(wed.getText(), "Wednesday"));
-        dbUpdate(employee);
-        wed.setText(employee.schedule().getWednesday());
-    }
+            try {
+                Connection conn = dbConnection.getConnection();
+                PreparedStatement rs = conn.prepareStatement(sql);
+                rs.setString(1, employee.getId());
+                rs.setString(2, fromTime.getText());
+                rs.setString(3, toTime.getText());
+                rs.setString(4, taskToDo.getText());
+                rs.execute();
+                rs.close();
 
-    public void editThursday(ActionEvent event) {
-        employee.schedule().setThursday(newDialog(thur.getText(), "Thursday"));
-        dbUpdate(employee);
-        thur.setText(employee.schedule().getThursday());
-    }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dailyTasks dt = new dailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), taskToDo.getText());
+            clearForm(null);
+            dailyTasksAccess.getInstance().add(dt);
+            dta2.add(dt);
+        }
+        fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
+        toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
+        taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
 
-    public void editFriday(ActionEvent event) {
-        employee.schedule().setFriday(newDialog(fri.getText(), "Friday"));
-        dbUpdate(employee);
-        fri.setText(employee.schedule().getFriday());
-    }
-
-    public void editSaturday(ActionEvent event) {
-        employee.schedule().setSaturday(newDialog(sat.getText(), "Saturday"));
-        dbUpdate(employee);
-        sat.setText(employee.schedule().getSaturday());
+        table.setItems(dta2);
     }
 }

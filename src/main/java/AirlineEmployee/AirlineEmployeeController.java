@@ -1,5 +1,6 @@
 package AirlineEmployee;
 
+import Command.AddUser;
 import Entities.Flight;
 import Entities.Passenger;
 import Singleton.FlightsAccess;
@@ -12,9 +13,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -56,6 +62,18 @@ public class AirlineEmployeeController implements Initializable {
     public TableColumn<Flight, Time> timeCol;
     @FXML
     public TableColumn<Flight,Integer> passengerCol;
+    @FXML
+    public HBox topBox;
+    @FXML
+    public Pane passPane;
+    @FXML
+    public TextField NameField;
+    @FXML
+    public TextField IDField;
+    @FXML
+    public TextField EmailField;
+    @FXML
+    public Button ConfirmButton;
 
     /**
      * Logs the user out of the Airline Employee and returns user to the login page
@@ -92,5 +110,31 @@ public class AirlineEmployeeController implements Initializable {
 
         passengerTable.setItems(PassengerAccess.getInstance());
 
+        passPane.setVisible(!passPane.isVisible());
+        passPane.setManaged(!passPane.isManaged());
+
+
+    }
+
+    public void makeAssociation(ActionEvent actionEvent) {
+        Passenger p = passengerTable.getSelectionModel().getSelectedItem();
+        Flight f = flightTable.getSelectionModel().getSelectedItem();
+        if (p != null && f != null && !f.getSeats().hasEntity(p)) {
+
+            p.addFlight(f);
+            f.getSeats().assignEntityToStall(p,f.getSeats().firstAvailableStall());
+        }
+
+    }
+
+    public void openNewPassenger(ActionEvent actionEvent) {
+        passPane.setVisible(!passPane.isVisible());
+        passPane.setManaged(!passPane.isManaged());
+        topBox.getScene().getWindow().sizeToScene();
+    }
+
+    public void addPassenger(ActionEvent actionEvent) {
+        Passenger p = new Passenger(NameField.getText(),IDField.getText(),EmailField.getText());
+        new AddUser(p,new char[] {1,2,3});
     }
 }

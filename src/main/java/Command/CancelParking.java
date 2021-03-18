@@ -10,6 +10,7 @@ import java.security.InvalidKeyException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.stream.Stream;
 
 /**
  * Allows a passenger to cancel their parking
@@ -32,7 +33,7 @@ public class CancelParking implements Command{
     @Override
     public void execute() {
 
-        String sql = "UPDATE login SET parkingStall = null, checkIn = null WHERE id = ?";
+        String sql = "UPDATE login SET parkingStall = -1, checkIn = null WHERE id = ?";
 
         try {
             //opens the database connection
@@ -45,7 +46,10 @@ public class CancelParking implements Command{
 
             pstmt.executeUpdate();
 
-            Passenger passenger = PassengerAccess.getInstance().stream().filter(p -> p.getId().equals(parkingController.idField.getText())).findAny().orElse(null);
+            Stream<Passenger> stream = PassengerAccess.getInstance().stream().filter(p -> p.getId().equals(parkingController.idFieldCancel.getText()));
+
+
+            Passenger passenger = stream.findAny().orElse(null);
 
             if (passenger == null) {
                 throw new InvalidKeyException("A passenger with that id number was not found.");

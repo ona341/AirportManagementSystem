@@ -240,7 +240,7 @@ public class FlightView implements Initializable {
 
         seatNumberCol.setCellValueFactory(data -> data.getValue() != null ? new SimpleIntegerProperty(flight.getSeats().getEntityInternalIndex(data.getValue())).asObject() : null);
 
-
+        passengerTable.setItems(flight.getSeats().getObservableList());
 
         passengers.setText(String.valueOf(flight.getSeats().count()));
 
