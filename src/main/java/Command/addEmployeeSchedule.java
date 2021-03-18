@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ViewEmployeeSchedule implements Initializable {
+public class addEmployeeSchedule implements Initializable {
 
     @FXML
     public Button done;
@@ -47,7 +47,7 @@ public class ViewEmployeeSchedule implements Initializable {
 
     Connection conn = dbConnection.getConnection();
 
-    public ViewEmployeeSchedule() throws SQLException {
+    public addEmployeeSchedule() throws SQLException {
     }
 
     @Override

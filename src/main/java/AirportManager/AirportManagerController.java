@@ -470,7 +470,7 @@ public class AirportManagerController implements Initializable{
         if (event.getClickCount() == 2) {
             ObservableList<Employee> selectedEmployee;
             if (!(selectedEmployee = tableviewEmployees.getSelectionModel().getSelectedItems()).isEmpty()) {
-                viewEmployeeSchedule(selectedEmployee.get(0));
+                addEmployeeSchedule(selectedEmployee.get(0));
                 addTask(selectedEmployee.get(0));
             }
         }
@@ -482,15 +482,15 @@ public class AirportManagerController implements Initializable{
      *
      * @param employee the flight
      */
-    public void viewEmployeeSchedule(Employee employee) {
+    public void addEmployeeSchedule(Employee employee) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewEmployeeSchedule.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addEmployeeSchedule.fxml"));
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
 
-            loader.<ViewEmployeeSchedule>getController().initialize(employee);
+            loader.<addEmployeeSchedule>getController().initialize(employee);
 
 
             stage.show();
