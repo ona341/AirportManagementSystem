@@ -32,7 +32,7 @@ public class CancelParking implements Command{
     @Override
     public void execute() {
 
-        String sql = "UPDATE login SET parkingStall = ? WHERE id = ?";
+        String sql = "UPDATE login SET parkingStall = null, checkIn = null WHERE id = ?";
 
         try {
             //opens the database connection
@@ -40,8 +40,7 @@ public class CancelParking implements Command{
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             //sets the string parameter indexes if the PreparedStatement to their respective fields
-            pstmt.setString(2, parkingController.idFieldCancel.getText());
-            pstmt.setString(1, null);
+            pstmt.setString(1, parkingController.idFieldCancel.getText());
 
 
             pstmt.executeUpdate();
