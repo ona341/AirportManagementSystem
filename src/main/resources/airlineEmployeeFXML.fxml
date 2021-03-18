@@ -12,12 +12,12 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="4.0" layoutY="4.0" prefHeight="458.0" prefWidth="949.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="passengerTable" layoutX="-7.0" prefHeight="458.0" prefWidth="949.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Id" />
-                      <TableColumn prefWidth="75.0" text="Name" />
-                        <TableColumn prefWidth="75.0" text="Contact" />
-                        <TableColumn prefWidth="75.0" text="Flights" />
+                      <TableColumn fx:id="IDCol" prefWidth="104.0" text="ID #" />
+                      <TableColumn fx:id="passNameCol" prefWidth="114.0" text="Name" />
+                        <TableColumn fx:id="passContactCol" prefWidth="113.0" text="Contact" />
+                        <TableColumn fx:id="passFlightCol" prefWidth="180.0" text="Flights" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
@@ -27,7 +27,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="tableview" prefHeight="458.0" prefWidth="949.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="flightTable" prefHeight="458.0" prefWidth="949.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
                         <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
                         <TableColumn fx:id="airlineCol" prefWidth="88.0" text="Airline" />
@@ -35,7 +35,7 @@
                         <TableColumn fx:id="gateCol" prefWidth="124.0" text="Gate" />
                         <TableColumn fx:id="dateCol" prefWidth="96.0" text="Date" />
                         <TableColumn fx:id="timeCol" prefWidth="106.0" text="Time" />
-                        <TableColumn prefWidth="176.0" text="Passengers" />
+                        <TableColumn fx:id="passengerCol" prefWidth="176.0" text="Passengers" />
                      </columns>
                   </TableView>
                </children></AnchorPane>
