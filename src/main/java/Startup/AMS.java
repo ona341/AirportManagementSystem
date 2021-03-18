@@ -1,14 +1,6 @@
 package Startup;
 
 
-import java.io.File;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
 import Singleton.AirportAccess;
 import Singleton.dbConnection;
 import javafx.application.Application;
@@ -23,6 +15,14 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * The main class for starting the Airport Management System
@@ -109,11 +109,16 @@ public class AMS extends Application implements Initializable{
             prpst.executeUpdate();
             prpst.close();
 
-            sql = "INSERT INTO login(id,password,representation) VALUES(?,?,?)";
-            prpst = conn.prepareStatement(sql);
+            String sql1 = "INSERT INTO login(id,name,password,email,role,checkIn, parkingStall, seatNumber) VALUES(?,?,?,?,?,?,?,?)";
+            prpst = conn.prepareStatement(sql1);
             prpst.setString(1,username.getText());
-            prpst.setString(2,password.getText());
-            prpst.setString(3,"Admin");
+            prpst.setString(2,null);
+            prpst.setString(3,password.getText());
+            prpst.setString(4,null);
+            prpst.setString(5,"Admin");
+            prpst.setString(6,null);
+            prpst.setString(7,null);
+            prpst.setString(8,null);
             prpst.executeUpdate();
             prpst.close();
 
