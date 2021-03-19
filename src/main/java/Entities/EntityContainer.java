@@ -24,7 +24,7 @@ public class EntityContainer<I> {
     private final int minStallLabel;
 
 
-    private final I[] stalls;
+    private final ObservableList<I> stalls;
 
 
     private int count = 0;
@@ -40,7 +40,11 @@ public class EntityContainer<I> {
 
         name = wName;
         minStallLabel = wMinStallLabel;
-        stalls = (I[]) new Object[wMaxStallLabel - wMinStallLabel + 1];
+       // stalls = (I[]) new Object[wMaxStallLabel - wMinStallLabel + 1];
+        stalls = FXCollections.observableArrayList();
+        for (int i = 0; i < wMaxStallLabel - wMinStallLabel + 1; i++) {
+            stalls.add(null);
+        }
     }
 
 
@@ -58,7 +62,7 @@ public class EntityContainer<I> {
 
 
     public int getMaxStallLabel() {
-        return minStallLabel + stalls.length - 1;
+        return minStallLabel + stalls.size() - 1;
     }
 
 
@@ -72,9 +76,9 @@ public class EntityContainer<I> {
 
 
     private int internalToExternalLabel(int arrayIndex) {
-        if (arrayIndex < 0 || arrayIndex >= stalls.length)
+        if (arrayIndex < 0 || arrayIndex >= stalls.size())
             throw new IllegalArgumentException("The value " + arrayIndex +
-                    " is not a valid index for an array of length " + stalls.length + ".");
+                    " is not a valid index for an array of length " + stalls.size() + ".");
 
         return arrayIndex + minStallLabel;
     }
@@ -85,7 +89,7 @@ public class EntityContainer<I> {
             throw new IllegalArgumentException("The value " + stallLabel
                     + " is not a valid label for a stall in the Container.");
 
-        return stalls[externalToInternalIndex(stallLabel)] != null;
+        return stalls.get(externalToInternalIndex(stallLabel)) != null;
     }
 
 
@@ -100,8 +104,8 @@ public class EntityContainer<I> {
 
 
     public int getEntityInternalIndex(I entity) {
-        for (int i = 0; i < stalls.length; i++) {
-            if (stalls[i] != null && stalls[i].equals(entity)) {
+        for (int i = 0; i < stalls.size(); i++) {
+            if (stalls.get(i) != null && stalls.get(i).equals(entity)) {
                 return i;
             }
         }
@@ -117,7 +121,7 @@ public class EntityContainer<I> {
         if (!isOccupied(stallLabel))
             throw new IllegalStateException("Stall " + stallLabel + " is not currently occupied"
                     + " so cannot get its entity");
-        return stalls[externalToInternalIndex(stallLabel)];
+        return stalls.get(externalToInternalIndex(stallLabel));
     }
 
 
@@ -128,17 +132,17 @@ public class EntityContainer<I> {
 
         if (isOccupied(stallLabel))
             throw new IllegalStateException("Stall " + stallLabel + " is currently occupied by "
-                    + stalls[externalToInternalIndex(stallLabel)]
+                    + stalls.get(externalToInternalIndex(stallLabel))
                     + " so cannot be assigned to another Entity");
         count++;
-        stalls[externalToInternalIndex(stallLabel)] = e;
+        stalls.set(externalToInternalIndex(stallLabel), e);
     }
 
 
     public ArrayList<Integer> availableStalls() {
         ArrayList<Integer> temp = new ArrayList<>();
-        for (int i = 0; i < stalls.length ; i++) {
-            if (stalls[i] == null) {
+        for (int i = 0; i < stalls.size(); i++) {
+            if (stalls.get(i) == null) {
                 temp.add(internalToExternalLabel(i));
             }
         }
@@ -146,8 +150,8 @@ public class EntityContainer<I> {
     }
 
     public int firstAvailableStall() {
-        for (int i = 0; i < stalls.length ; i++) {
-            if (stalls[i] == null) {
+        for (int i = 0; i < stalls.size(); i++) {
+            if (stalls.get(i) == null) {
                 return internalToExternalLabel(i);
             }
         }
@@ -165,25 +169,25 @@ public class EntityContainer<I> {
         if (!isOccupied(stallLabel))
             throw new IllegalStateException("Stall " + stallLabel + " is not currently occupied"
                     + " so the stall cannot be freed");
-        stalls[externalToInternalIndex(stallLabel)] = null;
+        stalls.set(externalToInternalIndex(stallLabel), null);
         count--;
     }
 
 
     public String toString() {
-        String result = "\nEntities.EntityContainer " + name + " with capacity " + stalls.length
+        String result = "\nEntities.EntityContainer " + name + " with capacity " + stalls.size()
                 + " has the following Entities: ";
-        for (int i = 0; i < stalls.length; i++) {
+        for (int i = 0; i < stalls.size(); i++) {
             result = result + "\nstall " + internalToExternalLabel(i) + ": ";
-            if (stalls[i] != null)
-                result = result + stalls[i].toString();
+            if (stalls.get(i) != null)
+                result = result + stalls.get(i).toString();
         }
         return result + "\n";
     }
 
 
     public boolean isValidLabel(int stallLabel) {
-        return stallLabel < minStallLabel || stallLabel > minStallLabel + stalls.length - 1;
+        return stallLabel < minStallLabel || stallLabel > minStallLabel + stalls.size() - 1;
     }
 
     public int count() {
@@ -192,8 +196,14 @@ public class EntityContainer<I> {
 
 
     public ObservableList<I> getObservableList () {
-        return FXCollections.observableArrayList(stalls);
+        return stalls;
     }
 
+    public static void main(String[] args) {
+        EntityContainer<Integer> C = new EntityContainer<>("name", 1,5);
+        System.out.println(C.firstAvailableStall());
+        System.out.println(C.availableStalls());
+
+    }
 
 }
