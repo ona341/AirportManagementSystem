@@ -125,7 +125,7 @@ public class AirlineEmployeeController implements Initializable {
             p.addFlight(f);
             f.getSeats().assignEntityToStall(p,f.getSeats().firstAvailableStall());
 
-            String sql = "INSERT INTO passengersOnFlights(passengerID,flightNumber) VALUES(?,?)";
+            String sql = "INSERT INTO passengerFlightRelation(passengerID,flightNumber) VALUES(?,?)";
             try {
                 PreparedStatement pstmt = dbConnection.getConnection().prepareStatement(sql);
 
