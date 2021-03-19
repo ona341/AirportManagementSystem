@@ -1,44 +1,58 @@
 package Command;
 
+import Entities.DailyTasks;
 import Entities.Employee;
-import Entities.dailyTasks;
-import Singleton.dailyTasksAccess;
+import Singleton.DailyTasksAccess;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
-public class addTasks implements Initializable {
+public class AddTasks implements Command {
 
     public TextField fromTime;
     @FXML
     public TextField toTime;
     @FXML
     public TextArea taskToDo;
-    public TableColumn<dailyTasks,String> fromCol;
-    public TableColumn<dailyTasks,String> toCol;
-    public TableColumn<dailyTasks,String> taskCol;
-    public TableView<dailyTasks> table;
+    public TableColumn<DailyTasks,String> fromCol;
+    public TableColumn<DailyTasks,String> toCol;
+    public TableColumn<DailyTasks,String> taskCol;
+    public TableView<DailyTasks> table;
 
 
     private Employee employee;
-    public ObservableList<dailyTasks> dta2;
+    public ObservableList<DailyTasks> dta2;
 
+    /**
+     * Constructor for AddTasks
+     */
+    public AddTasks () {
+    }
+
+    /**
+     * initialize the given employee
+     * @param employee the employee to add the tasks to
+     */
     public void initialize(Employee employee) {
         this.employee = employee;
+    }
+
+    /**
+     * Execute (displays the existing tasks of the employee)
+     */
+    @Override
+    public void execute() {
         dta2 = FXCollections.observableArrayList();
-        for (dailyTasks dts : dailyTasksAccess.getInstance()) {
+        for (DailyTasks dts : DailyTasksAccess.getInstance()) {
             if (dts.getEmployeeId().compareTo(this.employee.getId()) == 0) {
                 dta2.add(dts);
             }
@@ -52,7 +66,6 @@ public class addTasks implements Initializable {
 
     /**
      * Clears the form
-     *
      * @param event an action performed by the user
      */
     @FXML
@@ -60,11 +73,6 @@ public class addTasks implements Initializable {
         fromTime.clear();
         toTime.clear();
         taskToDo.clear();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     /**
@@ -94,7 +102,7 @@ public class addTasks implements Initializable {
     }
 
     /**
-     * Checks the format of the inputted time for validity
+     * Notify the user that their input was invalid
      */
     private void notifyError() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -103,6 +111,10 @@ public class addTasks implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Add the input task and its time period to the employee list of tasks
+     * @param actionEvent an action performed by the user
+     */
     public void buttonEvent(ActionEvent actionEvent) {
         if (checkInvalidFields(null)) {
             String sql = "INSERT INTO dailyTasks(employeeId,fromTime,toTime,task) VALUES(?,?,?,?)";
@@ -120,9 +132,9 @@ public class addTasks implements Initializable {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            dailyTasks dt = new dailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), taskToDo.getText());
+            DailyTasks dt = new DailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), taskToDo.getText());
             clearForm(null);
-            dailyTasksAccess.getInstance().add(dt);
+            DailyTasksAccess.getInstance().add(dt);
             dta2.add(dt);
         }
         fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));

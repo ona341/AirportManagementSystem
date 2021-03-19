@@ -32,7 +32,7 @@ public class Flight {
         this.destination = new SimpleStringProperty(destination);
         this.date = new SimpleObjectProperty<>(date);
         this.time = new SimpleObjectProperty<>(time);
-        this.seats = new EntityContainer<>(number, 0, capacity);
+        this.seats = new EntityContainer<>(number, 1, capacity);
         this.gate = new SimpleIntegerProperty(gate);
         this.capacity = new SimpleIntegerProperty(capacity);
     }

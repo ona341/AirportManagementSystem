@@ -3,14 +3,14 @@ package Entities;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class dailyTasks {
+public class DailyTasks {
     private StringProperty employeeId;
     private StringProperty from;
     private StringProperty to;
     private StringProperty tasks;
 
 
-    public dailyTasks(String employeeId, String from, String to, String tasks) {
+    public DailyTasks(String employeeId, String from, String to, String tasks) {
         this.employeeId = new SimpleStringProperty(employeeId);
         this.from = new SimpleStringProperty(from);
         this.to = new SimpleStringProperty(to);

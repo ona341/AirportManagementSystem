@@ -1,9 +1,9 @@
 package AirportManager;
 
 import Command.*;
+import Entities.DailyTasks;
 import Entities.Employee;
 import Entities.Flight;
-import Entities.dailyTasks;
 import FlightView.FlightView;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
@@ -71,7 +71,7 @@ public class AirportManagerController implements Initializable{
 
     private ObservableList<Flight> flightData;
     private ObservableList<Employee> employeeData;
-    private ObservableList<dailyTasks> dailyTasksData;
+    private ObservableList<DailyTasks> dailyTasksData;
 
     // Add User Tab
 
@@ -110,13 +110,13 @@ public class AirportManagerController implements Initializable{
     public TableColumn<Employee,String> employeeRoleCol;
 
     @FXML
-    public TableView<dailyTasks> tableviewTasks;
+    public TableView<DailyTasks> tableviewTasks;
     @FXML
-    public TableColumn<dailyTasks,String> fromCol;
+    public TableColumn<DailyTasks,String> fromCol;
     @FXML
-    public TableColumn<dailyTasks,String> toCol;
+    public TableColumn<DailyTasks,String> toCol;
     @FXML
-    public TableColumn<dailyTasks,String> taskCol;
+    public TableColumn<DailyTasks,String> taskCol;
 
     /**
      * Logout as the Airport Manager.
@@ -213,6 +213,15 @@ public class AirportManagerController implements Initializable{
         date.setValue(null);
     }
 
+    @FXML
+    public void clearUserForm(ActionEvent event) {
+        usersName.clear();
+        idNumberTextField.clear();
+        setPasswordField.clear();
+        confirmPasswordField.clear();
+        selectionComboBox.setValue(null);
+    }
+
     /**
      * Initializes the Controller
      * @param url he location used to resolve the relative paths of the object or null if unknown
@@ -259,8 +268,13 @@ public class AirportManagerController implements Initializable{
 
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
                 setPasswordField.getText().equals(confirmPasswordField.getText())){
-            registerUser();
-            //loadLoginData();
+            Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
+            new AddUser(e, setPasswordField.getText().toCharArray()).execute();
+
+            clearUserForm(null);
+
+            messageLabel.setText("User has been registered successfully!");
+            errorMessageLabel.setText("");
             passMessageLabel.setText("");
         }
         else {
@@ -273,10 +287,10 @@ public class AirportManagerController implements Initializable{
     /**
      * Register user.
      */
-    public void registerUser(){
+    //public void registerUser(){
         //String sqlInsert = "INSERT INTO login(id,password,representation,name) VALUES (?,?,?,?)";
 
-        try{
+        //try{
             //Connection connectDB = dbConnection.getConnection();
             //PreparedStatement statement = connectDB.prepareStatement(sqlInsert);
 
@@ -285,20 +299,20 @@ public class AirportManagerController implements Initializable{
             //statement.setString(3, this.selectionComboBox.getValue().toString());
             //statement.setString(4, this.nameTextField.getText());
 
-            Employee e = new Employee(usersName.getText(), idNumberTextField.getText(), selectionComboBox.getValue().toString());
-            new AddUser(e, setPasswordField.getText().toCharArray()).execute();
+            //Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
+            //new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
             //statement.execute();
-            messageLabel.setText("User has been registered successfully!");
-            errorMessageLabel.setText("");
-            passMessageLabel.setText("");
+            //messageLabel.setText("User has been registered successfully!");
+            //errorMessageLabel.setText("");
+            //passMessageLabel.setText("");
             //statement.close();
 
 
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+        //} catch (Exception e){
+           // e.printStackTrace();
+       // }
+    //}
 
 
     /**
@@ -374,7 +388,7 @@ public class AirportManagerController implements Initializable{
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM dailyTasks");
 
             while(rs.next()) {
-                this.dailyTasksData.add(new dailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+                this.dailyTasksData.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
             }
 
             rs.close(); //closes the database connection
@@ -396,12 +410,12 @@ public class AirportManagerController implements Initializable{
         try {
 
             Connection conn = dbConnection.getConnection();
-            this.employeeData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
+            this.employeeData = FXCollections.observableArrayList();  //sets the employee data attribute to be the observableArrayList from FXCollections
 
-            ResultSet rs = conn.createStatement().executeQuery("SELECT id,name,representation FROM login");
+            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM login");
 
             while(rs.next()) {
-                this.employeeData.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3)));
+                this.employeeData.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(5)));
             }
 
             rs.close(); //closes the database connection
@@ -490,7 +504,7 @@ public class AirportManagerController implements Initializable{
             stage.setScene(new Scene(root));
 
 
-            loader.<addEmployeeSchedule>getController().initialize(employee);
+            loader.<AddEmployeeSchedule>getController().initialize(employee);
 
 
             stage.show();
@@ -499,11 +513,6 @@ public class AirportManagerController implements Initializable{
         }
 
     }
-    
-    public void buttonEvent(ActionEvent event) {
-        
-    }
-
 
     /**
      * Open daily task window.
@@ -517,9 +526,8 @@ public class AirportManagerController implements Initializable{
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
-
-            loader.<addTasks>getController().initialize(employee);
-
+            loader.<AddTasks>getController().initialize(employee);
+            loader.<AddTasks>getController().execute();
 
             stage.show();
         } catch (IOException e) {

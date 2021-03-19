@@ -3,9 +3,10 @@
 /.gradle/
 /gradle/
 /build/
-./airport.sqlite
+airport.sqlite
 ams.iml
 README.md
 gradlew
 gradlew.bat
 settings.gradle
+/airport.sqlite

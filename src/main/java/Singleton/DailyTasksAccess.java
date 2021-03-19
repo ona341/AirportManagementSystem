@@ -1,6 +1,6 @@
 package Singleton;
 
-import Entities.dailyTasks;
+import Entities.DailyTasks;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,19 +11,19 @@ import java.sql.Statement;
 
 
 /**
- * A dailyTasks Map using the singleton pattern
+ * A DailyTasks Map using the singleton pattern
  */
-public class dailyTasksAccess {
+public class DailyTasksAccess {
 
     /**
      * The singleton passenger map
      */
-    private static ObservableList<dailyTasks> dailyTasks;
+    private static ObservableList<DailyTasks> dailyTasks;
 
     /**
      * Private do nothing constructor
      */
-    private dailyTasksAccess() {
+    private DailyTasksAccess() {
     }
 
     /**
@@ -31,7 +31,7 @@ public class dailyTasksAccess {
      *
      * @return  the map instance
      */
-    public static ObservableList<dailyTasks> getInstance() {
+    public static ObservableList<DailyTasks> getInstance() {
         if (dailyTasks == null) initialize();
         return dailyTasks;
     }
@@ -49,7 +49,7 @@ public class dailyTasksAccess {
                 ResultSet rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
-                    dailyTasks.add(new dailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+                    dailyTasks.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
                 }
 
                 stmt.close();
