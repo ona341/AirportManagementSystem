@@ -1,9 +1,9 @@
 package AirportManager;
 
 import Command.*;
+import Entities.DailyTasks;
 import Entities.Employee;
 import Entities.Flight;
-import Entities.dailyTasks;
 import FlightView.FlightView;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
@@ -71,7 +71,7 @@ public class AirportManagerController implements Initializable{
 
     private ObservableList<Flight> flightData;
     private ObservableList<Employee> employeeData;
-    private ObservableList<dailyTasks> dailyTasksData;
+    private ObservableList<DailyTasks> dailyTasksData;
 
     // Add User Tab
 
@@ -110,13 +110,13 @@ public class AirportManagerController implements Initializable{
     public TableColumn<Employee,String> employeeRoleCol;
 
     @FXML
-    public TableView<dailyTasks> tableviewTasks;
+    public TableView<DailyTasks> tableviewTasks;
     @FXML
-    public TableColumn<dailyTasks,String> fromCol;
+    public TableColumn<DailyTasks,String> fromCol;
     @FXML
-    public TableColumn<dailyTasks,String> toCol;
+    public TableColumn<DailyTasks,String> toCol;
     @FXML
-    public TableColumn<dailyTasks,String> taskCol;
+    public TableColumn<DailyTasks,String> taskCol;
 
     /**
      * Logout as the Airport Manager.
@@ -374,7 +374,7 @@ public class AirportManagerController implements Initializable{
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM dailyTasks");
 
             while(rs.next()) {
-                this.dailyTasksData.add(new dailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+                this.dailyTasksData.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
             }
 
             rs.close(); //closes the database connection
@@ -490,7 +490,7 @@ public class AirportManagerController implements Initializable{
             stage.setScene(new Scene(root));
 
 
-            loader.<addEmployeeSchedule>getController().initialize(employee);
+            loader.<AddEmployeeSchedule>getController().initialize(employee);
 
 
             stage.show();
@@ -499,11 +499,6 @@ public class AirportManagerController implements Initializable{
         }
 
     }
-    
-    public void buttonEvent(ActionEvent event) {
-        
-    }
-
 
     /**
      * Open daily task window.
@@ -517,9 +512,8 @@ public class AirportManagerController implements Initializable{
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
-
-            loader.<addTasks>getController().initialize(employee);
-
+            loader.<AddTasks>getController().initialize(employee);
+            loader.<AddTasks>getController().execute();
 
             stage.show();
         } catch (IOException e) {

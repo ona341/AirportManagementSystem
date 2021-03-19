@@ -3,20 +3,17 @@ package Command;
 import Singleton.dbConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ResourceBundle;
 
-public class viewEmployeeSchedule implements Initializable {
+public class ViewEmployeeSchedule implements Command {
 
     @FXML
     public Button done1;
@@ -35,23 +32,21 @@ public class viewEmployeeSchedule implements Initializable {
     @FXML
     public Text sat1;
     public TextField employeeId;
-    Connection conn = dbConnection.getConnection();
 
-    public viewEmployeeSchedule() throws SQLException {
+    /**
+     * constructor for viewEmployeeSchedule
+     */
+    public ViewEmployeeSchedule() {
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
-    public void initialize() {
-
-    }
-
+    /**
+     * This method displays the employee schedule from their input employee id
+     * @param event an event performed by the user
+     */
     @FXML
-    public void check(ActionEvent event) {
+    public void checkButton(ActionEvent event) {
         try {
+            Connection conn = dbConnection.getConnection();
             String sql = "SELECT * FROM workSchedule WHERE employeeId ='" + employeeId.getText() + "'";
             Statement pstmt = conn.createStatement();
             ResultSet rs = pstmt.executeQuery(sql);
@@ -80,7 +75,7 @@ public class viewEmployeeSchedule implements Initializable {
     }
 
     /**
-     * Checks the format of the inputted time for validity
+     * notify the user that their input employee ID is invalid
      */
     private void notifyError() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -89,8 +84,18 @@ public class viewEmployeeSchedule implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Allows the user to close the window when they are done with viewing schedule
+     * @param event an event performed by the user
+     */
     @FXML
-    public void done(ActionEvent event) throws SQLException {
+    public void done(ActionEvent event){
         ((Button) event.getSource()).getScene().getWindow().hide();
+    }
+
+    
+    @Override
+    public void execute() throws SQLException {
+
     }
 }

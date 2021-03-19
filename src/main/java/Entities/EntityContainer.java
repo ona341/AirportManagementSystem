@@ -10,6 +10,8 @@ package Entities;
   All rights reserved.
  */
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,11 +25,11 @@ public class EntityContainer<I> {
 
     private final int minStallLabel;
 
-    private final int maxStallLabel;
-
 
     private final ObservableList<I> stalls;
 
+
+    private IntegerProperty count = new SimpleIntegerProperty(0);
 
 
     public EntityContainer(String wName, int wMinStallLabel, int wMaxStallLabel) {
@@ -40,8 +42,11 @@ public class EntityContainer<I> {
 
         name = wName;
         minStallLabel = wMinStallLabel;
-        maxStallLabel = wMaxStallLabel;
+       // stalls = (I[]) new Object[wMaxStallLabel - wMinStallLabel + 1];
         stalls = FXCollections.observableArrayList();
+        for (int i = 0; i < wMaxStallLabel - wMinStallLabel + 1; i++) {
+            stalls.add(null);
+        }
     }
 
 
@@ -59,7 +64,7 @@ public class EntityContainer<I> {
 
 
     public int getMaxStallLabel() {
-        return maxStallLabel;
+        return minStallLabel + stalls.size() - 1;
     }
 
 
@@ -131,6 +136,7 @@ public class EntityContainer<I> {
             throw new IllegalStateException("Stall " + stallLabel + " is currently occupied by "
                     + stalls.get(externalToInternalIndex(stallLabel))
                     + " so cannot be assigned to another Entity");
+        count.set(count.get()+1);
         stalls.set(externalToInternalIndex(stallLabel), e);
     }
 
@@ -166,6 +172,7 @@ public class EntityContainer<I> {
             throw new IllegalStateException("Stall " + stallLabel + " is not currently occupied"
                     + " so the stall cannot be freed");
         stalls.set(externalToInternalIndex(stallLabel), null);
+        count.set(count().get()-1);
     }
 
 
@@ -182,11 +189,11 @@ public class EntityContainer<I> {
 
 
     public boolean isValidLabel(int stallLabel) {
-        return stallLabel < minStallLabel || stallLabel > maxStallLabel;
+        return stallLabel < minStallLabel || stallLabel > minStallLabel + stalls.size() - 1;
     }
 
-    public int count() {
-        return stalls.size();
+    public IntegerProperty count() {
+        return count;
     }
 
 
@@ -194,5 +201,11 @@ public class EntityContainer<I> {
         return stalls;
     }
 
+    public static void main(String[] args) {
+        EntityContainer<Integer> C = new EntityContainer<>("name", 1,5);
+        System.out.println(C.firstAvailableStall());
+        System.out.println(C.availableStalls());
+
+    }
 
 }

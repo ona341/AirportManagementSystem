@@ -1,14 +1,6 @@
 package Startup;
 
 
-import java.io.File;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
 import Singleton.AirportAccess;
 import Singleton.dbConnection;
 import javafx.application.Application;
@@ -23,6 +15,14 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * The main class for starting the Airport Management System
@@ -69,6 +69,8 @@ public class AMS extends Application implements Initializable{
             sql = "CREATE TABLE IF NOT EXISTS login (id TEXT, name TEXT, password TEXT, email TEXT, role TEXT, checkIn DATE, parkingStall INT, seatNumber INT)";
             conn.createStatement().execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS workSchedule (employeeId TEXT, sunday TEXT, monday TEXT, tuesday TEXT, wednesday TEXT, thursday, friday TEXT, saturday TEXT)";
+            conn.createStatement().execute(sql);
+            sql = "CREATE TABLE IF NOT EXISTS dailyTasks (employeeId TEXT, fromTime TEXT, toTime TEXT, task TEXT)";
             conn.createStatement().execute(sql);
 
 
