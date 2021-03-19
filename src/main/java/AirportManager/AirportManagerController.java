@@ -260,7 +260,6 @@ public class AirportManagerController implements Initializable{
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
                 setPasswordField.getText().equals(confirmPasswordField.getText())){
             registerUser();
-            //loadLoginData();
             passMessageLabel.setText("");
         }
         else {
@@ -285,7 +284,7 @@ public class AirportManagerController implements Initializable{
             //statement.setString(3, this.selectionComboBox.getValue().toString());
             //statement.setString(4, this.nameTextField.getText());
 
-            Employee e = new Employee(usersName.getText(), idNumberTextField.getText(), selectionComboBox.getValue().toString());
+            Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
             new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
             //statement.execute();
@@ -396,12 +395,12 @@ public class AirportManagerController implements Initializable{
         try {
 
             Connection conn = dbConnection.getConnection();
-            this.employeeData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
+            this.employeeData = FXCollections.observableArrayList();  //sets the employee data attribute to be the observableArrayList from FXCollections
 
-            ResultSet rs = conn.createStatement().executeQuery("SELECT id,name,representation FROM login");
+            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM login");
 
             while(rs.next()) {
-                this.employeeData.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3)));
+                this.employeeData.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(5)));
             }
 
             rs.close(); //closes the database connection
