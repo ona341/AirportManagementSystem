@@ -1,7 +1,6 @@
 package Command;
 
 import Entities.Employee;
-import Entities.Flight;
 import Entities.WorkSchedule;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
@@ -9,15 +8,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ViewEmployeeSchedule implements Initializable {
+public class addEmployeeSchedule implements Initializable {
 
     @FXML
     public Button done;
@@ -42,6 +45,11 @@ public class ViewEmployeeSchedule implements Initializable {
 
     private ObservableList<WorkSchedule> schedule;
 
+    Connection conn = dbConnection.getConnection();
+
+    public addEmployeeSchedule() throws SQLException {
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -55,7 +63,6 @@ public class ViewEmployeeSchedule implements Initializable {
 
         try {
 
-            Connection conn = dbConnection.getConnection();
             this.schedule = FXCollections.observableArrayList();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, this.employee.getId());
@@ -107,10 +114,9 @@ public class ViewEmployeeSchedule implements Initializable {
 
     public void dbUpdate(Employee employee) {
 
-        String sql = "UPDATE workSchedule SET sunday = ?, monday = ?, tuesday = ?, wednesday = ?, thursday = ?, friday = ? WHERE employeeId = ?";
+        String sql = "UPDATE workSchedule SET sunday = ?, monday = ?, tuesday = ?, wednesday = ?, thursday = ?, friday = ?, saturday = ? WHERE employeeId = ?";
 
         try {
-            Connection conn = dbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, employee.schedule().getSunday());
@@ -121,7 +127,7 @@ public class ViewEmployeeSchedule implements Initializable {
             pstmt.setString(6, employee.schedule().getFriday());
             pstmt.setString(7, employee.schedule().getSaturday());
 
-            pstmt.setString(7, employee.getId());
+            pstmt.setString(8, employee.getId());
 
             pstmt.executeUpdate();
             pstmt.close();
