@@ -10,7 +10,10 @@ package Entities;
   All rights reserved.
  */
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ public class Passenger extends Person {
 
 
 
-  private final ArrayList<Flight> flights = new ArrayList<>();
+  private final ObservableList<Flight> flights = FXCollections.observableArrayList();
 
   private StringProperty email;
 
@@ -110,6 +113,11 @@ public class Passenger extends Person {
     }
   }
 
+  public IntegerProperty sizeProperty() {
+    IntegerProperty p = new SimpleIntegerProperty();
+    p.bind(Bindings.size(flights));
+    return p;
+  }
 
   public int numFlights() {
     return flights.size();

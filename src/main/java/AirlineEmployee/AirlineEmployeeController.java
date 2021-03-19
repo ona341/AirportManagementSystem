@@ -5,7 +5,6 @@ import Entities.Flight;
 import Entities.Passenger;
 import Singleton.FlightsAccess;
 import Singleton.PassengerAccess;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -105,7 +103,10 @@ public class AirlineEmployeeController implements Initializable {
 
         IDCol.setCellValueFactory(new PropertyValueFactory<>("number"));
         passNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        passFlightCol.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().numFlights()).asObject());
+
+
+        passFlightCol.setCellValueFactory(new PropertyValueFactory<>("size"));
+
         passContactCol.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         passengerTable.setItems(PassengerAccess.getInstance());
@@ -124,8 +125,8 @@ public class AirlineEmployeeController implements Initializable {
             p.addFlight(f);
             f.getSeats().assignEntityToStall(p,f.getSeats().firstAvailableStall());
         }
-
     }
+
 
     public void openNewPassenger(ActionEvent actionEvent) {
         passPane.setVisible(!passPane.isVisible());
