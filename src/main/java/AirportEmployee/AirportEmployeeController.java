@@ -29,6 +29,10 @@ public class AirportEmployeeController {
         window.show(); //displays the window
     }
 
+    /**
+     * View employee's daily tasks
+     * @param event an event performed by the user
+     */
     public void toViewDailyTasks(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewTasks.fxml"));
@@ -52,7 +56,6 @@ public class AirportEmployeeController {
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));
-
 
             stage.show();
         } catch (IOException e) {
