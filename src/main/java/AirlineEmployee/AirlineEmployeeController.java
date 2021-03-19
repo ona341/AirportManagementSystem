@@ -5,6 +5,7 @@ import Entities.Flight;
 import Entities.Passenger;
 import Singleton.FlightsAccess;
 import Singleton.PassengerAccess;
+import Singleton.dbConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,8 +24,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.Time;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 
@@ -124,6 +124,18 @@ public class AirlineEmployeeController implements Initializable {
 
             p.addFlight(f);
             f.getSeats().assignEntityToStall(p,f.getSeats().firstAvailableStall());
+
+            String sql = "INSERT INTO passengersOnFlights(passengerID,flightNumber) VALUES(?,?)";
+            try {
+                PreparedStatement pstmt = dbConnection.getConnection().prepareStatement(sql);
+
+                pstmt.setString(1,p.getId());
+                pstmt.setString(2,f.getFlightNumber());
+
+                pstmt.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
