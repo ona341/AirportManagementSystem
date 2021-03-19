@@ -10,6 +10,8 @@ package Entities;
   All rights reserved.
  */
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -27,7 +29,7 @@ public class EntityContainer<I> {
     private final ObservableList<I> stalls;
 
 
-    private int count = 0;
+    private IntegerProperty count = new SimpleIntegerProperty(0);
 
 
     public EntityContainer(String wName, int wMinStallLabel, int wMaxStallLabel) {
@@ -134,7 +136,7 @@ public class EntityContainer<I> {
             throw new IllegalStateException("Stall " + stallLabel + " is currently occupied by "
                     + stalls.get(externalToInternalIndex(stallLabel))
                     + " so cannot be assigned to another Entity");
-        count++;
+        count.set(count.get()+1);
         stalls.set(externalToInternalIndex(stallLabel), e);
     }
 
@@ -170,7 +172,7 @@ public class EntityContainer<I> {
             throw new IllegalStateException("Stall " + stallLabel + " is not currently occupied"
                     + " so the stall cannot be freed");
         stalls.set(externalToInternalIndex(stallLabel), null);
-        count--;
+        count.set(count().get()-1);
     }
 
 
@@ -190,7 +192,7 @@ public class EntityContainer<I> {
         return stallLabel < minStallLabel || stallLabel > minStallLabel + stalls.size() - 1;
     }
 
-    public int count() {
+    public IntegerProperty count() {
         return count;
     }
 

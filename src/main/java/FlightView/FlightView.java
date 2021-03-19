@@ -242,7 +242,8 @@ public class FlightView implements Initializable {
 
         passengerTable.setItems(flight.getSeats().getObservableList());
 
-        passengers.setText(String.valueOf(flight.getSeats().count()));
+        //passengers.setText(String.valueOf(flight.getSeats().count()));
+        passengers.textProperty().bind(flight.getSeats().count().asString());
 
     }
 }
