@@ -1,5 +1,6 @@
 package Command;
 
+import AirportManager.AirportManagerController;
 import Entities.Employee;
 import Entities.Passenger;
 import Singleton.*;
@@ -10,13 +11,13 @@ import java.sql.*;
  * Allows the manager to add an employee to the system.
  */
 public class AddUser implements Command{
-
     private final Passenger user;
     private final char[] password;
 
     public AddUser(Passenger user, char[] password) {
         this.user = user;
         this.password = password;
+
     }
 
     @FXML

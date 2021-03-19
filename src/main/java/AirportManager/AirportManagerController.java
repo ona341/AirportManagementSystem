@@ -213,6 +213,15 @@ public class AirportManagerController implements Initializable{
         date.setValue(null);
     }
 
+    @FXML
+    public void clearUserForm(ActionEvent event) {
+        usersName.clear();
+        idNumberTextField.clear();
+        setPasswordField.clear();
+        confirmPasswordField.clear();
+        selectionComboBox.setValue(null);
+    }
+
     /**
      * Initializes the Controller
      * @param url he location used to resolve the relative paths of the object or null if unknown
@@ -259,7 +268,13 @@ public class AirportManagerController implements Initializable{
 
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
                 setPasswordField.getText().equals(confirmPasswordField.getText())){
-            registerUser();
+            Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
+            new AddUser(e, setPasswordField.getText().toCharArray()).execute();
+
+            clearUserForm(null);
+
+            messageLabel.setText("User has been registered successfully!");
+            errorMessageLabel.setText("");
             passMessageLabel.setText("");
         }
         else {
@@ -272,10 +287,10 @@ public class AirportManagerController implements Initializable{
     /**
      * Register user.
      */
-    public void registerUser(){
+    //public void registerUser(){
         //String sqlInsert = "INSERT INTO login(id,password,representation,name) VALUES (?,?,?,?)";
 
-        try{
+        //try{
             //Connection connectDB = dbConnection.getConnection();
             //PreparedStatement statement = connectDB.prepareStatement(sqlInsert);
 
@@ -284,20 +299,20 @@ public class AirportManagerController implements Initializable{
             //statement.setString(3, this.selectionComboBox.getValue().toString());
             //statement.setString(4, this.nameTextField.getText());
 
-            Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
-            new AddUser(e, setPasswordField.getText().toCharArray()).execute();
+            //Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
+            //new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
             //statement.execute();
-            messageLabel.setText("User has been registered successfully!");
-            errorMessageLabel.setText("");
-            passMessageLabel.setText("");
+            //messageLabel.setText("User has been registered successfully!");
+            //errorMessageLabel.setText("");
+            //passMessageLabel.setText("");
             //statement.close();
 
 
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+        //} catch (Exception e){
+           // e.printStackTrace();
+       // }
+    //}
 
 
     /**
