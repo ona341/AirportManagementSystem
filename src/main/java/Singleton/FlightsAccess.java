@@ -56,25 +56,6 @@ public class FlightsAccess {
     }
 
 
-    public static Predicate<Flight> search(String text) {
-//        FilteredList<Flight> filteredByNum = flights.filtered(flight -> flight.getFlightNumber().contains(text));
-//        FilteredList<Flight> filteredByAirline = flights.filtered(flight -> flight.getAirline().contains(text));
-//        FilteredList<Flight> filteredByDestination = flights.filtered(flight -> flight.getDestination().contains(text));
-//        FilteredList<Flight> filteredByDate = flights.filtered(flight -> flight.getDate().toString().contains(text));
-//        FilteredList<Flight> filteredByTime = flights.filtered(flight -> flight.getTime().toString().contains(text));
-//
-         return (flight -> flight.getFlightNumber().contains(text) || flight.getAirline().contains(text)
-                    || flight.getDestination().contains(text) || flight.getDate().toString().contains(text)
-                    || flight.getTime().toString().contains(text));
-
-//        ObservableSet<Flight> resultSet = FXCollections.observableSet();
-//        resultSet.addAll(filteredByNum); resultSet.addAll(filteredByAirline);
-//        resultSet.addAll(filteredByDestination); resultSet.addAll(filteredByDate);
-//        resultSet.addAll(filteredByTime);
-//
-//        return searchResult = FXCollections.observableArrayList(resultSet);
-    }
-
     public static FilteredList<Flight> getSearchInstance() {
         if (searchResult == null)
             searchResult =  new FilteredList<>(getInstance());

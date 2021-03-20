@@ -17,9 +17,11 @@ import javafx.collections.ObservableList;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 
-public class Passenger extends Person {
+public class Passenger extends Person implements Searchable{
 
 
 
@@ -162,5 +164,31 @@ public class Passenger extends Person {
     return temp;
 }
 
+  public static Predicate<Passenger> search(String text) {
+    return (passenger -> {
+      Boolean result = false;
+      String getString;
+
+      if (Optional.ofNullable(getString = passenger.getId()).isPresent())
+        result = result || getString.contains(text);
+
+      if (Optional.ofNullable(getString = passenger.getName()).isPresent())
+        result = result || getString.contains(text);
+
+      if (Optional.ofNullable(getString = passenger.getEmail()).isPresent())
+        result = result || getString.contains(text);
+
+      if (Optional.ofNullable(passenger.getCheckInDate()).isPresent())
+        result = result || passenger.getCheckInDate().toString().contains(text);
+
+      if (Optional.ofNullable(getString = Integer.toString(passenger.getParkingStallLabel())).isPresent())
+        result = result || getString.contains(text);
+
+      if (Optional.ofNullable(getString = Integer.toString(passenger.getSeatNumber())).isPresent())
+        result = result || getString.contains(text);
+
+      return result;
+    });
+  }
 
 }

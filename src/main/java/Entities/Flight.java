@@ -4,8 +4,9 @@ import javafx.beans.property.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.function.Predicate;
 
-public class Flight {
+public class Flight implements Searchable{
 
     private StringProperty airline;
 
@@ -129,5 +130,11 @@ public class Flight {
 
     public void setGate(int gate) {
         this.gate.set(gate);
+    }
+
+    public static Predicate<Flight> search(String text) {
+        return (flight -> flight.getFlightNumber().contains(text) || flight.getAirline().contains(text)
+                || flight.getDestination().contains(text) || flight.getDate().toString().contains(text)
+                || flight.getTime().toString().contains(text));
     }
 }
