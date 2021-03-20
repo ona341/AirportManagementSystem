@@ -37,7 +37,7 @@ public class DeleteFlight implements Command{
         // and removes them from FlightsAccess
         ObservableList<Flight> localCopy = FXCollections.observableArrayList(selectedFlights);
         FlightsAccess.getInstance().removeAll(localCopy);
-        FlightsAccess.getSearchInstance().removeAll(localCopy);
+        //FlightsAccess.getSearchInstance().removeAll(localCopy);
 
 
 

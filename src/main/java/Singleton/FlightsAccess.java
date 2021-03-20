@@ -8,12 +8,13 @@ import javafx.collections.ObservableSet;
 import javafx.collections.transformation.FilteredList;
 
 import java.sql.*;
+import java.util.function.Predicate;
 
 public class FlightsAccess {
 
     private static ObservableList<Flight> flights;
 
-    private static ObservableList<Flight> searchResult;
+    private static FilteredList<Flight> searchResult;
 
     private FlightsAccess() {}
 
@@ -55,24 +56,28 @@ public class FlightsAccess {
     }
 
 
-    public static ObservableList<Flight> search(String text) {
-        FilteredList<Flight> filteredByNum = flights.filtered(flight -> flight.getFlightNumber().contains(text));
-        FilteredList<Flight> filteredByAirline = flights.filtered(flight -> flight.getAirline().contains(text));
-        FilteredList<Flight> filteredByDestination = flights.filtered(flight -> flight.getDestination().contains(text));
-        FilteredList<Flight> filteredByDate = flights.filtered(flight -> flight.getDate().toString().contains(text));
-        FilteredList<Flight> filteredByTime = flights.filtered(flight -> flight.getTime().toString().contains(text));
+    public static Predicate<Flight> search(String text) {
+//        FilteredList<Flight> filteredByNum = flights.filtered(flight -> flight.getFlightNumber().contains(text));
+//        FilteredList<Flight> filteredByAirline = flights.filtered(flight -> flight.getAirline().contains(text));
+//        FilteredList<Flight> filteredByDestination = flights.filtered(flight -> flight.getDestination().contains(text));
+//        FilteredList<Flight> filteredByDate = flights.filtered(flight -> flight.getDate().toString().contains(text));
+//        FilteredList<Flight> filteredByTime = flights.filtered(flight -> flight.getTime().toString().contains(text));
+//
+         return (flight -> flight.getFlightNumber().contains(text) || flight.getAirline().contains(text)
+                    || flight.getDestination().contains(text) || flight.getDate().toString().contains(text)
+                    || flight.getTime().toString().contains(text));
 
-        ObservableSet<Flight> resultSet = FXCollections.observableSet();
-        resultSet.addAll(filteredByNum); resultSet.addAll(filteredByAirline);
-        resultSet.addAll(filteredByDestination); resultSet.addAll(filteredByDate);
-        resultSet.addAll(filteredByTime);
-
-        return searchResult = FXCollections.observableArrayList(resultSet);
+//        ObservableSet<Flight> resultSet = FXCollections.observableSet();
+//        resultSet.addAll(filteredByNum); resultSet.addAll(filteredByAirline);
+//        resultSet.addAll(filteredByDestination); resultSet.addAll(filteredByDate);
+//        resultSet.addAll(filteredByTime);
+//
+//        return searchResult = FXCollections.observableArrayList(resultSet);
     }
 
-    public static ObservableList<Flight> getSearchInstance() {
+    public static FilteredList<Flight> getSearchInstance() {
         if (searchResult == null)
-            searchResult =  FXCollections.observableArrayList();
+            searchResult =  new FilteredList<>(getInstance());
         return searchResult;
     }
 }

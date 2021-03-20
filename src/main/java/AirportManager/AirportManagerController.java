@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import loginapp.option;
 
+import javax.naming.Binding;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -189,15 +190,16 @@ public class AirportManagerController implements Initializable{
      * Finds the flight with the given input
      * @param event keys entered
      */
-    @FXML
-    private void searchTable(KeyEvent event) {
-        if(searchBox.getText().isBlank()) {
-            tableview.setItems(FlightsAccess.getInstance());
-        }
-        else {
-            tableview.setItems(FlightsAccess.search(searchBox.getText()));
-        }
-    }
+//    @FXML
+//    private void searchTable(KeyEvent event) {
+//        searchBox.textProperty().bind(FlightsAccess.getInstance().filtered(p -> true).predicateProperty().asString());
+//        if(searchBox.getText().isBlank()) {
+//            tableview.setItems(FlightsAccess.getInstance());
+//        }
+//        else {
+//            tableview.setItems(FlightsAccess.search(searchBox.getText()));
+//        }
+//    }
 
     /**
      * Clears the form
@@ -240,7 +242,9 @@ public class AirportManagerController implements Initializable{
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
 
-        tableview.setItems(FlightsAccess.getInstance());
+        tableview.setItems(FlightsAccess.getSearchInstance());
+
+        searchBox.textProperty().addListener((a,b,c) -> FlightsAccess.getSearchInstance().setPredicate(FlightsAccess.search(c)));
 
         capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
 
