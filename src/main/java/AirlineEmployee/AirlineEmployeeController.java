@@ -72,6 +72,8 @@ public class AirlineEmployeeController implements Initializable {
     public TextField EmailField;
     @FXML
     public Button ConfirmButton;
+    public TextField searchPassenger;
+    public TextField searchFlight;
 
     /**
      * Logs the user out of the Airline Employee and returns user to the login page
@@ -99,7 +101,8 @@ public class AirlineEmployeeController implements Initializable {
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
 
-        flightTable.setItems(FlightsAccess.getInstance());
+        flightTable.setItems(FlightsAccess.getSearchInstance());
+        searchFlight.textProperty().addListener((a,b,c) -> FlightsAccess.getSearchInstance().setPredicate(Flight.search(c)));
 
         IDCol.setCellValueFactory(new PropertyValueFactory<>("number"));
         passNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -109,7 +112,8 @@ public class AirlineEmployeeController implements Initializable {
 
         passContactCol.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        passengerTable.setItems(PassengerAccess.getInstance());
+        passengerTable.setItems(PassengerAccess.getSearchInstance());
+        searchPassenger.textProperty().addListener((a,b,c) -> PassengerAccess.getSearchInstance().setPredicate(Passenger.search(c)));
 
         passPane.setVisible(!passPane.isVisible());
         passPane.setManaged(!passPane.isManaged());
