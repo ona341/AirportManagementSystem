@@ -8,7 +8,7 @@
       <TableColumn fx:id="iDCol" prefWidth="104.0" text="ID #" />
       <TableColumn fx:id="nameCol" prefWidth="114.0" text="Name" />
       <TableColumn fx:id="contactCol" prefWidth="113.0" text="Contact" />
-      <TableColumn fx:id="flightCol" prefWidth="180.0" text="Flights" />
+      <TableColumn fx:id="seatCol" prefWidth="180.0" text="Seat" />
       <TableColumn fx:id="deleteCol" prefWidth="75.0" />
    </columns>
 </TableView>
