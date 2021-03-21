@@ -4,6 +4,8 @@ import Entities.Passenger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.collections.transformation.FilteredList;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +22,7 @@ public class PassengerAccess {
      * The singleton passenger map
      */
     private static ObservableList<Passenger> passengers;
+    private static FilteredList<Passenger> searchedPassengers;
 
     /**
      * Private do nothing constructor
@@ -35,6 +38,11 @@ public class PassengerAccess {
     public static ObservableList<Passenger> getInstance() {
         if (passengers == null) initialize();
         return passengers;
+    }
+
+    public static FilteredList<Passenger> getSearchInstance() {
+        if (searchedPassengers == null) searchedPassengers = new FilteredList<>(getInstance());
+        return searchedPassengers;
     }
 
     /**

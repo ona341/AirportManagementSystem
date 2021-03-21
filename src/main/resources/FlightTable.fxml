@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+
+<TableView fx:id="flightTable" onMouseClicked="#doubleClickFlight" prefHeight="629.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AirlineEmployee.FlightTable">
+   <columns>
+      <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
+      <TableColumn fx:id="airlineCol" prefWidth="88.0" text="Airline" />
+      <TableColumn fx:id="destinationCol" prefWidth="188.0" text="Destination" />
+      <TableColumn fx:id="gateCol" prefWidth="127.0" text="Gate" />
+      <TableColumn fx:id="dateCol" prefWidth="103.0" text="Date" />
+      <TableColumn fx:id="timeCol" prefWidth="98.0" text="Time" />
+      <TableColumn fx:id="seatCol" prefWidth="99.0" text="Seat" />
+      <TableColumn fx:id="deleteCol" prefWidth="77.0" />
+   </columns>
+</TableView>

@@ -44,7 +44,7 @@
                                 <Label layoutX="14.0" layoutY="357.0" text="Select User Type" />
                                 <ComboBox fx:id="selectionComboBox" layoutX="14.0" layoutY="388.0" prefHeight="27.0" prefWidth="336.0" promptText="Type of User" />
                                 <Button fx:id="registerButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="27.0" prefWidth="336.0" text="Register" />
-                                <TextField fx:id="searchUsers" layoutX="794.0" layoutY="45.0" onKeyTyped="#searchTable" promptText="Search" />
+                                <TextField fx:id="searchUsers" layoutX="794.0" layoutY="45.0" promptText="Search" />
                                 <Label fx:id="messageLabel" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="559.0" textFill="#37e119">
                                     <font>
                                         <Font size="14.0" />
@@ -89,7 +89,7 @@
                                         <TableColumn fx:id="timeCol" prefWidth="73.0" text="Time" />
                                     </columns>
                                 </TableView>
-                                <TextField fx:id="searchBox" layoutX="1079.0" layoutY="22.0" onKeyTyped="#searchTable" promptText="Search" />
+                                <TextField fx:id="searchBox" layoutX="1079.0" layoutY="22.0" promptText="Search" />
                                 <Button fx:id="delete" layoutX="7.0" layoutY="356.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="27.0" prefWidth="370.0" text="Delete Selected" />
                                 <Button fx:id="updateflight" layoutX="7.0" layoutY="289.0" mnemonicParsing="false" onAction="#updateRow" prefHeight="27.0" prefWidth="370.0" text="Update Flight" />
                         <Spinner fx:id="capacity" layoutX="18.0" layoutY="218.0" prefHeight="27.0" prefWidth="349.0" />

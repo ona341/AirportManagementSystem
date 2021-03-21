@@ -1,5 +1,7 @@
 package Passenger;
 
+import AirlineEmployee.FlightTable;
+import Entities.Passenger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,6 +13,11 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class PassengerController {
+    Passenger passenger;
+
+    public void initialize(Passenger passenger) {
+        this.passenger = passenger;
+    }
 
     public void logout(ActionEvent event) throws IOException
     {
@@ -54,6 +61,23 @@ public class PassengerController {
                 Exception e) {
             e.printStackTrace();
             e.getCause();
+        }
+    }
+
+    public void toFlightInformation(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FlightTable.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+
+
+            loader.<FlightTable>getController().initialize(passenger);
+
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

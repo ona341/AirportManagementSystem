@@ -69,7 +69,7 @@ public class EntityContainer<I> {
 
 
     private int externalToInternalIndex(int stallLabel) {
-        if (isValidLabel(stallLabel))
+        if (isInvalidLabel(stallLabel))
             throw new IllegalArgumentException("The value " + stallLabel
                     + " is not a valid label for a stall in the Container.");
 
@@ -87,7 +87,7 @@ public class EntityContainer<I> {
 
 
     public boolean isOccupied(int stallLabel) {
-        if (isValidLabel(stallLabel))
+        if (isInvalidLabel(stallLabel))
             throw new IllegalArgumentException("The value " + stallLabel
                     + " is not a valid label for a stall in the Container.");
 
@@ -116,7 +116,7 @@ public class EntityContainer<I> {
 
 
     public I getEntity(int stallLabel) {
-        if (isValidLabel(stallLabel))
+        if (isInvalidLabel(stallLabel))
             throw new IllegalArgumentException("The value " + stallLabel
                     + " is not a valid label for a stall in the Container.");
 
@@ -128,7 +128,7 @@ public class EntityContainer<I> {
 
 
     public void assignEntityToStall(I e, int stallLabel) {
-        if (isValidLabel(stallLabel))
+        if (isInvalidLabel(stallLabel))
             throw new IllegalArgumentException("The value " + stallLabel
                     + " is not a valid label for a stall in the Container.");
 
@@ -164,7 +164,7 @@ public class EntityContainer<I> {
 
 
     public void freeStall(int stallLabel) {
-        if (isValidLabel(stallLabel))
+        if (isInvalidLabel(stallLabel))
             throw new IllegalArgumentException("The value " + stallLabel
                     + " is not a valid label for a stall in the Container.");
 
@@ -188,7 +188,7 @@ public class EntityContainer<I> {
     }
 
 
-    public boolean isValidLabel(int stallLabel) {
+    public boolean isInvalidLabel(int stallLabel) {
         return stallLabel < minStallLabel || stallLabel > minStallLabel + stalls.size() - 1;
     }
 

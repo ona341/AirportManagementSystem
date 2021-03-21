@@ -15,8 +15,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.sql.Date;
+import java.util.Optional;
+import java.util.function.Predicate;
 
-public class Employee extends Passenger {
+public class Employee extends Passenger implements Searchable{
 
   private StringProperty role;
 
@@ -51,6 +53,15 @@ public class Employee extends Passenger {
     return super.toString();
   }
 
+  public static Predicate<Passenger> search(String text) {
+    return Passenger.search(text).or(employee -> {
+      boolean result = false;
+      String getString;
+      if (Optional.ofNullable(getString = ((Employee) employee).getRole()).isPresent())
+        result = getString.contains(text);
 
+      return result;
+    });
+  }
 
 }

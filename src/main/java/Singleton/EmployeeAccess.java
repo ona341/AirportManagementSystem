@@ -4,11 +4,14 @@ import Entities.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.collections.transformation.FilteredList;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 /**
  * A Employee Map using the singleton pattern.
@@ -16,12 +19,18 @@ import java.util.TreeMap;
 public class EmployeeAccess {
 
     private static ObservableList<Employee> employees;
+    private static FilteredList<Employee> searchedEmployees;
 
     private EmployeeAccess() {}
 
     public static ObservableList<Employee> getInstance() {
         if (employees == null) initialize();
         return employees;
+    }
+
+    public static FilteredList<Employee> getSearchInstance() {
+        if (searchedEmployees == null) searchedEmployees = new FilteredList<>(getInstance());
+        return searchedEmployees;
     }
 
     private static void initialize() {

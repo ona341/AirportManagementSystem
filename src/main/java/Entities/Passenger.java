@@ -16,14 +16,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 
-public class Passenger extends Person {
+public class Passenger extends Person implements Searchable{
 
 
 
-  private final ObservableList<Flight> flights = FXCollections.observableArrayList();
+  private final ObservableList<SimpleEntry<Flight, IntegerProperty>> flights = FXCollections.observableArrayList();
 
   private StringProperty email;
 
@@ -31,14 +34,12 @@ public class Passenger extends Person {
 
   private IntegerProperty parkingStallLabel;
 
-  private IntegerProperty seatNumber;
 
   public Passenger(String name, String number) {
     super(name,number);
     this.email = new SimpleStringProperty(null);
     this.checkInDate = new SimpleObjectProperty<>(null);
     this.parkingStallLabel = new SimpleIntegerProperty(-1);
-    this.seatNumber = new SimpleIntegerProperty(-1);
   }
 
   public Passenger(String name, String number, String email) {
@@ -46,7 +47,6 @@ public class Passenger extends Person {
     this.email = new SimpleStringProperty(email);
     this.checkInDate = new SimpleObjectProperty<>(null);
     this.parkingStallLabel = new SimpleIntegerProperty(-1);
-    this.seatNumber = new SimpleIntegerProperty(-1);
   }
 
   public Passenger(String name, String number, String email, Date date, int stallLabel) {
@@ -54,7 +54,6 @@ public class Passenger extends Person {
     this.email = new SimpleStringProperty(email);
     this.checkInDate = new SimpleObjectProperty<>(date);
     this.parkingStallLabel = new SimpleIntegerProperty(stallLabel);
-    this.seatNumber = new SimpleIntegerProperty(-1);
   }
 
   public Date getCheckInDate() {
@@ -97,19 +96,28 @@ public class Passenger extends Person {
     this.email.set(email);
   }
 
-  public int getSeatNumber() {
-    return seatNumber.get();
+  public int getSeatNumber(Flight flight) {
+    SimpleEntry<Flight, IntegerProperty> pair;
+    pair = this.getFlightPair(flight);
+
+    return pair.getValue().get();
   }
 
-  public IntegerProperty seatNumberProperty() {
-    return seatNumber;
+  public IntegerProperty seatProperty(Flight flight) {
+    try {
+      SimpleEntry<Flight, IntegerProperty> pair = this.getFlightPair(flight);
+      return pair.getValue();
+    } catch (NoSuchElementException e) {
+      return new ReadOnlyIntegerWrapper(-1);
+    }
   }
 
-  public void setSeatNumber(int seatNumber) {
-    if (this.getSeatNumber() != -1 && seatNumber != -1) {
+  public void setSeatNumber(Flight flight, int seatNumber) {
+    SimpleEntry<Flight, IntegerProperty> pair;
+    if ((pair = this.getFlightPair(flight)).getValue().get() != -1 && seatNumber != -1) {
       throw new IllegalStateException("Error: This passenger is already assigned to a seat");
     } else {
-      this.seatNumber.set(seatNumber);
+      pair.setValue(new SimpleIntegerProperty(seatNumber));
     }
   }
 
@@ -127,40 +135,82 @@ public class Passenger extends Person {
     if (hasFlight(f.getFlightNumber())) {
       throw new IllegalStateException("Error: Attempting to create an association that already exists");
     } else {
-      flights.add(f);
+      flights.add(new SimpleEntry<>(f,new SimpleIntegerProperty(-1)));
+    }
+  }
+
+  public void addFlight(Flight f, int seatNum){
+    if (hasFlight(f.getFlightNumber())) {
+      throw new IllegalStateException("Error: Attempting to create an association that already exists");
+    } else {
+      flights.add(new SimpleEntry<>(f,new SimpleIntegerProperty(seatNum)));
     }
   }
 
 
   public void removeFlight(String number) {
-    if (!flights.removeIf(flight -> flight.getFlightNumber().equals(number))) {
+    if (!flights.removeIf(pair -> pair.getKey().getFlightNumber().equals(number))) {
       throw new IllegalStateException("Error: Attempting to remove an association that does not exist");
     }
   }
 
 
   public boolean hasFlight(String number) {
-    return flights.stream().anyMatch(flight -> flight.getFlightNumber().equals(number));
+    return flights.stream().anyMatch(pair -> pair.getKey().getFlightNumber().equals(number));
   }
 
 
+
+  public ObservableList<SimpleEntry<Flight, IntegerProperty>> getFlights() {
+    return flights;
+  }
+
+  private SimpleEntry<Flight, IntegerProperty> getFlightPair(Flight flight) {
+    return this.flights.stream().filter(pair -> pair.getKey().equals(flight)).findFirst().orElseThrow();
+  }
   public String toString() {
     String temp;
     temp = super.toString();
-    temp += "Stall: " + getSeatNumber() + "\n";
+    //temp += "Stall: " + getSeatNumber() + "\n";
 
     if (flights.size() == 0) {
       temp += "Entities.Flight(s): None\n";
     } else {
       temp += "Entities.Flight(s): ";
-      for (Flight flight : flights) {
-        temp += flight.getFlightNumber() + "\t";
-      }
+//      for (Flight flight : flights) {
+//        temp += flight.getFlightNumber() + "\t";
+//      }
       temp += "\n";
     }
 
     return temp;
 }
 
+  public static Predicate<Passenger> search(String text) {
+    return (passenger -> {
+      Boolean result = false;
+      String getString;
+
+      if (Optional.ofNullable(getString = passenger.getId()).isPresent())
+        result = result || getString.contains(text);
+
+      if (Optional.ofNullable(getString = passenger.getName()).isPresent())
+        result = result || getString.contains(text);
+
+      if (Optional.ofNullable(getString = passenger.getEmail()).isPresent())
+        result = result || getString.contains(text);
+
+      if (Optional.ofNullable(passenger.getCheckInDate()).isPresent())
+        result = result || passenger.getCheckInDate().toString().contains(text);
+
+      if (Optional.ofNullable(getString = Integer.toString(passenger.getParkingStallLabel())).isPresent())
+        result = result || getString.contains(text);
+
+      //if (Optional.ofNullable(getString = Integer.toString(passenger.getSeatNumber())).isPresent())
+      //  result = result || getString.contains(text);
+
+      return result;
+    });
+  }
 
 }
