@@ -145,6 +145,9 @@ public class Passenger extends Person implements Searchable{
     return flights.stream().anyMatch(flight -> flight.getFlightNumber().equals(number));
   }
 
+  public ObservableList<Flight> getFlights() {
+    return flights;
+  }
 
   public String toString() {
     String temp;
