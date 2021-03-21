@@ -6,6 +6,7 @@ import Entities.Passenger;
 import Singleton.FlightsAccess;
 import Singleton.PassengerAccess;
 import Singleton.dbConnection;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -100,6 +102,7 @@ public class AirlineEmployeeController implements Initializable {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
+        passengerCol.setCellValueFactory(flight -> flight.getValue().getSeats().count().asObject());
 
         flightTable.setItems(FlightsAccess.getSearchInstance());
         searchFlight.textProperty().addListener((a,b,c) -> FlightsAccess.getSearchInstance().setPredicate(Flight.search(c)));
@@ -127,7 +130,8 @@ public class AirlineEmployeeController implements Initializable {
         if (p != null && f != null && !f.getSeats().hasEntity(p)) {
 
             p.addFlight(f);
-            f.getSeats().assignEntityToStall(p,f.getSeats().firstAvailableStall());
+            p.setSeatNumber(f.getSeats().firstAvailableStall());
+            f.getSeats().assignEntityToStall(p,p.getSeatNumber());
 
             String sql = "INSERT INTO passengerFlightRelation(passengerID,flightNumber) VALUES(?,?)";
             try {
@@ -154,4 +158,64 @@ public class AirlineEmployeeController implements Initializable {
         Passenger p = new Passenger(NameField.getText(),IDField.getText(),EmailField.getText());
         new AddUser(p,new char[] {1,2,3}).execute();
     }
+
+    @FXML
+    public void doubleClickPassenger(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            ObservableList<Passenger> selectedPassengers;
+            if (!(selectedPassengers = passengerTable.getSelectionModel().getSelectedItems()).isEmpty()) {
+                openFlightTable(selectedPassengers.get(0));
+            }
+        }
+    }
+
+
+
+    public void openFlightTable(Passenger passenger) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FlightTable.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+
+
+            loader.<FlightTable>getController().initialize(passenger);
+
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    public void doubleClickFlight(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            ObservableList<Flight> selectedFlights;
+            if (!(selectedFlights = flightTable.getSelectionModel().getSelectedItems()).isEmpty()) {
+                openPassengerTable(selectedFlights.get(0));
+            }
+        }
+    }
+
+
+    public void openPassengerTable(Flight flight) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PassengerTable.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+
+
+            loader.<PassengerTable>getController().initialize(flight);
+
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
