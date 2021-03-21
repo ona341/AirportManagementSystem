@@ -36,20 +36,20 @@
             <TextField fx:id="searchPassenger" layoutX="304.0" layoutY="7.0" />
          </children>
       </Pane>
-      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="623.0">
+      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="821.0">
          <children>
-            <TableView fx:id="flightTable" layoutY="38.0" onMouseClicked="#doubleClickFlight" prefHeight="630.0" prefWidth="623.0">
+            <TableView fx:id="flightTable" layoutY="38.0" onMouseClicked="#doubleClickFlight" prefHeight="630.0" prefWidth="821.0">
                <columns>
                   <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
                   <TableColumn fx:id="airlineCol" prefWidth="88.0" text="Airline" />
-                  <TableColumn fx:id="destinationCol" prefWidth="188.0" text="Destination" />
-                  <TableColumn fx:id="gateCol" prefWidth="127.0" text="Gate" />
-                  <TableColumn fx:id="dateCol" prefWidth="103.0" text="Date" />
-                  <TableColumn fx:id="timeCol" prefWidth="98.0" text="Time" />
-                  <TableColumn fx:id="passengerCol" prefWidth="197.0" text="Passengers" />
+                  <TableColumn fx:id="destinationCol" prefWidth="135.0" text="Destination" />
+                  <TableColumn fx:id="gateCol" prefWidth="81.0" text="Gate" />
+                  <TableColumn fx:id="dateCol" prefWidth="115.0" text="Date" />
+                  <TableColumn fx:id="timeCol" prefWidth="111.0" text="Time" />
+                  <TableColumn fx:id="passengerCol" prefWidth="140.0" text="Passengers" />
                </columns>
             </TableView>
-            <TextField fx:id="searchFlight" layoutX="446.0" layoutY="7.0" />
+            <TextField fx:id="searchFlight" layoutX="644.0" layoutY="5.0" />
          </children>
       </Pane>
    </children>
