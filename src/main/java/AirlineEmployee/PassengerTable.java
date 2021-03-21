@@ -30,7 +30,7 @@ public class PassengerTable {
     public TableColumn<Passenger,String> iDCol;
     public TableColumn<Passenger,String> nameCol;
     public TableColumn<Passenger,String> contactCol;
-    public TableColumn<Passenger,Integer> flightCol;
+    public TableColumn<Passenger,Integer> seatCol;
 
 
     public Flight flight;
@@ -41,9 +41,13 @@ public class PassengerTable {
 
         iDCol.setCellValueFactory(new PropertyValueFactory<>("number"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        flightCol.setCellValueFactory(new PropertyValueFactory<>("size"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-
+        seatCol.setCellValueFactory(passenger -> {
+            if (passenger.getValue() != null)
+                return passenger.getValue().seatProperty(flight).asObject();
+            else
+                return null;
+        });
 
         passengerTable.setItems(passengers);
 
@@ -55,13 +59,15 @@ public class PassengerTable {
                 @Override
                 protected void updateItem(Passenger item, boolean empty) {
                     super.updateItem(item, empty);
-                    if (empty)
+                    if (empty || item == null)
                         setGraphic(null);
                     else
                         setGraphic(button);
                 }
             };
-            button.setOnAction(event -> {new BreakAssociation(flight,cell.getItem()).execute();
+            button.setOnAction(event -> {
+                if (cell.getItem()!=null)
+                    new BreakAssociation(flight,cell.getItem()).execute();
             });
             return cell;
         });

@@ -130,15 +130,16 @@ public class AirlineEmployeeController implements Initializable {
         if (p != null && f != null && !f.getSeats().hasEntity(p)) {
 
             p.addFlight(f);
-            p.setSeatNumber(f.getSeats().firstAvailableStall());
-            f.getSeats().assignEntityToStall(p,p.getSeatNumber());
+            p.setSeatNumber(f,f.getSeats().firstAvailableStall());
+            f.getSeats().assignEntityToStall(p,p.getSeatNumber(f));
 
-            String sql = "INSERT INTO passengerFlightRelation(passengerID,flightNumber) VALUES(?,?)";
+            String sql = "INSERT INTO passengerFlightRelation(passengerID,flightNumber,seatNumber) VALUES(?,?,?)";
             try {
                 PreparedStatement pstmt = dbConnection.getConnection().prepareStatement(sql);
 
                 pstmt.setString(1,p.getId());
                 pstmt.setString(2,f.getFlightNumber());
+                pstmt.setInt(3,p.getSeatNumber(f));
 
                 pstmt.executeUpdate();
             } catch (SQLException throwables) {

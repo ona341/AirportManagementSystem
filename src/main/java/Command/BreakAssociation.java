@@ -34,8 +34,9 @@ public class BreakAssociation implements Command{
             throwables.printStackTrace();
         }
 
+        flight.getSeats().freeStall(passenger.getSeatNumber(flight));
+        passenger.setSeatNumber(flight,-1);
         passenger.removeFlight(flight.getFlightNumber());
-        flight.getSeats().freeStall(passenger.getSeatNumber());
-        passenger.setSeatNumber(-1);
+
     }
 }
