@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="539.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Passenger.PassengerController">
    <children>
-      <Button layoutX="60.0" layoutY="121.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="313.0" text="FLIGHT INFORMATION">
+      <Button layoutX="60.0" layoutY="121.0" mnemonicParsing="false" onAction="#toFlightInformation" prefHeight="78.0" prefWidth="313.0" text="FLIGHT INFORMATION">
          <font>
             <Font size="18.0" />
          </font>

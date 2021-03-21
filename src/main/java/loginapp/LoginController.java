@@ -3,7 +3,9 @@ package loginapp;
 import AirlineEmployee.AirlineEmployeeController;
 import AirportEmployee.AirportEmployeeController;
 import AirportManager.AirportManagerController;
+import Entities.Passenger;
 import Passenger.PassengerController;
+import Singleton.PassengerAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,14 +56,14 @@ public class LoginController implements Initializable {
                         airportManagerLogin();
                         break;
                     case "Passenger":
-                        passengerLogin();
+                        passengerLogin(PassengerAccess.getInstance().stream().filter(passenger -> passenger.getId().equals(this.idNumber.getText())).findFirst().orElseThrow());
                         break;
                     case "Airport Employee":
                         airportEmployeeLogin();
                         break;
                     case "Admin":
                         airportManagerLogin();
-                        passengerLogin();
+                        passengerLogin(null);
                         airportEmployeeLogin();
                         airlineEmployeeLogin();
                         break;
@@ -142,13 +144,14 @@ public class LoginController implements Initializable {
 
     }
 
-    public void passengerLogin(){
+    public void passengerLogin(Passenger passenger){
         try{
             Stage userStage = new Stage();
             FXMLLoader passengerLoader = new FXMLLoader();
             Pane passengerRoot = passengerLoader.load(getClass().getResource("/passengerFXML.fxml").openStream());
 
             PassengerController passengerController = passengerLoader.getController();
+            passengerController.initialize(passenger);
 
             Scene scene = new Scene(passengerRoot);
             userStage.setScene(scene);

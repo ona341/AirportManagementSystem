@@ -2,6 +2,8 @@ package Startup;
 
 
 import Singleton.AirportAccess;
+import Singleton.FlightsAccess;
+import Singleton.PassengerAccess;
 import Singleton.dbConnection;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -90,6 +92,9 @@ public class AMS extends Application implements Initializable{
             ResultSet rs = prpst.executeQuery();
 
             AirportAccess.initialize(rs.getString(1),1,rs.getInt(2), 1,rs.getInt(3));
+
+            FlightsAccess.getInstance();
+            PassengerAccess.getInstance();
 
             prpst.close();
 
