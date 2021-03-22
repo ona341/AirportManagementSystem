@@ -18,7 +18,8 @@ import java.sql.SQLException;
 
 public class AddTasks implements Command {
 
-    public TextField location;
+    public TextField taskLocation;
+    @FXML
     public TextField fromTime;
     @FXML
     public TextField toTime;
@@ -75,6 +76,7 @@ public class AddTasks implements Command {
     public void clearForm(ActionEvent event) {
         fromTime.clear();
         toTime.clear();
+        taskLocation.clear();
         taskToDo.clear();
     }
 
@@ -128,7 +130,7 @@ public class AddTasks implements Command {
                 rs.setString(1, employee.getId());
                 rs.setString(2, fromTime.getText());
                 rs.setString(3, toTime.getText());
-                rs.setString(4, location.getText());
+                rs.setString(4, taskLocation.getText());
                 rs.setString(5, taskToDo.getText());
                 rs.execute();
                 rs.close();
@@ -136,7 +138,7 @@ public class AddTasks implements Command {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            DailyTasks dt = new DailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), location.getText(), taskToDo.getText());
+            DailyTasks dt = new DailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), taskLocation.getText(), taskToDo.getText());
             clearForm(null);
             DailyTasksAccess.getInstance().add(dt);
             dta2.add(dt);
