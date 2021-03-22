@@ -4,7 +4,6 @@ import Command.*;
 import Entities.DailyTasks;
 import Entities.Employee;
 import Entities.Flight;
-import Entities.Passenger;
 import FlightView.FlightView;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
@@ -20,12 +19,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import loginapp.option;
 
-import javax.naming.Binding;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -395,7 +392,7 @@ public class AirportManagerController implements Initializable{
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM dailyTasks");
 
             while(rs.next()) {
-                this.dailyTasksData.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+                this.dailyTasksData.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
 
             rs.close(); //closes the database connection

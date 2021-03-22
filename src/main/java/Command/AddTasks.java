@@ -18,6 +18,7 @@ import java.sql.SQLException;
 
 public class AddTasks implements Command {
 
+    public TextField location;
     public TextField fromTime;
     @FXML
     public TextField toTime;
@@ -25,6 +26,7 @@ public class AddTasks implements Command {
     public TextArea taskToDo;
     public TableColumn<DailyTasks,String> fromCol;
     public TableColumn<DailyTasks,String> toCol;
+    public TableColumn<DailyTasks,String> locationCol;
     public TableColumn<DailyTasks,String> taskCol;
     public TableView<DailyTasks> table;
 
@@ -59,6 +61,7 @@ public class AddTasks implements Command {
         }
         fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
         toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
 
         table.setItems(dta2);
@@ -117,7 +120,7 @@ public class AddTasks implements Command {
      */
     public void buttonEvent(ActionEvent actionEvent) {
         if (checkInvalidFields(null)) {
-            String sql = "INSERT INTO dailyTasks(employeeId,fromTime,toTime,task) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO dailyTasks(employeeId,fromTime,toTime,location,task) VALUES(?,?,?,?,?)";
 
             try {
                 Connection conn = dbConnection.getConnection();
@@ -125,20 +128,22 @@ public class AddTasks implements Command {
                 rs.setString(1, employee.getId());
                 rs.setString(2, fromTime.getText());
                 rs.setString(3, toTime.getText());
-                rs.setString(4, taskToDo.getText());
+                rs.setString(4, location.getText());
+                rs.setString(5, taskToDo.getText());
                 rs.execute();
                 rs.close();
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            DailyTasks dt = new DailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), taskToDo.getText());
+            DailyTasks dt = new DailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), location.getText(), taskToDo.getText());
             clearForm(null);
             DailyTasksAccess.getInstance().add(dt);
             dta2.add(dt);
         }
         fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
         toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
 
         table.setItems(dta2);

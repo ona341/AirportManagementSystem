@@ -31,7 +31,8 @@
               <columns>
                 <TableColumn fx:id="fromCol" prefWidth="113.0" text="From" />
                 <TableColumn fx:id="toCol" prefWidth="113.0" text="To" />
-                  <TableColumn fx:id="taskCol" prefWidth="373.0" text="Task" />
+                  <TableColumn fx:id="locationCol" prefWidth="113.0" text="Location" />
+                  <TableColumn fx:id="taskCol" prefWidth="258.0" text="Task" />
               </columns>
             </TableView>
          </children></AnchorPane>
