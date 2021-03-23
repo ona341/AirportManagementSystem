@@ -50,22 +50,9 @@ public class ParkingController {
     @FXML
     public Label cancelMessage;
 
-    @FXML
-    public Label nameConfirmation;
-
-    @FXML
-    public Label emailConfirmation;
-
-    @FXML
-    public Label idConfirmation;
-
-    @FXML
-    public Label parkingNumConfirmation;
 
     @FXML
     public Button okButton;
-
-
 
 
     @FXML
@@ -74,22 +61,26 @@ public class ParkingController {
 
     }
 
+    @FXML
     public void toConfirmation(ActionEvent event) {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/confirmParkingInfo.fxml"));
-            Stage confirmationStage = new Stage();
-            confirmationStage.initStyle(StageStyle.UNDECORATED);
-            confirmationStage.setScene(new Scene(root, 600, 496));
-            confirmationStage.setTitle("Parking Confirmation");
-            confirmationStage.setResizable(false);
-            confirmationStage.showAndWait();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/confirmParkingInfo.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+
+            ConfirmationView c = (ConfirmationView) loader.getController();
+            c.setNameConfirmation(nameField.getText());
+            c.setIdConfirmation(idField.getText());
+            c.setEmailConfirmation(emailField.getText());
+            c.setParkingNumConfirmation(parkingLabel.getText());
+            stage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
         }
-
     }
 
 
@@ -127,11 +118,14 @@ public class ParkingController {
             nameError.setTextFill(Color.GREEN);
             nameError.setText("Parking Reservation has been completed!");
             emailError.setText("");
-            nameError.setTextFill(Color.RED);
+            nameError.setTextFill(Color.GREEN);
             AddParking addparking = new AddParking(this);
+            toConfirmation(event);
             addparking.execute();
 
-            toConfirmation(event);
+
+
+
 
         }
     }

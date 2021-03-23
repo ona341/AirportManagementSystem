@@ -61,13 +61,13 @@ public class AddParking implements Command{
             //assigns the passenger and their parking stall to a stall in the airport
             AirportAccess.getInstance().getParkingStalls().assignEntityToStall(passenger, parkingStall);
 
-
             parkingController.clearReserveForm(null);
 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
 
