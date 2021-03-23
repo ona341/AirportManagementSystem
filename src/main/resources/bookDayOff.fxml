@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="312.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AirportEmployee.AirportEmployeeController">
+   <children>
+      <Button layoutX="107.0" layoutY="67.0" mnemonicParsing="false" onAction="#sunDay" prefHeight="27.0" prefWidth="84.0" text="Sunday" />
+      <Button layoutX="107.0" layoutY="294.0" mnemonicParsing="false" onAction="#saturDay" prefHeight="27.0" prefWidth="84.0" text="Saturday" />
+      <Button layoutX="107.0" layoutY="255.0" mnemonicParsing="false" onAction="#friDay" prefHeight="27.0" prefWidth="84.0" text="Friday" />
+      <Button layoutX="107.0" layoutY="218.0" mnemonicParsing="false" onAction="#thursDay" prefHeight="27.0" prefWidth="84.0" text="Thursday" />
+      <Button layoutX="107.0" layoutY="179.0" mnemonicParsing="false" onAction="#wednesDay" text="Wednesday" />
+      <Button layoutX="107.0" layoutY="144.0" mnemonicParsing="false" onAction="#tuesDay" prefHeight="27.0" prefWidth="84.0" text="Tuesday" />
+      <Button layoutX="107.0" layoutY="104.0" mnemonicParsing="false" onAction="#monDay" prefHeight="27.0" prefWidth="84.0" text="Monday" />
+      <Label layoutX="86.0" layoutY="22.0" prefHeight="27.0" prefWidth="210.0" text="Select the day of the week" />
+      <Button layoutX="231.0" layoutY="348.0" mnemonicParsing="false" onAction="#back" text="Back" />
+   </children>
+</AnchorPane>
