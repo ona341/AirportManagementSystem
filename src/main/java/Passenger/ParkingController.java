@@ -87,20 +87,18 @@ public class ParkingController {
     @FXML
     public void addParking(ActionEvent event) {
 
+        String EMAIL_REGEX = "^[0-9?A-z0-9?]+(\\.)?[0-9?A-z0-9?]+@[A-z]+\\.[A-z]{2}.?[A-z]{0,3}$";
 
         if (nameField.getText().isEmpty() || idField.getText().isEmpty() || emailField.getText().isEmpty()
-                || CheckinDatePicker.getValue() == null) {
+                || CheckinDatePicker.getValue() == null || parkingLabel.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Fill all fields!");
+            alert.setContentText("Please fill all fields and click search to find an available parking stall!");
             alert.setHeaderText("Fill all fields!");
             alert.setTitle("Error!");
             alert.showAndWait();
         }
-
-        String EMAIL_REGEX = "^[0-9?A-z0-9?]+(\\.)?[0-9?A-z0-9?]+@[A-z]+\\.[A-z]{2}.?[A-z]{0,3}$";
-
         // checks name for any number and allows for spaces
-        if (!(nameField.getText().isEmpty()) && !(nameField.getText()).matches("[A-Za-z\\s]{2,}")) {
+        else if (!(nameField.getText().isEmpty()) && !(nameField.getText()).matches("[A-Za-z\\s]{2,}")) {
             nameError.setText("Name must contain only letters");
             nameError.setTextFill(Color.RED);
 
@@ -113,19 +111,15 @@ public class ParkingController {
             nameError.setText("");
         }
 
+
+
         // success
         else {
             nameError.setTextFill(Color.GREEN);
             nameError.setText("Parking Reservation has been completed!");
             emailError.setText("");
-            nameError.setTextFill(Color.GREEN);
             AddParking addparking = new AddParking(this);
-            toConfirmation(event);
             addparking.execute();
-
-
-
-
 
         }
     }
