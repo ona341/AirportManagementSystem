@@ -22,6 +22,7 @@ public class ViewTasks implements Command {
 
     public TableColumn<DailyTasks,String> fromCol;
     public TableColumn<DailyTasks,String> toCol;
+    public TableColumn<DailyTasks,String> locationCol;
     public TableColumn<DailyTasks,String> taskCol;
     public TableView<DailyTasks> table;
 
@@ -53,13 +54,13 @@ public class ViewTasks implements Command {
         ObservableList<DailyTasks> dta2 = FXCollections.observableArrayList();
         try {
             Connection conn = dbConnection.getConnection();
-            String sql = "SELECT fromTime,toTime,task FROM dailyTasks WHERE employeeId ='" + employeeId.getText() + "'";
+            String sql = "SELECT fromTime,toTime,location,task FROM dailyTasks WHERE employeeId ='" + employeeId.getText() + "'";
             Statement pstmt = conn.createStatement();
             ResultSet rs = pstmt.executeQuery(sql);
 
             boolean errorFound = true;
             while(rs.next()) {
-                DailyTasks dt = new DailyTasks(employeeId.getText(), rs.getString(1), rs.getString(2), rs.getString(3));
+                DailyTasks dt = new DailyTasks(employeeId.getText(), rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
                 dta2.add(dt);
                 errorFound = false;
             }
@@ -72,6 +73,7 @@ public class ViewTasks implements Command {
         }
         fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
         toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
         table.setItems(dta2);
         clearForm(null);

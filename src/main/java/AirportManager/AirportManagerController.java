@@ -4,7 +4,6 @@ import Command.*;
 import Entities.DailyTasks;
 import Entities.Employee;
 import Entities.Flight;
-import Entities.Passenger;
 import FlightView.FlightView;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
@@ -20,12 +19,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import loginapp.option;
 
-import javax.naming.Binding;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -93,7 +90,10 @@ public class AirportManagerController implements Initializable{
     @FXML
     public ComboBox<option> selectionComboBox;
     @FXML
+    public TextField employeeRoleTextField;
+    @FXML
     private Label errorMessageLabel;
+
 
 
 
@@ -120,6 +120,7 @@ public class AirportManagerController implements Initializable{
     public TableColumn<DailyTasks,String> toCol;
     @FXML
     public TableColumn<DailyTasks,String> taskCol;
+
 
     /**
      * Logout as the Airport Manager.
@@ -224,6 +225,8 @@ public class AirportManagerController implements Initializable{
         setPasswordField.clear();
         confirmPasswordField.clear();
         selectionComboBox.setValue(null);
+        employeeRoleTextField.clear();
+        employeeRoleTextField.setVisible(false);
     }
 
     /**
@@ -234,8 +237,21 @@ public class AirportManagerController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        this.selectionComboBox.setItems(FXCollections.observableArrayList(option.values()));
+        selectionComboBox.setItems(FXCollections.observableArrayList(option.values()));
 
+        employeeRoleTextField.setVisible(false);
+
+        // checks is comboBox selection is 'Airport Employee' to make role text field visible
+        selectionComboBox.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    try {
+                        if(newValue.compareTo(option.AIRPORTEMPLOYEE) == 0)
+                            employeeRoleTextField.setVisible(true);
+                        else
+                            employeeRoleTextField.setVisible(false);
+                    } catch (Exception e) { }
+                }
+                );
 
         flightCol.setCellValueFactory(new PropertyValueFactory<>("flightNumber"));
         airlineCol.setCellValueFactory(new PropertyValueFactory<>("airline"));
@@ -246,18 +262,16 @@ public class AirportManagerController implements Initializable{
 
         tableview.setItems(FlightsAccess.getSearchInstance());
 
-        searchBox.textProperty().addListener((a,b,c) -> FlightsAccess.getSearchInstance().setPredicate(Flight.search(c)));
+        searchBox.textProperty().addListener((observableValue,oldValue,newValue) -> FlightsAccess.getSearchInstance().setPredicate(Flight.search(newValue)));
 
         capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
-
-
 
         employeeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 
         tableviewEmployees.setItems(EmployeeAccess.getSearchInstance());
-        searchUsers.textProperty().addListener((a,b,c) -> EmployeeAccess.getSearchInstance().setPredicate(Employee.search(c)));
+        searchUsers.textProperty().addListener((observableValue,oldValue,newValue) -> EmployeeAccess.getSearchInstance().setPredicate(Employee.search(newValue)));
     }
 
     /**
@@ -275,7 +289,17 @@ public class AirportManagerController implements Initializable{
 
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
                 setPasswordField.getText().equals(confirmPasswordField.getText())){
-            Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
+
+            Employee e = null;
+
+            if(selectionComboBox.getValue().toString().compareTo(option.AIRPORTEMPLOYEE.toString()) == 0) {
+                
+                if(employeeRoleTextField.getText().isEmpty())
+                    e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
+                else
+                    e = new Employee(idNumberTextField.getText(), usersName.getText(), employeeRoleTextField.getText());
+            }
+
             new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
             clearUserForm(null);
@@ -395,7 +419,7 @@ public class AirportManagerController implements Initializable{
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM dailyTasks");
 
             while(rs.next()) {
-                this.dailyTasksData.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+                this.dailyTasksData.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
 
             rs.close(); //closes the database connection

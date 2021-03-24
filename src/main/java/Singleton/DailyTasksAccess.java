@@ -43,13 +43,13 @@ public class DailyTasksAccess {
         if (dailyTasks == null) {
             dailyTasks = FXCollections.observableArrayList();
             try {
-                String sql = "SELECT employeeId, fromTime, toTime, task FROM dailyTasks";
+                String sql = "SELECT employeeId, fromTime, toTime, location, task FROM dailyTasks";
                 Connection conn = dbConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
-                    dailyTasks.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+                    dailyTasks.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
                 }
 
                 stmt.close();

@@ -7,13 +7,15 @@ public class DailyTasks {
     private StringProperty employeeId;
     private StringProperty from;
     private StringProperty to;
+    private StringProperty location;
     private StringProperty tasks;
 
 
-    public DailyTasks(String employeeId, String from, String to, String tasks) {
+    public DailyTasks(String employeeId, String from, String to, String location, String tasks) {
         this.employeeId = new SimpleStringProperty(employeeId);
         this.from = new SimpleStringProperty(from);
         this.to = new SimpleStringProperty(to);
+        this.location = new SimpleStringProperty(location);
         this.tasks = new SimpleStringProperty(tasks);
     }
 
@@ -31,11 +33,19 @@ public class DailyTasks {
     public void setTo(String to) { this.to.set(to); }
 
 
+    public String getLocation() { return location.get(); }
+
+    public StringProperty toLocation() { return location; }
+
+    public void setLocation(String location) { this.location.set(location); }
+
+
     public String getTasks() { return tasks.get(); }
 
     public StringProperty tasksProperty() { return tasks; }
 
     public void setTasks(String tasks) { this.tasks.set(tasks); }
+
 
     public String getEmployeeId() { return employeeId.get(); }
 

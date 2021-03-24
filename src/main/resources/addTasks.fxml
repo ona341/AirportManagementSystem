@@ -10,18 +10,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Command.AddTasks">
+<SplitPane dividerPositions="0.4197324414715719" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Command.AddTasks">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="256.0">
          <children>
             <Label layoutX="30.0" layoutY="24.0" prefHeight="31.0" prefWidth="96.0" text="Add Tasks">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="fromTime" layoutX="82.0" layoutY="68.0" prefHeight="27.0" prefWidth="148.0" promptText="Time HH:MM:SS" />
-            <TextField fx:id="toTime" layoutX="82.0" layoutY="104.0" prefHeight="27.0" prefWidth="148.0" promptText="Time HH:MM:SS" />
-            <TextArea fx:id="taskToDo" layoutX="30.0" layoutY="138.0" prefHeight="200.0" prefWidth="200.0" promptText="Task" />
+            <TextField fx:id="fromTime" layoutX="88.0" layoutY="68.0" prefHeight="27.0" prefWidth="142.0" promptText="Time HH:MM:SS" />
+            <TextField fx:id="toTime" layoutX="88.0" layoutY="104.0" prefHeight="27.0" prefWidth="142.0" promptText="Time HH:MM:SS" />
+            <TextArea fx:id="taskToDo" layoutX="30.0" layoutY="183.0" prefHeight="155.0" prefWidth="200.0" promptText="Task" />
             <Button layoutX="30.0" layoutY="357.0" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="27.0" prefWidth="200.0" text="Add Task" />
             <Label layoutX="30.0" layoutY="72.0" text="From">
                <font>
@@ -33,14 +33,21 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <TextField fx:id="taskLocation" layoutX="89.0" layoutY="142.0" prefHeight="27.0" prefWidth="142.0" promptText="Location" />
+            <Label layoutX="30.0" layoutY="146.0" text="Location">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="359.0">
          <children>
-            <TableView fx:id="table" prefHeight="400.0" prefWidth="295.0">
+            <TableView fx:id="table" prefHeight="400.0" prefWidth="377.0">
               <columns>
-                <TableColumn fx:id="fromCol" prefWidth="75.0" text="From" />
-                <TableColumn fx:id="toCol" prefWidth="75.0" text="To" />
-                  <TableColumn fx:id="taskCol" prefWidth="144.0" text="Task" />
+                <TableColumn fx:id="fromCol" prefWidth="84.0" text="From" />
+                <TableColumn fx:id="toCol" prefWidth="84.0" text="To" />
+                  <TableColumn fx:id="locationCol" prefWidth="88.0" text="Location" />
+                  <TableColumn fx:id="taskCol" prefWidth="124.0" text="Task" />
               </columns>
             </TableView>
          </children></AnchorPane>
