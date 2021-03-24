@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import java.sql.*;
 
 /**
- * Allows the manager to add an employee to the system.
+ * Allows the manager to add any type of user to the system.
  */
 public class AddUser implements Command{
     private final Passenger user;
