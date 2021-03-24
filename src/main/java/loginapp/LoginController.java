@@ -21,8 +21,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * LoginController
+ */
 public class LoginController implements Initializable {
-
+    /**
+     * LoginMod
+     */
     final LoginModel loginModel = new LoginModel();
 
     @FXML
@@ -109,6 +114,7 @@ public class LoginController implements Initializable {
             Pane airportEmpRoot = airportEmpLoader.load(getClass().getResource("/airportEmployeeFXML.fxml").openStream());
 
             AirportEmployeeController airportEmployeeController = airportEmpLoader.getController();
+            airportEmpLoader.<AirportEmployeeController>getController().initialize(getIdNumber());
 
             Scene scene = new Scene(airportEmpRoot);
             userStage.setScene(scene);

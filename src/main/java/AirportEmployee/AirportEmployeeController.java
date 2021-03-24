@@ -1,5 +1,6 @@
 package AirportEmployee;
 
+import Command.BookDayOff;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,10 +10,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 /**
- * Airport Employee Controller currently only goes back to logout
+ * Airport Employee Controller class
  */
-public class AirportEmployeeController {
+public class AirportEmployeeController  {
+    /**
+     * a string that is the employee's ID
+     */
+    String employeeId;
     /**
      * Takes the user back to the login page
      * @param event a button is clicked
@@ -63,8 +69,31 @@ public class AirportEmployeeController {
         }
     }
 
+    /**
+     * To Request time off for an employee
+     * @param event an action performed by user
+     */
     public void toRequestTimeOff(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/bookDayOff.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+            loader.<BookDayOff>getController().initialize(this.employeeId);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
 
+        }
     }
+
+    /**
+     * Initializes the important values for an employee
+     * @param employeeId the employees Id
+     */
+    public void initialize(String employeeId){
+        this.employeeId = employeeId;
+    }
+
 
 }

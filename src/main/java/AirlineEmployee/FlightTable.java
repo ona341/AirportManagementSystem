@@ -103,4 +103,8 @@ public class FlightTable {
 
     }
 
+    public void setPassengerPermissions() {
+        flightTable.getColumns().remove(deleteCol);
+        flightTable.setOnMouseClicked(null);
+    }
 }

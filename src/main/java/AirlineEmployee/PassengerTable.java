@@ -10,13 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 
@@ -70,6 +69,24 @@ public class PassengerTable {
                     new BreakAssociation(flight,cell.getItem()).execute();
             });
             return cell;
+        });
+
+        seatCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        passengerTable.setEditable(true);
+        seatCol.setOnEditCommit(event -> {
+            System.out.println("Edit");
+            event.getRowValue();
+            try {
+                Passenger passenger = event.getRowValue();
+                flight.getSeats().assignEntityToStall(passenger, event.getNewValue());
+                flight.getSeats().freeStall(passenger.getSeatNumber(flight));
+                passenger.setSeatNumber(flight,event.getNewValue());
+
+            } catch (IllegalStateException | IllegalArgumentException e) {
+                new Alert(Alert.AlertType.ERROR, "The entered seat is either occupied or exceeds the maximum seat number.").showAndWait();
+                e.printStackTrace();
+            }
+
         });
     }
 
