@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="425.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Command.ModifyEmployeeInformation">
+   <children>
+      <HBox prefHeight="425.0" prefWidth="302.0">
+         <children>
+            <AnchorPane prefHeight="425.0" prefWidth="302.0">
+               <children>
+                  <Text layoutX="30.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee #" wrappingWidth="74.6611328125" />
+                  <Text fx:id="employeeIdLabel" layoutX="102.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE ID" />
+                  <Text fx:id="employeeNameLabel" layoutX="30.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE NAME" />
+                  <Text fx:id="employeeEmailLabel" layoutX="30.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE EMAIL" />
+                  <Text fx:id="employeeRoleLabel" layoutX="31.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE ROLE" />
+                  <Button layoutX="228.0" layoutY="72.0" mnemonicParsing="false" onAction="#editName" text="Edit" />
+                  <Button layoutX="228.0" layoutY="109.0" mnemonicParsing="false" onAction="#editEmail" text="Edit" />
+                  <Button layoutX="228.0" layoutY="145.0" mnemonicParsing="false" onAction="#editRole" text="Edit" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox fx:id="hBox" layoutX="311.0" prefHeight="425.0" prefWidth="346.0">
+         <children>
+            <AnchorPane minHeight="318.0" minWidth="341.0" prefHeight="425.0" prefWidth="341.0">
+               <children>
+                  <Text layoutX="33.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Work Schedule" />
+                  <Text layoutX="34.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUNDAY" />
+                  <Text layoutX="34.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MONDAY" />
+                  <Text layoutX="33.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TUESDAY" />
+                  <Text layoutX="33.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WEDNESDAY" />
+                  <Text layoutX="33.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THURSDAY" />
+                  <Text layoutX="35.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FRIDAY" />
+                  <Text layoutX="37.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SATURDAY" />
+                  <Text fx:id="sun" layoutX="129.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+                  <Text fx:id="mon" layoutX="129.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+                  <Text fx:id="tues" layoutX="129.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+                  <Text fx:id="wed" layoutX="129.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+                  <Text fx:id="thur" layoutX="129.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+                  <Text fx:id="fri" layoutX="129.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+                  <Text fx:id="sat" layoutX="129.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125" />
+                  <Button layoutX="282.0" layoutY="65.0" mnemonicParsing="false" onAction="#editSunday" text="Edit" />
+                  <Button layoutX="282.0" layoutY="100.0" mnemonicParsing="false" onAction="#editMonday" text="Edit" />
+                  <Button layoutX="282.0" layoutY="135.0" mnemonicParsing="false" onAction="#editTuesday" text="Edit" />
+                  <Button layoutX="282.0" layoutY="167.0" mnemonicParsing="false" onAction="#editWednesday" text="Edit" />
+                  <Button layoutX="282.0" layoutY="200.0" mnemonicParsing="false" onAction="#editThursday" text="Edit" />
+                  <Button layoutX="283.0" layoutY="234.0" mnemonicParsing="false" onAction="#editFriday" text="Edit" />
+                  <Button layoutX="283.0" layoutY="269.0" mnemonicParsing="false" onAction="#editSaturday" prefHeight="27.0" prefWidth="39.0" text="Edit" />
+                  <Button fx:id="done" layoutX="-10.0" layoutY="371.0" mnemonicParsing="false" onAction="#done" text="Done" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
