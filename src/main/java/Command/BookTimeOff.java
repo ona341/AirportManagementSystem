@@ -73,10 +73,7 @@ public class BookTimeOff implements Command {
             prpst.setString(1, "OFF");
             prpst.executeUpdate();
             booked();
-
             prpst.close();
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }      }
@@ -117,12 +114,9 @@ public class BookTimeOff implements Command {
         alert.showAndWait();
     }
 
-
     public void back(ActionEvent event) throws IOException {
         ((Button) event.getSource()).getScene().getWindow().hide();
     }
-
-
 
     @Override
     public void execute() throws SQLException {
