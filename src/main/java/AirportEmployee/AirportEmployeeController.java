@@ -67,6 +67,10 @@ public class AirportEmployeeController  {
         }
     }
 
+    /**
+     * To Request time off for an employee
+     * @param event an action performed by user
+     */
     public void toRequestTimeOff(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/bookDayOff.fxml"));
@@ -74,14 +78,17 @@ public class AirportEmployeeController  {
             Parent root = loader.load();
             stage.setScene(new Scene(root));
             loader.<BookTimeOff>getController().initialize(this.employeeId);
-
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
 
         }
     }
+
+    /**
+     * Initializes the important values for an employee
+     * @param employeeId the employees Id
+     */
     public void initialize(String employeeId){
         this.employeeId = employeeId;
     }
