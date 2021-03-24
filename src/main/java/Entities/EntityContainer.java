@@ -14,8 +14,10 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class EntityContainer<I> {
@@ -27,6 +29,8 @@ public class EntityContainer<I> {
 
 
     private final ObservableList<I> stalls;
+
+    private final FilteredList<I> stallsFiltered;
 
 
     private IntegerProperty count = new SimpleIntegerProperty(0);
@@ -47,6 +51,7 @@ public class EntityContainer<I> {
         for (int i = 0; i < wMaxStallLabel - wMinStallLabel + 1; i++) {
             stalls.add(null);
         }
+        stallsFiltered = new FilteredList<>(stalls, Objects::nonNull);
     }
 
 
@@ -198,7 +203,7 @@ public class EntityContainer<I> {
 
 
     public ObservableList<I> getObservableList () {
-        return stalls;
+        return stallsFiltered;
     }
 
     public static void main(String[] args) {

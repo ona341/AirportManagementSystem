@@ -73,7 +73,7 @@ public class PassengerController {
 
 
             loader.<FlightTable>getController().initialize(passenger);
-
+            loader.<FlightTable>getController().setPassengerPermissions();
 
             stage.show();
         } catch (IOException e) {

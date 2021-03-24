@@ -124,6 +124,10 @@ public class AirlineEmployeeController implements Initializable {
 
     }
 
+    /**
+     * Associates the Passengers with their flight details
+     * @param actionEvent
+     */
     public void makeAssociation(ActionEvent actionEvent) {
         Passenger p = passengerTable.getSelectionModel().getSelectedItem();
         Flight f = flightTable.getSelectionModel().getSelectedItem();
@@ -155,6 +159,10 @@ public class AirlineEmployeeController implements Initializable {
         topBox.getScene().getWindow().sizeToScene();
     }
 
+    /**
+     * Adds a passenger to the system
+     * @param actionEvent
+     */
     public void addPassenger(ActionEvent actionEvent) {
         Passenger p = new Passenger(NameField.getText(),IDField.getText(),EmailField.getText());
         new AddUser(p,new char[] {1,2,3}).execute();
