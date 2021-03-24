@@ -12,10 +12,12 @@ import java.io.IOException;
 
 
 /**
- * Airport Employee Controller currently only goes back to logout
+ * Airport Employee Controller class
  */
 public class AirportEmployeeController  {
-
+    /**
+     * a string that is the employee's ID
+     */
     String employeeId;
     /**
      * Takes the user back to the login page
