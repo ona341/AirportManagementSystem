@@ -257,14 +257,9 @@ public class BookTimeOff implements Command {
     }
     private void booked(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("");
         alert.setContentText("Success! You now have this day off");
         alert.showAndWait();
     }
-
-
-
-
 
 
     public void back(ActionEvent event) throws IOException {
@@ -272,32 +267,6 @@ public class BookTimeOff implements Command {
     }
 
 
-//        if (checkInvalidFields(null)) {
-//        String sql = "INSERT INTO dailyTasks(employeeId,fromTime,toTime,task) VALUES(?,?,?,?)";
-//
-//        try {
-//            Connection conn = dbConnection.getConnection();
-//            PreparedStatement rs = conn.prepareStatement(sql);
-//            rs.setString(1, employee.getId());
-//            rs.setString(2, fromTime.getText());
-//            rs.setString(3, toTime.getText());
-//            rs.setString(4, taskToDo.getText());
-//            rs.execute();
-//            rs.close();
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        if (day.equals("Saturday")){employee.schedule().setSaturday("OFF"); }
-//        else if (day.equals("Sunday")){employee.schedule().setSunday("OFF"); }
-//        else if (day.equals("Monday")){employee.schedule().setMonday("OFF"); }
-//        else if (day.equals("Tuesday")){employee.schedule().setTuesday("OFF"); }
-//        else if (day.equals("Wednesday")){employee.schedule().setWednesday("OFF"); }
-//        else if (day.equals("Thursday")){employee.schedule().setThursday("OFF"); }
-//        else if (day.equals("Friday")){employee.schedule().setFriday("OFF"); }
-
-
-//    }
 
     @Override
     public void execute() throws SQLException {
