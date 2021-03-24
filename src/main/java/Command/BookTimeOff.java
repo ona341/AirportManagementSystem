@@ -4,15 +4,28 @@ import Singleton.dbConnection;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import java.io.IOException;
 import java.sql.*;
 
-
+/**
+ * BookTimeOff Class implements the command pattern to book a employees day off
+ */
 public class BookTimeOff implements Command {
+    /**
+     * The id of the employee
+     */
     String employeeId;
+
+    /**
+     * Initializes the employee Id attribute of the BookTimeOff class
+     * @param employeeId the employee's ID
+     */
     public void initialize(String employeeId) {this.employeeId = employeeId; }
 
-        public void sunDay(ActionEvent event) throws SQLException {
+    /**
+     * Books Sunday off
+     * @param event the button labelled sunday is clicked
+     */
+    public void sunDay(ActionEvent event) {
 
             try {
                 Connection conn = dbConnection.getConnection();
@@ -21,14 +34,16 @@ public class BookTimeOff implements Command {
                 prpst.setString(1, "OFF");
                 prpst.executeUpdate();
                 booked();
-
                 prpst.close();
-
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+
+    /**
+     * Books Monday off
+      * @param event the button labelled Monday is clicked
+     */
     public void monDay(ActionEvent event){
         try {
             Connection conn = dbConnection.getConnection();
@@ -41,6 +56,10 @@ public class BookTimeOff implements Command {
         } catch (SQLException e) {
             e.printStackTrace();
         }    }
+    /**
+     * Books Tuesday off
+     * @param event the button labelled Tuesday is clicked
+     */
     public void tuesDay(ActionEvent event){
         try {
             Connection conn = dbConnection.getConnection();
@@ -53,6 +72,10 @@ public class BookTimeOff implements Command {
         } catch (SQLException e) {
             e.printStackTrace();
         }    }
+    /**
+     * Books Wednesday off
+     * @param event the button labelled Wednesday is clicked
+     */
     public void wednesDay(ActionEvent event){
         try {
             Connection conn = dbConnection.getConnection();
@@ -65,6 +88,10 @@ public class BookTimeOff implements Command {
         } catch (SQLException e) {
             e.printStackTrace();
         }       }
+    /**
+     * Books Thursday off
+     * @param event the button labelled Thursday is clicked
+     */
     public void thursDay(ActionEvent event){
         try {
             Connection conn = dbConnection.getConnection();
@@ -77,6 +104,10 @@ public class BookTimeOff implements Command {
         } catch (SQLException e) {
             e.printStackTrace();
         }      }
+    /**
+     * Books Friday off
+     * @param event the button labelled Friday is clicked
+     */
     public void friDay(ActionEvent event){
         try {
             Connection conn = dbConnection.getConnection();
@@ -90,7 +121,11 @@ public class BookTimeOff implements Command {
             e.printStackTrace();
         }     }
 
-        public void saturDay(ActionEvent event){
+    /**
+     * Books Saturday off
+     * @param event the button labelled Saturday is clicked
+     */
+    public void saturDay(ActionEvent event){
         try {
             Connection conn = dbConnection.getConnection();
             String sql = "UPDATE workSchedule SET saturday = ? WHERE employeeId ='" + employeeId + "'";
@@ -102,23 +137,28 @@ public class BookTimeOff implements Command {
         } catch (SQLException e) {
             e.printStackTrace();
         }      }
-    private void notifyError() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Invalid employee ID");
-        alert.setContentText("Please fill in the correct employee ID");
-        alert.showAndWait();
-    }
+
+    /**
+     * Displays Success message if the day off was successful
+     */
     private void booked(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Success! You now have this day off.\nTo reverse this booking you will have to contact your manager");
         alert.showAndWait();
     }
 
-    public void back(ActionEvent event) throws IOException {
+    /**
+     * Takes the employee back to the employee features page
+     * @param event the back button is clicked
+     */
+    public void back(ActionEvent event) {
         ((Button) event.getSource()).getScene().getWindow().hide();
     }
 
     @Override
+    /**
+     * Execute method for the command pattern
+     */
     public void execute() throws SQLException {
     }
 }
