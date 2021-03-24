@@ -115,10 +115,11 @@ public class ParkingController {
 
         // success
         else {
-            nameError.setTextFill(Color.GREEN);
             nameError.setText("Parking Reservation has been completed!");
+            nameError.setTextFill(Color.GREEN);
             emailError.setText("");
             AddParking addparking = new AddParking(this);
+            toConfirmation(event);
             addparking.execute();
 
         }

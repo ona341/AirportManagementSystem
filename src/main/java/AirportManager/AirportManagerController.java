@@ -4,6 +4,7 @@ import Command.*;
 import Entities.DailyTasks;
 import Entities.Employee;
 import Entities.Flight;
+import Entities.Passenger;
 import FlightView.FlightView;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
@@ -513,12 +514,18 @@ public class AirportManagerController implements Initializable{
     public void doubleClickEmployee(MouseEvent event) {
         if (event.getClickCount() == 2) {
             ObservableList<Employee> selectedEmployee;
-            if (!(selectedEmployee = tableviewEmployees.getSelectionModel().getSelectedItems()).isEmpty()) {
-                modifyEmployeeInformation(selectedEmployee.get(0));
-                addTask(selectedEmployee.get(0));
+            if (!(selectedEmployee = tableviewEmployees.getSelectionModel().getSelectedItems()).isEmpty()){
+                for (Employee employee : selectedEmployee) {
+                    if (!(employee.getRole().equals("Passenger"))) {
+                        modifyEmployeeInformation(selectedEmployee.get(0));
+                        addTask(selectedEmployee.get(0));
+
+                    }
+                }
             }
         }
     }
+
 
 
     /**
