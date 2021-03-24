@@ -113,12 +113,9 @@ public class Passenger extends Person implements Searchable{
   }
 
   public void setSeatNumber(Flight flight, int seatNumber) {
-    SimpleEntry<Flight, IntegerProperty> pair;
-    if ((pair = this.getFlightPair(flight)).getValue().get() != -1 && seatNumber != -1) {
-      throw new IllegalStateException("Error: This passenger is already assigned to a seat");
-    } else {
-      pair.setValue(new SimpleIntegerProperty(seatNumber));
-    }
+    SimpleEntry<Flight, IntegerProperty> pair = this.getFlightPair(flight);
+    pair.setValue(new SimpleIntegerProperty(seatNumber));
+
   }
 
   public IntegerProperty sizeProperty() {

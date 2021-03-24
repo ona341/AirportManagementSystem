@@ -246,7 +246,7 @@ public class AirportManagerController implements Initializable{
 
         tableview.setItems(FlightsAccess.getSearchInstance());
 
-        searchBox.textProperty().addListener((a,b,c) -> FlightsAccess.getSearchInstance().setPredicate(Flight.search(c)));
+        searchBox.textProperty().addListener((observableValue,oldValue,newValue) -> FlightsAccess.getSearchInstance().setPredicate(Flight.search(newValue)));
 
         capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
 
@@ -257,7 +257,7 @@ public class AirportManagerController implements Initializable{
         employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 
         tableviewEmployees.setItems(EmployeeAccess.getSearchInstance());
-        searchUsers.textProperty().addListener((a,b,c) -> EmployeeAccess.getSearchInstance().setPredicate(Employee.search(c)));
+        searchUsers.textProperty().addListener((observableValue,oldValue,newValue) -> EmployeeAccess.getSearchInstance().setPredicate(Employee.search(newValue)));
     }
 
     /**
