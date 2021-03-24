@@ -16,22 +16,21 @@ import java.sql.Statement;
 public class ViewEmployeeSchedule implements Command {
 
     @FXML
-    public Button done;
+    public Button done1;
     @FXML
-    public Text sun;
+    public Text sun1;
     @FXML
-    public Text mon;
+    public Text mon1;
     @FXML
-    public Text tues;
+    public Text tues1;
     @FXML
-    public Text wed;
+    public Text wed1;
     @FXML
-    public Text thur;
+    public Text thur1;
     @FXML
-    public Text fri;
+    public Text fri1;
     @FXML
-    public Text sat;
-    @FXML
+    public Text sat1;
     public TextField employeeId;
 
     /**
@@ -53,13 +52,13 @@ public class ViewEmployeeSchedule implements Command {
             ResultSet rs = pstmt.executeQuery(sql);
 
             if (rs.next()) {
-                sun.setText(rs.getString(2));
-                mon.setText(rs.getString(3));
-                tues.setText(rs.getString(4));
-                wed.setText(rs.getString(5));
-                thur.setText(rs.getString(6));
-                fri.setText(rs.getString(7));
-                sat.setText(rs.getString(8));
+                sun1.setText(rs.getString(2));
+                mon1.setText(rs.getString(3));
+                tues1.setText(rs.getString(4));
+                wed1.setText(rs.getString(5));
+                thur1.setText(rs.getString(6));
+                fri1.setText(rs.getString(7));
+                sat1.setText(rs.getString(8));
             } else {
                 notifyError();
             }
@@ -71,7 +70,7 @@ public class ViewEmployeeSchedule implements Command {
             e.printStackTrace();
         }
 
-        done.getScene().getWindow().sizeToScene();
+        done1.getScene().getWindow().sizeToScene();
         employeeId.clear();
     }
 
