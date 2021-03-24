@@ -39,7 +39,7 @@ public class AirportEmployeeController  {
     @FXML
     Button Back;
     Employee employee;
-
+    String employeeId;
     /**
      * Takes the user back to the login page
      * @param event a button is clicked
@@ -55,6 +55,10 @@ public class AirportEmployeeController  {
         window.setScene(loginViewScene);
         window.show(); //displays the window
     }
+//        @Override
+//    public void initialize(URL location, ResourceBundle resources) {
+////        this.employee.
+//    }
 
     /**
      * View employee's daily tasks
@@ -96,46 +100,18 @@ public class AirportEmployeeController  {
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));
+            loader.<BookTimeOff>getController().initialize(this.employeeId);
 
             stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
+
         }
-//        this.Sunday.
     }
-    public void sunDay(ActionEvent event){
-        employee.schedule().setSunday("OFF");
-    }
-    public void monDay(ActionEvent event){
-        employee.schedule().setMonday("OFF");
-    }
-    public void tuesDay(ActionEvent event){
-        employee.schedule().setTuesday("OFF");
-    }
-    public void wednesDay(ActionEvent event){
-        employee.schedule().setWednesday("OFF");
-    }
-    public void thursDay(ActionEvent event){
-        employee.schedule().setThursday("OFF");
-    }
-    public void friDay(ActionEvent event){
-        employee.schedule().setFriday("OFF");
-    }
-    public void saturDay(ActionEvent event){
-        employee.schedule().setSaturday("OFF");
-    }
-    public void back(ActionEvent event) throws IOException {
-        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/airportEmployee.fxml"));
-        Scene loginViewScene = new Scene(loginViewParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(loginViewScene);
-        window.show();
+    public void initialize(String employeeId){
+        this.employeeId = employeeId;
     }
 
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-//        this.employee.
-//    }
+
 }

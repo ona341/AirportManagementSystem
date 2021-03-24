@@ -3,6 +3,7 @@ package loginapp;
 import AirlineEmployee.AirlineEmployeeController;
 import AirportEmployee.AirportEmployeeController;
 import AirportManager.AirportManagerController;
+import Command.BookTimeOff;
 import Entities.Passenger;
 import Passenger.PassengerController;
 import Singleton.PassengerAccess;
@@ -114,6 +115,7 @@ public class LoginController implements Initializable {
             Pane airportEmpRoot = airportEmpLoader.load(getClass().getResource("/airportEmployeeFXML.fxml").openStream());
 
             AirportEmployeeController airportEmployeeController = airportEmpLoader.getController();
+            airportEmpLoader.<AirportEmployeeController>getController().initialize(getIdNumber());
 
             Scene scene = new Scene(airportEmpRoot);
             userStage.setScene(scene);
