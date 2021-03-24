@@ -4,8 +4,14 @@ import Entities.Employee;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -153,7 +159,96 @@ public class BookTimeOff implements Command {
                 e.printStackTrace();
             }
         }
+    public void monDay(ActionEvent event){
+        try {
+            Connection conn = dbConnection.getConnection();
+            String sql = "UPDATE workSchedule SET monday = ? WHERE employeeId ='" + employeeId + "'";
+            PreparedStatement prpst = conn.prepareStatement(sql);
+            prpst.setString(1, "OFF");
+            prpst.executeUpdate();
+            booked();
 
+            prpst.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }    }
+    public void tuesDay(ActionEvent event){
+        try {
+            Connection conn = dbConnection.getConnection();
+            String sql = "UPDATE workSchedule SET tuesday = ? WHERE employeeId ='" + employeeId + "'";
+            PreparedStatement prpst = conn.prepareStatement(sql);
+            prpst.setString(1, "OFF");
+            prpst.executeUpdate();
+            booked();
+
+            prpst.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }    }
+    public void wednesDay(ActionEvent event){
+        try {
+            Connection conn = dbConnection.getConnection();
+            String sql = "UPDATE workSchedule SET wednesday = ? WHERE employeeId ='" + employeeId + "'";
+            PreparedStatement prpst = conn.prepareStatement(sql);
+            prpst.setString(1, "OFF");
+            prpst.executeUpdate();
+            booked();
+
+            prpst.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }       }
+    public void thursDay(ActionEvent event){
+        try {
+            Connection conn = dbConnection.getConnection();
+            String sql = "UPDATE workSchedule SET thursday = ? WHERE employeeId ='" + employeeId + "'";
+            PreparedStatement prpst = conn.prepareStatement(sql);
+            prpst.setString(1, "OFF");
+            prpst.executeUpdate();
+            booked();
+
+            prpst.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }      }
+    public void friDay(ActionEvent event){
+        try {
+            Connection conn = dbConnection.getConnection();
+            String sql = "UPDATE workSchedule SET friday = ? WHERE employeeId ='" + employeeId + "'";
+            PreparedStatement prpst = conn.prepareStatement(sql);
+            prpst.setString(1, "OFF");
+            prpst.executeUpdate();
+            booked();
+
+            prpst.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }     }
+    public void saturDay(ActionEvent event){
+        try {
+            Connection conn = dbConnection.getConnection();
+            String sql = "UPDATE workSchedule SET saturday = ? WHERE employeeId ='" + employeeId + "'";
+            PreparedStatement prpst = conn.prepareStatement(sql);
+            prpst.setString(1, "OFF");
+            prpst.executeUpdate();
+            booked();
+
+            prpst.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }      }
     private void notifyError() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Invalid employee ID");
@@ -168,124 +263,13 @@ public class BookTimeOff implements Command {
     }
 
 
-        public void monDay(ActionEvent event){
-            try {
-                Connection conn = dbConnection.getConnection();
-                String sql = "UPDATE workSchedule SET sunday = ? WHERE employeeId ='" + employeeId + "'";
-                PreparedStatement prpst = conn.prepareStatement(sql);
-                prpst.setString(1, "OFF");
-                prpst.executeUpdate();
-                booked();
-
-                prpst.close();
 
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }    }
-        public void tuesDay(ActionEvent event){
-            try {
-                Connection conn = dbConnection.getConnection();
-                String sql = "UPDATE workSchedule SET sunday = ? WHERE employeeId ='" + employeeId + "'";
-                PreparedStatement prpst = conn.prepareStatement(sql);
-                prpst.setString(1, "OFF");
-                prpst.executeUpdate();
-                booked();
-
-                prpst.close();
 
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }    }
-        public void wednesDay(ActionEvent event){
-            try {
-                Connection conn = dbConnection.getConnection();
-                String sql = "SELECT * FROM workSchedule WHERE employeeId ='" + this.employeeId + "'";
-                Statement pstmt = conn.createStatement();
-                ResultSet rs = pstmt.executeQuery(sql);
-
-                if (rs.next()) {
-                    rs.updateString(5,"OFF");
-//
-                } else {
-                    notifyError();
-                }
-
-                pstmt.close();
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }        }
-        public void thursDay(ActionEvent event){
-            try {
-                Connection conn = dbConnection.getConnection();
-                String sql = "SELECT * FROM workSchedule WHERE employeeId ='" + this.employeeId + "'";
-                Statement pstmt = conn.createStatement();
-                ResultSet rs = pstmt.executeQuery(sql);
-
-                if (rs.next()) {
-                    rs.updateString(6,"OFF");
-//
-                } else {
-                    notifyError();
-                }
-
-                pstmt.close();
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }        }
-        public void friDay(ActionEvent event){
-            try {
-                Connection conn = dbConnection.getConnection();
-                String sql = "SELECT * FROM workSchedule WHERE employeeId ='" + this.employeeId + "'";
-                Statement pstmt = conn.createStatement();
-                ResultSet rs = pstmt.executeQuery(sql);
-
-                if (rs.next()) {
-                    rs.updateString(7,"OFF");
-//
-                } else {
-                    notifyError();
-                }
-
-                pstmt.close();
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }        }
-        public void saturDay(ActionEvent event){
-            try {
-                Connection conn = dbConnection.getConnection();
-                String sql = "SELECT * FROM workSchedule WHERE employeeId ='" + this.employeeId + "'";
-                Statement pstmt = conn.createStatement();
-                ResultSet rs = pstmt.executeQuery(sql);
-
-                if (rs.next()) {
-                    rs.updateString(7,"OFF");
-//
-                } else {
-                    notifyError();
-                }
-
-                pstmt.close();
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }        }
-//    public void back(ActionEvent event) throws IOException {
-//        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/airportEmployee.fxml"));
-//        Scene loginViewScene = new Scene(loginViewParent);
-//
-//        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(loginViewScene);
-//        window.show();
-//    }
+    public void back(ActionEvent event) throws IOException {
+        ((Button) event.getSource()).getScene().getWindow().hide();
+    }
 
 
 //        if (checkInvalidFields(null)) {

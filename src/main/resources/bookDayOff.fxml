@@ -14,5 +14,6 @@
       <Button layoutX="107.0" layoutY="144.0" mnemonicParsing="false" onAction="#tuesDay" prefHeight="27.0" prefWidth="84.0" text="Tuesday" />
       <Button layoutX="107.0" layoutY="104.0" mnemonicParsing="false" onAction="#monDay" prefHeight="27.0" prefWidth="84.0" text="Monday" />
       <Label layoutX="86.0" layoutY="22.0" prefHeight="27.0" prefWidth="210.0" text="Select the day of the week" />
+      <Button layoutX="215.0" layoutY="346.0" mnemonicParsing="false" onAction="#back" text="Back" />
    </children>
 </AnchorPane>
