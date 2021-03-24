@@ -90,7 +90,8 @@ public class FlightView implements Initializable {
         ((Button) event.getSource()).getScene().getWindow().hide();
     }
 
-    public String newDialog(String defaultValue, String fieldName) {
+    public static String newDialog(String defaultValue, String fieldName) {
+
         TextInputDialog dialog = new TextInputDialog(defaultValue);
         dialog.setTitle("");
         dialog.setHeaderText("Editing " + fieldName);
@@ -99,7 +100,6 @@ public class FlightView implements Initializable {
 
         Optional<String> answer = dialog.showAndWait();
         return answer.orElse(defaultValue);
-
     }
 
     public void dbUpdate(Flight flight) {

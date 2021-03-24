@@ -13,7 +13,6 @@ public class WorkSchedule {
     private StringProperty friday;
     private StringProperty saturday;
 
-
     public WorkSchedule(String sun, String mon, String tues, String wed, String thur, String fri, String sat) {
         this.sunday = new SimpleStringProperty(sun);
         this.monday = new SimpleStringProperty(mon);
@@ -24,14 +23,11 @@ public class WorkSchedule {
         this.saturday = new SimpleStringProperty(sat);
     }
 
-
     public String getSunday() { return sunday.get(); }
 
     public StringProperty sundayProperty() { return sunday; }
 
     public void setSunday(String sun) { this.sunday.set(sun); }
-
-
 
     public String getMonday() { return monday.get(); }
 
@@ -41,8 +37,6 @@ public class WorkSchedule {
 
     public void setMonday(String mon) { this.monday.set(mon); }
 
-
-
     public String getTuesday() { return tuesday.get(); }
 
     public StringProperty tuesdayProperty() {
@@ -50,8 +44,6 @@ public class WorkSchedule {
     }
 
     public void setTuesday(String tues) { this.tuesday.set(tues); }
-
-
 
     public String getWednesday() { return wednesday.get(); }
 
@@ -61,8 +53,6 @@ public class WorkSchedule {
 
     public void setWednesday(String wed) { this.wednesday.set(wed); }
 
-
-
     public String getThursday() { return thursday.get(); }
 
     public StringProperty thursdayProperty() {
@@ -71,8 +61,6 @@ public class WorkSchedule {
 
     public void setThursday(String thur) { this.thursday.set(thur); }
 
-
-
     public String getFriday() { return friday.get(); }
 
     public StringProperty fridayProperty() {
@@ -80,8 +68,6 @@ public class WorkSchedule {
     }
 
     public void setFriday(String fri) { this.friday.set(fri); }
-
-
 
     public String getSaturday() { return saturday.get(); }
 

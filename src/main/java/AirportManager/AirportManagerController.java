@@ -94,14 +94,10 @@ public class AirportManagerController implements Initializable{
     @FXML
     private Label errorMessageLabel;
 
-
-
-
     @FXML
     public TextField employeeId;
     @FXML
     private TextField usersName;
-
 
     @FXML
     public TableView<Employee> tableviewEmployees;
@@ -290,14 +286,17 @@ public class AirportManagerController implements Initializable{
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
                 setPasswordField.getText().equals(confirmPasswordField.getText())){
 
-            Employee e = null;
+            Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), "");
 
             if(selectionComboBox.getValue().toString().compareTo(option.AIRPORTEMPLOYEE.toString()) == 0) {
                 
                 if(employeeRoleTextField.getText().isEmpty())
-                    e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
+                    e.setRole(selectionComboBox.getValue().toString());
                 else
-                    e = new Employee(idNumberTextField.getText(), usersName.getText(), employeeRoleTextField.getText());
+                    e.setRole(employeeRoleTextField.getText());
+
+            } else {
+                e.setRole(selectionComboBox.getValue().toString());
             }
 
             new AddUser(e, setPasswordField.getText().toCharArray()).execute();
@@ -515,7 +514,7 @@ public class AirportManagerController implements Initializable{
         if (event.getClickCount() == 2) {
             ObservableList<Employee> selectedEmployee;
             if (!(selectedEmployee = tableviewEmployees.getSelectionModel().getSelectedItems()).isEmpty()) {
-                addEmployeeSchedule(selectedEmployee.get(0));
+                modifyEmployeeInformation(selectedEmployee.get(0));
                 addTask(selectedEmployee.get(0));
             }
         }
@@ -527,22 +526,21 @@ public class AirportManagerController implements Initializable{
      *
      * @param employee the flight
      */
-    public void addEmployeeSchedule(Employee employee) {
+    public void modifyEmployeeInformation(Employee employee) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addEmployeeSchedule.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifyEmployeeInformation.fxml"));
+
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
-
-            loader.<AddEmployeeSchedule>getController().initialize(employee);
-
+            loader.<ModifyEmployeeInformation>getController().initialize(employee);
 
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**

@@ -17,7 +17,6 @@ public class AddUser implements Command{
     public AddUser(Passenger user, char[] password) {
         this.user = user;
         this.password = password;
-
     }
 
     @FXML
@@ -45,7 +44,15 @@ public class AddUser implements Command{
                 pstmt.setInt(7,user.getParkingStallLabel());
                 PassengerAccess.getInstance().add(user);
             }
+
             pstmt1.setString(1, user.getId());
+            pstmt1.setString(2, "new");
+            pstmt1.setString(3, "new");
+            pstmt1.setString(4, "new");
+            pstmt1.setString(5, "new");
+            pstmt1.setString(6, "new");
+            pstmt1.setString(7, "new");
+            pstmt1.setString(8, "new");
 
             pstmt.executeUpdate();
             pstmt1.executeUpdate();
