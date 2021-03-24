@@ -57,22 +57,24 @@ public class LoginController implements Initializable {
                 Stage stage = (Stage) this.loginButton.getScene().getWindow();
                 stage.close();
                 switch(login.getValue()){
-                    case "Airport Manager":
-                        airportManagerLogin();
-                        break;
-                    case "Passenger":
-                        passengerLogin(PassengerAccess.getInstance().stream().filter(passenger -> passenger.getId().equals(this.idNumber.getText())).findFirst().orElseThrow());
-                        break;
-                    case "Airport Employee":
-                        airportEmployeeLogin();
-                        break;
                     case "Admin":
                         airportManagerLogin();
                         passengerLogin(null);
                         airportEmployeeLogin();
                         airlineEmployeeLogin();
                         break;
-
+                    case "Airport Manager":
+                        airportManagerLogin();
+                        break;
+                    case "Airline Employee":
+                        airlineEmployeeLogin();
+                        break;
+                    case "Passenger":
+                        passengerLogin(PassengerAccess.getInstance().stream().filter(passenger -> passenger.getId().equals(this.idNumber.getText())).findFirst().orElseThrow());
+                        break;
+                    default:
+                        airportEmployeeLogin();
+                        break;
                 }
             } else {
                 this.loginStatus.setText("Invalid login. Please try again.");
@@ -104,7 +106,6 @@ public class LoginController implements Initializable {
         }
 
     }
-
 
     public void airportEmployeeLogin(){
 
