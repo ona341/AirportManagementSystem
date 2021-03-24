@@ -1,44 +1,21 @@
 package AirportEmployee;
 
 import Command.BookTimeOff;
-import Command.Command;
-import Entities.Employee;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 /**
  * Airport Employee Controller currently only goes back to logout
  */
 public class AirportEmployeeController  {
-    @FXML
-    Button Sunday;
-    @FXML
-    Button Monday;
-    @FXML
-    Button Tuesday;
-    @FXML
-    Button Wednesday;
-    @FXML
-    Button Thursday;
-    @FXML
-    Button Friday;
-    @FXML
-    Button Saturday;
-    @FXML
-    Button Back;
-    Employee employee;
+
     String employeeId;
     /**
      * Takes the user back to the login page
@@ -55,10 +32,6 @@ public class AirportEmployeeController  {
         window.setScene(loginViewScene);
         window.show(); //displays the window
     }
-//        @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-////        this.employee.
-//    }
 
     /**
      * View employee's daily tasks
