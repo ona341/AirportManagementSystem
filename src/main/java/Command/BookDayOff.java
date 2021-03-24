@@ -7,16 +7,16 @@ import javafx.scene.control.Button;
 import java.sql.*;
 
 /**
- * BookTimeOff Class implements the command pattern to book a employees day off
+ * BookDayOff Class implements the command pattern to book a employees day off
  */
-public class BookTimeOff implements Command {
+public class BookDayOff implements Command {
     /**
      * The id of the employee
      */
     String employeeId;
 
     /**
-     * Initializes the employee Id attribute of the BookTimeOff class
+     * Initializes the employee Id attribute of the BookDayOff class
      * @param employeeId the employee's ID
      */
     public void initialize(String employeeId) {this.employeeId = employeeId; }

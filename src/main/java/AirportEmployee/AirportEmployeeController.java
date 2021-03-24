@@ -1,6 +1,6 @@
 package AirportEmployee;
 
-import Command.BookTimeOff;
+import Command.BookDayOff;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -79,7 +79,7 @@ public class AirportEmployeeController  {
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));
-            loader.<BookTimeOff>getController().initialize(this.employeeId);
+            loader.<BookDayOff>getController().initialize(this.employeeId);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
