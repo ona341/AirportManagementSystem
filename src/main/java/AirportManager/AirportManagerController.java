@@ -197,9 +197,24 @@ public class AirportManagerController implements Initializable{
      */
     @FXML
     public void addFlight(ActionEvent event) {
-        AddFlight addflight = new AddFlight(this);
-        if (checkInvalidFields(null)) {
-            addflight.execute();
+        ObservableList<Flight> flightList = tableview.getItems();
+        boolean duplicateFlight = false;
+        for(Flight flight : flightList) {
+            if (flight.getFlightNumber().equals(flightnum.getText())) {
+                duplicateFlight = true;
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setContentText("Flight with this number already exists!");
+                alert.showAndWait();
+            }
+        }
+        if(!duplicateFlight){
+            AddFlight addflight = new AddFlight(this);
+
+            if (checkInvalidFields(null)) {
+                addflight.execute();
+            }
+
         }
     }
 
@@ -322,7 +337,7 @@ public class AirportManagerController implements Initializable{
      * @param event the event
      */
     public void registerButtonOnAction(ActionEvent event){
-        ObservableList<Employee> actualList = tableviewEmployees.getItems();
+        ObservableList<Employee> userList = tableviewEmployees.getItems();
 
         if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() ||
                 this.confirmPasswordField.getText().isEmpty()){
@@ -347,7 +362,7 @@ public class AirportManagerController implements Initializable{
                 e.setRole(selectionComboBox.getValue().toString());
             }
 
-            if (actualList.toString().contains(e.getId())) {
+            if (userList.toString().contains(e.getId())) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setContentText("User with this ID already exists!");
