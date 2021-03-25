@@ -338,6 +338,7 @@ public class AirportManagerController implements Initializable{
      */
     public void registerButtonOnAction(ActionEvent event){
         ObservableList<Employee> userList = tableviewEmployees.getItems();
+        boolean duplicateUser = false;
 
         if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() ||
                 this.confirmPasswordField.getText().isEmpty()){
@@ -362,14 +363,20 @@ public class AirportManagerController implements Initializable{
                 e.setRole(selectionComboBox.getValue().toString());
             }
 
-            if (userList.toString().contains(e.getId())) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setContentText("User with this ID already exists!");
-                alert.showAndWait();
-            }
+            for(Employee employee : userList){
+                if (employee.getId().equals(e.getId())) {
+                    duplicateUser = true;
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setContentText("User with this ID already exists!");
+                    alert.showAndWait();
+                    messageLabel.setText("");
+                    errorMessageLabel.setText("");
+                    passMessageLabel.setText("");
+                }
 
-            else{
+            }
+            if(!duplicateUser){
                 new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
                 clearUserForm(null);
@@ -378,7 +385,6 @@ public class AirportManagerController implements Initializable{
                 errorMessageLabel.setText("");
                 passMessageLabel.setText("");
             }
-
         }
         else {
             passMessageLabel.setText("Please make sure your passwords match and that it contains at least one uppercase, " +
