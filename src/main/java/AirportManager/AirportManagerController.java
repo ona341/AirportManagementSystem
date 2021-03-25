@@ -242,6 +242,7 @@ public class AirportManagerController implements Initializable{
             ObservableList<Employee> actualList = tableviewEmployees.getItems();
             FilteredList<Employee> items = new FilteredList<>(actualList);
 
+
             // if checked
             if(newValue){
                 Predicate<Employee> isPassenger = i -> i.getRole().equals("Passenger");
@@ -321,6 +322,8 @@ public class AirportManagerController implements Initializable{
      * @param event the event
      */
     public void registerButtonOnAction(ActionEvent event){
+        ObservableList<Employee> actualList = tableviewEmployees.getItems();
+
         if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() ||
                 this.confirmPasswordField.getText().isEmpty()){
             this.errorMessageLabel.setText("Please make sure all fields are correctly filled out!");
@@ -344,13 +347,23 @@ public class AirportManagerController implements Initializable{
                 e.setRole(selectionComboBox.getValue().toString());
             }
 
-            new AddUser(e, setPasswordField.getText().toCharArray()).execute();
+            if (actualList.toString().contains(e.getId())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setContentText("User with this ID already exists!");
+                alert.showAndWait();
+            }
 
-            clearUserForm(null);
+            else{
+                new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
-            messageLabel.setText("User has been registered successfully!");
-            errorMessageLabel.setText("");
-            passMessageLabel.setText("");
+                clearUserForm(null);
+
+                messageLabel.setText("User has been registered successfully!");
+                errorMessageLabel.setText("");
+                passMessageLabel.setText("");
+            }
+
         }
         else {
             passMessageLabel.setText("Please make sure your passwords match and that it contains at least one uppercase, " +
