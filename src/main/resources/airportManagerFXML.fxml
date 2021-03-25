@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -60,8 +61,12 @@
                         <Label layoutX="18.0" layoutY="73.0" text="Name" />
                         <TextField fx:id="usersName" layoutX="14.0" layoutY="98.0" prefHeight="25.0" prefWidth="336.0" promptText="Please enter user's name" />
                         <TextField fx:id="employeeRoleTextField" layoutX="14.0" layoutY="423.0" prefHeight="27.0" prefWidth="336.0" promptText="Enter employee role" />
-                        <CheckBox fx:id="passengerCheck" layoutX="992.0" layoutY="166.0" mnemonicParsing="false" text="Passengers" />
-                        <Button fx:id="passengerFilt" layoutX="1011.0" layoutY="242.0" mnemonicParsing="false" onAction="#searchTable" text="Button" />
+                        <RadioButton fx:id="passengerCheck" layoutX="995.0" layoutY="148.0" mnemonicParsing="false" text="Passengers">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="users" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="employeeCheck" layoutX="995.0" layoutY="193.0" mnemonicParsing="false" text="Employees" toggleGroup="$users" />
+                        <RadioButton fx:id="allUsersCheck" layoutX="995.0" layoutY="242.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="119.0" text="View all users" toggleGroup="$users" />
                             </children>
                         </AnchorPane>
                     </content>

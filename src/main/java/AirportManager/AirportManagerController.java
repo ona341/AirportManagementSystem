@@ -9,6 +9,8 @@ import FlightView.FlightView;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
 import Singleton.dbConnection;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -123,10 +125,15 @@ public class AirportManagerController implements Initializable{
 
 
     @FXML
-    private CheckBox passengerCheck;
+    private RadioButton passengerCheck;
 
     @FXML
-    private Button passengerFilt;
+    private RadioButton employeeCheck;
+
+    @FXML
+    private RadioButton allUsersCheck;
+
+
 
 
     /**
@@ -197,18 +204,6 @@ public class AirportManagerController implements Initializable{
     }
 
 
-
-
-    @FXML
-    public void searchTable(ActionEvent event) {
-        ObservableList<Employee> actualList = tableviewEmployees.getItems();
-        FilteredList<Employee> items = new FilteredList<>(actualList);
-        Predicate<Employee> isPassenger = i -> i.getRole().equals("Passenger");
-        items.setPredicate(isPassenger);
-        tableviewEmployees.setItems(items);
-
-    }
-
     /**
      * Clears the form
      *
@@ -241,6 +236,39 @@ public class AirportManagerController implements Initializable{
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        // Radio button to filter out everyone that isn't a passenger from the user management table
+        passengerCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<Employee> actualList = tableviewEmployees.getItems();
+            FilteredList<Employee> items = new FilteredList<>(actualList);
+
+            // if checked
+            if(newValue){
+                Predicate<Employee> isPassenger = i -> i.getRole().equals("Passenger");
+                items.setPredicate(isPassenger);
+                tableviewEmployees.setItems(items);
+            }
+            else{
+                tableviewEmployees.setItems(EmployeeAccess.getInstance());
+            }
+        });
+
+        // Radio button to filter out everyone that isn't a passenger from the user management table
+        employeeCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<Employee> actualList = tableviewEmployees.getItems();
+            FilteredList<Employee> items = new FilteredList<>(actualList);
+
+            // if checked
+            if(newValue){
+                Predicate<Employee> isNotPassenger = i -> !i.getRole().equals("Passenger");
+                items.setPredicate(isNotPassenger);
+                tableviewEmployees.setItems(items);
+            }
+            else{
+                tableviewEmployees.setItems(EmployeeAccess.getInstance());
+            }
+        });
+
 
         selectionComboBox.setItems(FXCollections.observableArrayList(option.values()));
 
