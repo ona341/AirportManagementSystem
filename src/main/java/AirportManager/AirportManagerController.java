@@ -11,6 +11,7 @@ import Singleton.FlightsAccess;
 import Singleton.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import loginapp.option;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 /**
  * The Airport manager controller.
@@ -119,6 +122,13 @@ public class AirportManagerController implements Initializable{
     public TableColumn<DailyTasks,String> taskCol;
 
 
+    @FXML
+    private CheckBox passengerCheck;
+
+    @FXML
+    private Button passengerFilt;
+
+
     /**
      * Logout as the Airport Manager.
      *
@@ -186,20 +196,18 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-    /**
-     * Finds the flight with the given input
-     * @param event keys entered
-     */
-//    @FXML
-//    private void searchTable(KeyEvent event) {
-//        searchBox.textProperty().bind(FlightsAccess.getInstance().filtered(p -> true).predicateProperty().asString());
-//        if(searchBox.getText().isBlank()) {
-//            tableview.setItems(FlightsAccess.getInstance());
-//        }
-//        else {
-//            tableview.setItems(FlightsAccess.search(searchBox.getText()));
-//        }
-//    }
+
+
+
+    @FXML
+    public void searchTable(ActionEvent event) {
+        ObservableList<Employee> actualList = tableviewEmployees.getItems();
+        FilteredList<Employee> items = new FilteredList<>(actualList);
+        Predicate<Employee> isPassenger = i -> i.getRole().equals("Passenger");
+        items.setPredicate(isPassenger);
+        tableviewEmployees.setItems(items);
+
+    }
 
     /**
      * Clears the form
