@@ -269,6 +269,14 @@ public class AirportManagerController implements Initializable{
             }
         });
 
+        // Radio button to view all users
+        allUsersCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            // if checked
+            if(newValue){
+                tableviewEmployees.setItems(EmployeeAccess.getInstance());
+            }
+        });
+
 
         selectionComboBox.setItems(FXCollections.observableArrayList(option.values()));
 
