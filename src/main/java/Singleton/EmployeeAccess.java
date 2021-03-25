@@ -37,7 +37,7 @@ public class EmployeeAccess {
         if (employees == null) {
             employees = FXCollections.observableArrayList();
             try {
-                String sql = "SELECT name, id, email, checkin, parkingStall, role FROM login WHERE role != 'Passenger'";
+                String sql = "SELECT name, id, email, checkin, parkingStall, role FROM login";
                 Connection conn = dbConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);

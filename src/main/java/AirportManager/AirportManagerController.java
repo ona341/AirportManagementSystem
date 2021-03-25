@@ -436,33 +436,6 @@ public class AirportManagerController implements Initializable{
         this.tableviewTasks.setItems(this.dailyTasksData);
     }
 
-    public void loadLoginData() {
-
-        try {
-
-            Connection conn = dbConnection.getConnection();
-            this.employeeData = FXCollections.observableArrayList();  //sets the employee data attribute to be the observableArrayList from FXCollections
-
-            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM login");
-
-            while(rs.next()) {
-                this.employeeData.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(5)));
-            }
-
-            rs.close(); //closes the database connection
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        this.employeeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        this.employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
-        this.employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-
-        this.tableviewEmployees.setItems(null);
-        this.tableviewEmployees.setItems(this.employeeData);
-    }
 
 
     /**
