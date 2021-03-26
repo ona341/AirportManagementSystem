@@ -24,7 +24,10 @@ import java.sql.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class FlightInfo implements Initializable {
+/**
+ * Display the details of a flight and provides the ability to modify those details
+ */
+public class FlightInfo {
     @FXML
     public Button done;
     @FXML
@@ -60,14 +63,17 @@ public class FlightInfo implements Initializable {
     @FXML
     public TableColumn<Passenger, Integer> seatNumberCol;
 
+    /**
+     * The flight being looked at
+     */
     private Flight flight;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
+    /**
+     * Use this method from the calling class to load the flight to view
+     */
     public void initialize(Flight flight) {
         this.flight = flight;
+
         flightTitle.setText("Flight: " + flight.getFlightNumber());
         flightNumber.setText(flight.getFlightNumber());
         airline.setText(flight.getAirline());
@@ -77,19 +83,37 @@ public class FlightInfo implements Initializable {
         gate.setText(String.valueOf(flight.getGate()));
         passengers.setText(String.valueOf(flight.getSeats().count()));
 
+        // Hides the passenger list by default
         tablePane.setVisible(!tablePane.isVisible());
         tablePane.setManaged(!tablePane.isManaged());
         done.getScene().getWindow().sizeToScene();
 
-        loadPassengers();
-        //addPassengerTest();
+        // Setup the columns in the passenger window
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        iDCol.setCellValueFactory(new PropertyValueFactory<>("number"));
+        seatNumberCol.setCellValueFactory(data -> data.getValue() != null ? new SimpleIntegerProperty(flight.getSeats().getEntityInternalIndex(data.getValue())).asObject() : null);
+
+        // Set the data for the table
+        passengerTable.setItems(flight.getSeats().getObservableList());
+
+        // Ensure the text is updated if a passenger is removed from the flight
+        passengers.textProperty().bind(flight.getSeats().count().asString());
 
     }
+
+    /**
+     * Closes the window if the user click the done button
+     */
     @FXML
     public void done(ActionEvent event) {
         ((Button) event.getSource()).getScene().getWindow().hide();
     }
 
+    /**
+     * A method for creating input dialog windows
+     * Can customize the name of the field and set a default value
+     */
     public static String newDialog(String defaultValue, String fieldName) {
 
         TextInputDialog dialog = new TextInputDialog(defaultValue);
@@ -98,10 +122,14 @@ public class FlightInfo implements Initializable {
         dialog.setContentText("");
         dialog.setGraphic(null);
 
+        // The user must take action before anything proceeds
         Optional<String> answer = dialog.showAndWait();
         return answer.orElse(defaultValue);
     }
 
+    /**
+     * If a change is made update the database accordingly
+     */
     public void dbUpdate(Flight flight) {
 
         String sql = "UPDATE flights SET flightNum = ?, airline = ?, destination = ?, date = ?, time = ?, gate = ? WHERE flightNum = ?";
@@ -160,11 +188,8 @@ public class FlightInfo implements Initializable {
             new Alert(Alert.AlertType.ERROR,"The entered gate is either occupied, exceeds the maximum gate number, or is not an integer").showAndWait();
             return editGate(event);
         }
-
-
         dbUpdate(flight);
         this.gate.setText(String.valueOf(flight.getGate()));
-
         return gate;
     }
 
@@ -180,9 +205,6 @@ public class FlightInfo implements Initializable {
         flight.setDate(Date.valueOf(datePicker.getValue()));
         dbUpdate(flight);
         this.date.setText(flight.getDate().toString());
-
-
-
     }
 
     public Time editTime(ActionEvent event) {
@@ -200,50 +222,14 @@ public class FlightInfo implements Initializable {
         return time;
     }
 
-
+    /**
+     * Shows/Hides the list of passenger if the button is clicked
+     */
     public void viewPassengers(ActionEvent actionEvent) {
         tablePane.setVisible(!tablePane.isVisible());
         showButton.setText(tablePane.isVisible() ? "Hide" : "Show");
 
-
         tablePane.setManaged(!tablePane.isManaged());
         ((Button) actionEvent.getSource()).getScene().getWindow().sizeToScene();
-    }
-
-    public void addPassengerTest() {
-        // FOR TESTING ONLY, ADDS A FEW PASSENGERS TO THE FLIGHT TO TEST THE PASSENGER VIEW
-
-        ObservableList<Passenger> thelist;
-        passengerTable.setItems(thelist = flight.getSeats().getObservableList());
-
-
-        Passenger testPass = new Passenger("Bob","123","bob@gmail.com",null, 2);
-        flight.getSeats().assignEntityToStall(testPass,2);
-        thelist.add(testPass);
-
-        testPass = new Passenger("Joe","579","Joe@gmail.com",null, 4);
-        flight.getSeats().assignEntityToStall(testPass,4);
-        thelist.add(testPass);
-
-        testPass = new Passenger("Mike","490","Mike@gmail.com",null, 1);
-        flight.getSeats().assignEntityToStall(testPass,1);
-        thelist.add(testPass);
-
-
-    }
-
-    public void loadPassengers() {
-
-        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        iDCol.setCellValueFactory(new PropertyValueFactory<>("number"));
-
-        seatNumberCol.setCellValueFactory(data -> data.getValue() != null ? new SimpleIntegerProperty(flight.getSeats().getEntityInternalIndex(data.getValue())).asObject() : null);
-
-        passengerTable.setItems(flight.getSeats().getObservableList());
-
-        //passengers.setText(String.valueOf(flight.getSeats().count()));
-        passengers.textProperty().bind(flight.getSeats().count().asString());
-
     }
 }
