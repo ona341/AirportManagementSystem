@@ -1,4 +1,4 @@
-package AirlineEmployee;
+package PopoutControllers;
 
 import Command.BreakAssociation;
 import Entities.Flight;

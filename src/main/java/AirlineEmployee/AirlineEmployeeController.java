@@ -6,6 +6,8 @@ import Entities.Passenger;
 import Singleton.FlightsAccess;
 import Singleton.PassengerAccess;
 import Singleton.dbConnection;
+import PopoutControllers.FlightTable;
+import PopoutControllers.PassengerTable;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

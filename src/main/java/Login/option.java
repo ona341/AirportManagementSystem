@@ -1,4 +1,4 @@
-package loginapp;
+package Login;
 
 public enum option {
     AIRPORTMANAGER("Airport Manager"), AIRPORTEMPLOYEE("Airport Employee"), AIRLINEEMPLOYEE("Airline Employee"),

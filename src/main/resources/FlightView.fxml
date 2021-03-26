@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="hBox" prefHeight="650.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FlightView.FlightView">
+<HBox fx:id="hBox" prefHeight="650.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PopoutControllers.FlightInfo">
    <children>
       <AnchorPane minHeight="650.0" minWidth="400.0" prefHeight="650.0" prefWidth="400.0">
          <children>

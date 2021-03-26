@@ -1,4 +1,4 @@
-package FlightView;
+package PopoutControllers;
 
 import Entities.Flight;
 import Entities.Passenger;
@@ -24,7 +24,7 @@ import java.sql.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class FlightView implements Initializable {
+public class FlightInfo implements Initializable {
     @FXML
     public Button done;
     @FXML

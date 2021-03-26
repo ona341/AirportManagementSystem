@@ -3,7 +3,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 
-<TableView fx:id="flightTable" onMouseClicked="#doubleClickFlight" prefHeight="629.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AirlineEmployee.FlightTable">
+<TableView fx:id="flightTable" onMouseClicked="#doubleClickFlight" prefHeight="629.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PopoutControllers.FlightTable">
    <columns>
       <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
       <TableColumn fx:id="airlineCol" prefWidth="88.0" text="Airline" />

@@ -1,6 +1,6 @@
 package Passenger;
 
-import AirlineEmployee.FlightTable;
+import PopoutControllers.FlightTable;
 import Entities.Passenger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

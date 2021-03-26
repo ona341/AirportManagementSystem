@@ -4,13 +4,10 @@ import Command.*;
 import Entities.DailyTasks;
 import Entities.Employee;
 import Entities.Flight;
-import Entities.Passenger;
-import FlightView.FlightView;
+import PopoutControllers.FlightInfo;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
 import Singleton.dbConnection;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -23,10 +20,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import loginapp.option;
+import Login.option;
 
 import java.io.IOException;
 import java.net.URL;
@@ -545,7 +541,7 @@ public class AirportManagerController implements Initializable{
             stage.setScene(new Scene(root));
 
 
-            loader.<FlightView>getController().initialize(flight);
+            loader.<FlightInfo>getController().initialize(flight);
 
 
             stage.show();
