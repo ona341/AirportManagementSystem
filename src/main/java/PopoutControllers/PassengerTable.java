@@ -3,7 +3,6 @@ package PopoutControllers;
 import Command.BreakAssociation;
 import Entities.Flight;
 import Entities.Passenger;
-
 import Singleton.DBConnection;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
@@ -17,30 +16,37 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
-
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Display the passengers on a flight in a table
+ */
 public class PassengerTable {
-
-
+    @FXML
     public TableView<Passenger> passengerTable;
+    @FXML
     public TableColumn<Passenger,Passenger> deleteCol;
-
-
+    @FXML
     public TableColumn<Passenger,String> iDCol;
+    @FXML
     public TableColumn<Passenger,String> nameCol;
+    @FXML
     public TableColumn<Passenger,String> contactCol;
+    @FXML
     public TableColumn<Passenger,Integer> seatCol;
 
-
+    // The flight for this instance of the table
     public Flight flight;
 
+    /**
+     * Load the properties of the table and set the specific flight from the calling class
+     */
     public void initialize(Flight flight) {
         this.flight = flight;
-        ObservableList<Passenger> passengers =  flight.getSeats().getObservableList();
 
+        // Setup the table columns
         iDCol.setCellValueFactory(new PropertyValueFactory<>("number"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -51,8 +57,11 @@ public class PassengerTable {
                 return null;
         });
 
+        // Set the data to the passengers on this flight
+        ObservableList<Passenger> passengers =  flight.getSeats().getObservableList();
         passengerTable.setItems(passengers);
 
+        // Initialize the special column for deleting passengers from the flight
         deleteCol.setCellValueFactory(passenger -> new ReadOnlyObjectWrapper<>(passenger.getValue()));
         deleteCol.setCellFactory(param -> {
             Button button = new Button("Delete");
@@ -69,11 +78,13 @@ public class PassengerTable {
             };
             button.setOnAction(event -> {
                 if (cell.getItem()!=null)
+                    // Use the command to do the work
                     new BreakAssociation(flight,cell.getItem()).execute();
             });
             return cell;
         });
 
+        // Modify the seat column so it can be edited
         seatCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter() {
             @Override
             public Integer fromString(String value) {
@@ -89,8 +100,11 @@ public class PassengerTable {
         seatCol.setOnEditCommit(this::changeSeat);
     }
 
+    /**
+     * Handle the seat change request
+     */
     private void changeSeat(TableColumn.CellEditEvent<Passenger,Integer> event) {
-        if (event.getNewValue() == -1) return;
+        if (event.getNewValue() == -1) return; // This implies the input was not an integer
             try {
                 Passenger passenger = event.getRowValue();
                 flight.getSeats().assignEntityToStall(passenger, event.getNewValue());
@@ -116,7 +130,9 @@ public class PassengerTable {
 
         }
 
-
+    /**
+     * Double click a passenger to view their other flights
+     */
     @FXML
     public void doubleClickPassenger(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -128,7 +144,9 @@ public class PassengerTable {
     }
 
 
-
+    /**
+     * Opens the table of a passengers other flights
+     */
     public void openFlightTable(Passenger passenger) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FlightTable.fxml"));
