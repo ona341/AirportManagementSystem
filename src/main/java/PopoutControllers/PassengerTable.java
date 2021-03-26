@@ -4,6 +4,7 @@ import Command.BreakAssociation;
 import Entities.Flight;
 import Entities.Passenger;
 
+import Singleton.DBConnection;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +19,8 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class PassengerTable {
 
@@ -75,14 +78,24 @@ public class PassengerTable {
         passengerTable.setEditable(true);
         seatCol.setOnEditCommit(event -> {
             System.out.println("Edit");
-            event.getRowValue();
+
             try {
                 Passenger passenger = event.getRowValue();
                 flight.getSeats().assignEntityToStall(passenger, event.getNewValue());
                 flight.getSeats().freeStall(passenger.getSeatNumber(flight));
                 passenger.setSeatNumber(flight,event.getNewValue());
 
-            } catch (IllegalStateException | IllegalArgumentException e) {
+                String sql = "UPDATE passengerFlightRelation SET seatNumber = ? WHERE flightNumber = ? AND passengerID = ?";
+                PreparedStatement pstmt = DBConnection.getConnection().prepareStatement(sql);
+
+                pstmt.setInt(1,event.getNewValue());
+                pstmt.setString(2, flight.getFlightNumber());
+                pstmt.setString(3, passenger.getId());
+
+                pstmt.executeUpdate();
+                pstmt.close();
+
+            } catch (IllegalStateException | IllegalArgumentException | SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "The entered seat is either occupied or exceeds the maximum seat number.").showAndWait();
                 e.printStackTrace();
             }
