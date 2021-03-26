@@ -74,11 +74,23 @@ public class PassengerTable {
             return cell;
         });
 
-        seatCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        seatCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter() {
+            @Override
+            public Integer fromString(String value) {
+                try {
+                    return super.fromString(value);
+                } catch (NumberFormatException e) {
+                    new Alert(Alert.AlertType.ERROR,"The entered information was not an integer").showAndWait();
+                    return -1;
+                }
+            }
+        }));
         passengerTable.setEditable(true);
-        seatCol.setOnEditCommit(event -> {
-            System.out.println("Edit");
+        seatCol.setOnEditCommit(this::changeSeat);
+    }
 
+    private void changeSeat(TableColumn.CellEditEvent<Passenger,Integer> event) {
+        if (event.getNewValue() == -1) return;
             try {
                 Passenger passenger = event.getRowValue();
                 flight.getSeats().assignEntityToStall(passenger, event.getNewValue());
@@ -96,14 +108,14 @@ public class PassengerTable {
                 pstmt.close();
 
             } catch (IllegalStateException | IllegalArgumentException e) {
-                new Alert(Alert.AlertType.ERROR, "The entered seat is either occupied or exceeds the maximum seat number.").showAndWait();
                 e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "The entered seat is either occupied or exceeds the maximum seat number.").showAndWait();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-        });
-    }
+        }
+
 
     @FXML
     public void doubleClickPassenger(MouseEvent event) {
