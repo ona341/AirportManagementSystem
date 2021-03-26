@@ -95,8 +95,10 @@ public class PassengerTable {
                 pstmt.executeUpdate();
                 pstmt.close();
 
-            } catch (IllegalStateException | IllegalArgumentException | SQLException e) {
+            } catch (IllegalStateException | IllegalArgumentException e) {
                 new Alert(Alert.AlertType.ERROR, "The entered seat is either occupied or exceeds the maximum seat number.").showAndWait();
+                e.printStackTrace();
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 
