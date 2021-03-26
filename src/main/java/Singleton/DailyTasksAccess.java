@@ -11,12 +11,12 @@ import java.sql.Statement;
 
 
 /**
- * A DailyTasks Map using the singleton pattern
+ * A DailyTasks list using the singleton pattern
  */
 public class DailyTasksAccess {
 
     /**
-     * The singleton passenger map
+     * The list of tasks
      */
     private static ObservableList<DailyTasks> dailyTasks;
 
@@ -27,9 +27,7 @@ public class DailyTasksAccess {
     }
 
     /**
-     * Gets the instance of the map
-     *
-     * @return  the map instance
+     * Gets the list
      */
     public static ObservableList<DailyTasks> getInstance() {
         if (dailyTasks == null) initialize();
@@ -37,7 +35,7 @@ public class DailyTasksAccess {
     }
 
     /**
-     * Initialize the daily tasks map with the data in the database
+     * Initialize the daily tasks list from the database
      */
     private static void initialize() {
         if (dailyTasks == null) {

@@ -6,21 +6,20 @@ import java.sql.SQLException;
 
 /**
  * DBConnection connects the system to the database
+ * Uses the singleton pattern to ensure there cannot be multiple connections
  */
 public class DBConnection {
     /**
-     * a string instance variable
+     * The connection url
      */
     private static final String SQCONN = "jdbc:sqlite:airport.sqlite";
     /**
-     * a Connection instance variable
+     * The actual Connection object
      */
     private static Connection connection;
 
     /**
      * Gets the connection to the database
-     * @return a connection class object that is a connection to the database
-     * @throws SQLException thrown there is an error accessing the database
      */
     public static Connection getConnection() throws SQLException{
         if (connection == null) {

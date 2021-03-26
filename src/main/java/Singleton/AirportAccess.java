@@ -23,7 +23,6 @@ public class AirportAccess {
      * @param name  the name of the airport
      * @param first the first stall number
      * @param last  the last stall number
-     * @throws IllegalStateException the illegal state exception
      */
     public static void initialize(String name, int first, int last, int firstParkingStall, int lastParkingStall)
             throws IllegalStateException{

@@ -11,25 +11,41 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * A Employee Map using the singleton pattern.
+ * A list of employees using the singleton pattern
  */
 public class EmployeeAccess {
 
+    /**
+     * The main list of employees
+     */
     private static ObservableList<Employee> employees;
+    /**
+     * A searchable copy of the list
+     */
     private static FilteredList<Employee> searchedEmployees;
 
     private EmployeeAccess() {}
 
+    /**
+     * Get the main list
+     */
     public static ObservableList<Employee> getInstance() {
         if (employees == null) initialize();
         return employees;
     }
 
+    /**
+     * Get the searchable list
+     * THIS LIST IS IMMUTABLE
+     */
     public static FilteredList<Employee> getSearchInstance() {
         if (searchedEmployees == null) searchedEmployees = new FilteredList<>(getInstance());
         return searchedEmployees;
     }
 
+    /**
+     * Upon initialization, load the employees from the database
+     */
     private static void initialize() {
         if (employees == null) {
             employees = FXCollections.observableArrayList();
