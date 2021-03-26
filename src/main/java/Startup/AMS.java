@@ -1,10 +1,8 @@
 package Startup;
 
 
-import Singleton.AirportAccess;
-import Singleton.FlightsAccess;
-import Singleton.PassengerAccess;
-import Singleton.DBConnection;
+import Entities.DailyTasks;
+import Singleton.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,13 +39,19 @@ public class AMS extends Application implements Initializable{
     @FXML
     TextField password;
 
+    /**
+     * On startup this method is called automatically
+     * It loads the appropriate splash screen
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root;
+        // If the database already exists go straight to login
         if (new File("airport.sqlite").isFile()) {
             root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
             initialize();
         }
+        // Loads the first time initialization
         else
             root = FXMLLoader.load(getClass().getResource("/AMS.fxml"));
 
@@ -58,6 +62,9 @@ public class AMS extends Application implements Initializable{
         stage.show();
     }
 
+    /**
+     * Initialize method if there is no database
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         maxgates.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
         maxstalls.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
@@ -83,7 +90,10 @@ public class AMS extends Application implements Initializable{
 
     }
 
-
+    /**
+     * The initialize method if there is already a database
+     * Or after the user has configured the system for the first time
+     */
     private void initialize() {
         try {
             Connection conn = DBConnection.getConnection();
@@ -91,24 +101,29 @@ public class AMS extends Application implements Initializable{
             PreparedStatement prpst = conn.prepareStatement(sql);
             ResultSet rs = prpst.executeQuery();
 
+            // Initialize all the data structures
             AirportAccess.initialize(rs.getString(1),1,rs.getInt(2), 1,rs.getInt(3));
+            prpst.close();
 
             FlightsAccess.getInstance();
             PassengerAccess.getInstance();
-
-            prpst.close();
-
+            EmployeeAccess.getInstance();
+            DailyTasksAccess.getInstance();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
+    /**
+     * When the user configures the application for the first time
+     */
     @FXML
     private void initializeAMS(ActionEvent event) {
         try {
             Connection conn = DBConnection.getConnection();
 
+            // Saves the airport parameters
             String sql = "INSERT INTO airport(name,gateCapacity,parkingCapacity) VALUES(?,?,?)";
             PreparedStatement prpst = conn.prepareStatement(sql);
             prpst.setString(1, airportname.getText());
@@ -117,6 +132,7 @@ public class AMS extends Application implements Initializable{
             prpst.executeUpdate();
             prpst.close();
 
+            // Sets the master login credentials
             sql = "INSERT INTO login(id,password,role) VALUES(?,?,?)";
             prpst = conn.prepareStatement(sql);
             prpst.setString(1,username.getText());
@@ -127,7 +143,7 @@ public class AMS extends Application implements Initializable{
 
             ((Button) event.getSource()).getScene().getWindow().hide();
             Stage stage = new Stage();
-            start(stage);
+            start(stage); // Go back to start and load the login page
 
         } catch (Exception throwables) {
             throwables.printStackTrace();
@@ -136,9 +152,7 @@ public class AMS extends Application implements Initializable{
     }
 
     /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
+     * Begin the program via JavaFx convention
      */
     public static void main(String[] args) {
         launch(args);

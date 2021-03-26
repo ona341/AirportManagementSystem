@@ -1,7 +1,7 @@
 package Startup;
 
 /**
- * This class is needed for creating executable jar files because reasons??? ¯\_(ツ)_/¯
+ * This class is only here for creating executable jar files
  */
 public class Launcher {
     public static void main(String[] args) {
