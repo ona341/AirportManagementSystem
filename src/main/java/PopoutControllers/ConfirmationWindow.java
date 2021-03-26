@@ -1,11 +1,11 @@
-package Passenger;
+package PopoutControllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class ConfirmationView {
+public class ConfirmationWindow {
 
     @FXML
     private Label nameConfirmation;

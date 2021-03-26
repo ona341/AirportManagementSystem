@@ -3,6 +3,7 @@ package Passenger;
 
 import Command.AddParking;
 import Command.CancelParking;
+import PopoutControllers.ConfirmationWindow;
 import Singleton.AirportAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,7 +70,7 @@ public class ParkingController {
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
-            ConfirmationView c = (ConfirmationView) loader.getController();
+            ConfirmationWindow c = (ConfirmationWindow) loader.getController();
             c.setNameConfirmation(nameField.getText());
             c.setIdConfirmation(idField.getText());
             c.setEmailConfirmation(emailField.getText());
