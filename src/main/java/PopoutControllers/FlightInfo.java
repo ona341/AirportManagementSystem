@@ -3,7 +3,7 @@ package PopoutControllers;
 import Entities.Flight;
 import Entities.Passenger;
 import Singleton.AirportAccess;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -107,7 +107,7 @@ public class FlightInfo implements Initializable {
         String sql = "UPDATE flights SET flightNum = ?, airline = ?, destination = ?, date = ?, time = ?, gate = ? WHERE flightNum = ?";
 
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, flight.getFlightNumber());

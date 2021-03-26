@@ -1,12 +1,12 @@
 package Login;
 
-public enum option {
+public enum Option {
     AIRPORTMANAGER("Airport Manager"), AIRPORTEMPLOYEE("Airport Employee"), AIRLINEEMPLOYEE("Airline Employee"),
     PASSENGER("Passenger"), ADMIN("Admin");
 
     private final String toString;
 
-    option(String toString) {
+    Option(String toString) {
         this.toString = toString;
     }
 
@@ -14,7 +14,7 @@ public enum option {
         return toString;
     }
 
-    public static option fromvalue(String v){
+    public static Option fromvalue(String v){
         return valueOf(v);
 
     }

@@ -3,15 +3,12 @@ package Singleton;
 import Entities.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.TreeMap;
-import java.util.function.Predicate;
 
 /**
  * A Employee Map using the singleton pattern.
@@ -38,7 +35,7 @@ public class EmployeeAccess {
             employees = FXCollections.observableArrayList();
             try {
                 String sql = "SELECT name, id, email, checkin, parkingStall, role FROM login";
-                Connection conn = dbConnection.getConnection();
+                Connection conn = DBConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
 

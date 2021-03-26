@@ -6,7 +6,7 @@ import Passenger.ParkingController;
 import Entities.Passenger;
 import Singleton.AirportAccess;
 import Singleton.PassengerAccess;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.fxml.FXML;
 
 /**
@@ -48,7 +48,7 @@ public class AddParking implements Command{
                     passenger.setParkingStallLabel(parkingStall);
 
                     String sql = "UPDATE login SET checkIn = ?, parkingStall = ? WHERE id = ?";
-                    Connection conn = dbConnection.getConnection();
+                    Connection conn = DBConnection.getConnection();
                     PreparedStatement pstmt = conn.prepareStatement(sql);
 
                     pstmt.setDate(1,Date.valueOf(parkingController.CheckinDatePicker.getValue()));

@@ -3,14 +3,12 @@ package Singleton;
 import Entities.Passenger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.TreeMap;
 
 
 /**
@@ -53,7 +51,7 @@ public class PassengerAccess {
             passengers = FXCollections.observableArrayList();
             try {
                 String sql = "SELECT name, id, email, checkin, parkingStall FROM login WHERE role ='Passenger'";
-                Connection conn = dbConnection.getConnection();
+                Connection conn = DBConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
 

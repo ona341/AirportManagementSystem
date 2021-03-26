@@ -2,7 +2,7 @@ package Command;
 
 import AirportManager.AirportManagerController;
 import Entities.Flight;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
@@ -31,7 +31,7 @@ public class UpdateFlight implements Command {
 
         try {
             //opens database connection
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //for each flight in selectedFlights set the fifth parameter index of the preparedStatement
             // to the flight number of the flight set the other parameter indices to their respective field values

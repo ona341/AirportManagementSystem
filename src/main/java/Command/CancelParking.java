@@ -4,7 +4,7 @@ import Entities.Passenger;
 import Passenger.ParkingController;
 import Singleton.AirportAccess;
 import Singleton.PassengerAccess;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 
 import java.security.InvalidKeyException;
 import java.sql.Connection;
@@ -37,7 +37,7 @@ public class CancelParking implements Command{
 
         try {
             //opens the database connection
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             //sets the string parameter indexes if the PreparedStatement to their respective fields

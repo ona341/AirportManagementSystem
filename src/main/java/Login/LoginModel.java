@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.util.Pair;
 
 public class LoginModel {
@@ -15,7 +15,7 @@ public class LoginModel {
 
     public LoginModel(){
         try{
-            this.connection = dbConnection.getConnection();
+            this.connection = DBConnection.getConnection();
         }
         catch (SQLException ex){
             ex.printStackTrace();

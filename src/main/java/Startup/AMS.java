@@ -4,7 +4,7 @@ package Startup;
 import Singleton.AirportAccess;
 import Singleton.FlightsAccess;
 import Singleton.PassengerAccess;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,7 +45,7 @@ public class AMS extends Application implements Initializable{
     public void start(Stage stage) throws Exception {
         Parent root;
         if (new File("airport.sqlite").isFile()) {
-            root = FXMLLoader.load(getClass().getResource("/login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
             initialize();
         }
         else
@@ -63,7 +63,7 @@ public class AMS extends Application implements Initializable{
         maxstalls.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
 
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "CREATE TABLE IF NOT EXISTS airport (name TEXT, gateCapacity INT, parkingCapacity INT)";
             conn.createStatement().execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS flights (flightNum TEXT PRIMARY KEY , airline TEXT, destination TEXT, date DATE, time TIME, gate INT, capacity INT)";
@@ -86,7 +86,7 @@ public class AMS extends Application implements Initializable{
 
     private void initialize() {
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "SELECT name, gateCapacity, parkingCapacity FROM airport";
             PreparedStatement prpst = conn.prepareStatement(sql);
             ResultSet rs = prpst.executeQuery();
@@ -107,7 +107,7 @@ public class AMS extends Application implements Initializable{
     @FXML
     private void initializeAMS(ActionEvent event) {
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
 
             String sql = "INSERT INTO airport(name,gateCapacity,parkingCapacity) VALUES(?,?,?)";
             PreparedStatement prpst = conn.prepareStatement(sql);

@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 
 public class ParkingController {
@@ -65,7 +64,7 @@ public class ParkingController {
     public void toConfirmation(ActionEvent event) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/confirmParkingInfo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ConfirmParkingInfo.fxml"));
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));

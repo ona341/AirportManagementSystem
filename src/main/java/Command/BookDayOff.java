@@ -1,6 +1,6 @@
 package Command;
 
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -28,7 +28,7 @@ public class BookDayOff implements Command {
     public void sunDay(ActionEvent event) {
 
             try {
-                Connection conn = dbConnection.getConnection();
+                Connection conn = DBConnection.getConnection();
                 String sql = "UPDATE workSchedule SET sunday = ? WHERE employeeId ='" + employeeId + "'";
                 PreparedStatement prpst = conn.prepareStatement(sql);
                 prpst.setString(1, "OFF");
@@ -46,7 +46,7 @@ public class BookDayOff implements Command {
      */
     public void monDay(ActionEvent event){
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET monday = ? WHERE employeeId ='" + employeeId + "'";
             PreparedStatement prpst = conn.prepareStatement(sql);
             prpst.setString(1, "OFF");
@@ -62,7 +62,7 @@ public class BookDayOff implements Command {
      */
     public void tuesDay(ActionEvent event){
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET tuesday = ? WHERE employeeId ='" + employeeId + "'";
             PreparedStatement prpst = conn.prepareStatement(sql);
             prpst.setString(1, "OFF");
@@ -78,7 +78,7 @@ public class BookDayOff implements Command {
      */
     public void wednesDay(ActionEvent event){
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET wednesday = ? WHERE employeeId ='" + employeeId + "'";
             PreparedStatement prpst = conn.prepareStatement(sql);
             prpst.setString(1, "OFF");
@@ -94,7 +94,7 @@ public class BookDayOff implements Command {
      */
     public void thursDay(ActionEvent event){
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET thursday = ? WHERE employeeId ='" + employeeId + "'";
             PreparedStatement prpst = conn.prepareStatement(sql);
             prpst.setString(1, "OFF");
@@ -110,7 +110,7 @@ public class BookDayOff implements Command {
      */
     public void friDay(ActionEvent event){
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET friday = ? WHERE employeeId ='" + employeeId + "'";
             PreparedStatement prpst = conn.prepareStatement(sql);
             prpst.setString(1, "OFF");
@@ -127,7 +127,7 @@ public class BookDayOff implements Command {
      */
     public void saturDay(ActionEvent event){
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET saturday = ? WHERE employeeId ='" + employeeId + "'";
             PreparedStatement prpst = conn.prepareStatement(sql);
             prpst.setString(1, "OFF");

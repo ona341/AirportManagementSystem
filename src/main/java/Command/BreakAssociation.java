@@ -2,8 +2,7 @@ package Command;
 
 import Entities.Flight;
 import Entities.Passenger;
-import Singleton.dbConnection;
-import javafx.collections.ObservableList;
+import Singleton.DBConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -22,7 +21,7 @@ public class BreakAssociation implements Command{
         String sql = "DELETE FROM passengerFlightRelation WHERE passengerID = ? AND flightNumber = ?";
 
         try {
-            PreparedStatement pstmt = dbConnection.getConnection().prepareStatement(sql);
+            PreparedStatement pstmt = DBConnection.getConnection().prepareStatement(sql);
 
             pstmt.setString(1, passenger.getId());
             pstmt.setString(2, flight.getFlightNumber());

@@ -2,7 +2,7 @@ package Command;
 
 import Entities.Employee;
 import Entities.WorkSchedule;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,7 +51,7 @@ public class ModifyEmployeeInformation implements Initializable {
 
     private ObservableList<WorkSchedule> schedule;
 
-    Connection conn = dbConnection.getConnection();
+    Connection conn = DBConnection.getConnection();
 
 
 

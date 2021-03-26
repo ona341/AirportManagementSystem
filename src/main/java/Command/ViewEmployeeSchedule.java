@@ -1,6 +1,6 @@
 package Command;
 
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -46,7 +46,7 @@ public class ViewEmployeeSchedule implements Command {
     @FXML
     public void checkButton(ActionEvent event) {
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "SELECT * FROM workSchedule WHERE employeeId ='" + employeeId.getText() + "'";
             Statement pstmt = conn.createStatement();
             ResultSet rs = pstmt.executeQuery(sql);

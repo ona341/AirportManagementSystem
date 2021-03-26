@@ -44,7 +44,7 @@ public class DailyTasksAccess {
             dailyTasks = FXCollections.observableArrayList();
             try {
                 String sql = "SELECT employeeId, fromTime, toTime, location, task FROM dailyTasks";
-                Connection conn = dbConnection.getConnection();
+                Connection conn = DBConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
 

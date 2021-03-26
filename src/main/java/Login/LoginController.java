@@ -91,7 +91,7 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airportManLoader = new FXMLLoader();
-            Pane airportManRoot = airportManLoader.load(getClass().getResource("/airportManagerFXML.fxml").openStream());
+            Pane airportManRoot = airportManLoader.load(getClass().getResource("/AirportManager.fxml").openStream());
 
             AirportManagerController airportManagerController = airportManLoader.getController();
 
@@ -112,7 +112,7 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airportEmpLoader = new FXMLLoader();
-            Pane airportEmpRoot = airportEmpLoader.load(getClass().getResource("/airportEmployeeFXML.fxml").openStream());
+            Pane airportEmpRoot = airportEmpLoader.load(getClass().getResource("/AirportEmployee.fxml").openStream());
 
             AirportEmployeeController airportEmployeeController = airportEmpLoader.getController();
             airportEmpLoader.<AirportEmployeeController>getController().initialize(getIdNumber());
@@ -134,7 +134,7 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader airlineEmpLoader = new FXMLLoader();
-            Parent airlineEmpRoot = airlineEmpLoader.load(getClass().getResource("/airlineEmployeeFXML.fxml").openStream());
+            Parent airlineEmpRoot = airlineEmpLoader.load(getClass().getResource("/AirlineEmployee.fxml").openStream());
 
             AirlineEmployeeController airlineEmployeeController = airlineEmpLoader.getController();
 
@@ -155,7 +155,7 @@ public class LoginController implements Initializable {
         try{
             Stage userStage = new Stage();
             FXMLLoader passengerLoader = new FXMLLoader();
-            Pane passengerRoot = passengerLoader.load(getClass().getResource("/passengerFXML.fxml").openStream());
+            Pane passengerRoot = passengerLoader.load(getClass().getResource("/Passenger.fxml").openStream());
 
             PassengerController passengerController = passengerLoader.getController();
             passengerController.initialize(passenger);

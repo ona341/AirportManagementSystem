@@ -4,7 +4,7 @@ import AirportManager.AirportManagerController;
 import Entities.Flight;
 import Singleton.AirportAccess;
 import Singleton.FlightsAccess;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.fxml.FXML;
 
 import java.sql.*;
@@ -24,7 +24,7 @@ public class AddFlight implements Command{
     public void execute() {
         String sql = "INSERT INTO flights(flightNum,airline,destination,date,time,gate,capacity) VALUES(?,?,?,?,?,?,?)";
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
 

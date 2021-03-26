@@ -26,7 +26,7 @@ public class AirportEmployeeController  {
      */
     public void logout(ActionEvent event) throws IOException
     {
-        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/login.fxml"));
+        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/Login.fxml"));
         Scene loginViewScene = new Scene(loginViewParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -41,7 +41,7 @@ public class AirportEmployeeController  {
      */
     public void toViewDailyTasks(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewTasks.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewTasks.fxml"));
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));
@@ -58,7 +58,7 @@ public class AirportEmployeeController  {
      */
     public void toViewSchedule(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewEmployeeSchedule.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewEmployeeSchedule.fxml"));
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));

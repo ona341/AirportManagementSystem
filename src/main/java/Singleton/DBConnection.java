@@ -5,9 +5,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * dbConnection connects the system to the database
+ * DBConnection connects the system to the database
  */
-public class dbConnection {
+public class DBConnection {
     /**
      * a string instance variable
      */

@@ -3,7 +3,7 @@ package Command;
 import Entities.Flight;
 import Singleton.AirportAccess;
 import Singleton.FlightsAccess;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -45,7 +45,7 @@ public class DeleteFlight implements Command{
 
         try {
             //opens the database connection
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             //for each flight in the localCopy list free the stall with the flights gate integer
             //and set the PreparedStatement parameter index to the flight number of the flight

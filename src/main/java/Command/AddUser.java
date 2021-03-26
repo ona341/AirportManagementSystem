@@ -1,6 +1,5 @@
 package Command;
 
-import AirportManager.AirportManagerController;
 import Entities.Employee;
 import Entities.Passenger;
 import Singleton.*;
@@ -24,7 +23,7 @@ public class AddUser implements Command{
         String sql = "INSERT INTO login(id,password,role,name,email,checkIn,parkingStall) VALUES(?,?,?,?,?,?,?)";
         String sql1 = "INSERT INTO workSchedule(employeeId,sunday,monday,tuesday,wednesday,thursday,friday,saturday) VALUES(?,?,?,?,?,?,?,?)";
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             PreparedStatement pstmt1 = conn.prepareStatement(sql1);
 

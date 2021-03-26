@@ -1,7 +1,7 @@
 package Command;
 
 import Entities.DailyTasks;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,7 +53,7 @@ public class ViewTasks implements Command {
     public void viewDailyTasks(ActionEvent actionEvent) {
         ObservableList<DailyTasks> dta2 = FXCollections.observableArrayList();
         try {
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             String sql = "SELECT fromTime,toTime,location,task FROM dailyTasks WHERE employeeId ='" + employeeId.getText() + "'";
             Statement pstmt = conn.createStatement();
             ResultSet rs = pstmt.executeQuery(sql);

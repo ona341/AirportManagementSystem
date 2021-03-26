@@ -3,7 +3,7 @@ package Command;
 import Entities.DailyTasks;
 import Entities.Employee;
 import Singleton.DailyTasksAccess;
-import Singleton.dbConnection;
+import Singleton.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -125,7 +125,7 @@ public class AddTasks implements Command {
             String sql = "INSERT INTO dailyTasks(employeeId,fromTime,toTime,location,task) VALUES(?,?,?,?,?)";
 
             try {
-                Connection conn = dbConnection.getConnection();
+                Connection conn = DBConnection.getConnection();
                 PreparedStatement rs = conn.prepareStatement(sql);
                 rs.setString(1, employee.getId());
                 rs.setString(2, fromTime.getText());

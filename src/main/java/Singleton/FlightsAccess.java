@@ -26,7 +26,7 @@ public class FlightsAccess {
             flights = FXCollections.observableArrayList();
             try {
                 String sql = "SELECT flights.flightNum, flights.airline, flights.destination, flights.date, flights.time, flights.gate, flights.capacity, passengerFlightRelation.passengerID, passengerFlightRelation.seatNumber FROM flights LEFT JOIN passengerFlightRelation ON flights.flightNum=passengerFlightRelation.flightNumber";
-                Connection conn = dbConnection.getConnection();
+                Connection conn = DBConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 Flight theFlight = null;

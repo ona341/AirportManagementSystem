@@ -5,9 +5,9 @@ import Entities.DailyTasks;
 import Entities.Employee;
 import Entities.Flight;
 import PopoutControllers.FlightInfo;
+import Singleton.DBConnection;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
-import Singleton.dbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -22,7 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import Login.option;
+import Login.Option;
 
 import java.io.IOException;
 import java.net.URL;
@@ -90,7 +90,7 @@ public class AirportManagerController implements Initializable{
     @FXML
     public TextField nameTextField;
     @FXML
-    public ComboBox<option> selectionComboBox;
+    public ComboBox<Option> selectionComboBox;
     @FXML
     public TextField employeeRoleTextField;
     @FXML
@@ -141,7 +141,7 @@ public class AirportManagerController implements Initializable{
     @FXML
     public void logout(ActionEvent event) throws IOException
     {
-        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/login.fxml"));
+        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/Login.fxml"));
         Scene loginViewScene = new Scene(loginViewParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -290,7 +290,7 @@ public class AirportManagerController implements Initializable{
         });
 
 
-        selectionComboBox.setItems(FXCollections.observableArrayList(option.values()));
+        selectionComboBox.setItems(FXCollections.observableArrayList(Option.values()));
 
         employeeRoleTextField.setVisible(false);
 
@@ -298,7 +298,7 @@ public class AirportManagerController implements Initializable{
         selectionComboBox.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     try {
-                        if(newValue.compareTo(option.AIRPORTEMPLOYEE) == 0)
+                        if(newValue.compareTo(Option.AIRPORTEMPLOYEE) == 0)
                             employeeRoleTextField.setVisible(true);
                         else
                             employeeRoleTextField.setVisible(false);
@@ -348,7 +348,7 @@ public class AirportManagerController implements Initializable{
 
             Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), "");
 
-            if(selectionComboBox.getValue().toString().compareTo(option.AIRPORTEMPLOYEE.toString()) == 0) {
+            if(selectionComboBox.getValue().toString().compareTo(Option.AIRPORTEMPLOYEE.toString()) == 0) {
                 
                 if(employeeRoleTextField.getText().isEmpty())
                     e.setRole(selectionComboBox.getValue().toString());
@@ -396,7 +396,7 @@ public class AirportManagerController implements Initializable{
         //String sqlInsert = "INSERT INTO login(id,password,representation,name) VALUES (?,?,?,?)";
 
         //try{
-            //Connection connectDB = dbConnection.getConnection();
+            //Connection connectDB = DBConnection.getConnection();
             //PreparedStatement statement = connectDB.prepareStatement(sqlInsert);
 
             //statement.setString(1, this.idNumberTextField.getText());
@@ -454,7 +454,7 @@ public class AirportManagerController implements Initializable{
 
         try {
 
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             this.flightData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
 
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM flights");
@@ -487,7 +487,7 @@ public class AirportManagerController implements Initializable{
 
         try {
 
-            Connection conn = dbConnection.getConnection();
+            Connection conn = DBConnection.getConnection();
             this.dailyTasksData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
 
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM dailyTasks");
@@ -582,7 +582,7 @@ public class AirportManagerController implements Initializable{
      */
     public void modifyEmployeeInformation(Employee employee) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifyEmployeeInformation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifyEmployeeInformation.fxml"));
 
             Stage stage = new Stage();
             Parent root = loader.load();
@@ -604,7 +604,7 @@ public class AirportManagerController implements Initializable{
      */
     public void addTask(Employee employee) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addTasks.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddTasks.fxml"));
             Stage stage = new Stage();
             Parent root = loader.load();
             stage.setScene(new Scene(root));

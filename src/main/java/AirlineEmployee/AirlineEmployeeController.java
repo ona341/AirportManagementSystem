@@ -3,9 +3,9 @@ package AirlineEmployee;
 import Command.AddUser;
 import Entities.Flight;
 import Entities.Passenger;
+import Singleton.DBConnection;
 import Singleton.FlightsAccess;
 import Singleton.PassengerAccess;
-import Singleton.dbConnection;
 import PopoutControllers.FlightTable;
 import PopoutControllers.PassengerTable;
 import javafx.collections.ObservableList;
@@ -86,7 +86,7 @@ public class AirlineEmployeeController implements Initializable {
      */
     public void logout(ActionEvent event) throws IOException
     {
-        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/login.fxml"));
+        Parent loginViewParent = FXMLLoader.load(getClass().getResource("/Login.fxml"));
         Scene loginViewScene = new Scene(loginViewParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -141,7 +141,7 @@ public class AirlineEmployeeController implements Initializable {
 
             String sql = "INSERT INTO passengerFlightRelation(passengerID,flightNumber,seatNumber) VALUES(?,?,?)";
             try {
-                PreparedStatement pstmt = dbConnection.getConnection().prepareStatement(sql);
+                PreparedStatement pstmt = DBConnection.getConnection().prepareStatement(sql);
 
                 pstmt.setString(1,p.getId());
                 pstmt.setString(2,f.getFlightNumber());
