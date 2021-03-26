@@ -27,7 +27,6 @@ public class AddFlight implements Command{
             Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-
             pstmt.setString(1, airportManagerController.flightnum.getText());
             pstmt.setString(2, airportManagerController.airline.getText());
             pstmt.setString(3, airportManagerController.destination.getText());
@@ -46,11 +45,6 @@ public class AddFlight implements Command{
                             Time.valueOf(airportManagerController.time.getText()),
                             gate,
                             airportManagerController.capacity.getValue());
-
-            if (AirportAccess.getInstance().getGates().hasEntity(flight)) {
-                //TODO handle error
-            }
-
 
             FlightsAccess.getInstance().add(flight);
             AirportAccess.getInstance().getGates().assignEntityToStall(flight, gate);

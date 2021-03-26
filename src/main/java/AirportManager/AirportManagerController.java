@@ -1,11 +1,9 @@
 package AirportManager;
 
 import Command.*;
-import Entities.DailyTasks;
 import Entities.Employee;
 import Entities.Flight;
 import PopoutControllers.FlightInfo;
-import Singleton.DBConnection;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
 import javafx.collections.FXCollections;
@@ -34,7 +32,8 @@ import java.util.function.Predicate;
  * The Airport manager controller.
  */
 public class AirportManagerController implements Initializable{
-
+    // # # # FLIGHT TAB # # #
+    // ADD FLIGHT
     @FXML
     public TextField flightnum;
     @FXML
@@ -46,7 +45,9 @@ public class AirportManagerController implements Initializable{
     @FXML
     public TextField time;
     @FXML
-    public Button logoutbutton;
+    public Spinner<Integer> capacity;
+
+    // Flight Table
     @FXML
     public TableView<Flight> tableview;
     @FXML
@@ -61,82 +62,60 @@ public class AirportManagerController implements Initializable{
     public TableColumn<Flight,Time> timeCol;
     @FXML
     public TableColumn<Flight,Character> gateCol;
+
+    // MISC
+    @FXML
+    public Button logoutbutton;
     @FXML
     public TextField searchBox;
-    @FXML
-    public Spinner<Integer> capacity;
-    @FXML
-    public TextField fromTime;
-    public TextArea taskToDo;
-    public TextField toTime;
-    public TextField searchUsers;
 
-    private ObservableList<Flight> flightData;
-    private ObservableList<Employee> employeeData;
-    private ObservableList<DailyTasks> dailyTasksData;
-
-    // Add User Tab
-
+    // # # # User Management Tab # # #
+    // Add Users
     @FXML
-    private Label messageLabel;
+    private TextField usersName;
+    @FXML
+    private TextField idNumberTextField;
     @FXML
     private PasswordField setPasswordField;
     @FXML
     private PasswordField confirmPasswordField;
     @FXML
-    private Label passMessageLabel;
-    @FXML
-    private TextField idNumberTextField;
-    @FXML
-    public TextField nameTextField;
-    @FXML
     public ComboBox<Option> selectionComboBox;
     @FXML
     public TextField employeeRoleTextField;
+
+    @FXML
+    private Label messageLabel;
+    @FXML
+    private Label passMessageLabel;
     @FXML
     private Label errorMessageLabel;
 
-    @FXML
-    public TextField employeeId;
-    @FXML
-    private TextField usersName;
-
+    // User Table
     @FXML
     public TableView<Employee> tableviewEmployees;
+
+
     @FXML
     public TableColumn<Employee,String> employeeIdCol;
     @FXML
     public TableColumn<Employee,String> employeeNameCol;
     @FXML
     public TableColumn<Employee,String> employeeRoleCol;
+    @FXML
+    public TextField searchUsers;
 
-    @FXML
-    public TableView<DailyTasks> tableviewTasks;
-    @FXML
-    public TableColumn<DailyTasks,String> fromCol;
-    @FXML
-    public TableColumn<DailyTasks,String> toCol;
-    @FXML
-    public TableColumn<DailyTasks,String> taskCol;
-
-
+    // CheckBoxes
     @FXML
     private RadioButton passengerCheck;
-
     @FXML
     private RadioButton employeeCheck;
-
     @FXML
     private RadioButton allUsersCheck;
 
 
-
-
     /**
      * Logout as the Airport Manager.
-     *
-     * @param event the button event to log out
-     * @throws IOException
      */
     @FXML
     public void logout(ActionEvent event) throws IOException
@@ -154,7 +133,7 @@ public class AirportManagerController implements Initializable{
      * @param event an action event
      */
     @FXML
-    private boolean checkInvalidFields(MouseEvent event) {
+    private boolean checkFields(MouseEvent event) {
         boolean isValid = true;
         if (flightnum.getText().isEmpty() || airline.getText().isEmpty() || destination.getText().isEmpty() ||
                 date.getValue() == null || time.getText().isEmpty()) {
@@ -207,10 +186,9 @@ public class AirportManagerController implements Initializable{
         if(!duplicateFlight){
             AddFlight addflight = new AddFlight(this);
 
-            if (checkInvalidFields(null)) {
+            if (checkFields(null)) {
                 addflight.execute();
             }
-
         }
     }
 
@@ -389,36 +367,6 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-    /**
-     * Register user.
-     */
-    //public void registerUser(){
-        //String sqlInsert = "INSERT INTO login(id,password,representation,name) VALUES (?,?,?,?)";
-
-        //try{
-            //Connection connectDB = DBConnection.getConnection();
-            //PreparedStatement statement = connectDB.prepareStatement(sqlInsert);
-
-            //statement.setString(1, this.idNumberTextField.getText());
-            //statement.setString(2, this.setPasswordField.getText());
-            //statement.setString(3, this.selectionComboBox.getValue().toString());
-            //statement.setString(4, this.nameTextField.getText());
-
-            //Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), selectionComboBox.getValue().toString());
-            //new AddUser(e, setPasswordField.getText().toCharArray()).execute();
-
-            //statement.execute();
-            //messageLabel.setText("User has been registered successfully!");
-            //errorMessageLabel.setText("");
-            //passMessageLabel.setText("");
-            //statement.close();
-
-
-        //} catch (Exception e){
-           // e.printStackTrace();
-       // }
-    //}
-
 
     /**
      * Deletes the selected flight from the  system
@@ -439,77 +387,19 @@ public class AirportManagerController implements Initializable{
      * @param actionEvent an action performed by the user
      */
     public void updateRow(ActionEvent actionEvent) {
-        ObservableList<Flight> selectedFlights;
-        if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
-            UpdateFlight updateFlight = new UpdateFlight(selectedFlights, this);
-            updateFlight.execute();
-        }
-    }
+        if (!(tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
+            if (checkFields(null)) {
+                Flight theFlight = tableview.getSelectionModel().getSelectedItem();
+                theFlight.setAirline(airline.getText());
+                theFlight.setDestination(destination.getText());
+                theFlight.setDate(Date.valueOf(date.getValue()));
+                theFlight.setTime(Time.valueOf(time.getText()));
 
-
-    /**
-     * Loads the flights in the system into the panel to be viewed
-     */
-    public void loadFLightData() {
-
-        try {
-
-            Connection conn = DBConnection.getConnection();
-            this.flightData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
-
-            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM flights");
-
-            while(rs.next()) {
-                this.flightData.add(new Flight(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getTime(5), rs.getInt(6), rs.getInt(7)));
+                new UpdateFlight(theFlight).execute();
+                clearForm(null);
             }
-
-            rs.close(); //closes the database connection
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
-        this.flightCol.setCellValueFactory(new PropertyValueFactory<>("flightNumber"));
-        this.airlineCol.setCellValueFactory(new PropertyValueFactory<>("airline"));
-        this.destinationCol.setCellValueFactory(new PropertyValueFactory<>("destination"));
-        this.dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-        this.timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
-        this.gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
-
-        this.tableview.setItems(null);
-        this.tableview.setItems(this.flightData);
     }
-
-    /**
-     * Loads the flights in the system into the panel to be viewed
-     */
-    public void loadDailyTasksData() {
-
-        try {
-
-            Connection conn = DBConnection.getConnection();
-            this.dailyTasksData = FXCollections.observableArrayList();  //sets the flight data attribute to be the observableArrayList from FXCollections
-
-            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM dailyTasks");
-
-            while(rs.next()) {
-                this.dailyTasksData.add(new DailyTasks(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
-            }
-
-            rs.close(); //closes the database connection
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        this.fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
-        this.toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
-        this.taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
-
-        this.tableviewTasks.setItems(null);
-        this.tableviewTasks.setItems(this.dailyTasksData);
-    }
-
 
 
     /**
