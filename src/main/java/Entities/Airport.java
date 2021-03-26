@@ -10,21 +10,20 @@ package Entities;
   All rights reserved.
  */
 
-
+/**
+ * Models the airport
+ */
 public class Airport {
-
-
     private final String name;
 
-
-
+    // A container of flights to represent the gates at the airport
     private final EntityContainer<Flight> gates;
 
-
-
+    // A container of passengers to represent the parking lot
     private final EntityContainer<Passenger> parkingStalls;
 
 
+    // Creates a new airport
     public Airport(String wName, int wMinGateLabel, int wMaxGateLabel, int minParkingStalls, int maxParkingStalls) {
         if (wName == null || wName.equals(""))
             throw new IllegalArgumentException("The name of a airport cannot be null or empty.  "
@@ -43,37 +42,20 @@ public class Airport {
         parkingStalls = new EntityContainer<>("Parking",minParkingStalls,maxParkingStalls);
     }
 
-
-
-
     public String getName() {
         return name;
     }
 
-    /**
-     * Gets the gates in the Airport
-     * @return a container of flights that is the gates n the airport
-     */
     public EntityContainer<Flight> getGates() {
         return gates;
     }
 
-    /**
-     * Gets the parking stalls in the Airport
-     * @return a container of passengers that is the parking stalls
-     */
     public EntityContainer<Passenger> getParkingStalls() {
         return parkingStalls;
     }
 
-    /**
-     * Converts a gate integer onto a character
-     * @param i an integer i
-     * @return a character
-     */
     public char gateIntToChar(int i) {
         return (char) (i + 'A' - 1);
     }
-
 
 }

@@ -80,13 +80,13 @@ public class ModifyEmployeeInformation implements Initializable {
 
             ResultSet rs1 = pstmt1.executeQuery();
 
-            employee.schedule().setSunday(rs1.getString(2));
-            employee.schedule().setMonday(rs1.getString(3));
-            employee.schedule().setTuesday(rs1.getString(4));
-            employee.schedule().setWednesday(rs1.getString(5));
-            employee.schedule().setThursday(rs1.getString(6));
-            employee.schedule().setFriday(rs1.getString(7));
-            employee.schedule().setSaturday(rs1.getString(8));
+            employee.getSchedule().setSunday(rs1.getString(2));
+            employee.getSchedule().setMonday(rs1.getString(3));
+            employee.getSchedule().setTuesday(rs1.getString(4));
+            employee.getSchedule().setWednesday(rs1.getString(5));
+            employee.getSchedule().setThursday(rs1.getString(6));
+            employee.getSchedule().setFriday(rs1.getString(7));
+            employee.getSchedule().setSaturday(rs1.getString(8));
 
             pstmt1.close();
 
@@ -94,13 +94,13 @@ public class ModifyEmployeeInformation implements Initializable {
             e.printStackTrace();
         }
 
-        sun.setText(employee.schedule().getSunday());
-        mon.setText(employee.schedule().getMonday());
-        tues.setText(employee.schedule().getTuesday());
-        wed.setText(employee.schedule().getWednesday());
-        thur.setText(employee.schedule().getThursday());
-        fri.setText(employee.schedule().getFriday());
-        sat.setText(employee.schedule().getSaturday());
+        sun.setText(employee.getSchedule().getSunday());
+        mon.setText(employee.getSchedule().getMonday());
+        tues.setText(employee.getSchedule().getTuesday());
+        wed.setText(employee.getSchedule().getWednesday());
+        thur.setText(employee.getSchedule().getThursday());
+        fri.setText(employee.getSchedule().getFriday());
+        sat.setText(employee.getSchedule().getSaturday());
 
         done.getScene().getWindow().sizeToScene();
     }
@@ -131,13 +131,13 @@ public class ModifyEmployeeInformation implements Initializable {
             PreparedStatement pstmt1 = conn.prepareStatement(sql1);
             PreparedStatement pstmt2 = conn.prepareStatement(sql2);
 
-            pstmt1.setString(1, employee.schedule().getSunday());
-            pstmt1.setString(2, employee.schedule().getMonday());
-            pstmt1.setString(3, employee.schedule().getTuesday());
-            pstmt1.setString(4, employee.schedule().getWednesday());
-            pstmt1.setString(5, employee.schedule().getThursday());
-            pstmt1.setString(6, employee.schedule().getFriday());
-            pstmt1.setString(7, employee.schedule().getSaturday());
+            pstmt1.setString(1, employee.getSchedule().getSunday());
+            pstmt1.setString(2, employee.getSchedule().getMonday());
+            pstmt1.setString(3, employee.getSchedule().getTuesday());
+            pstmt1.setString(4, employee.getSchedule().getWednesday());
+            pstmt1.setString(5, employee.getSchedule().getThursday());
+            pstmt1.setString(6, employee.getSchedule().getFriday());
+            pstmt1.setString(7, employee.getSchedule().getSaturday());
             pstmt1.setString(8, employee.getId());
 
             pstmt2.setString(1, employee.getName());
@@ -176,44 +176,44 @@ public class ModifyEmployeeInformation implements Initializable {
     }
 
     public void editSunday(ActionEvent event) {
-        employee.schedule().setSunday(newDialog(sun.getText(), "Sunday"));
+        employee.getSchedule().setSunday(newDialog(sun.getText(), "Sunday"));
         dbUpdate(employee);
-        sun.setText(employee.schedule().getSunday());
+        sun.setText(employee.getSchedule().getSunday());
     }
 
     public void editMonday(ActionEvent event) {
-        employee.schedule().setMonday(newDialog(mon.getText(), "Monday"));
+        employee.getSchedule().setMonday(newDialog(mon.getText(), "Monday"));
         dbUpdate(employee);
-        mon.setText(employee.schedule().getMonday());
+        mon.setText(employee.getSchedule().getMonday());
     }
 
     public void editTuesday(ActionEvent event) {
-        employee.schedule().setTuesday(newDialog(tues.getText(), "Tuesday"));
+        employee.getSchedule().setTuesday(newDialog(tues.getText(), "Tuesday"));
         dbUpdate(employee);
-        tues.setText(employee.schedule().getTuesday());
+        tues.setText(employee.getSchedule().getTuesday());
     }
 
     public void editWednesday(ActionEvent event) {
-        employee.schedule().setWednesday(newDialog(wed.getText(), "Wednesday"));
+        employee.getSchedule().setWednesday(newDialog(wed.getText(), "Wednesday"));
         dbUpdate(employee);
-        wed.setText(employee.schedule().getWednesday());
+        wed.setText(employee.getSchedule().getWednesday());
     }
 
     public void editThursday(ActionEvent event) {
-        employee.schedule().setThursday(newDialog(thur.getText(), "Thursday"));
+        employee.getSchedule().setThursday(newDialog(thur.getText(), "Thursday"));
         dbUpdate(employee);
-        thur.setText(employee.schedule().getThursday());
+        thur.setText(employee.getSchedule().getThursday());
     }
 
     public void editFriday(ActionEvent event) {
-        employee.schedule().setFriday(newDialog(fri.getText(), "Friday"));
+        employee.getSchedule().setFriday(newDialog(fri.getText(), "Friday"));
         dbUpdate(employee);
-        fri.setText(employee.schedule().getFriday());
+        fri.setText(employee.getSchedule().getFriday());
     }
 
     public void editSaturday(ActionEvent event) {
-        employee.schedule().setSaturday(newDialog(sat.getText(), "Saturday"));
+        employee.getSchedule().setSaturday(newDialog(sat.getText(), "Saturday"));
         dbUpdate(employee);
-        sat.setText(employee.schedule().getSaturday());
+        sat.setText(employee.getSchedule().getSaturday());
     }
 }

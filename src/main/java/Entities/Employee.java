@@ -18,6 +18,10 @@ import java.sql.Date;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+/**
+ * An employee at the airport
+ * The employee is also a passenger
+ */
 public class Employee extends Passenger implements Searchable{
 
   private StringProperty role;
@@ -46,13 +50,11 @@ public class Employee extends Passenger implements Searchable{
   public void setRole(String role) { this.role.set(role); }
 
 
-  public WorkSchedule schedule() { return this.schedule; }
+  public WorkSchedule getSchedule() { return this.schedule; }
 
-
-  public String toString() {
-    return super.toString();
-  }
-
+  /**
+   * Provides the ability to search the attributes of this employee
+   */
   public static Predicate<Passenger> search(String text) {
     return Passenger.search(text).or(employee -> {
       boolean result = false;

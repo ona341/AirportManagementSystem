@@ -14,7 +14,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.Date;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.NoSuchElementException;
@@ -24,12 +23,12 @@ import java.util.function.Predicate;
 
 public class Passenger extends Person implements Searchable{
 
-
-
+  // A passenger has a list of flights that they are on
   private final ObservableList<SimpleEntry<Flight, IntegerProperty>> flights = FXCollections.observableArrayList();
 
   private StringProperty email;
 
+  // The check-in date for the passengers parking
   private ObjectProperty<Date> checkInDate;
 
   private IntegerProperty parkingStallLabel;
@@ -165,24 +164,10 @@ public class Passenger extends Person implements Searchable{
   private SimpleEntry<Flight, IntegerProperty> getFlightPair(Flight flight) {
     return this.flights.stream().filter(pair -> pair.getKey().equals(flight)).findFirst().orElseThrow();
   }
-  public String toString() {
-    String temp;
-    temp = super.toString();
-    //temp += "Stall: " + getSeatNumber() + "\n";
 
-    if (flights.size() == 0) {
-      temp += "Entities.Flight(s): None\n";
-    } else {
-      temp += "Entities.Flight(s): ";
-//      for (Flight flight : flights) {
-//        temp += flight.getFlightNumber() + "\t";
-//      }
-      temp += "\n";
-    }
-
-    return temp;
-}
-
+  /**
+   * Provides the ability to search the attributes of this passenger
+   */
   public static Predicate<Passenger> search(String text) {
     return (passenger -> {
       Boolean result = false;
