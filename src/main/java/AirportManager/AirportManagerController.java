@@ -3,6 +3,7 @@ package AirportManager;
 import Command.*;
 import Entities.Employee;
 import Entities.Flight;
+import Entities.Passenger;
 import Entities.User;
 import PopoutControllers.AddTasks;
 import PopoutControllers.FlightInfo;
@@ -302,17 +303,26 @@ public class AirportManagerController implements Initializable{
         ObservableList<User> userList = tableviewEmployees.getItems();
         boolean duplicateUser = false;
 
-        if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() ||
-                this.confirmPasswordField.getText().isEmpty()){
+        if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() || this.confirmPasswordField.getText().isEmpty()){
             this.errorMessageLabel.setText("Please make sure all fields are correctly filled out!");
             this.messageLabel.setText("");
             this.passMessageLabel.setText("");
+            return;
+        }
+        if (this.selectionComboBox.getValue() == null) {
+            this.errorMessageLabel.setText("Please select a user type");
+            this.messageLabel.setText("");
+            this.passMessageLabel.setText("");
+            return;
         }
 
-        if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") &&
-                setPasswordField.getText().equals(confirmPasswordField.getText())){
+        if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") && setPasswordField.getText().equals(confirmPasswordField.getText())){
 
-            Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), "");
+            Passenger e;
+            if (selectionComboBox.getValue().equals(Option.PASSENGER))
+                e = new Passenger(idNumberTextField.getText(), usersName.getText(), "");
+            else
+                e = new Employee(idNumberTextField.getText(), usersName.getText(), "");
 
             if(selectionComboBox.getValue().toString().compareTo(Option.AIRPORTEMPLOYEE.toString()) == 0) {
                 
