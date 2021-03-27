@@ -26,12 +26,12 @@ public class Passenger extends User implements Searchable{
   // A passenger has a list of flights that they are on
   private final ObservableList<SimpleEntry<Flight, IntegerProperty>> flights = FXCollections.observableArrayList();
 
-  private StringProperty email;
+  private final StringProperty email;
 
   // The check-in date for the passengers parking
-  private ObjectProperty<Date> checkInDate;
+  private final ObjectProperty<Date> checkInDate;
 
-  private IntegerProperty parkingStallLabel;
+  private final IntegerProperty parkingStallLabel;
 
 
   public Passenger(String name, String number) {

@@ -77,7 +77,7 @@ public class ModifyEmployeeInformation implements Initializable {
     private ObservableList<WorkSchedule> schedule;
 
     /** Database connection initialization. */
-    private Connection conn = DBConnection.getConnection();
+    private final Connection conn = DBConnection.getConnection();
 
     /**
      * Modify employee information.

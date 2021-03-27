@@ -33,7 +33,7 @@ public class EntityContainer<I> {
     private final FilteredList<I> stallsFiltered;
 
 
-    private IntegerProperty count = new SimpleIntegerProperty(0);
+    private final IntegerProperty count = new SimpleIntegerProperty(0);
 
 
     public EntityContainer(String wName, int wMinStallLabel, int wMaxStallLabel) {

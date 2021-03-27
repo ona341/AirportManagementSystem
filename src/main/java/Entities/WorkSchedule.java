@@ -6,25 +6,25 @@ import javafx.beans.property.StringProperty;
 public class WorkSchedule {
 
     /** Sunday schedule */
-    private StringProperty sunday;
+    private final StringProperty sunday;
 
     /** Monday schedule */
-    private StringProperty monday;
+    private final StringProperty monday;
 
     /** Tuesday schedule */
-    private StringProperty tuesday;
+    private final StringProperty tuesday;
 
     /** Wednesday schedule */
-    private StringProperty wednesday;
+    private final StringProperty wednesday;
 
     /** Thursday schedule */
-    private StringProperty thursday;
+    private final StringProperty thursday;
 
     /** Friday schedule */
-    private StringProperty friday;
+    private final StringProperty friday;
 
     /** Saturday schedule */
-    private StringProperty saturday;
+    private final StringProperty saturday;
 
     /**
      * Initialize a work schedule object instance for an employee.

@@ -4,11 +4,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class DailyTasks {
-    private StringProperty employeeId;
-    private StringProperty from;
-    private StringProperty to;
-    private StringProperty location;
-    private StringProperty tasks;
+    private final StringProperty employeeId;
+    private final StringProperty from;
+    private final StringProperty to;
+    private final StringProperty location;
+    private final StringProperty tasks;
 
 
     public DailyTasks(String employeeId, String from, String to, String location, String tasks) {

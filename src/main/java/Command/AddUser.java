@@ -35,7 +35,7 @@ public class AddUser implements Command{
             pstmtA.setString(2, String.valueOf(password));
 
             if (user instanceof Employee) {
-                pstmtA.setString(3, ((Employee) user).getRole());
+                pstmtA.setString(3, user.getRole());
                 EmployeeAccess.getInstance().add((Employee) user);
 
                 PreparedStatement pstmtB = conn.prepareStatement(sqlB);

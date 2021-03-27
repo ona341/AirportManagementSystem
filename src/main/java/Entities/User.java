@@ -20,11 +20,11 @@ import java.util.function.Predicate;
 public abstract class User {
 
 
-    private StringProperty name;
+    private final StringProperty name;
 
     private final StringProperty id;
 
-    private StringProperty role;
+    private final StringProperty role;
 
 
     public User(String pName, String pNumber) {

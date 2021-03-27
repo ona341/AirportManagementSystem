@@ -26,7 +26,7 @@ public class Employee extends Passenger implements Searchable{
 
 
 
-  private WorkSchedule schedule;
+  private final WorkSchedule schedule;
 
 
   public Employee(String id, String name, String role) {
@@ -53,7 +53,7 @@ public class Employee extends Passenger implements Searchable{
     return Passenger.search(text).or(employee -> {
       boolean result = false;
       String getString;
-      if (Optional.ofNullable(getString = ((Employee) employee).getRole()).isPresent())
+      if (Optional.ofNullable(getString = employee.getRole()).isPresent())
         result = getString.contains(text);
 
       return result;

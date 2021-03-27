@@ -8,19 +8,19 @@ import java.util.function.Predicate;
 
 public class Flight implements Searchable{
 
-    private StringProperty airline;
+    private final StringProperty airline;
 
-    private StringProperty flightNumber;
+    private final StringProperty flightNumber;
 
-    private StringProperty destination;
+    private final StringProperty destination;
 
-    private ObjectProperty<Date> date;
+    private final ObjectProperty<Date> date;
 
-    private ObjectProperty<Time> time;
+    private final ObjectProperty<Time> time;
 
-    private IntegerProperty gate;
+    private final IntegerProperty gate;
 
-    private IntegerProperty capacity;
+    private final IntegerProperty capacity;
 
     private final EntityContainer<Passenger> seats;
 

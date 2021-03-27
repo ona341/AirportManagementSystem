@@ -225,10 +225,7 @@ public class AirportManagerController implements Initializable{
         selectionComboBox.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     try {
-                        if(newValue.compareTo(Option.AIRPORTEMPLOYEE) == 0)
-                            employeeRoleTextField.setVisible(true);
-                        else
-                            employeeRoleTextField.setVisible(false);
+                        employeeRoleTextField.setVisible(newValue.compareTo(Option.AIRPORTEMPLOYEE) == 0);
                     } catch (Exception e) { }
                 }
                 );

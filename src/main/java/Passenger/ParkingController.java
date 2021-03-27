@@ -70,7 +70,7 @@ public class ParkingController {
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
-            ConfirmationWindow c = (ConfirmationWindow) loader.getController();
+            ConfirmationWindow c = loader.getController();
             c.setNameConfirmation(nameField.getText());
             c.setIdConfirmation(idField.getText());
             c.setEmailConfirmation(emailField.getText());
