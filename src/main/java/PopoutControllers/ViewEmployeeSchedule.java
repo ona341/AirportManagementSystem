@@ -1,5 +1,6 @@
-package Command;
+package PopoutControllers;
 
+import Command.Command;
 import Singleton.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ViewEmployeeSchedule implements Command {
+public class ViewEmployeeSchedule{
 
     @FXML
     public Button done1;
@@ -93,9 +94,5 @@ public class ViewEmployeeSchedule implements Command {
         ((Button) event.getSource()).getScene().getWindow().hide();
     }
 
-    
-    @Override
-    public void execute() throws SQLException {
 
-    }
 }

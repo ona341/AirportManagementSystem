@@ -1,5 +1,6 @@
-package Command;
+package PopoutControllers;
 
+import Command.Command;
 import Entities.DailyTasks;
 import Entities.Employee;
 import Singleton.DailyTasksAccess;
@@ -16,7 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AddTasks implements Command {
+public class AddTasks {
 
     public TextField taskLocation;
     @FXML
@@ -47,13 +48,7 @@ public class AddTasks implements Command {
      */
     public void initialize(Employee employee) {
         this.employee = employee;
-    }
 
-    /**
-     * Execute (displays the existing tasks of the employee)
-     */
-    @Override
-    public void execute() {
         dta2 = FXCollections.observableArrayList();
         for (DailyTasks dts : DailyTasksAccess.getInstance()) {
             if (dts.getEmployeeId().compareTo(this.employee.getId()) == 0) {
@@ -67,6 +62,8 @@ public class AddTasks implements Command {
 
         table.setItems(dta2);
     }
+
+
 
     /**
      * Clears the form

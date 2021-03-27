@@ -1,5 +1,6 @@
-package Command;
+package PopoutControllers;
 
+import Command.Command;
 import Entities.DailyTasks;
 import Singleton.DBConnection;
 import javafx.collections.FXCollections;
@@ -17,7 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ViewTasks implements Command {
+public class ViewTasks{
     public TextField employeeId;
 
     public TableColumn<DailyTasks,String> fromCol;
@@ -79,10 +80,5 @@ public class ViewTasks implements Command {
         clearForm(null);
     }
 
-    /**
-     * Execute the command (nothing for now)
-     */
-    @Override
-    public void execute(){
-    }
+
 }

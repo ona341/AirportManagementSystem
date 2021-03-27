@@ -3,7 +3,9 @@ package AirportManager;
 import Command.*;
 import Entities.Employee;
 import Entities.Flight;
+import PopoutControllers.AddTasks;
 import PopoutControllers.FlightInfo;
+import PopoutControllers.ModifyEmployeeInformation;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
 import javafx.collections.FXCollections;
@@ -500,7 +502,6 @@ public class AirportManagerController implements Initializable{
             stage.setScene(new Scene(root));
 
             loader.<AddTasks>getController().initialize(employee);
-            loader.<AddTasks>getController().execute();
 
             stage.show();
         } catch (IOException e) {

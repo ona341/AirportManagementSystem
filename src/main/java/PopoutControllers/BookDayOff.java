@@ -1,5 +1,6 @@
-package Command;
+package PopoutControllers;
 
+import Command.Command;
 import Singleton.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -9,7 +10,7 @@ import java.sql.*;
 /**
  * BookDayOff Class implements the command pattern to book a employees day off
  */
-public class BookDayOff implements Command {
+public class BookDayOff{
     /**
      * The id of the employee
      */
@@ -155,10 +156,5 @@ public class BookDayOff implements Command {
         ((Button) event.getSource()).getScene().getWindow().hide();
     }
 
-    @Override
-    /**
-     * Execute method for the command pattern
-     */
-    public void execute() throws SQLException {
-    }
+
 }
