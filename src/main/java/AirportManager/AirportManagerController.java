@@ -317,7 +317,7 @@ public class AirportManagerController implements Initializable{
 
             Passenger e;
             if (selectionComboBox.getValue().equals(Option.PASSENGER))
-                e = new Passenger(idNumberTextField.getText(), usersName.getText(), "");
+                e = new Passenger(usersName.getText(), idNumberTextField.getText(), "");
             else
                 e = new Employee(idNumberTextField.getText(), usersName.getText(), "");
 
