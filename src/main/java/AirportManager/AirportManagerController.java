@@ -216,47 +216,6 @@ public class AirportManagerController implements Initializable{
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-//        // Radio button to filter out everyone that isn't a passenger from the user management table
-//        passengerCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
-//            ObservableList<Employee> actualList = tableviewEmployees.getItems();
-//            FilteredList<Employee> items = new FilteredList<>(actualList);
-//
-//            // if checked
-//            if(newValue){
-//                Predicate<Employee> isPassenger = i -> i.getRole().equals("Passenger");
-//                items.setPredicate(isPassenger);
-//                tableviewEmployees.setItems(items);
-//            }
-//            else{
-//                tableviewEmployees.setItems(EmployeeAccess.getInstance());
-//            }
-//        });
-//
-//        // Radio button to filter out everyone that isn't a passenger from the user management table
-//        employeeCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
-//            ObservableList<Employee> actualList = tableviewEmployees.getItems();
-//            FilteredList<Employee> items = new FilteredList<>(actualList);
-//
-//            // if checked
-//            if(newValue){
-//                Predicate<Employee> isNotPassenger = i -> !i.getRole().equals("Passenger");
-//                items.setPredicate(isNotPassenger);
-//                tableviewEmployees.setItems(items);
-//            }
-//            else{
-//                tableviewEmployees.setItems(EmployeeAccess.getInstance());
-//            }
-//        });
-//
-//        // Radio button to view all users
-//        allUsersCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
-//            // if checked
-//            if(newValue){
-//                tableviewEmployees.setItems(EmployeeAccess.getInstance());
-//            }
-//        });
-
         selectionComboBox.setItems(FXCollections.observableArrayList(Option.values()));
 
         employeeRoleTextField.setVisible(false);
@@ -292,6 +251,46 @@ public class AirportManagerController implements Initializable{
 
         tableviewEmployees.setItems(UserAccess.getSearchInstance());
         searchUsers.textProperty().addListener((observableValue,oldValue,newValue) -> UserAccess.getSearchInstance().setPredicate(User.search(newValue)));
+
+        // Radio button to filter out everyone that isn't a passenger from the user management table
+        passengerCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<User> actualList = tableviewEmployees.getItems();
+            FilteredList<User> items = new FilteredList<>(actualList);
+
+            // if checked
+            if(newValue){
+                Predicate<User> isPassenger = i -> i.getRole().equals("Passenger");
+                items.setPredicate(isPassenger);
+                tableviewEmployees.setItems(items);
+            }
+            else{
+                tableviewEmployees.setItems(UserAccess.getSearchInstance());
+            }
+        });
+
+        // Radio button to filter out everyone that isn't a passenger from the user management table
+        employeeCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<User> actualList = tableviewEmployees.getItems();
+            FilteredList<User> items = new FilteredList<>(actualList);
+
+            // if checked
+            if(newValue){
+                Predicate<User> isNotPassenger = i -> !i.getRole().equals("Passenger");
+                items.setPredicate(isNotPassenger);
+                tableviewEmployees.setItems(items);
+            }
+            else{
+                tableviewEmployees.setItems(UserAccess.getSearchInstance());
+            }
+        });
+
+        // Radio button to view all users
+        allUsersCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            // if checked
+            if(newValue){
+                tableviewEmployees.setItems(UserAccess.getSearchInstance());
+            }
+        });
     }
 
     /**
