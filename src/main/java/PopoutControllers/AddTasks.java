@@ -1,6 +1,5 @@
 package PopoutControllers;
 
-import Command.Command;
 import Entities.DailyTasks;
 import Entities.Employee;
 import Singleton.DailyTasksAccess;
@@ -34,7 +33,7 @@ public class AddTasks {
 
 
     private Employee employee;
-    public ObservableList<DailyTasks> dta2;
+    public ObservableList<DailyTasks> dailyTasks;
 
     /**
      * Constructor for AddTasks
@@ -49,10 +48,10 @@ public class AddTasks {
     public void initialize(Employee employee) {
         this.employee = employee;
 
-        dta2 = FXCollections.observableArrayList();
+        dailyTasks = FXCollections.observableArrayList();
         for (DailyTasks dts : DailyTasksAccess.getInstance()) {
             if (dts.getEmployeeId().compareTo(this.employee.getId()) == 0) {
-                dta2.add(dts);
+                dailyTasks.add(dts);
             }
         }
         fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
@@ -60,7 +59,7 @@ public class AddTasks {
         locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
 
-        table.setItems(dta2);
+        table.setItems(dailyTasks);
     }
 
 
@@ -138,13 +137,13 @@ public class AddTasks {
             DailyTasks dt = new DailyTasks(employee.getId(), fromTime.getText(), toTime.getText(), taskLocation.getText(), taskToDo.getText());
             clearForm(null);
             DailyTasksAccess.getInstance().add(dt);
-            dta2.add(dt);
+            dailyTasks.add(dt);
         }
         fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
         toCol.setCellValueFactory(new PropertyValueFactory<>("to"));
         locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         taskCol.setCellValueFactory(new PropertyValueFactory<>("tasks"));
 
-        table.setItems(dta2);
+        table.setItems(dailyTasks);
     }
 }

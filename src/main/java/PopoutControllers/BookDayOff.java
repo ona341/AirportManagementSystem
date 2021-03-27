@@ -1,6 +1,6 @@
 package PopoutControllers;
 
-import Command.Command;
+
 import Singleton.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -26,7 +26,7 @@ public class BookDayOff{
      * Books Sunday off
      * @param event the button labelled sunday is clicked
      */
-    public void sunDay(ActionEvent event) {
+    public void sunday(ActionEvent event) {
 
             try {
                 Connection conn = DBConnection.getConnection();
@@ -45,7 +45,7 @@ public class BookDayOff{
      * Books Monday off
       * @param event the button labelled Monday is clicked
      */
-    public void monDay(ActionEvent event){
+    public void monday(ActionEvent event){
         try {
             Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET monday = ? WHERE employeeId ='" + employeeId + "'";
@@ -61,7 +61,7 @@ public class BookDayOff{
      * Books Tuesday off
      * @param event the button labelled Tuesday is clicked
      */
-    public void tuesDay(ActionEvent event){
+    public void tuesday(ActionEvent event){
         try {
             Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET tuesday = ? WHERE employeeId ='" + employeeId + "'";
@@ -77,7 +77,7 @@ public class BookDayOff{
      * Books Wednesday off
      * @param event the button labelled Wednesday is clicked
      */
-    public void wednesDay(ActionEvent event){
+    public void wednesday(ActionEvent event){
         try {
             Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET wednesday = ? WHERE employeeId ='" + employeeId + "'";
@@ -93,7 +93,7 @@ public class BookDayOff{
      * Books Thursday off
      * @param event the button labelled Thursday is clicked
      */
-    public void thursDay(ActionEvent event){
+    public void thursday(ActionEvent event){
         try {
             Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET thursday = ? WHERE employeeId ='" + employeeId + "'";
@@ -109,7 +109,7 @@ public class BookDayOff{
      * Books Friday off
      * @param event the button labelled Friday is clicked
      */
-    public void friDay(ActionEvent event){
+    public void friday(ActionEvent event){
         try {
             Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET friday = ? WHERE employeeId ='" + employeeId + "'";
@@ -126,7 +126,7 @@ public class BookDayOff{
      * Books Saturday off
      * @param event the button labelled Saturday is clicked
      */
-    public void saturDay(ActionEvent event){
+    public void saturday(ActionEvent event){
         try {
             Connection conn = DBConnection.getConnection();
             String sql = "UPDATE workSchedule SET saturday = ? WHERE employeeId ='" + employeeId + "'";

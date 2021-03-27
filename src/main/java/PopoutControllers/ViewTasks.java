@@ -1,6 +1,6 @@
 package PopoutControllers;
 
-import Command.Command;
+
 import Entities.DailyTasks;
 import Singleton.DBConnection;
 import javafx.collections.FXCollections;

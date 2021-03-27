@@ -14,7 +14,7 @@
          <children>
             <AnchorPane minHeight="357.0" minWidth="400.0" prefHeight="357.0" prefWidth="415.0">
                <children>
-                  <Button fx:id="done1" layoutX="173.0" layoutY="344.0" mnemonicParsing="false" onAction="#done" text="Done" />
+                  <Button fx:id="done" layoutX="173.0" layoutY="344.0" mnemonicParsing="false" onAction="#done" text="Done" />
                   <Text layoutX="30.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUNDAY">
                      <font>
                         <Font size="18.0" />
@@ -35,23 +35,23 @@
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <Text fx:id="sun1" layoutX="216.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
+                  <Text fx:id="sunday" layoutX="216.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <Text fx:id="mon1" layoutX="216.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
+                  <Text fx:id="monday" layoutX="216.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <Text fx:id="tues1" layoutX="216.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
+                  <Text fx:id="tuesday" layoutX="216.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <Text fx:id="thur1" layoutX="216.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
+                  <Text fx:id="thursday" layoutX="216.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <Text fx:id="fri1" layoutX="216.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
+                  <Text fx:id="friday" layoutX="216.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
                      <font>
                         <Font size="18.0" />
                      </font></Text>
@@ -59,7 +59,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <Text fx:id="wed1" layoutX="216.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
+                  <Text fx:id="wednesday" layoutX="216.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
                      <font>
                         <Font size="18.0" />
                      </font></Text>
@@ -67,7 +67,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <Text fx:id="sat1" layoutX="216.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
+                  <Text fx:id="saturday" layoutX="216.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="184.720703125">
                      <font>
                         <Font size="18.0" />
                      </font></Text>
