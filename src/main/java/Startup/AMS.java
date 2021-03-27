@@ -77,7 +77,7 @@ public class AMS extends Application implements Initializable{
             conn.createStatement().execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS login (id TEXT PRIMARY KEY, name TEXT, password TEXT, email TEXT, role TEXT, checkIn DATE, parkingStall INT, seatNumber INT)";
             conn.createStatement().execute(sql);
-            sql = "CREATE TABLE IF NOT EXISTS workSchedule (employeeId TEXT PRIMARY KEY , sunday TEXT, monday TEXT, tuesday TEXT, wednesday TEXT, thursday, friday TEXT, saturday TEXT)";
+            sql = "CREATE TABLE IF NOT EXISTS workSchedule (employeeId TEXT PRIMARY KEY , sunday TEXT, monday TEXT, tuesday TEXT, wednesday TEXT, thursday TEXT, friday TEXT, saturday TEXT)";
             conn.createStatement().execute(sql);
             sql = "CREATE TABLE IF NOT EXISTS dailyTasks (employeeId TEXT, fromTime TEXT, toTime TEXT, location TEXT, task TEXT)";
             conn.createStatement().execute(sql);
@@ -138,6 +138,19 @@ public class AMS extends Application implements Initializable{
             prpst.setString(1,username.getText());
             prpst.setString(2,password.getText());
             prpst.setString(3,"Admin");
+            prpst.executeUpdate();
+            prpst.close();
+
+            sql = "INSERT INTO workSchedule(employeeId,sunday,monday,tuesday,wednesday,thursday,friday,saturday) VALUES(?,?,?,?,?,?,?,?)";
+            prpst = conn.prepareStatement(sql);
+            prpst.setString(1, username.getText());
+            prpst.setString(2, "new");
+            prpst.setString(3, "new");
+            prpst.setString(4, "new");
+            prpst.setString(5, "new");
+            prpst.setString(6, "new");
+            prpst.setString(7, "new");
+            prpst.setString(8, "new");
             prpst.executeUpdate();
             prpst.close();
 

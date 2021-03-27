@@ -23,7 +23,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import Login.Option;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -85,7 +84,6 @@ public class AirportManagerController implements Initializable{
     public ComboBox<Option> selectionComboBox;
     @FXML
     public TextField employeeRoleTextField;
-
     @FXML
     private Label messageLabel;
     @FXML
@@ -96,8 +94,6 @@ public class AirportManagerController implements Initializable{
     // User Table
     @FXML
     public TableView<Employee> tableviewEmployees;
-
-
     @FXML
     public TableColumn<Employee,String> employeeIdCol;
     @FXML
@@ -132,7 +128,6 @@ public class AirportManagerController implements Initializable{
 
     /**
      * Checks the format of the inputted time for validity
-     * @param event an action event
      */
     @FXML
     private boolean checkFields(MouseEvent event) {
@@ -159,7 +154,7 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Checks the format of the inputted time for validity
+     * Shows an error message to the user
      */
     private void notifyError(String errorInfo) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -174,20 +169,14 @@ public class AirportManagerController implements Initializable{
      */
     @FXML
     public void addFlight(ActionEvent event) {
-        ObservableList<Flight> flightList = tableview.getItems();
-        boolean duplicateFlight = false;
-        for(Flight flight : flightList) {
-            if (flight.getFlightNumber().equals(flightnum.getText())) {
-                duplicateFlight = true;
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setContentText("Flight with this number already exists!");
-                alert.showAndWait();
-            }
+        if (FlightsAccess.getInstance().stream().anyMatch(flight -> flight.getFlightNumber().equals(flightnum.getText()))) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setContentText("Flight with this number already exists!");
+            alert.showAndWait();
         }
-        if(!duplicateFlight){
+        else {
             AddFlight addflight = new AddFlight(this);
-
             if (checkFields(null)) {
                 addflight.execute();
             }
@@ -197,8 +186,6 @@ public class AirportManagerController implements Initializable{
 
     /**
      * Clears the form
-     *
-     * @param event an action performed by the user
      */
     @FXML
     public void clearForm(ActionEvent event) {

@@ -48,7 +48,7 @@
                   <Button layoutX="282.0" layoutY="167.0" mnemonicParsing="false" onAction="#editWednesday" text="Edit" />
                   <Button layoutX="282.0" layoutY="200.0" mnemonicParsing="false" onAction="#editThursday" text="Edit" />
                   <Button layoutX="283.0" layoutY="234.0" mnemonicParsing="false" onAction="#editFriday" text="Edit" />
-                  <Button layoutX="283.0" layoutY="269.0" mnemonicParsing="false" onAction="#editSaturday" prefHeight="27.0" prefWidth="39.0" text="Edit" />
+                  <Button layoutX="283.0" layoutY="269.0" mnemonicParsing="false" onAction="#editSaturday" text="Edit" />
                   <Button fx:id="done" layoutX="-10.0" layoutY="371.0" mnemonicParsing="false" onAction="#done" text="Done" />
                </children>
             </AnchorPane>

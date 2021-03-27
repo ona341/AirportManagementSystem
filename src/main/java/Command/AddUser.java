@@ -4,6 +4,8 @@ import Entities.Employee;
 import Entities.Passenger;
 import Singleton.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+
 import java.sql.*;
 
 /**
@@ -20,47 +22,53 @@ public class AddUser implements Command{
 
     @FXML
     public void execute() {
-        String sql = "INSERT INTO login(id,password,role,name,email,checkIn,parkingStall) VALUES(?,?,?,?,?,?,?)";
-        String sql1 = "INSERT INTO workSchedule(employeeId,sunday,monday,tuesday,wednesday,thursday,friday,saturday) VALUES(?,?,?,?,?,?,?,?)";
+        String sqlA = "INSERT INTO login(id,password,role,name,email,checkIn,parkingStall) VALUES(?,?,?,?,?,?,?)";
+        String sqlB = "INSERT INTO workSchedule(employeeId,sunday,monday,tuesday,wednesday,thursday,friday,saturday) VALUES(?,?,?,?,?,?,?,?)";
         try {
             Connection conn = DBConnection.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+            PreparedStatement pstmtA = conn.prepareStatement(sqlA);
+            PreparedStatement pstmtB = conn.prepareStatement(sqlB);
 
-            pstmt.setString(1, user.getId());
-            pstmt.setString(4, user.getName());
-            pstmt.setString(5, user.getEmail());
+            pstmtA.setString(1, user.getId());
+            pstmtA.setString(4, user.getName());
+            pstmtA.setString(5, user.getEmail());
 
-            pstmt.setString(2, String.valueOf(password));
+            pstmtA.setString(2, String.valueOf(password));
 
             if (user instanceof Employee) {
-                pstmt.setString(3, ((Employee) user).getRole());
+                pstmtA.setString(3, ((Employee) user).getRole());
                 EmployeeAccess.getInstance().add((Employee) user);
+
+
             }
             else {
-                pstmt.setString(3, "Passenger");
-                pstmt.setDate(6,user.getCheckInDate());
-                pstmt.setInt(7,user.getParkingStallLabel());
+                pstmtA.setString(3, "Passenger");
+                pstmtA.setDate(6,user.getCheckInDate());
+                pstmtA.setInt(7,user.getParkingStallLabel());
                 PassengerAccess.getInstance().add(user);
             }
 
-            pstmt1.setString(1, user.getId());
-            pstmt1.setString(2, "new");
-            pstmt1.setString(3, "new");
-            pstmt1.setString(4, "new");
-            pstmt1.setString(5, "new");
-            pstmt1.setString(6, "new");
-            pstmt1.setString(7, "new");
-            pstmt1.setString(8, "new");
+            pstmtB.setString(1, user.getId());
+            pstmtB.setString(2, "new");
+            pstmtB.setString(3, "new");
+            pstmtB.setString(4, "new");
+            pstmtB.setString(5, "new");
+            pstmtB.setString(6, "new");
+            pstmtB.setString(7, "new");
+            pstmtB.setString(8, "new");
 
-            pstmt.executeUpdate();
-            pstmt1.executeUpdate();
+            pstmtA.executeUpdate();
+            pstmtB.executeUpdate();
 
-            pstmt.close();
-            pstmt1.close();
+            pstmtA.close();
+            pstmtB.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            if (e.getErrorCode() == 19) {
+                new Alert(Alert.AlertType.ERROR, "A passenger with this id is already in the system").showAndWait();
+            }
+            else
+                e.printStackTrace();
         }
     }
 }

@@ -25,7 +25,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -37,7 +36,7 @@ import java.util.ResourceBundle;
  * JavaFX Controller for the Airline Employee
  */
 public class AirlineEmployeeController implements Initializable {
-
+    // # # # Passenger Table Fields # # #
     @FXML
     public TableView<Passenger> passengerTable;
     @FXML
@@ -48,6 +47,7 @@ public class AirlineEmployeeController implements Initializable {
     public TableColumn<Passenger,Integer> passFlightCol;
     @FXML
     public TableColumn<Passenger,String> passContactCol;
+    // # # # Flight Table Fields # # #
     @FXML
     public TableView<Flight> flightTable;
     @FXML
@@ -64,10 +64,12 @@ public class AirlineEmployeeController implements Initializable {
     public TableColumn<Flight, Time> timeCol;
     @FXML
     public TableColumn<Flight,Integer> passengerCol;
+    // # # # MISC Structure Fields
     @FXML
     public HBox topBox;
     @FXML
     public Pane passPane;
+    // # # # Add Passenger Fields # # #
     @FXML
     public TextField NameField;
     @FXML
@@ -76,6 +78,7 @@ public class AirlineEmployeeController implements Initializable {
     public TextField EmailField;
     @FXML
     public Button ConfirmButton;
+    // # # # Search boxes
     @FXML
     public TextField searchPassenger;
     @FXML
@@ -83,8 +86,6 @@ public class AirlineEmployeeController implements Initializable {
 
     /**
      * Logs the user out of the Airline Employee and returns user to the login page
-     * @param event the logout button clicked
-     * @throws IOException throws this is the I/O is interrupted or fails
      */
     public void logout(ActionEvent event) throws IOException {
         Parent loginViewParent = FXMLLoader.load(getClass().getResource("/Login.fxml"));
@@ -93,7 +94,6 @@ public class AirlineEmployeeController implements Initializable {
         window.setScene(loginViewScene);
         window.show();
     }
-
 
     /**
      * When a new AirlineEmployee Scene is loaded by JavaFx this method is automatically called
