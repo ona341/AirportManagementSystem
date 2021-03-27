@@ -65,6 +65,7 @@ public class PassengerAccess {
                 while (rs.next()) { // Continue for every item in the database
                     Passenger thePassenger;
                     passengers.add(thePassenger = new Passenger(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5)));
+                    UserAccess.getInstance().add(thePassenger);
                     if (thePassenger.getParkingStallLabel() != 0 && thePassenger.getParkingStallLabel() != -1) {
                         // If there is a valid parking spot then also put the passenger into the parking lot
                         AirportAccess.getInstance().getParkingStalls().assignEntityToStall(thePassenger,thePassenger.getParkingStallLabel());

@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 
-public class Passenger extends Person implements Searchable{
+public class Passenger extends User implements Searchable{
 
   // A passenger has a list of flights that they are on
   private final ObservableList<SimpleEntry<Flight, IntegerProperty>> flights = FXCollections.observableArrayList();
@@ -168,28 +168,20 @@ public class Passenger extends Person implements Searchable{
   /**
    * Provides the ability to search the attributes of this passenger
    */
-  public static Predicate<Passenger> search(String text) {
-    return (passenger -> {
+  public static Predicate<User> search(String text) {
+    return User.search(text).or(passenger -> {
       Boolean result = false;
       String getString;
 
-      if (Optional.ofNullable(getString = passenger.getId()).isPresent())
+      if (Optional.ofNullable(getString = ((Passenger) passenger).getEmail()).isPresent())
         result = result || getString.contains(text);
 
-      if (Optional.ofNullable(getString = passenger.getName()).isPresent())
-        result = result || getString.contains(text);
+      if (Optional.ofNullable(((Passenger) passenger).getCheckInDate()).isPresent())
+        result = result || ((Passenger) passenger).getCheckInDate().toString().contains(text);
 
-      if (Optional.ofNullable(getString = passenger.getEmail()).isPresent())
-        result = result || getString.contains(text);
+      result = result || Integer.toString(((Passenger) passenger).getParkingStallLabel()).contains(text);
 
-      if (Optional.ofNullable(passenger.getCheckInDate()).isPresent())
-        result = result || passenger.getCheckInDate().toString().contains(text);
-
-      if (Optional.ofNullable(getString = Integer.toString(passenger.getParkingStallLabel())).isPresent())
-        result = result || getString.contains(text);
-
-      //if (Optional.ofNullable(getString = Integer.toString(passenger.getSeatNumber())).isPresent())
-      //  result = result || getString.contains(text);
+      result = result || ((Passenger) passenger).getFlights().stream().anyMatch(seat -> seat.getKey().getFlightNumber().contains(text));
 
       return result;
     });

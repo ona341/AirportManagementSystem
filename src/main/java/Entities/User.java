@@ -13,19 +13,33 @@ package Entities;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Optional;
+import java.util.function.Predicate;
 
-public abstract class Person {
+
+public abstract class User {
 
 
     private StringProperty name;
 
     private final StringProperty id;
 
+    private StringProperty role;
 
-    public Person(String pName, String pNumber) {
+
+    public User(String pName, String pNumber) {
         name = new SimpleStringProperty(pName);
         id = new SimpleStringProperty(pNumber);
+        role = new SimpleStringProperty("Passenger");
     }
+
+    public String getRole() { return role.get(); }
+
+    public StringProperty roleProperty() {
+        return role;
+    }
+
+    public void setRole(String role) { this.role.set(role); }
 
     public String getName() {
         return name.get();
@@ -49,13 +63,19 @@ public abstract class Person {
         this.id.set(number);
     }
 
-    /**
-     * Return a string representation of the person.
-     *
-     * @return a string representation of the person
-     */
-    public String toString() {
-        return "\nName: " + name + "\nid  number: " + id + "\n";
-    }
 
+    public static Predicate<User> search(String text) {
+        return (user -> {
+            Boolean result = false;
+            String getString;
+
+            if (Optional.ofNullable(getString = user.getId()).isPresent())
+                result = result || getString.contains(text);
+
+            if (Optional.ofNullable(getString = user.getName()).isPresent())
+                result = result || getString.contains(text);
+
+            return result;
+        });
+    }
 }

@@ -3,11 +3,14 @@ package AirportManager;
 import Command.*;
 import Entities.Employee;
 import Entities.Flight;
+import Entities.User;
 import PopoutControllers.AddTasks;
 import PopoutControllers.FlightInfo;
 import PopoutControllers.ModifyEmployeeInformation;
 import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
+import Singleton.PassengerAccess;
+import Singleton.UserAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -93,13 +96,13 @@ public class AirportManagerController implements Initializable{
 
     // User Table
     @FXML
-    public TableView<Employee> tableviewEmployees;
+    public TableView<User> tableviewEmployees;
     @FXML
-    public TableColumn<Employee,String> employeeIdCol;
+    public TableColumn<User,String> employeeIdCol;
     @FXML
-    public TableColumn<Employee,String> employeeNameCol;
+    public TableColumn<User,String> employeeNameCol;
     @FXML
-    public TableColumn<Employee,String> employeeRoleCol;
+    public TableColumn<User,String> employeeRoleCol;
     @FXML
     public TextField searchUsers;
 
@@ -215,47 +218,46 @@ public class AirportManagerController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // Radio button to filter out everyone that isn't a passenger from the user management table
-        passengerCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            ObservableList<Employee> actualList = tableviewEmployees.getItems();
-            FilteredList<Employee> items = new FilteredList<>(actualList);
-
-
-            // if checked
-            if(newValue){
-                Predicate<Employee> isPassenger = i -> i.getRole().equals("Passenger");
-                items.setPredicate(isPassenger);
-                tableviewEmployees.setItems(items);
-            }
-            else{
-                tableviewEmployees.setItems(EmployeeAccess.getInstance());
-            }
-        });
-
-        // Radio button to filter out everyone that isn't a passenger from the user management table
-        employeeCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            ObservableList<Employee> actualList = tableviewEmployees.getItems();
-            FilteredList<Employee> items = new FilteredList<>(actualList);
-
-            // if checked
-            if(newValue){
-                Predicate<Employee> isNotPassenger = i -> !i.getRole().equals("Passenger");
-                items.setPredicate(isNotPassenger);
-                tableviewEmployees.setItems(items);
-            }
-            else{
-                tableviewEmployees.setItems(EmployeeAccess.getInstance());
-            }
-        });
-
-        // Radio button to view all users
-        allUsersCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            // if checked
-            if(newValue){
-                tableviewEmployees.setItems(EmployeeAccess.getInstance());
-            }
-        });
-
+//        // Radio button to filter out everyone that isn't a passenger from the user management table
+//        passengerCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+//            ObservableList<Employee> actualList = tableviewEmployees.getItems();
+//            FilteredList<Employee> items = new FilteredList<>(actualList);
+//
+//
+//            // if checked
+//            if(newValue){
+//                Predicate<Employee> isPassenger = i -> i.getRole().equals("Passenger");
+//                items.setPredicate(isPassenger);
+//                tableviewEmployees.setItems(items);
+//            }
+//            else{
+//                tableviewEmployees.setItems(EmployeeAccess.getInstance());
+//            }
+//        });
+//
+//        // Radio button to filter out everyone that isn't a passenger from the user management table
+//        employeeCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+//            ObservableList<Employee> actualList = tableviewEmployees.getItems();
+//            FilteredList<Employee> items = new FilteredList<>(actualList);
+//
+//            // if checked
+//            if(newValue){
+//                Predicate<Employee> isNotPassenger = i -> !i.getRole().equals("Passenger");
+//                items.setPredicate(isNotPassenger);
+//                tableviewEmployees.setItems(items);
+//            }
+//            else{
+//                tableviewEmployees.setItems(EmployeeAccess.getInstance());
+//            }
+//        });
+//
+//        // Radio button to view all users
+//        allUsersCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+//            // if checked
+//            if(newValue){
+//                tableviewEmployees.setItems(EmployeeAccess.getInstance());
+//            }
+//        });
 
         selectionComboBox.setItems(FXCollections.observableArrayList(Option.values()));
 
@@ -290,8 +292,8 @@ public class AirportManagerController implements Initializable{
         employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 
-        tableviewEmployees.setItems(EmployeeAccess.getSearchInstance());
-        searchUsers.textProperty().addListener((observableValue,oldValue,newValue) -> EmployeeAccess.getSearchInstance().setPredicate(Employee.search(newValue)));
+        tableviewEmployees.setItems(UserAccess.getSearchInstance());
+        searchUsers.textProperty().addListener((observableValue,oldValue,newValue) -> UserAccess.getSearchInstance().setPredicate(User.search(newValue)));
     }
 
     /**
@@ -300,7 +302,7 @@ public class AirportManagerController implements Initializable{
      * @param event the event
      */
     public void registerButtonOnAction(ActionEvent event){
-        ObservableList<Employee> userList = tableviewEmployees.getItems();
+        ObservableList<User> userList = tableviewEmployees.getItems();
         boolean duplicateUser = false;
 
         if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() ||
@@ -316,7 +318,7 @@ public class AirportManagerController implements Initializable{
             Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), "");
 
             if(selectionComboBox.getValue().toString().compareTo(Option.AIRPORTEMPLOYEE.toString()) == 0) {
-                
+
                 if(employeeRoleTextField.getText().isEmpty())
                     e.setRole(selectionComboBox.getValue().toString());
                 else
@@ -326,8 +328,9 @@ public class AirportManagerController implements Initializable{
                 e.setRole(selectionComboBox.getValue().toString());
             }
 
-            for(Employee employee : userList){
-                if (employee.getId().equals(e.getId())) {
+
+            for(User user : userList){
+                if (user.getId().equals(e.getId())) {
                     duplicateUser = true;
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Error");
@@ -439,14 +442,11 @@ public class AirportManagerController implements Initializable{
     @FXML
     public void doubleClickEmployee(MouseEvent event) {
         if (event.getClickCount() == 2) {
-            ObservableList<Employee> selectedEmployee;
-            if (!(selectedEmployee = tableviewEmployees.getSelectionModel().getSelectedItems()).isEmpty()){
-                for (Employee employee : selectedEmployee) {
-                    if (!(employee.getRole().equals("Passenger"))) {
-                        modifyEmployeeInformation(selectedEmployee.get(0));
-                        addTask(selectedEmployee.get(0));
-
-                    }
+            User user;
+            if ((user = tableviewEmployees.getSelectionModel().getSelectedItem()) != null){
+                if (user instanceof Employee) {
+                    modifyEmployeeInformation((Employee) user);
+                    addTask((Employee) user);
                 }
             }
         }

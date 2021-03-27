@@ -56,14 +56,13 @@ public class AddUser implements Command{
                 pstmtA.setInt(7,user.getParkingStallLabel());
                 PassengerAccess.getInstance().add(user);
             }
-
+            UserAccess.getInstance().add(user);
             pstmtA.executeUpdate();
             pstmtA.close();
 
         } catch (SQLException e) {
             if (e.getErrorCode() == 19) {
-                new Alert(Alert.AlertType.ERROR, "A passenger with this id is already in the system").showAndWait();
-
+                new Alert(Alert.AlertType.ERROR, "A User with this id is already in the system").showAndWait();
             }
             else
                 e.printStackTrace();

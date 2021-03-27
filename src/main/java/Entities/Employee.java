@@ -24,30 +24,24 @@ import java.util.function.Predicate;
  */
 public class Employee extends Passenger implements Searchable{
 
-  private StringProperty role;
+
 
   private WorkSchedule schedule;
 
 
   public Employee(String id, String name, String role) {
       super(name, id);
-      this.role = new SimpleStringProperty(role);
       this.schedule = new WorkSchedule("", "", "", "", "", "", "");
+      setRole(role);
   }
 
   public Employee(String name, String number, String email, Date date, int stallLabel, String role) {
     super(name, number, email, date, stallLabel);
-    this.role = new SimpleStringProperty(role);
     this.schedule = new WorkSchedule("", "", "", "", "", "", "");
+    setRole(role);
   }
 
-  public String getRole() { return role.get(); }
 
-  public StringProperty roleProperty() {
-    return role;
-  }
-
-  public void setRole(String role) { this.role.set(role); }
 
 
   public WorkSchedule getSchedule() { return this.schedule; }
@@ -55,7 +49,7 @@ public class Employee extends Passenger implements Searchable{
   /**
    * Provides the ability to search the attributes of this employee
    */
-  public static Predicate<Passenger> search(String text) {
+  public static Predicate<User> search(String text) {
     return Passenger.search(text).or(employee -> {
       boolean result = false;
       String getString;
