@@ -307,13 +307,21 @@ public class AirportManagerController implements Initializable{
             return;
         }
         if (this.selectionComboBox.getValue() == null) {
-            this.errorMessageLabel.setText("Please select a user type");
+            this.errorMessageLabel.setText("Please select a user type!");
+            this.messageLabel.setText("");
+            this.passMessageLabel.setText("");
+            return;
+        }
+
+        if(!this.usersName.getText().matches("[A-Za-z\\s]{2,}")){
+            this.errorMessageLabel.setText("Please enter a valid name!");
             this.messageLabel.setText("");
             this.passMessageLabel.setText("");
             return;
         }
 
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") && setPasswordField.getText().equals(confirmPasswordField.getText())){
+
 
             Passenger e;
             if (selectionComboBox.getValue().equals(Option.PASSENGER))
@@ -322,7 +330,7 @@ public class AirportManagerController implements Initializable{
                 e = new Employee(idNumberTextField.getText(), usersName.getText(), "");
 
             if(selectionComboBox.getValue().toString().compareTo(Option.AIRPORTEMPLOYEE.toString()) == 0) {
-                
+
                 if(employeeRoleTextField.getText().isEmpty())
                     e.setRole(selectionComboBox.getValue().toString());
                 else
