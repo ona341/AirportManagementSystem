@@ -27,7 +27,6 @@ public class AddUser implements Command{
         try {
             Connection conn = DBConnection.getConnection();
             PreparedStatement pstmtA = conn.prepareStatement(sqlA);
-            PreparedStatement pstmtB = conn.prepareStatement(sqlB);
 
             pstmtA.setString(1, user.getId());
             pstmtA.setString(4, user.getName());
@@ -39,7 +38,17 @@ public class AddUser implements Command{
                 pstmtA.setString(3, ((Employee) user).getRole());
                 EmployeeAccess.getInstance().add((Employee) user);
 
-
+                PreparedStatement pstmtB = conn.prepareStatement(sqlB);
+                pstmtB.setString(1, user.getId());
+                pstmtB.setString(2, "new");
+                pstmtB.setString(3, "new");
+                pstmtB.setString(4, "new");
+                pstmtB.setString(5, "new");
+                pstmtB.setString(6, "new");
+                pstmtB.setString(7, "new");
+                pstmtB.setString(8, "new");
+                pstmtB.executeUpdate();
+                pstmtB.close();
             }
             else {
                 pstmtA.setString(3, "Passenger");
@@ -48,20 +57,8 @@ public class AddUser implements Command{
                 PassengerAccess.getInstance().add(user);
             }
 
-            pstmtB.setString(1, user.getId());
-            pstmtB.setString(2, "new");
-            pstmtB.setString(3, "new");
-            pstmtB.setString(4, "new");
-            pstmtB.setString(5, "new");
-            pstmtB.setString(6, "new");
-            pstmtB.setString(7, "new");
-            pstmtB.setString(8, "new");
-
             pstmtA.executeUpdate();
-            pstmtB.executeUpdate();
-
             pstmtA.close();
-            pstmtB.close();
 
         } catch (SQLException e) {
             if (e.getErrorCode() == 19) {
