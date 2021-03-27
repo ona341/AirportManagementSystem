@@ -47,6 +47,7 @@ public class AddFlight implements Command{
                             airportManagerController.capacity.getValue());
 
             FlightsAccess.getInstance().add(flight);
+            if (gate != -1)
             AirportAccess.getInstance().getGates().assignEntityToStall(flight, gate);
 
             airportManagerController.clearForm(null);

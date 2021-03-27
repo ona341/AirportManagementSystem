@@ -177,10 +177,17 @@ public class FlightInfo {
         int gate;
         try {
             gate = Integer.parseInt(newDialog(this.gate.getText(), "Gate"));
-
-            if (flight.getGate() != gate) {
-                AirportAccess.getInstance().getGates().assignEntityToStall(flight,gate);
+            if (gate == flight.getGate()) {
+                return gate;
+            }
+            else if (gate == -1) {
                 AirportAccess.getInstance().getGates().freeStall(flight.getGate());
+                flight.setGate(gate);
+            }
+            else if (flight.getGate() != gate) {
+                AirportAccess.getInstance().getGates().assignEntityToStall(flight,gate);
+                if (!AirportAccess.getInstance().getGates().isInvalidLabel(flight.getGate()))
+                    AirportAccess.getInstance().getGates().freeStall(flight.getGate());
                 flight.setGate(gate);
             }
 

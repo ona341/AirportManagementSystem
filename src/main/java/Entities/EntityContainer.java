@@ -133,7 +133,6 @@ public class EntityContainer<I> {
 
 
     public void assignEntityToStall(I e, int stallLabel) {
-        if (stallLabel == -1) return;
         if (isInvalidLabel(stallLabel))
             throw new IllegalArgumentException("The value " + stallLabel
                     + " is not a valid label for a stall in the Container.");

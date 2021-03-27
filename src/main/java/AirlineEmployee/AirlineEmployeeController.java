@@ -142,7 +142,7 @@ public class AirlineEmployeeController implements Initializable {
 
         // Make sure there is a valid selection
         // The request is ignored if that passenger is already on the selected flight
-        if (p != null && f != null && !f.getSeats().hasEntity(p)) {
+        if (p != null && f != null && !f.getSeats().hasEntity(p) && f.getSeats().firstAvailableStall()!= -1) {
 
             // Make the association
             p.addFlight(f);

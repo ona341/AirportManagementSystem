@@ -66,6 +66,7 @@ public class AddUser implements Command{
         } catch (SQLException e) {
             if (e.getErrorCode() == 19) {
                 new Alert(Alert.AlertType.ERROR, "A passenger with this id is already in the system").showAndWait();
+
             }
             else
                 e.printStackTrace();
