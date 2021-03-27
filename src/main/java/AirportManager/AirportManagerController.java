@@ -183,7 +183,6 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-
     /**
      * Clears the form
      */
@@ -220,7 +219,6 @@ public class AirportManagerController implements Initializable{
             ObservableList<Employee> actualList = tableviewEmployees.getItems();
             FilteredList<Employee> items = new FilteredList<>(actualList);
 
-
             // if checked
             if(newValue){
                 Predicate<Employee> isPassenger = i -> i.getRole().equals("Passenger");
@@ -255,7 +253,6 @@ public class AirportManagerController implements Initializable{
                 tableviewEmployees.setItems(EmployeeAccess.getInstance());
             }
         });
-
 
         selectionComboBox.setItems(FXCollections.observableArrayList(Option.values()));
 
@@ -337,8 +334,8 @@ public class AirportManagerController implements Initializable{
                     errorMessageLabel.setText("");
                     passMessageLabel.setText("");
                 }
-
             }
+
             if(!duplicateUser){
                 new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
@@ -355,7 +352,6 @@ public class AirportManagerController implements Initializable{
             this.messageLabel.setText("");
         }
     }
-
 
     /**
      * Deletes the selected flight from the  system
@@ -390,7 +386,6 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-
     /**
      * Double click.
      *
@@ -406,7 +401,6 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-
     /**
      * Open flight view.
      *
@@ -419,9 +413,7 @@ public class AirportManagerController implements Initializable{
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
-
             loader.<FlightInfo>getController().initialize(flight);
-
 
             stage.show();
         } catch (IOException e) {
@@ -430,9 +422,8 @@ public class AirportManagerController implements Initializable{
 
     }
 
-
     /**
-     * Double click.
+     * Double click to modify employee.
      *
      * @param event the event
      */
@@ -445,17 +436,14 @@ public class AirportManagerController implements Initializable{
                     if (!(employee.getRole().equals("Passenger"))) {
                         modifyEmployeeInformation(selectedEmployee.get(0));
                         addTask(selectedEmployee.get(0));
-
                     }
                 }
             }
         }
     }
 
-
-
     /**
-     * Open flight view.
+     * Open modify employee view.
      *
      * @param employee the flight
      */
