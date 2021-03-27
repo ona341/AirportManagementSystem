@@ -186,7 +186,6 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-
     /**
      * Clears the form
      */
@@ -222,7 +221,6 @@ public class AirportManagerController implements Initializable{
 //        passengerCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
 //            ObservableList<Employee> actualList = tableviewEmployees.getItems();
 //            FilteredList<Employee> items = new FilteredList<>(actualList);
-//
 //
 //            // if checked
 //            if(newValue){
@@ -318,7 +316,7 @@ public class AirportManagerController implements Initializable{
             Employee e = new Employee(idNumberTextField.getText(), usersName.getText(), "");
 
             if(selectionComboBox.getValue().toString().compareTo(Option.AIRPORTEMPLOYEE.toString()) == 0) {
-
+                
                 if(employeeRoleTextField.getText().isEmpty())
                     e.setRole(selectionComboBox.getValue().toString());
                 else
@@ -340,8 +338,8 @@ public class AirportManagerController implements Initializable{
                     errorMessageLabel.setText("");
                     passMessageLabel.setText("");
                 }
-
             }
+
             if(!duplicateUser){
                 new AddUser(e, setPasswordField.getText().toCharArray()).execute();
 
@@ -358,7 +356,6 @@ public class AirportManagerController implements Initializable{
             this.messageLabel.setText("");
         }
     }
-
 
     /**
      * Deletes the selected flight from the  system
@@ -393,7 +390,6 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-
     /**
      * Double click.
      *
@@ -409,7 +405,6 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-
     /**
      * Open flight view.
      *
@@ -422,9 +417,7 @@ public class AirportManagerController implements Initializable{
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
-
             loader.<FlightInfo>getController().initialize(flight);
-
 
             stage.show();
         } catch (IOException e) {
@@ -433,9 +426,8 @@ public class AirportManagerController implements Initializable{
 
     }
 
-
     /**
-     * Double click.
+     * Double click to modify employee.
      *
      * @param event the event
      */
@@ -452,10 +444,8 @@ public class AirportManagerController implements Initializable{
         }
     }
 
-
-
     /**
-     * Open flight view.
+     * Open modify employee view.
      *
      * @param employee the flight
      */

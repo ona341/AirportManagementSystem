@@ -22,44 +22,76 @@ import java.util.ResourceBundle;
 
 public class ModifyEmployeeInformation implements Initializable {
 
+    /** Employee ID text label. */
     @FXML
     public Text employeeIdLabel;
+
+    /** Employee name text label. */
     @FXML
     public Text employeeNameLabel;
+
+    /** Employee email text label. */
     @FXML
     public Text employeeEmailLabel;
+
+    /** Employee role text label. */
     @FXML
     public Text employeeRoleLabel;
+
+    /** Sunday work schedule text label. */
     @FXML
     public Text sun;
+
+    /** Monday work schedule text label. */
     @FXML
     public Text mon;
+
+    /** Tuesday work schedule text label. */
     @FXML
     public Text tues;
+
+    /** Wednesday work schedule text label. */
     @FXML
     public Text wed;
+
+    /** Thursday work schedule text label. */
     @FXML
     public Text thur;
+
+    /** Friday work schedule text label. */
     @FXML
     public Text fri;
+
+    /** Saturday work schedule text label. */
     @FXML
     public Text sat;
+
+    /** Done button. */
     @FXML
     public Button done;
 
+    /** Employee object to view and modify information. */
     private Employee employee;
 
+    /** Emploee work schedule as obeservable list for viewing. */
     private ObservableList<WorkSchedule> schedule;
 
-    Connection conn = DBConnection.getConnection();
+    /** Database connection initialization. */
+    private Connection conn = DBConnection.getConnection();
 
-
-
+    /**
+     * Modify employee information.
+     * @throws SQLException
+     */
     public ModifyEmployeeInformation() throws SQLException { }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { }
 
+    /**
+     * Initialize modify view window.
+     * @param employee Employee to modify or view
+     */
     public void initialize(Employee employee) {
 
         this.employee = employee;
@@ -74,21 +106,21 @@ public class ModifyEmployeeInformation implements Initializable {
         try {
             this.schedule = FXCollections.observableArrayList();
 
-            PreparedStatement pstmt1 = conn.prepareStatement(sql);
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            pstmt1.setString(1, this.employee.getId());
+            pstmt.setString(1, this.employee.getId());
 
-            ResultSet rs1 = pstmt1.executeQuery();
+            ResultSet rs = pstmt.executeQuery();
 
-            employee.getSchedule().setSunday(rs1.getString(2));
-            employee.getSchedule().setMonday(rs1.getString(3));
-            employee.getSchedule().setTuesday(rs1.getString(4));
-            employee.getSchedule().setWednesday(rs1.getString(5));
-            employee.getSchedule().setThursday(rs1.getString(6));
-            employee.getSchedule().setFriday(rs1.getString(7));
-            employee.getSchedule().setSaturday(rs1.getString(8));
+            employee.getSchedule().setSunday(rs.getString(2));
+            employee.getSchedule().setMonday(rs.getString(3));
+            employee.getSchedule().setTuesday(rs.getString(4));
+            employee.getSchedule().setWednesday(rs.getString(5));
+            employee.getSchedule().setThursday(rs.getString(6));
+            employee.getSchedule().setFriday(rs.getString(7));
+            employee.getSchedule().setSaturday(rs.getString(8));
 
-            pstmt1.close();
+            pstmt.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,11 +137,21 @@ public class ModifyEmployeeInformation implements Initializable {
         done.getScene().getWindow().sizeToScene();
     }
 
+    /**
+     * Exit modify view.
+     * @param event button click
+     */
     @FXML
     public void done(ActionEvent event) {
         ((Button) event.getSource()).getScene().getWindow().hide();
     }
 
+    /**
+     * New window for edit text input.
+     * @param defaultValue
+     * @param fieldName
+     * @return
+     */
     public static String newDialog(String defaultValue, String fieldName) {
 
         TextInputDialog dialog = new TextInputDialog(defaultValue);
@@ -122,6 +164,10 @@ public class ModifyEmployeeInformation implements Initializable {
         return answer.orElse(defaultValue);
     }
 
+    /**
+     * Update database data of an employee.
+     * @param employee Employee data to update
+     */
     public void dbUpdate(Employee employee) {
 
         String sql1 = "UPDATE workSchedule SET sunday = ?, monday = ?, tuesday = ?, wednesday = ?, thursday = ?, friday = ?, saturday = ? WHERE employeeId = ?";
@@ -157,60 +203,100 @@ public class ModifyEmployeeInformation implements Initializable {
 
     }
 
+    /**
+     * Edit employee name.
+     * @param event button click event
+     */
     public void editName(ActionEvent event) {
         employee.setName(newDialog(employeeNameLabel.getText(), "Name"));
         dbUpdate(employee);
         employeeNameLabel.setText(employee.getName());
     }
 
+    /**
+     * Edit employee email.
+     * @param event button click event
+     */
     public void editEmail(ActionEvent event) {
         employee.setEmail(newDialog(employeeEmailLabel.getText(), "Email"));
         dbUpdate(employee);
         employeeEmailLabel.setText(employee.getEmail());
     }
 
+    /**
+     * Edit employee role.
+     * @param event button click event
+     */
     public void editRole(ActionEvent event) {
         employee.setRole(newDialog(employeeRoleLabel.getText(), "Role"));
         dbUpdate(employee);
         employeeRoleLabel.setText(employee.getRole());
     }
 
+    /**
+     * Edit employee Sunday work schedule.
+     * @param event button click event
+     */
     public void editSunday(ActionEvent event) {
         employee.getSchedule().setSunday(newDialog(sun.getText(), "Sunday"));
         dbUpdate(employee);
         sun.setText(employee.getSchedule().getSunday());
     }
 
+    /**
+     * Edit employee Monday work schedule.
+     * @param event button click event
+     */
     public void editMonday(ActionEvent event) {
         employee.getSchedule().setMonday(newDialog(mon.getText(), "Monday"));
         dbUpdate(employee);
         mon.setText(employee.getSchedule().getMonday());
     }
 
+    /**
+     * Edit employee Tuesday work schedule.
+     * @param event button click event
+     */
     public void editTuesday(ActionEvent event) {
         employee.getSchedule().setTuesday(newDialog(tues.getText(), "Tuesday"));
         dbUpdate(employee);
         tues.setText(employee.getSchedule().getTuesday());
     }
 
+    /**
+     * Edit employee Wednesday work schedule.
+     * @param event button click event
+     */
     public void editWednesday(ActionEvent event) {
         employee.getSchedule().setWednesday(newDialog(wed.getText(), "Wednesday"));
         dbUpdate(employee);
         wed.setText(employee.getSchedule().getWednesday());
     }
 
+    /**
+     * Edit employee Thursday work schedule.
+     * @param event button click event
+     */
     public void editThursday(ActionEvent event) {
         employee.getSchedule().setThursday(newDialog(thur.getText(), "Thursday"));
         dbUpdate(employee);
         thur.setText(employee.getSchedule().getThursday());
     }
 
+    /**
+     * Edit employee Friday work schedule.
+     * @param event button click event
+     */
     public void editFriday(ActionEvent event) {
         employee.getSchedule().setFriday(newDialog(fri.getText(), "Friday"));
         dbUpdate(employee);
         fri.setText(employee.getSchedule().getFriday());
     }
 
+    /**
+     * Edit employee Saturday work schedule.
+     * @param event button click event
+     */
     public void editSaturday(ActionEvent event) {
         employee.getSchedule().setSaturday(newDialog(sat.getText(), "Saturday"));
         dbUpdate(employee);
