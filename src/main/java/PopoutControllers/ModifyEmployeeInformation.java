@@ -123,7 +123,7 @@ public class ModifyEmployeeInformation implements Initializable {
             ResultSet rs1 = pstmt1.executeQuery();
             ResultSet rs2 = pstmt2.executeQuery();
 
-            employeePasswordLabel.setText("****" + rs1.getString(1).substring(4));
+            employeePasswordLabel.setText("***" + rs1.getString(1).substring(3));
             this.password = rs1.getString(1);
 
             employee.getSchedule().setSunday(rs2.getString(2));
@@ -211,7 +211,29 @@ public class ModifyEmployeeInformation implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
 
+    /**
+     * Update database password data of an employee.
+     * @param newPassword new Employee password data value
+     */
+    public void dbUpdatePassword(String newPassword) {
+
+        String sql = "UPDATE login SET password = ? WHERE id = ?";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, employee.getId());
+
+            pstmt.executeUpdate();
+
+            pstmt.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     /**
@@ -229,9 +251,9 @@ public class ModifyEmployeeInformation implements Initializable {
      * @param event button click event
      */
     public void editPassword(ActionEvent event) {
-        employee.setEmail(newDialog(employeeEmailLabel.getText(), "Email"));
-        dbUpdate(employee);
-        employeeEmailLabel.setText(employee.getEmail());
+        String newPassword = newDialog(password, "Password");
+        dbUpdatePassword(newPassword);
+        employeePasswordLabel.setText("***" + newPassword.substring(3));
     }
 
     /**
