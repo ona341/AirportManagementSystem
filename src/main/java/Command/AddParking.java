@@ -40,7 +40,7 @@ public class AddParking implements Command{
                         parkingController.emailField.getText(),
                         Date.valueOf(parkingController.CheckinDatePicker.getValue()),
                         parkingStall);
-               new AddUser(passenger, new char[]{'1', '2', '3'}).execute();
+               new AddUser(passenger, parkingController.idField.getText().toCharArray()).execute();
             }
             else {
                 if (passenger.getParkingStallLabel() == 0 || passenger.getParkingStallLabel() == -1) {
