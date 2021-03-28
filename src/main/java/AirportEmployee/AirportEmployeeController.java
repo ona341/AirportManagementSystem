@@ -19,10 +19,9 @@ public class AirportEmployeeController  {
      * a string that is the employee's ID
      */
     String employeeId;
+
     /**
      * Takes the user back to the login page
-     * @param event a button is clicked
-     * @throws IOException if I/O operations fail or are interrupted
      */
     public void logout(ActionEvent event) throws IOException
     {
@@ -37,7 +36,7 @@ public class AirportEmployeeController  {
 
     /**
      * View employee's daily tasks
-     * @param event an event performed by the user
+     * @param event the user clicked the daily task button
      */
     public void toViewDailyTasks(ActionEvent event) {
         try {
@@ -54,7 +53,7 @@ public class AirportEmployeeController  {
 
     /**
      * View employee's schedule
-     * @param event the event that will trigger the method
+     * @param event the user clicked the schedule button
      */
     public void toViewSchedule(ActionEvent event) {
         try {
@@ -71,7 +70,7 @@ public class AirportEmployeeController  {
 
     /**
      * To Request time off for an employee
-     * @param event an action performed by user
+     * @param event the user clicked the button to request time off
      */
     public void toRequestTimeOff(ActionEvent event) {
         try {

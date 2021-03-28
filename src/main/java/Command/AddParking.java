@@ -30,7 +30,7 @@ public class AddParking implements Command{
     @FXML
     public void execute() {
         try {
-            //gets the passenger with the idField from the Passenger access
+            // gets the passenger with the idField from the Passenger access
             // and creates a new one if the passenger does not exist
             Passenger passenger = PassengerAccess.getInstance().stream().filter(p -> p.getId().equals(parkingController.idField.getText())).findAny().orElse(null);
             int parkingStall = AirportAccess.getInstance().getParkingStalls().firstAvailableStall();
@@ -59,6 +59,7 @@ public class AddParking implements Command{
                 }
             }
             //assigns the passenger and their parking stall to a stall in the airport
+            if (parkingStall != -1)
             AirportAccess.getInstance().getParkingStalls().assignEntityToStall(passenger, parkingStall);
 
             parkingController.clearReserveForm(null);

@@ -3,7 +3,7 @@ package Singleton;
 import Entities.Airport;
 
 /**
- * A airport using the singleton pattern.
+ * An airport using the singleton pattern.
  */
 public class AirportAccess {
 

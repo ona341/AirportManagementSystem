@@ -43,7 +43,7 @@ public class PassengerAccess {
 
     /**
      * Get the frontend list
-     * For displaying the data
+     * For displaying the data and searching
      */
     public static FilteredList<Passenger> getSearchInstance() {
         if (searchedPassengers == null) searchedPassengers = new FilteredList<>(getInstance());

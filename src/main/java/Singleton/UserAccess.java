@@ -7,7 +7,7 @@ import javafx.collections.transformation.FilteredList;
 
 
 /**
- * A list of employees using the singleton pattern
+ * A list of users using the singleton pattern
  */
 public class UserAccess {
 
@@ -39,9 +39,7 @@ public class UserAccess {
         return searchedUsers;
     }
 
-    /**
-     *
-     */
+
     private static void initialize() {
         if (users == null) {
             users = FXCollections.observableArrayList();
