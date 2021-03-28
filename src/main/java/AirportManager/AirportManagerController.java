@@ -125,6 +125,7 @@ public class AirportManagerController implements Initializable{
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(loginViewScene);
+        window.setTitle("Airport Management System");
         window.show();
     }
 
