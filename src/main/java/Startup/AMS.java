@@ -1,7 +1,6 @@
 package Startup;
 
 
-import Entities.DailyTasks;
 import Singleton.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -29,11 +28,11 @@ import java.util.ResourceBundle;
  */
 public class AMS extends Application implements Initializable{
     @FXML
-    TextField airportname;
+    TextField airportName;
     @FXML
-    Spinner<Integer> maxgates;
+    Spinner<Integer> maxGates;
     @FXML
-    Spinner<Integer> maxstalls;
+    Spinner<Integer> maxStalls;
     @FXML
     TextField username;
     @FXML
@@ -66,10 +65,12 @@ public class AMS extends Application implements Initializable{
      * Initialize method if there is no database
      */
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        maxgates.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
-        maxstalls.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
+        // Configure the gui so the user can select the capacity values
+        maxGates.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
+        maxStalls.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
 
         try {
+            // Create all the required tables
             Connection conn = DBConnection.getConnection();
             String sql = "CREATE TABLE IF NOT EXISTS airport (name TEXT, gateCapacity INT, parkingCapacity INT)";
             conn.createStatement().execute(sql);
@@ -123,16 +124,16 @@ public class AMS extends Application implements Initializable{
         try {
             Connection conn = DBConnection.getConnection();
 
-            // Saves the airport parameters
+            // Save the airport parameters
             String sql = "INSERT INTO airport(name,gateCapacity,parkingCapacity) VALUES(?,?,?)";
             PreparedStatement prpst = conn.prepareStatement(sql);
-            prpst.setString(1, airportname.getText());
-            prpst.setInt(2, maxgates.getValue());
-            prpst.setInt(3, maxstalls.getValue());
+            prpst.setString(1, airportName.getText());
+            prpst.setInt(2, maxGates.getValue());
+            prpst.setInt(3, maxStalls.getValue());
             prpst.executeUpdate();
             prpst.close();
 
-            // Sets the master login credentials
+            // Set the master login credentials
             sql = "INSERT INTO login(id,password,role) VALUES(?,?,?)";
             prpst = conn.prepareStatement(sql);
             prpst.setString(1,username.getText());
@@ -141,6 +142,7 @@ public class AMS extends Application implements Initializable{
             prpst.executeUpdate();
             prpst.close();
 
+            // Create a workSchedule for the Admin user
             sql = "INSERT INTO workSchedule(employeeId,sunday,monday,tuesday,wednesday,thursday,friday,saturday) VALUES(?,?,?,?,?,?,?,?)";
             prpst = conn.prepareStatement(sql);
             prpst.setString(1, username.getText());
