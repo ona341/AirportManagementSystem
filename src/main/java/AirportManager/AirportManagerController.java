@@ -8,9 +8,7 @@ import Entities.User;
 import PopoutControllers.AddTasks;
 import PopoutControllers.FlightInfo;
 import PopoutControllers.ModifyEmployeeInformation;
-import Singleton.EmployeeAccess;
 import Singleton.FlightsAccess;
-import Singleton.PassengerAccess;
 import Singleton.UserAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,7 +52,7 @@ public class AirportManagerController implements Initializable{
 
     // Flight Table
     @FXML
-    public TableView<Flight> tableview;
+    public TableView<Flight> flightTable;
     @FXML
     public TableColumn<Flight,String> flightCol;
     @FXML
@@ -97,13 +95,13 @@ public class AirportManagerController implements Initializable{
 
     // User Table
     @FXML
-    public TableView<User> tableviewEmployees;
+    public TableView<User> tableviewUsers;
     @FXML
-    public TableColumn<User,String> employeeIdCol;
+    public TableColumn<User,String> userIdCol;
     @FXML
-    public TableColumn<User,String> employeeNameCol;
+    public TableColumn<User,String> userNameCol;
     @FXML
-    public TableColumn<User,String> employeeRoleCol;
+    public TableColumn<User,String> userRoleCol;
     @FXML
     public TextField searchUsers;
 
@@ -131,7 +129,7 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Checks the format of the inputted time for validity
+     * Checks the format of the inputted flight data for validity
      */
     @FXML
     private boolean checkFields(MouseEvent event) {
@@ -158,7 +156,7 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Shows an error message to the user
+     * A helper method that shows an error message to the user
      */
     private void notifyError(String errorInfo) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -168,7 +166,7 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Calls and executes the add flight command
+     * Calls and executes the add flight command when the user clicks the button
      * @param event when the addFlight button is clicked
      */
     @FXML
@@ -188,7 +186,7 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Clears the form
+     * Clears the form for adding flights
      */
     @FXML
     public void clearForm(ActionEvent event) {
@@ -199,6 +197,9 @@ public class AirportManagerController implements Initializable{
         date.setValue(null);
     }
 
+    /**
+     * Clears the form for adding users
+     */
     @FXML
     public void clearUserForm(ActionEvent event) {
         usersName.clear();
@@ -211,9 +212,8 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Initializes the Controller
-     * @param url he location used to resolve the relative paths of the object or null if unknown
-     * @param resourceBundle the resources used to localize the root of the object
+     * Initializes the Controller.
+     * This method is automatically called by JavaFx when the controller is loaded
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -221,15 +221,12 @@ public class AirportManagerController implements Initializable{
 
         employeeRoleTextField.setVisible(false);
 
-        // checks is comboBox selection is 'Airport Employee' to make role text field visible
+        // checks if comboBox selection is 'Airport Employee' to make role text field visible
         selectionComboBox.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    try {
-                        employeeRoleTextField.setVisible(newValue.compareTo(Option.AIRPORTEMPLOYEE) == 0);
-                    } catch (Exception e) { }
-                }
+                (observable, oldValue, newValue) -> employeeRoleTextField.setVisible(newValue.equals(Option.AIRPORTEMPLOYEE))
                 );
 
+        // Initialize the columns in the flight table
         flightCol.setCellValueFactory(new PropertyValueFactory<>("flightNumber"));
         airlineCol.setCellValueFactory(new PropertyValueFactory<>("airline"));
         destinationCol.setCellValueFactory(new PropertyValueFactory<>("destination"));
@@ -237,48 +234,50 @@ public class AirportManagerController implements Initializable{
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         gateCol.setCellValueFactory(new PropertyValueFactory<>("gate"));
 
-        tableview.setItems(FlightsAccess.getSearchInstance());
+        // Initialize the data for the table which is the list of flights in the FlightAccess
+        flightTable.setItems(FlightsAccess.getSearchInstance());
 
+        // Make the data in the flight table searchable
         searchBox.textProperty().addListener((observableValue,oldValue,newValue) -> FlightsAccess.getSearchInstance().setPredicate(Flight.search(newValue)));
 
         capacity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000));
 
-        employeeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        employeeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        employeeRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+        // Initialize the columns in the user table
+        userIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        userNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        userRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 
-        tableviewEmployees.setItems(UserAccess.getSearchInstance());
+        // Initialize the data for the user table and make it searchable
+        tableviewUsers.setItems(UserAccess.getSearchInstance());
         searchUsers.textProperty().addListener((observableValue,oldValue,newValue) -> UserAccess.getSearchInstance().setPredicate(User.search(newValue)));
 
         // Radio button to filter out everyone that isn't a passenger from the user management table
         passengerCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            ObservableList<User> actualList = tableviewEmployees.getItems();
+            ObservableList<User> actualList = tableviewUsers.getItems();
             FilteredList<User> items = new FilteredList<>(actualList);
-
             // if checked
             if(newValue){
                 Predicate<User> isPassenger = i -> i.getRole().equals("Passenger");
                 items.setPredicate(isPassenger);
-                tableviewEmployees.setItems(items);
+                tableviewUsers.setItems(items);
             }
             else{
-                tableviewEmployees.setItems(UserAccess.getSearchInstance());
+                tableviewUsers.setItems(UserAccess.getSearchInstance());
             }
         });
 
         // Radio button to filter out everyone that isn't a passenger from the user management table
         employeeCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            ObservableList<User> actualList = tableviewEmployees.getItems();
+            ObservableList<User> actualList = tableviewUsers.getItems();
             FilteredList<User> items = new FilteredList<>(actualList);
-
             // if checked
             if(newValue){
                 Predicate<User> isNotPassenger = i -> !i.getRole().equals("Passenger");
                 items.setPredicate(isNotPassenger);
-                tableviewEmployees.setItems(items);
+                tableviewUsers.setItems(items);
             }
             else{
-                tableviewEmployees.setItems(UserAccess.getSearchInstance());
+                tableviewUsers.setItems(UserAccess.getSearchInstance());
             }
         });
 
@@ -286,18 +285,16 @@ public class AirportManagerController implements Initializable{
         allUsersCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
             // if checked
             if(newValue){
-                tableviewEmployees.setItems(UserAccess.getSearchInstance());
+                tableviewUsers.setItems(UserAccess.getSearchInstance());
             }
         });
     }
 
     /**
-     * Register button on action.
-     *
-     * @param event the event
+     * Handles the button click to register a new user
      */
     public void registerButtonOnAction(ActionEvent event){
-        ObservableList<User> userList = tableviewEmployees.getItems();
+        ObservableList<User> userList = tableviewUsers.getItems();
         boolean duplicateUser = false;
 
         if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() || this.confirmPasswordField.getText().isEmpty()){
@@ -328,7 +325,6 @@ public class AirportManagerController implements Initializable{
             this.passMessageLabel.setText("");
             return;
         }
-
 
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") && setPasswordField.getText().equals(confirmPasswordField.getText())){
             Passenger e;
@@ -383,27 +379,27 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Deletes the selected flight from the  system
+     * Deletes the selected flight from the system when the user pressed the button
      *
      * @param actionEvent the user selecting delete flight
      */
     public void deleteRow(ActionEvent actionEvent) {
         ObservableList<Flight> selectedFlights;
-        if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
+        if (!(selectedFlights = flightTable.getSelectionModel().getSelectedItems()).isEmpty()) {
             DeleteFlight deleteflight = new DeleteFlight(selectedFlights);
             deleteflight.execute();
         }
     }
 
     /**
-     * Updates the flight row selected
+     * Updates the flight row selected when the user presses the button
      *
      * @param actionEvent an action performed by the user
      */
     public void updateRow(ActionEvent actionEvent) {
-        if (!(tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
+        if (!(flightTable.getSelectionModel().getSelectedItems()).isEmpty()) {
             if (checkFields(null)) {
-                Flight theFlight = tableview.getSelectionModel().getSelectedItem();
+                Flight theFlight = flightTable.getSelectionModel().getSelectedItem();
                 theFlight.setAirline(airline.getText());
                 theFlight.setDestination(destination.getText());
                 theFlight.setDate(Date.valueOf(date.getValue()));
@@ -416,24 +412,21 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Double click.
-     *
-     * @param event the event
+     * Handles a double click on a flight in the table
+     * Loads the flightView for the flight that was double clicked
      */
     @FXML
-    public void doubleClick(MouseEvent event) {
+    public void doubleClickFlight(MouseEvent event) {
         if (event.getClickCount() == 2) {
             ObservableList<Flight> selectedFlights;
-            if (!(selectedFlights = tableview.getSelectionModel().getSelectedItems()).isEmpty()) {
+            if (!(selectedFlights = flightTable.getSelectionModel().getSelectedItems()).isEmpty()) {
                 openFlightView(selectedFlights.get(0));
             }
         }
     }
 
     /**
-     * Open flight view.
-     *
-     * @param flight the flight
+     * Open flight view for a flight that was double clicked in the table
      */
     public void openFlightView(Flight flight) {
         try {
@@ -452,15 +445,13 @@ public class AirportManagerController implements Initializable{
     }
 
     /**
-     * Double click to modify employee.
-     *
-     * @param event the event
+     * Double click to modify employee or to add a task
      */
     @FXML
     public void doubleClickEmployee(MouseEvent event) {
         if (event.getClickCount() == 2) {
             User user;
-            if ((user = tableviewEmployees.getSelectionModel().getSelectedItem()) != null){
+            if ((user = tableviewUsers.getSelectionModel().getSelectedItem()) != null){
                 if (user instanceof Employee) {
                     modifyEmployeeInformation((Employee) user);
                     addTask((Employee) user);
@@ -471,8 +462,6 @@ public class AirportManagerController implements Initializable{
 
     /**
      * Open modify employee view.
-     *
-     * @param employee the flight
      */
     public void modifyEmployeeInformation(Employee employee) {
         try {
@@ -493,8 +482,6 @@ public class AirportManagerController implements Initializable{
 
     /**
      * Open daily task window.
-     *
-     * @param employee the employee to look at the daily task
      */
     public void addTask(Employee employee) {
         try {
