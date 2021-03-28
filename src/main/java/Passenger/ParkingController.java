@@ -50,17 +50,18 @@ public class ParkingController {
     @FXML
     public Label cancelMessage;
 
-
-    @FXML
-    public Button okButton;
-
-
+    /**
+     * Closes window
+     */
     @FXML
     public void closeButtonOnAction(ActionEvent event) {
         ((Button) event.getSource()).getScene().getWindow().hide();
 
     }
 
+    /**
+     * Opens confirmation window with all reservation details
+     */
     @FXML
     public void toConfirmation(ActionEvent event) {
 
@@ -83,7 +84,9 @@ public class ParkingController {
         }
     }
 
-
+    /**
+     * Reserves parking for user as long as all input fields are valid
+     */
     @FXML
     public void addParking(ActionEvent event) {
 
@@ -101,7 +104,6 @@ public class ParkingController {
         else if (!(nameField.getText().isEmpty()) && !(nameField.getText()).matches("[A-Za-z\\s]{2,}")) {
             nameError.setText("Name must contain only letters");
             nameError.setTextFill(Color.RED);
-
         }
 
         // checks for correct email format
@@ -111,8 +113,6 @@ public class ParkingController {
             nameError.setText("");
         }
 
-
-
         // success
         else {
             nameError.setText("Parking Reservation has been completed!");
@@ -121,10 +121,13 @@ public class ParkingController {
             AddParking addparking = new AddParking(this);
             toConfirmation(event);
             addparking.execute();
-
         }
     }
 
+
+    /**
+     * Cancels parking reservation as long as all input fields are valid
+     */
     @FXML
     public void deleteParkingReservation(ActionEvent actionEvent) {
         int parkingStall;
@@ -156,7 +159,7 @@ public class ParkingController {
 
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, null, ButtonType.OK);
-            alert.setHeaderText("Parking number was already empty or not a valid parking number! Please try again.");
+            alert.setHeaderText("Parking stall was already empty or not a valid parking number! Please try again.");
             alert.setTitle("Info");
             alert.show();
 
@@ -164,6 +167,9 @@ public class ParkingController {
     }
 
 
+    /**
+     * Clears the parking reservation form
+     */
     @FXML
     public void clearReserveForm(ActionEvent event) {
         nameField.clear();
@@ -176,6 +182,9 @@ public class ParkingController {
 
     }
 
+    /**
+     * Clears the cancel parking reservation form
+     */
     @FXML
     public void clearCancelForm(ActionEvent event) {
         idFieldCancel.clear();
@@ -183,6 +192,9 @@ public class ParkingController {
     }
 
 
+    /**
+     * Searches for an available parking stall and displays it to user
+     */
     @FXML
     public void search(ActionEvent event) {
         if (nameField.getText().isEmpty() || idField.getText().isEmpty() || emailField.getText().isEmpty()

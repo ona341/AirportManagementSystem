@@ -298,12 +298,14 @@ public class AirportManagerController implements Initializable{
         ObservableList<User> userList = tableviewUsers.getItems();
         boolean duplicateUser = false;
 
+        // checking empty fields
         if(this.idNumberTextField.getText().isEmpty() || this.setPasswordField.getText().isEmpty() || this.confirmPasswordField.getText().isEmpty()){
             this.errorMessageLabel.setText("Please make sure all fields are correctly filled out!");
             this.messageLabel.setText("");
             this.passMessageLabel.setText("");
             return;
         }
+        // checking to see if user type was selected from dropdown
         if (this.selectionComboBox.getValue() == null) {
             this.errorMessageLabel.setText("Please select a user type!");
             this.messageLabel.setText("");
@@ -311,6 +313,7 @@ public class AirportManagerController implements Initializable{
             return;
         }
 
+        // checking to see if name is in a valid format (only letters)
         if(!this.usersName.getText().matches("[A-Za-z\\s]{2,}")){
             this.usersName.clear();
             this.errorMessageLabel.setText("Please enter a valid name!");
@@ -319,6 +322,7 @@ public class AirportManagerController implements Initializable{
             return;
         }
 
+        // checking to see if id number is in valid format (only numbers and letters)
         if(!this.idNumberTextField.getText().matches("^[a-zA-Z0-9]*$")){
             this.idNumberTextField.clear();
             this.errorMessageLabel.setText("Please enter a valid ID number!");
@@ -327,6 +331,7 @@ public class AirportManagerController implements Initializable{
             return;
         }
 
+        // checking to see if password is valid and matches the confirm password textfield
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") && setPasswordField.getText().equals(confirmPasswordField.getText())){
             Passenger e;
             if (selectionComboBox.getValue().equals(Option.PASSENGER))
@@ -345,7 +350,7 @@ public class AirportManagerController implements Initializable{
                 e.setRole(selectionComboBox.getValue().toString());
             }
 
-
+            // checking to see if a user with the same ID already exists
             for(User user : userList){
                 if (user.getId().equals(e.getId())) {
                     duplicateUser = true;
