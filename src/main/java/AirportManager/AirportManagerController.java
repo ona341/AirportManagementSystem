@@ -314,6 +314,7 @@ public class AirportManagerController implements Initializable{
         }
 
         if(!this.usersName.getText().matches("[A-Za-z\\s]{2,}")){
+            this.usersName.clear();
             this.errorMessageLabel.setText("Please enter a valid name!");
             this.messageLabel.setText("");
             this.passMessageLabel.setText("");
@@ -321,6 +322,7 @@ public class AirportManagerController implements Initializable{
         }
 
         if(!this.idNumberTextField.getText().matches("^[a-zA-Z0-9]*$")){
+            this.idNumberTextField.clear();
             this.errorMessageLabel.setText("Please enter a valid ID number!");
             this.messageLabel.setText("");
             this.passMessageLabel.setText("");
@@ -373,7 +375,10 @@ public class AirportManagerController implements Initializable{
         else {
             passMessageLabel.setText("Please make sure your passwords match and that it contains at least one uppercase, " +
                     "lowercase, and number");
+            this.setPasswordField.clear();
+            this.confirmPasswordField.clear();
             this.messageLabel.setText("");
+            this.errorMessageLabel.setText("");
         }
     }
 
