@@ -181,7 +181,7 @@ public class AirlineEmployeeController implements Initializable {
      */
     public void addPassenger(ActionEvent actionEvent) {
         Passenger p = new Passenger(NameField.getText(),IDField.getText(),EmailField.getText());
-        new AddUser(p,new char[] {1,2,3}).execute();
+        new AddUser(p,IDField.getText().toCharArray()).execute();
     }
 
     /**

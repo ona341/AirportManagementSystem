@@ -139,7 +139,6 @@ public class ModifyEmployeeInformation implements Initializable {
 
     /**
      * Exit modify view.
-     * @param event button click
      */
     @FXML
     public void done(ActionEvent event) {
@@ -147,10 +146,7 @@ public class ModifyEmployeeInformation implements Initializable {
     }
 
     /**
-     * New window for edit text input.
-     * @param defaultValue
-     * @param fieldName
-     * @return
+     * Opens a new window for editing text
      */
     public static String newDialog(String defaultValue, String fieldName) {
 
