@@ -91,7 +91,9 @@ public class AirlineEmployeeController implements Initializable {
         Parent loginViewParent = FXMLLoader.load(getClass().getResource("/Login.fxml"));
         Scene loginViewScene = new Scene(loginViewParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
         window.setScene(loginViewScene);
+        window.setTitle("Airport Management System");
         window.show();
     }
 

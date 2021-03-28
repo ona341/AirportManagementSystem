@@ -32,6 +32,7 @@ public class AirportEmployeeController  {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         window.setScene(loginViewScene);
+        window.setTitle("Airport Management System");
         window.show(); //displays the window
     }
 

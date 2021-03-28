@@ -84,7 +84,6 @@ public class PassengerController {
             Parent root = loader.load();
             stage.setScene(new Scene(root));
 
-
             loader.<FlightTable>getController().initialize(passenger);
             loader.<FlightTable>getController().setPassengerPermissions();
 
