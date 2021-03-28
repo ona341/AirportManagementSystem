@@ -502,8 +502,5 @@ public class AirportManagerController implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }
