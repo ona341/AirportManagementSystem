@@ -38,6 +38,7 @@ public class AddUser implements Command{
                 pstmtA.setString(3, user.getRole());
                 EmployeeAccess.getInstance().add((Employee) user);
 
+                // Only an Employee needs a work schedule
                 PreparedStatement pstmtB = conn.prepareStatement(sqlB);
                 pstmtB.setString(1, user.getId());
                 pstmtB.setString(2, "new");
@@ -63,6 +64,11 @@ public class AddUser implements Command{
         } catch (SQLException e) {
             if (e.getErrorCode() == 19) {
                 new Alert(Alert.AlertType.ERROR, "A User with this id is already in the system").showAndWait();
+                UserAccess.getInstance().remove(user);
+                if (user instanceof Employee)
+                    EmployeeAccess.getInstance().remove(user);
+                else
+                    PassengerAccess.getInstance().remove(user);
             }
             else
                 e.printStackTrace();

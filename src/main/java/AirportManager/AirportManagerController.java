@@ -207,7 +207,6 @@ public class AirportManagerController implements Initializable{
         idNumberTextField.clear();
         setPasswordField.clear();
         confirmPasswordField.clear();
-        selectionComboBox.setValue(null);
         employeeRoleTextField.clear();
         employeeRoleTextField.setVisible(false);
     }

@@ -10,15 +10,15 @@
    <children>
       <Button fx:id="confirm" layoutX="254.0" layoutY="351.0" mnemonicParsing="false" onAction="#initializeAMS" prefHeight="38.0" prefWidth="93.0" text="Confirm" />
       <Label layoutX="37.0" layoutY="33.0" prefHeight="38.0" prefWidth="255.0" text="Airport Management System Initialization" />
-      <TextField fx:id="airportname" layoutX="238.0" layoutY="97.0" />
+      <TextField fx:id="airportName" layoutX="238.0" layoutY="97.0" />
       <TextField fx:id="username" layoutX="238.0" layoutY="221.0" />
       <Label layoutX="41.0" layoutY="97.0" prefHeight="27.0" prefWidth="114.0" text="Airport Name" />
       <Label layoutX="41.0" layoutY="140.0" prefHeight="27.0" prefWidth="114.0" text="Maximum Gates" />
       <Label layoutX="41.0" layoutY="221.0" prefHeight="27.0" prefWidth="135.0" text="Set Master Username" />
       <TextField fx:id="password" layoutX="238.0" layoutY="268.0" />
       <Label layoutX="41.0" layoutY="268.0" prefHeight="27.0" prefWidth="135.0" text="Set Master Password" />
-      <Spinner fx:id="maxgates" editable="true" layoutX="238.0" layoutY="140.0" />
+      <Spinner fx:id="maxGates" editable="true" layoutX="238.0" layoutY="140.0" />
       <Label layoutX="41.0" layoutY="178.0" prefHeight="27.0" prefWidth="155.0" text="Maximum Parking Stalls" />
-      <Spinner fx:id="maxstalls" editable="true" layoutX="238.0" layoutY="178.0" />
+      <Spinner fx:id="maxStalls" editable="true" layoutX="238.0" layoutY="178.0" />
    </children>
 </AnchorPane>

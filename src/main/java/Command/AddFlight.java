@@ -22,17 +22,20 @@ public class AddFlight implements Command{
 
     @FXML
     public void execute() {
+        // The db query for adding flights
         String sql = "INSERT INTO flights(flightNum,airline,destination,date,time,gate,capacity) VALUES(?,?,?,?,?,?,?)";
         try {
             Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
+            // Set the placeholders to the text fields from the gui
             pstmt.setString(1, airportManagerController.flightnum.getText());
             pstmt.setString(2, airportManagerController.airline.getText());
             pstmt.setString(3, airportManagerController.destination.getText());
             pstmt.setDate(4, Date.valueOf(airportManagerController.date.getValue()));
             pstmt.setTime(5, Time.valueOf(airportManagerController.time.getText()));
 
+            // Find a gate to place the flight
             int gate = AirportAccess.getInstance().getGates().firstAvailableStall();
             pstmt.setInt(6,gate);
             pstmt.setInt(7,airportManagerController.capacity.getValue());
@@ -47,7 +50,7 @@ public class AddFlight implements Command{
                             airportManagerController.capacity.getValue());
 
             FlightsAccess.getInstance().add(flight);
-            if (gate != -1)
+            if (gate != -1) // There was a valid gate
             AirportAccess.getInstance().getGates().assignEntityToStall(flight, gate);
 
             airportManagerController.clearForm(null);

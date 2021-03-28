@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 
 /**
- * A DailyTasks list using the singleton pattern
+ * A list of DailyTasks using the singleton pattern
  */
 public class DailyTasksAccess {
 
