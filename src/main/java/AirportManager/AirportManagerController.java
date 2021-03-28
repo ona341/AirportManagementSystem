@@ -320,9 +320,15 @@ public class AirportManagerController implements Initializable{
             return;
         }
 
+        if(!this.idNumberTextField.getText().matches("^[a-zA-Z0-9]*$")){
+            this.errorMessageLabel.setText("Please enter a valid ID number!");
+            this.messageLabel.setText("");
+            this.passMessageLabel.setText("");
+            return;
+        }
+
+
         if(setPasswordField.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$") && setPasswordField.getText().equals(confirmPasswordField.getText())){
-
-
             Passenger e;
             if (selectionComboBox.getValue().equals(Option.PASSENGER))
                 e = new Passenger(usersName.getText(), idNumberTextField.getText(), "");
