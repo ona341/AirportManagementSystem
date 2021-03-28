@@ -67,6 +67,7 @@
                            </toggleGroup></RadioButton>
                         <RadioButton fx:id="employeeCheck" layoutX="995.0" layoutY="193.0" mnemonicParsing="false" text="Employees" toggleGroup="$users" />
                         <RadioButton fx:id="allUsersCheck" layoutX="995.0" layoutY="242.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="119.0" text="View all users" toggleGroup="$users" />
+                        <Button fx:id="logoutbutton" layoutX="14.0" layoutY="634.0" mnemonicParsing="false" onAction="#logout" prefHeight="32.0" prefWidth="336.0" text="Logout" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -87,7 +88,6 @@
                                 <TextField fx:id="time" layoutX="17.0" layoutY="174.0" prefHeight="27.0" prefWidth="350.0" promptText="Time HH:MM:SS" />
                                 <Button fx:id="addflight" layoutX="7.0" layoutY="255.0" mnemonicParsing="false" onAction="#addFlight" prefHeight="27.0" prefWidth="370.0" text="Add Flight" />
                                 <Button fx:id="clearform" layoutX="7.0" layoutY="323.0" mnemonicParsing="false" onAction="#clearForm" prefHeight="27.0" prefWidth="370.0" text="Clear Form" />
-                                <Button fx:id="logoutbutton" layoutX="16.0" layoutY="406.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="353.0" text="Logout" />
                                 <TableView fx:id="flightTable" layoutX="377.0" layoutY="66.0" onMouseClicked="#doubleClickFlight" prefHeight="620.0" prefWidth="898.0">
                                     <columns>
                                         <TableColumn fx:id="flightCol" prefWidth="146.26190185546875" text="Flight #" />
