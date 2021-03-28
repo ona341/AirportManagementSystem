@@ -30,6 +30,10 @@ public class ModifyEmployeeInformation implements Initializable {
     @FXML
     public Text employeeNameLabel;
 
+    /** Employee password text label. */
+    @FXML
+    public Text employeePasswordLabel;
+
     /** Employee email text label. */
     @FXML
     public Text employeeEmailLabel;
@@ -73,6 +77,9 @@ public class ModifyEmployeeInformation implements Initializable {
     /** Employee object to view and modify information. */
     private Employee employee;
 
+    /** Employee password to view and modify. */
+    private String password;
+
     /** Emploee work schedule as obeservable list for viewing. */
     private ObservableList<WorkSchedule> schedule;
 
@@ -101,26 +108,34 @@ public class ModifyEmployeeInformation implements Initializable {
         employeeEmailLabel.setText(employee.getEmail());
         employeeRoleLabel.setText(employee.getRole());
 
-        String sql = "SELECT * FROM workSchedule WHERE employeeId = ?";
+        String sql1 = "SELECT password FROM login WHERE id = ?";
+        String sql2 = "SELECT * FROM workSchedule WHERE employeeId = ?";
 
         try {
             this.schedule = FXCollections.observableArrayList();
 
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+            PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+            PreparedStatement pstmt2 = conn.prepareStatement(sql2);
 
-            pstmt.setString(1, this.employee.getId());
+            pstmt1.setString(1, this.employee.getId());
+            pstmt2.setString(1, this.employee.getId());
 
-            ResultSet rs = pstmt.executeQuery();
+            ResultSet rs1 = pstmt1.executeQuery();
+            ResultSet rs2 = pstmt2.executeQuery();
 
-            employee.getSchedule().setSunday(rs.getString(2));
-            employee.getSchedule().setMonday(rs.getString(3));
-            employee.getSchedule().setTuesday(rs.getString(4));
-            employee.getSchedule().setWednesday(rs.getString(5));
-            employee.getSchedule().setThursday(rs.getString(6));
-            employee.getSchedule().setFriday(rs.getString(7));
-            employee.getSchedule().setSaturday(rs.getString(8));
+            employeePasswordLabel.setText("***" + rs1.getString(1).substring(3));
+            this.password = rs1.getString(1);
 
-            pstmt.close();
+            employee.getSchedule().setSunday(rs2.getString(2));
+            employee.getSchedule().setMonday(rs2.getString(3));
+            employee.getSchedule().setTuesday(rs2.getString(4));
+            employee.getSchedule().setWednesday(rs2.getString(5));
+            employee.getSchedule().setThursday(rs2.getString(6));
+            employee.getSchedule().setFriday(rs2.getString(7));
+            employee.getSchedule().setSaturday(rs2.getString(8));
+
+            pstmt1.close();
+            pstmt2.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -196,7 +211,29 @@ public class ModifyEmployeeInformation implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
 
+    /**
+     * Update database password data of an employee.
+     * @param newPassword new Employee password data value
+     */
+    public void dbUpdatePassword(String newPassword) {
+
+        String sql = "UPDATE login SET password = ? WHERE id = ?";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, employee.getId());
+
+            pstmt.executeUpdate();
+
+            pstmt.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     /**
@@ -207,6 +244,16 @@ public class ModifyEmployeeInformation implements Initializable {
         employee.setName(newDialog(employeeNameLabel.getText(), "Name"));
         dbUpdate(employee);
         employeeNameLabel.setText(employee.getName());
+    }
+
+    /**
+     * Edit employee email.
+     * @param event button click event
+     */
+    public void editPassword(ActionEvent event) {
+        String newPassword = newDialog(password, "Password");
+        dbUpdatePassword(newPassword);
+        employeePasswordLabel.setText("***" + newPassword.substring(3));
     }
 
     /**

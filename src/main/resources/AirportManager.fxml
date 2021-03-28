@@ -25,6 +25,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="1280.0">
                             <children>
+                        <Label layoutX="426.0" layoutY="54.0" text="Double click on a user to modify." />
                                 <TableView fx:id="tableviewUsers" layoutX="426.0" layoutY="81.0" onMouseClicked="#doubleClickEmployee" prefHeight="585.0" prefWidth="535.0">
                                     <columns>
                                         <TableColumn fx:id="userIdCol" prefWidth="135.0" text="User ID" />
@@ -103,6 +104,7 @@
                                 <Button fx:id="updateflight" layoutX="7.0" layoutY="289.0" mnemonicParsing="false" onAction="#updateRow" prefHeight="27.0" prefWidth="370.0" text="Update Flight" />
                         <Spinner fx:id="capacity" layoutX="18.0" layoutY="218.0" prefHeight="27.0" prefWidth="349.0" />
                         <Text layoutX="20.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seat Capacity" />
+                        <Label layoutX="377.0" layoutY="39.0" text="Double click on a flight to modify." />
                             </children>
                         </AnchorPane>
                     </content>
