@@ -19,6 +19,9 @@ public class PassengerController {
         this.passenger = passenger;
     }
 
+    /**
+     * Allows passenger to logout of the system
+     */
     public void logout(ActionEvent event) throws IOException
     {
         Parent loginViewParent = FXMLLoader.load(getClass().getResource("/Login.fxml"));
@@ -27,9 +30,13 @@ public class PassengerController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         window.setScene(loginViewScene);
+        window.setTitle("Airport Management System");
         window.show();
     }
 
+    /**
+     * Allows passenger to open parking reservation window when event is triggered
+     */
     public void toParkingReg(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Parking.fxml"));
@@ -47,6 +54,9 @@ public class PassengerController {
         }
     }
 
+    /**
+     * Allows passenger to open parking cancellation window when event is triggered
+     */
     public void toCancelParking(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/CancelParking.fxml"));
@@ -64,6 +74,9 @@ public class PassengerController {
         }
     }
 
+    /**
+     * Allows passenger to open their flight information window when event is triggered
+     */
     public void toFlightInformation(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FlightTable.fxml"));
