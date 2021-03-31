@@ -7,17 +7,17 @@
 
 <AnchorPane prefHeight="496.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PopoutControllers.ConfirmationWindow">
    <children>
-      <Label layoutX="147.0" layoutY="103.0" prefHeight="35.0" prefWidth="60.0" text="Name:">
+      <Label layoutX="147.0" layoutY="86.0" prefHeight="35.0" prefWidth="60.0" text="Name:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="147.0" layoutY="257.0" prefHeight="35.0" prefWidth="60.0" text="Email: ">
+      <Label layoutX="147.0" layoutY="211.0" prefHeight="35.0" prefWidth="60.0" text="Email: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="147.0" layoutY="178.0" prefHeight="35.0" prefWidth="98.0" text="ID Number:">
+      <Label layoutX="145.0" layoutY="146.0" prefHeight="35.0" prefWidth="98.0" text="ID Number:">
          <font>
             <Font size="18.0" />
          </font>
@@ -27,17 +27,17 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="nameConfirmation" alignment="CENTER" layoutX="300.0" layoutY="106.0" prefHeight="29.0" prefWidth="274.0">
+      <Label fx:id="nameConfirmation" alignment="CENTER" layoutX="300.0" layoutY="89.0" prefHeight="29.0" prefWidth="274.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="idConfirmation" alignment="CENTER" layoutX="300.0" layoutY="181.0" prefHeight="29.0" prefWidth="274.0">
+      <Label fx:id="idConfirmation" alignment="CENTER" layoutX="300.0" layoutY="149.0" prefHeight="29.0" prefWidth="274.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="emailConfirmation" alignment="CENTER" layoutX="300.0" layoutY="260.0" prefHeight="29.0" prefWidth="274.0">
+      <Label fx:id="emailConfirmation" alignment="CENTER" layoutX="300.0" layoutY="214.0" prefHeight="29.0" prefWidth="274.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -57,5 +57,15 @@
             <Font size="19.0" />
          </font>
       </Button>
+      <Label layoutX="148.0" layoutY="274.0" prefHeight="35.0" prefWidth="131.0" text="Check-In date:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="checkInConfirmation" alignment="CENTER" layoutX="300.0" layoutY="277.0" prefHeight="29.0" prefWidth="274.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

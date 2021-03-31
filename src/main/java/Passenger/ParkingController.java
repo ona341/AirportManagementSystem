@@ -75,6 +75,7 @@ public class ParkingController {
             c.setNameConfirmation(nameField.getText());
             c.setIdConfirmation(idField.getText());
             c.setEmailConfirmation(emailField.getText());
+            c.setCheckInConfirmation(CheckinDatePicker.getValue().toString());
             c.setParkingNumConfirmation(parkingLabel.getText());
             stage.show();
 

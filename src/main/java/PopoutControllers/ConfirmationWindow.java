@@ -14,6 +14,8 @@ public class ConfirmationWindow {
     @FXML
     private Label emailConfirmation;
     @FXML
+    private Label checkInConfirmation;
+    @FXML
     private Label parkingNumConfirmation;
 
     @FXML
@@ -35,6 +37,10 @@ public class ConfirmationWindow {
 
     public void setParkingNumConfirmation(String parkingNum) {
         parkingNumConfirmation.setText(parkingNum);
+    }
+
+    public void setCheckInConfirmation(String checkInDate) {
+        checkInConfirmation.setText(checkInDate);
     }
 
 
