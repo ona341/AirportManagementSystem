@@ -13,4 +13,3 @@ To run the program using the Jar file: `java -jar PathToFile/FileName.jar`
 
 To run the program from the source code: `gradlew run` 
 
-We hope you enjoy your visit to our GitLab page.
